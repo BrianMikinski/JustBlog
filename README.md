@@ -18,7 +18,7 @@ using Angular Js and the Microsoft Asp.Net stack. It is used to explore pragmati
 1. Run Visual Studio 2017
 2. Checkout source code from dev
 4. Create a database in __"(localdb)\ProjectsV13"__ called __"JustBlog"__
-5. Add a new sql server user login named __"JustBlogUser"__ with the password __"JustBlogPa$$word1"__.
+5. Add a new sql server user login named __"JustBlogUser"__ with the password __"enter your own cool password"__.
     Grant the user __"[dbowner]"__ permissions. This user will be used for database migrations and seeding
      but obviously should not be created in a production environment.
 3. Run entity framework migrations for the JustBlog and Microsoft .Net Identity 
