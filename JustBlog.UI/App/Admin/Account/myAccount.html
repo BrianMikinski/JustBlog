@@ -1,0 +1,102 @@
+﻿<div ng-include="'admin/adminHeader.html'"></div>
+<div class="row">
+    <div class="col-md-12">
+        <h4 class="text-center">My Account</h4>
+        <br />
+    </div>
+    <div class="col-md-6">
+        <form name="currentUserForm" class="form-horizontal" role="form">
+            <!--Last Name-->
+            <div class="form-group">
+                <label class="col-md-3 control-label">User Name</label>
+                <div class="col-md-9">
+                    <input class="form-control" type="text" value="{{vm.MyCurrentUser.UserName}}" readonly>
+                </div>
+            </div>
+
+            <!--Last Name-->
+            <div class="form-group">
+                <label class="col-md-3 control-label">ID</label>
+                <div class="col-md-9">
+                    <input class="form-control" type="text" value="{{vm.MyCurrentUser.Id}}" readonly>
+                </div>
+            </div>
+
+            <!--First Name-->
+            <div class="form-group">
+                <label class="col-md-3 control-label">First Name</label>
+                <div class="col-md-9">
+                    <input class="form-control" type="text" value="{{vm.MyCurrentUser.FirstName}}" readonly>
+                </div>
+            </div>
+
+            <!--Last Name-->
+            <div class="form-group">
+                <label class="col-md-3 control-label">Last Name</label>
+                <div class="col-md-9">
+                    <input class="form-control" type="text" value="{{vm.MyCurrentUser.LastName}}" readonly>
+                </div>
+            </div>
+
+            <!--Birth Date-->
+            <div class="form-group">
+                <label class="col-md-3 control-label">Birthday</label>
+                <div class="col-md-9">
+                    <p class="input-group">
+                        <input class="form-control" value="{{vm.MyCurrentUser.BirthDate.toLocaleDateString()}}" readonly />
+                    </p>
+                </div>
+            </div>
+
+            <!--Email-->
+            <div class="form-group">
+                <label class="col-md-3 control-label">Email</label>
+                <div class="col-md-9">
+                    <input class="form-control" type="email" value="{{vm.MyCurrentUser.Email}}" readonly />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label">Email Confirmed</label>
+                <div class="col-md-9">
+                    <span ng-if="vm.MyCurrentUser.EmailConfirmed">
+                        Yes
+                    </span>
+                    <span ng-if="!vm.MyCurrentUser.EmailConfirmed">
+                        No
+                    </span>
+                </div>
+            </div>
+
+            <!--Phone Number-->
+            <div class="form-group">
+                <label class="col-md-3 control-label">Phone Number</label>
+                <div class="col-md-9">
+                    <input class="form-control" type="text" value="{{vm.MyCurrentUser.PhoneNumber}}" readonly />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label">Phone Number Confirmed</label>
+                <div class="col-md-9">
+                    <span ng-if="vm.MyCurrentUser.PhoneNumberConfirmed">
+                        Yes
+                    </span>
+                    <span ng-if="!vm.MyCurrentUser.PhoneNumberConfirmed">
+                        No
+                    </span>
+                </div>
+            </div>
+
+            <!--Home Town-->
+            <div class="form-group">
+                <label class="col-md-3 control-label">Hometown</label>
+                <div class="col-md-9">
+                    <input class="form-control" type="text" value="{{vm.MyCurrentUser.Hometown}}" readonly />
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div ng-include="'admin/account/updateLoginOptions.html'"></div>
+</div>

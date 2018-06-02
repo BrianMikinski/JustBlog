@@ -1,0 +1,74 @@
+﻿<div ng-include="'admin/adminHeader.html'"></div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h4 class="text-center">Update Login</h4>
+        <br />
+    </div>
+    <div class="col-md-6">
+        <form name="updateLoginForm" class="form-horizontal" ng-submit="vm.UpdateLogin()" method="post" role="form">
+            <input id="antiForgeryToken" name="__RequestVerificationToken" value="{{vm.AntiForgeryToken}}" ng-model="vm.AntiForgeryToken" type="hidden" />
+
+            <!--Password-->
+            <div class="form-group" ng-class="{ 'has-error' : updateLoginForm.oldEmail.$invalid && !updateLoginForm.oldEmail.$pristine }">
+                <label class="col-md-4 control-label">Old Login</label>
+                <div class="col-md-8">
+                    <input class="form-control"
+                           name="oldEmail"
+                           ng-maxlength="128"
+                           ng-model="vm.LoginUpdate.OldEmail"
+                           type="email"
+                           required
+                           placeholder="Required"
+                           value="" />
+                    <p ng-show="updateLoginForm.oldEmail.$invalid && !updateLoginForm.oldEmail.$pristine" class="help-block">You must enter your current login ID to update your login ID.</p>
+                </div>
+            </div>
+
+            <!--New Login--> <!----> 
+            <div class="form-group" ng-class="{ 'has-error' : updateLoginForm.newEmail.$invalid && !updateLoginForm.newEmail.$pristine }">
+                <label class="col-md-4 control-label">New Login</label>
+                <div class="col-md-8">
+                    <input class="form-control"
+                           name="newEmail"
+                           ng-maxlength="128"
+                           ng-model="vm.LoginUpdate.newEmail"
+                           type="email"
+                           required
+                           placeholder="Required"
+                           value="">
+                    <p ng-show="updateLoginForm.newEmail.$invalid && !updateLoginForm.newEmail.$pristine" class="help-block">You must enter a new login.</p>
+                </div>
+            </div>
+
+            <!--Confirm New Login-->
+            <div class="form-group" ng-class="{ 'has-error' : updateLoginForm.confirmNewEmail.$invalid && !updateLoginForm.confirmNewEmail.$pristine }">
+                <label class="col-md-4 control-label">Confirm New Login</label>
+                <div class="col-md-8">
+                    <input class="form-control"
+                           name="confirmNewEmail"
+                           ng-maxlength="128"
+                           ng-model="vm.LoginUpdate.ConfirmNewEmail"
+                           type="email"
+                           required
+                           placeholder="Required"
+                           value=""/>
+                    <p ng-show="(updateLoginForm.confirmNewEmail.$invalid && !updateLoginForm.confirmNewEmail.$pristine)
+                                && (updateLoginForm.newEmail == updateLoginForm.confirmNewEmail)" class="help-block">
+                        New login and confirmation login must match.
+                    </p>
+                </div>
+            </div>
+
+            <!--Submit Button-->
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="submit" class="btn btn-default" value="UpdateLogin">
+                        Update Login
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div ng-include="'admin/account/updateLoginOptions.html'"></div>
+</div>

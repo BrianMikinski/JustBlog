@@ -1,0 +1,53 @@
+﻿/*
+ * Chutzpah test runner configuration file. This allows JavaScript unit tests to show up
+ * in the Test Explorer.
+ */
+
+{
+  "Framework": "jasmine",
+  "TestFileTimeout": 5000,
+
+  "TestHarnessReferenceMode": "AMD",
+  "CodeCoverageSuccessPercentage": 60,
+  "AMDAppDirectory": "wwwrootTest",
+
+  "Compile": {
+    "Extensions": [ ".ts" ],
+    "Mode": "External",
+    "ExtensionsWithNoOutput": [ ".d.ts" ],
+    "UseSourceMaps": true
+  },
+
+  // always specify this! If you do not VS will scan all files
+  // in the project and look for tests
+  "Tests": [
+    {
+      "Path": "./App",
+      "Includes": [ "*.spec.ts" ]
+    }
+  ],
+
+  "References": [
+    { "Path": "./scripts/angular.min.js" },
+    { "Path": "./scripts/angular-route.min.js" },
+    { "Path": "./scripts/angular-mocks.js" },
+    { "Path": "./scripts/require.js" },
+    { "Path": "./scripts/angular-animate.js" },
+    { "Path": "./scripts/angular-ui/ui-bootstrap.js" },
+    { "Includes": [ "*/tests/*/*.ts" ] }
+  ],
+
+  "EnableTracing": true,
+  "CodeCoverageExecutionMode": "Never",
+  "CodeCoverageExcludes": [
+    //"*\\App\\*\\*.controller.tests*"
+  ],
+
+  "CodeCoverageIncludes": [
+    //"*\\App\\Blog\\blog.controller.js" //,
+    //"*.service.js" //,
+    //"./app/*.controller.ts",
+    //"./app/*.directive.ts",
+    //"./app/*.component.ts"
+  ]
+}

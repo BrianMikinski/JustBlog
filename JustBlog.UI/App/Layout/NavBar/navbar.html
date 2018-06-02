@@ -1,0 +1,78 @@
+﻿<div>
+    <nav class="navbar navbar-default visible-xs visible-sm" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle visible-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a type="button" class="navbar-toggle nav-link visible-xs visible-sm" href="http://github.com/johnpapa">
+                <i class="fa fa-github"></i>
+            </a>
+            <a type="button" class="navbar-toggle nav-link visible-xs visible-sm" href="http://twitter.com/john_papa">
+                <i class="fa fa-twitter"></i>
+            </a>
+            <a class="navbar-brand" href="/">
+                <img src="http://www.gravatar.com/avatar/0d3794fe37746ea54926ca6878712721?s=35" class="img-circle">
+                brianmikinski.net
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav visible-xs visible-sm">
+                <li class="active">
+                    <a href="home">Home</a>
+                </li>
+                <li>
+                    <a href="Categories">Categories</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="btn-group hidden-xs hidden-sm" id="nav-menu">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-bars"></i>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a href="home">
+                    <i class="fa fa-home">
+                    </i>Home
+                </a>
+            </li>
+            <li>
+                <a href="categories">
+                    <i class="fa fa-folder">
+                    </i>Categories
+                </a>
+            </li>
+            <li>
+                <a href="aboutme">
+                    <i class="fa fa-info-circle"></i>About Me
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-arrow-up"></i>Top of Page
+                </a>
+            </li>
+            <li is-authorized resource="admin" action="read">
+                <a href="manageContent">
+                    <i class="fa fa-pencil-square-o"> Manage Content</i>
+                </a>
+            </li>
+            <li is-authorized only-show-unauthorized="true">
+                <a href="login">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i>Login
+                </a>
+            </li>
+            <li is-authorized resource="admin" action="read">
+                <a href="logoff">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

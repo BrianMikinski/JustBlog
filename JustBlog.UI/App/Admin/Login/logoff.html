@@ -1,0 +1,20 @@
+﻿<div id="login-div">
+    <form ng-submit="vm.Logoff()" method="post" role="form">
+        <input id="antiForgeryToken" name="__RequestVerificationToken" value="{{vm.AntiForgeryToken}}" ng-model="vm.AntiForgeryToken" type="hidden" />
+        <fieldset>
+            <legend>Logoff</legend>
+            <p>
+                Are you sure you want to logoff?
+                <input type="submit" value="Logoff">
+            </p>
+        </fieldset>
+    </form>
+    <div class="row">
+        <div class="col-md-3 pull-left">
+            <a href="manageContent">Go to admin management screen</a>
+        </div>
+        <div class="col-md-3 pull-right">
+            <a href="">Go to Blog</a>
+        </div>
+    </div>
+</div>

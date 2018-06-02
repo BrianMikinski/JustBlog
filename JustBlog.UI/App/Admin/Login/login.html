@@ -1,0 +1,23 @@
+﻿<div id="login-div">
+    <form class="login-form" ng-submit="$loginCtrl.Login()" method="post" role="form">
+        <input id="antiForgeryToken" name="__RequestVerificationToken" value="{{$loginCtrl.AntiForgeryToken}}" ng-model="$loginCtrl.AntiForgeryToken" type="hidden" />
+        <h1 class="text-center">Login</h1>
+            <div class="form-group">
+                <label>User name (*)</label>
+                <input class="form-control" ng-model="$loginCtrl.LoginUser.Email" name="UserName" type="text" value="">
+            </div>
+            <div class="form-group">
+                <label>Password (*)</label>
+                <input class="form-control" ng-model="$loginCtrl.LoginUser.Password" name="Password" type="password">
+            </div>
+            <input class="btn btn-primary login-btn" type="submit" value="Login">
+    </form>
+    <div class="row">
+        <div class="col-md-3 pull-left">
+            <a href="/passwordReset">Forgot Password?</a>
+        </div>
+        <div class="col-md-3 pull-right">
+            <a href="/register">Create New Admin Account</a>
+        </div>
+    </div>
+</div>

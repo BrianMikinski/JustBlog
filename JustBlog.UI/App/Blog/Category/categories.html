@@ -1,0 +1,32 @@
+﻿<div id="content">
+    <div class="page-header">
+        <h1>Categories</h1>
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-6">
+        <ul class="nav nav-tabs-vertical">
+            <li ng-repeat="category in $categoryCtrl.AllCategories">
+                <a href="" title="{{category.Description}}" ng-click="$categoryCtrl.RetrieveCategoryPosts(category.Id)">
+                    {{category.Name}}
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-md-9 col-sm-3 col-xs-6">
+        <div ng-show="$categoryCtrl.CategoryPosts.length">
+            <h1 class="text-center">Category Posts</h1>
+            <br />
+            <div ng-repeat="post in $categoryCtrl.CategoryPosts">
+                <h2>
+                    <a href="post/{{post.UrlSlug}}">{{post.Title}}</a>
+                </h2>
+                <div ng-bind-html="post.ShortDescription">
+                </div>
+            </div>
+        </div>
+
+        <div ng-show="!$categoryCtrl.CategoryPosts.length">
+            <h1 class="text-center">No Posts Found for Category</h1>
+        </div>
+    </div>
+</div>

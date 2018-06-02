@@ -1,0 +1,112 @@
+﻿<div id="content">
+    <div ng-include="'admin/adminHeader.html'"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center">Current Accounts</h3>
+        </div>
+        <div class="col-md-12">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            <!--item number-->
+                        </th>
+                        <th title="Primary Key">
+                            ID
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            User Name
+                        </th>
+                        <th>
+                            Phone Number
+                        </th>
+                        <th>
+                            Phone Number Confirmed
+                        </th>
+                        <th>
+                            Two Factor Enabled
+                        </th>
+                        <th>
+                            Lockout Enabled
+                        </th>
+                        <th>
+                            Lockout End Date UTC
+                        </th>
+                        <th>
+                            Access Failed Count
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--ng-class="{'danger' : !test.IsActive}"-->
+                    <tr ng-repeat="admin in vm.ApplicationAdmins">
+                        <td>
+                            {{ ($index + 1)}}
+                        </td>
+                        <td>
+                            {{admin.ID}}
+                        </td>
+                        <td>
+                            {{admin.FirstName}} {{admin.LastName}}
+                        </td>
+                        <td>
+                            {{admin.Email}}
+                        </td>
+                        <td>
+                            {{admin.UserName}}
+                        </td>
+                        <td>
+                            {{admin.PhoneNumber}}
+                        </td>
+                        <td class="text-center">
+                            <div class="alert alert-danger" ng-show="admin.PhoneNumberConfirmed == false">
+                                No
+                            </div>
+                            <div ng-show="admin.PhoneNumberConfirmed == true">
+                                {{admin.PhoneNumberConfirmed}}
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="alert alert-danger" ng-show="admin.TwoFactorEnabled == false">
+                                No
+                            </div>
+                            <div class="alert alert-success" ng-show="admin.TwoFactorEnabled == true">
+                                Yes
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="alert alert-danger" ng-show="admin.LockoutEnabled == false">
+                                No
+                            </div>
+                            <div class="alert alert-success" ng-show="admin.LockoutEnabled == true">
+                                Yes
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div ng-show="admin.LockoutEndDateUtc == null">
+                                <i>N/A</i>
+                            </div>
+                            {{admin.LockoutEndDateUtc}}
+                        </td>
+                        <td class="text-center">
+                            {{admin.AccessFailedCount}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-3 pull-right">
+            <a href="logoff">Log Off</a>
+        </div>
+    </div>
+</div>

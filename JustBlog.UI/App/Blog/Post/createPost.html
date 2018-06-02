@@ -1,0 +1,210 @@
+﻿<div>
+    <div class="page-header">
+        <h1>Create/Edit Post</h1>
+    </div>
+    <div class="row">
+        <form name="postForm" class="form-horizontal" method="post" role="form">
+            <input id="antiForgeryToken" name="__RequestVerificationToken" value="{{$createPostCtrl.AntiForgeryToken}}" ng-model="$createPostCtrl.AntiForgeryToken" type="hidden" />
+
+            <!--Title-->
+            <div class="form-group" ng-class="{ 'has-error' : postForm.Title.$invalid && !postForm.Title.$pristine }">
+                <label class="col-md-2 control-label">Title</label>
+                <div class="col-md-4">
+                    <input class="form-control"
+                           name="Title"
+                           type="text"
+                           ng-maxlength="500"
+                           required
+                           placeholder="The title of the post"
+                           value=""
+                           ng-model="$createPostCtrl.Post.Title"
+                           ng-required="true">
+                    <p ng-show="postForm.Title.$invalid && !postForm.Title.$pristine" class="help-block">
+                        Title is required
+                    </p>
+                </div>
+            </div>
+
+            <!--Url Slug-->
+            <div class="form-group" ng-class="{ 'has-error' : postForm.UrlSlug.$invalid && !postForm.UrlSlug.$pristine }">
+                <label class="col-md-2 control-label">Url Slug</label>
+                <div class="col-md-4">
+                    <input class="form-control"
+                           name="UrlSlug"
+                           type="text"
+                           ng-maxlength="200"
+                           placeholder="The url of the post"
+                           ng-model="$createPostCtrl.Post.UrlSlug"
+                           ng-pattern="/^[a-zA-Z0-9_]*$/"
+                           value=""
+                           required />
+                    <p ng-show="postForm.UrlSlug.$invalid && !postForm.UrlSlug.$pristine" class="help-block">
+                        Url Slug cannot have spaces nor special characters.
+                    </p>
+                </div>
+            </div>
+            
+            <!--Short Description-->
+            <hr />
+            <div class="form-group" ng-class="{ 'has-error' : postForm.ShortDescription.$invalid && !postForm.ShortDescription.$pristine }">
+                <label class="col-md-2 control-label">Short Description</label>
+                <div class="col-md-10">
+                    <textarea ui-tinymce="$createPostCtrl.tinymceOptions"
+                              name="ShortDescription"
+                              type="text"
+                              value=""
+                              ng-model="$createPostCtrl.Post.ShortDescription"  
+                              placeholder="Headline description of the post"
+                              ng-required="true"
+                              required> </textarea>
+                    <p ng-show="postForm.ShortDescription.$invalid && !postForm.ShortDescription.$pristine" class="help-block">
+                        Short Description is required
+                    </p>
+                </div>
+            </div>
+
+            <!--Content-->
+            <div class="form-group" ng-class="{ 'has-error' : postForm.LastName.$invalid && !postForm.LastName.$pristine }">
+                <label class="col-md-2 control-label">Content</label>
+                <div class="col-md-10">
+                    <textarea ui-tinymce="$createPostCtrl.tinymceOptions"
+                              name="Description"
+                              type="text"
+                              value=""
+                              ng-model="$createPostCtrl.Post.Description"
+                              placeholder="The content of the post"
+                              ng-required="true"
+                              required></textarea>
+                    <p ng-show="postForm.Description.$invalid && !postForm.Description.$pristine" class="help-block">
+                        Content is required
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label"></label>
+                <div class="col-md-1 pull-right">
+                    <button type="button" class="btn btn-default" value="PreviewPost">
+                        Preview
+                    </button>
+                </div>
+            </div>
+
+            <!--Category-->
+            <hr />
+            <div class="form-group" ng-class="{ 'has-error' : postForm.Category.$invalid && !postForm.Category.$pristine }">
+                <label class="col-md-2 control-label">Category</label>
+                <div class="col-md-10">
+                    <select class="form-control"
+                            name="Category"
+                            ng-options="category as category.Name for category in $createPostCtrl.PostCategories track by category.Id"
+                            ng-model="$createPostCtrl.Post.Category"
+                            ng-change="$createPostCtrl.SetPostCategory(category)"
+                            required>
+                        Available Categories
+                    </select>
+                    <p ng-show="postForm.Category.$invalid && !postForm.Category.$pristine" class="help-block">
+                        Category is required
+                    </p>
+                </div>
+            </div>
+
+            <!--Tags-->
+            <div class="form-group">
+                <label class="col-md-2 control-label">Tags</label>
+                <div class="col-md-4">
+                    <select class="form-control"
+                            ng-options="tag as tag.Name for tag in $createPostCtrl.PostTags track by tag.Id"
+                            ng-model="$createPostCtrl.NewPostTag">
+                        Available Tags
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-default" ng-click="$createPostCtrl.AddTagToPost()">
+                        Add Tag
+                    </button>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label"></label>
+                <div class="col-md-2" ng-repeat="tag in $createPostCtrl.Post.Tags">
+                    <label class="btn btn-primary" ng-click="$createPostCtrl.RemoveTagFromPost(tag)">
+                        {{tag.Name}} <span class="glyphicon glyphicon-remove create-post-tag-remove">
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!--Published-->
+            <div class="form-group">
+                <label class="col-md-2 control-label">Published</label>
+                <div class="col-md-10">
+                    <h3>
+                        <span class="label label-success" name="Published" ng-if="$createPostCtrl.Post.Published">
+                            Yes
+                        </span>
+                        <label class="label label-danger" name="Published" ng-if="!$createPostCtrl.Post.Published">
+                            No
+                        </label>
+                    </h3>
+                </div>
+            </div>
+
+            <!--Posted On-->
+            <div class="form-group">
+                <label class="col-md-2 control-label">Posted On</label>
+                <div class="col-md-10">
+                    <h3 ng-if="$createPostCtrl.Post.PostedOn">
+                        <span class="label label-default" name="PostedOn">
+                            {{$createPostCtrl.Post.PostedOn}}
+                        </span>
+                    </h3>
+                    <h3 ng-if="!$createPostCtrl.Post.PostedOn">
+                        <span class="label label-danger" name="PostedOn">
+                            Thist post has not been published
+                        </span>
+                    </h3>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label">Modified On</label>
+                <div class="col-md-10">
+                    <h3>
+                        <span class="label label-default" name="PostedOn">
+                            {{$createPostCtrl.Post.Modified}}
+                        </span>
+                    </h3>
+                </div>
+            </div>
+
+            <!--Publish Post-->
+            <hr />
+            <div class="form-group">
+                <label class="col-md-2 control-label">Actions</label>
+                <div class="btn-group col-md-10">
+                        <button type="button" class="btn btn-default" value="PublishPost" 
+                                ng-if="!$createPostCtrl.Post.Published" 
+                                ng-click="$createPostCtrl.SavePost($createPostCtrl.Post, true)">
+                            Publish
+                        </button>
+                        <button type="button" class="btn btn-default" value="UnpublishPost"
+                                ng-if="$createPostCtrl.Post.Published" 
+                                ng-click="$createPostCtrl.UnpublishPost($createPostCtrl.Post)">
+                            Unpublish
+                        </button>
+                        <button type="button" class="btn btn-default" value="SavePost" ng-click="$createPostCtrl.SavePost($createPostCtrl.Post, false)">
+                            Save
+                        </button>
+                </div>
+            </div>
+
+            <!--Meta data - Hidden for now but will probably be removed-->
+            <input ng-model="$createPostCtrl.Post.Meta" hidden ng-maxlength="1000"/>
+        </form>
+        <div class="col-md-3">
+            <a href="manageContent">Return to Manage Content Page</a>
+        </div>
+    </div>
+</div>

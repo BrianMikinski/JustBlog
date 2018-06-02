@@ -1,0 +1,89 @@
+﻿<div id="content">
+    <div class="row">
+        <br />
+        <div class="col-md-12">
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th title="The name of the tag" ng-click="$tagsGridCtrl.TagsPageAndSort(null,'Name')">
+                            Name
+                            <span class="glyphicon table-header-icon" title="Sort by Name"
+                                  ng-class="$tagsGridCtrl.SortFieldIsAscending('Name', $tagsGridCtrl.Tags.PagingProperties.SortFields, true)"></span>
+                        </th>
+                        <th title="Url slug for the tag" ng-click="$tagsGridCtrl.TagsPageAndSort(null,'UrlSlug')">
+                           Url Slug
+                            <span class="glyphicon table-header-icon" title="Sort by Url Slug"
+                                  ng-class="$tagsGridCtrl.SortFieldIsAscending('UrlSlug', $tagsGridCtrl.Tags.PagingProperties.SortFields, true)"></span>
+                        </th>
+                        <th title="Description of the tag" ng-click="$tagsGridCtrl.TagsPageAndSort(null,'Description')">
+                            Description
+                            <span class="glyphicon table-header-icon" title="Sort by Url Description"
+                                  ng-class="$tagsGridCtrl.SortFieldIsAscending('Description', $tagsGridCtrl.Tags.PagingProperties.SortFields, true)"></span>
+                        </th>
+                        <th title="Number of posts with this tag">
+                            Posts
+                            <span class="glyphicon table-header-icon" title="Sort by Url Description"
+                                  ng-class="$tagsGridCtrl.SortFieldIsAscending('Description', $tagsGridCtrl.Tags.PagingProperties.SortFields, true)"></span>
+                        </th>
+                        <th class="text-center" title="Primary key of the row" ng-click="$tagsGridCtrl.TagsPageAndSort(null,'Id')">
+                            Id
+                            <span class="glyphicon table-header-icon" title="Sort by Url Description"
+                                  ng-class="$tagsGridCtrl.SortFieldIsAscending('Id', $tagsGridCtrl.Tags.PagingProperties.SortFields, true)"></span>
+                        </th>
+                        <th class="text-center">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="tag in $tagsGridCtrl.Tags.Results">
+                        <td>
+                            {{ ($index + 1)}}
+                        </td>
+                        <td>
+                            <a href="tag/{{tag.UrlSlug}}">{{tag.Name}}</a>
+                        </td>
+                        <td>
+                            {{tag.UrlSlug}}
+                        </td>
+                        <td>
+                            {{tag.Description}}
+                        </td>
+                        <td class="text-center">
+                            -
+                        </td>
+                        <td class="text-center">
+                            {{tag.Id}}
+                        </td>
+                        <td class="text-center">
+                            <a href="tag/edit/{{tag.Id}}" title="Edit Tag">
+                                <span class="glyphicon glyphicon-edit edit-post-glyphicon">
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-12">
+            <div class="text-center">
+                <uib-pagination class="pagination-sm"
+                                total-items="$tagsGridCtrl.Tags.PagingProperties.TotalResults"
+                                ng-model="index"
+                                max-size="$tagsGridCtrl.Tags.PagingProperties.TotalPages"
+                                boundary-links="true"
+                                ng-change="$tagsGridCtrl.TagsPageAndSort(index, null)"
+                                rotate="true"></uib-pagination>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3 pull-right">
+            <a href="tag/add">Add New Tag</a>
+        </div>
+    </div>
+</div>

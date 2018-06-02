@@ -1,0 +1,78 @@
+﻿<div id="sidebar-wrapper">
+    <div class="col-sm-4 sidebar hidden-xs hidden-sm not-mobile">
+        <header role="banner" class="text-center">
+            <a href="/">
+                <img src="Content/profile.jpg" class="img-circle profile-picture" />
+            </a>
+            <h3 class="title text-center">
+                <a href="/">{{$profileCtrl.MetaData.URL}}</a>
+            </h3>
+        </header>
+        <div id="bio" class="text-center">
+            {{$profileCtrl.MetaData.Motto}}
+        </div>
+        <div id="contact-list" class="text-center">
+            <ul class="list-unstyled list-inline">
+                <li>
+                    <a class="btn btn-default btn-sm" href="{{$profileCtrl.MetaData.Github}}">
+                        <i class="fa fa-github-alt fa-lg"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="btn btn-default btn-sm" href="https://twitter.com/share?text={{$profileCtrl.metaData.URL}}">
+                        <i class="fa fa-twitter fa-lg"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="btn btn-default btn-sm" href="{{$profileCtrl.MetaData.XMLFeed}}">
+                        <i class="fa fa-rss fa-lg"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-content">
+                <nav id="page-nav">
+                    <ul class="main-navigation list-unstyled list-inline">
+                        <li><a href="categories">Categories</a></li>
+                        <li><a href="aboutme">About Me</a></li>
+                    </ul>
+                </nav>
+                <h5>Recent Posts</h5>
+                <ul class="list-unstyled">
+                    <li ng-repeat="post in $profileCtrl.MetaData.Posts">
+                        <span title="{{$profileCtrl.ConvertDateTime(post.PostedOn)}}">{{$profileCtrl.ConvertDateTime(post.PostedOn)}}</span> »
+                        <a href="post/{{post.UrlSlug}}">
+                            {{post.Title}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="not-mobile row sidebar-extras">
+            <table class="col-centered">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div data-type="ad" data-publisher="lqm.johnpapa.site" data-zone="ron" data-format="160x600"></div>
+                        </td>
+                        <td>
+                            <div data-type="ad" data-publisher="lqm.johnpapa.site" data-zone="ron" data-format="160x600"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div data-type="ad" data-publisher="lqm.johnpapa.site" data-zone="ron" data-format="300x250"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div data-type="ad" data-publisher="lqm.johnpapa.site" data-zone="ron" data-format="300x250"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+

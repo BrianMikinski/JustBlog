@@ -1,0 +1,31 @@
+﻿<div id="content">
+    <div class="page-header">
+        <h1>{{homeCtrl.MetaData.URL}}</h1>
+    </div>
+    <article class="home slide-right" ng-repeat="post in homeCtrl.Posts.Results">
+        <span class="post-date">
+            {{homeCtrl.ParseDateTime(post.PostedOn) | date:'d MMM y'}}
+        </span>
+        <h2>
+            <a href="post/{{post.UrlSlug}}">{{post.Title}}</a>
+        </h2>
+        <div ng-bind-html="homeCtrl.ToTrustedHtml(post.ShortDescription)">
+            <style>
+                img[alt=heroes] {
+                    height: 100px;
+                    width: 100px;
+                }
+            </style>
+        </div>
+        <hr />
+    </article>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm"
+                        total-items="homeCtrl.Posts.PagingProperties.TotalResults"
+                        ng-model="index"
+                        max-size="homeCtrl.Posts.PagingProperties.TotalPages"
+                        boundary-links="true"
+                        ng-change="homeCtrl.PostsPageAndSort(index, null, true)"
+                        rotate="true"></uib-pagination>
+    </div>
+</div>

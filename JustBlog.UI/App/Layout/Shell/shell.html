@@ -1,0 +1,21 @@
+﻿<div>
+    <navbar></navbar>
+    <div id="wrapper">
+        <profile></profile>
+
+        <!--Main Content-->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div ui-view class="col-lg-12 col-md-12 col-sm-12 col-xs-12 slide-right">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+</div>

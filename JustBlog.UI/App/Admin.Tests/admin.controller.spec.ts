@@ -1,0 +1,93 @@
+﻿import { AdminController } from "Admin/admin.controller";
+import { AuthService } from "Core/auth.service";
+import { ICoreService, CoreService } from "Core/core.service";
+import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
+import Admin from "Admin/admin.module";
+import App from "app.module";
+import Core from "Core/core.module";
+import Notification from "Notification/notification.module";
+import { AdminService } from "Admin/admin.service";
+
+/*
+ * Mocking out the Admin Angular controller. Admin controller depends on
+ * the notification and core modules, therefore they must be imported
+ */
+describe(`Module "${Admin.Name()}: Admin Controller Mockup, dependencies to "${Notification.Name()}", and "${Core.Name()}"`, function () {
+
+    // arrange
+
+    // mock out module dependencies
+    beforeEach(angular.mock.module("app.notification"));
+    beforeEach(angular.mock.module("app.core"));
+    beforeEach(angular.mock.module("app.admin"));
+
+    // setup controller and promise mocks
+    let $rootScope: ng.IRootScopeService;
+    let $q: ng.IQService;
+    let timeout: ng.ITimeoutService;
+
+    // create the mock blog controller
+    let AdminController: AdminController;
+    let _coreService: ICoreService;
+    let _adminService: AdminService;
+    let _authService: AuthService;
+
+    // mock blog controller
+    beforeEach(inject(($controller: ng.IControllerService,
+        _$rootScope_: ng.IRootScopeService,
+        _$q_: ng.IQService,
+        coreService: ICoreService,
+        adminService: AdminService,
+        $timeout: ng.ITimeoutService) => {
+
+        // Arange scopes and promises. We need rootscope to handle resolving promises
+        $rootScope = _$rootScope_;
+        $q = _$q_;
+        timeout = $timeout;
+
+        AdminController = <AdminController>$controller("Admin", {
+            coreService: coreService,
+            _authService: {},
+            _adminService: adminService,
+            _notificationService: {},
+            _route: {},
+            _location: {},
+            _sce: {},
+            _window: {}
+        });
+    }));
+
+    //it("Admin Login: Successfull login", () => {
+    //    // arrange
+    //    let authResponse: number = 200;
+
+    //    let runTest: boolean = false;
+
+    //    if (runTest) {
+    //        let adminServiceLogin: ng.IDeferred<number> = $q.defer();
+    //        spyOn(_adminService, "Login").and.returnValue(adminServiceLogin.promise);
+    //        adminServiceLogin.resolve(authResponse);
+
+    //        AdminController.LoginUser = {
+    //            Email: "testEmailAddress@testdomain.com",
+    //            Password: "this is a test",
+    //            RememberMe: true
+    //        }
+
+    //        timeout.flush();
+    //        timeout.verifyNoPendingTasks();
+
+    //        // act
+    //        AdminController.Login()
+    //        $rootScope.$apply();
+
+    //        // assert
+    //        expect(true).toBe(true);
+    //    }
+
+        // assert
+    //    expect(true).toBe(true);
+
+    //});
+
+});

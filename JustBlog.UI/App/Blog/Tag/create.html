@@ -1,0 +1,106 @@
+﻿<div>
+    <div class="page-header">
+        <h1>Create/Edit Tag</h1>
+    </div>
+    <form name="tagForm" class="form-horizontal" method="post" role="form">
+        <input id="antiForgeryToken" name="__RequestVerificationToken" value="{{vm.AntiForgeryToken}}" ng-model="vm.AntiForgeryToken" type="hidden" />
+
+        <!--Name-->
+        <div class="form-group" ng-class="{ 'has-error' : tagForm.Name.$invalid && !tagForm.Name.$pristine }">
+            <label class="col-md-2 control-label">Name</label>
+            <div class="col-md-10">
+                <input class="form-control"
+                       name="Name"
+                       type="text"
+                       required
+                       value=""
+                       ng-model="vm.Tag.Name"
+                       ng-maxlength="50"
+                       ng-required="true">
+                <p ng-show="tagForm.Name.$invalid && !tagForm.Name.$pristine" class="help-block">A name is required.</p>
+            </div>
+        </div>
+
+        <!--Url slug-->
+        <div class="form-group" ng-class="{ 'has-error' : tagForm.UrlSlug.$invalid && !tagForm.UrlSlug.$pristine }">
+            <label class="col-md-2 control-label">Url slug</label>
+            <div class="col-md-10">
+                <input class="form-control"
+                       name="UrlSlug"
+                       type="text"
+                       value=""
+                       required
+                       ng-model="vm.Tag.UrlSlug"
+                       ng-maxlength="50"
+                       ng-required="true">
+                <p ng-show="tagForm.UrlSlug.$invalid && !tagForm.UrlSlug.$pristine" class="help-block">Url slug is required.</p>
+            </div>
+        </div>
+
+        <!--Description-->
+        <div class="form-group" ng-class="{ 'has-error' : tagForm.Description.$invalid && !tagForm.Description.$pristine }">
+            <label class="col-md-2 control-label">Description</label>
+            <div class="col-md-10">
+                <textarea class="form-control"
+                          rows="8"
+                          name="Description"
+                          type="text"
+                          value=""
+                          placeholder="Description of the Tag"
+                          required
+                          ng-maxlength="200"
+                          ng-model="vm.Tag.Description"
+                          ng-required="true"></textarea>
+                <p ng-show="tagForm.Description.$invalid && !tagForm.Description.$pristine" class="help-block">
+                    Description is required
+                </p>
+            </div>
+        </div>
+
+        <!--ID-->
+        <div class="form-group">
+            <label class="col-md-2 control-label">Post Count</label>
+            <div class="col-md-10">
+                <h3>
+                    {{vm.Tag.PostCount}}
+                </h3>
+            </div>
+        </div>
+
+        <!--ID-->
+        <div class="form-group">
+            <label class="col-md-2 control-label">ID</label>
+            <div class="col-md-10">
+                <h3>
+                    {{vm.Tag.Id}}
+                </h3>
+            </div>
+        </div>
+
+        <!--Modified on-->
+        <div class="form-group">
+            <label class="col-md-2 control-label">Modified On</label>
+            <div class="col-md-10">
+                <h3>
+                    <span class="label label-default" name="PostedOn">
+                        {{vm.ParseJsonDate(vm.Tag.Modified)}}
+                    </span>
+                </h3>
+            </div>
+        </div>
+
+        <!--Save Tag-->
+        <hr />
+        <div class="form-group">
+            <label class="col-md-2 control-label"></label>
+            <div class="btn-group col-md-10">
+                <button type="button" class="btn btn-default" ng-click="vm.SaveTag(vm.Tag)">
+                    Save
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="col-md-3">
+        <a href="manageContent">Return to Manage Content Page</a>
+    </div>
+</div>

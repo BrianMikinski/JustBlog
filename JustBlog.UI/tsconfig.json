@@ -1,0 +1,53 @@
+﻿{
+  // https://www.typescriptlang.org/docs/handbook/compiler-options.html
+  "compilerOptions": {
+    "target": "es5",
+    /**
+        * Module resolution for code generation. Different from "moduleResolution" which is
+        * which is how d.ts definition files are picked up. "module" resolution specifies
+        * which style of module resolution will be used with generated code files.
+        * See compiler-options.html for full details
+        */
+    "baseUrl": "app",
+    "module": "amd",
+    "sourceMap": true,
+    //"sourceRoot": "App", // Actual source files are in wwwroot/
+    "inlineSources": true,
+    "noImplicitAny": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noImplicitReturns": true,
+    "removeComments": false,
+    "alwaysStrict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "strictNullChecks": false,
+    "allowJs": false,
+    "noEmitOnError": true,
+    "allowUnreachableCode": false,
+    "pretty": true,
+    "diagnostics": false,
+    "watch": false,
+    "outDir": "wwwroot/",
+    "skipLibCheck": true,
+    "rootDir": "App",
+    "paths": {
+      "*": [
+        "*"
+      ]
+    },
+    /**
+      * This is required to gain intellisense for imported packages and
+      * the "node" value must be spcified.
+      * See https://github.com/Microsoft/TypeScript/issues/9725 or https://github.com/Microsoft/TypeScript/issues/9831
+      */
+    "moduleResolution": "node"
+  },
+  "compileOnSave": true,
+  //"filesGlob":{}
+  "filesGlob": [
+    "App/**/*",
+    "!typings/**", // if we have to use the old typings library
+    "!node_modules/**/" // definitely want to ignore node_modules
+  ]
+}

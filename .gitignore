@@ -1,0 +1,55 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+#Debug symbols
+*.pdb
+/JustBlog.Database/bin/Debug/JustBlog.Database.pdb
+*.pdb
+
+#Database Project
+/JustBlog.Database/bin/Debug/JustBlog.Database.dacpac
+
+#Web.UI
+/JustBlog.UI/App/Core/auth.interceptor.js
+/JustBlog.UI/App/Core/auth.interceptor.js.map
+/JustBlog.UI/App/Core/auth.service.js
+/JustBlog.UI/App/Core/auth.service.js.map
+/JustBlog.Database/JustBlog.Database.dbmdl
+/JustBlog.UI/App/Admin/*.js
+/JustBlog.UI/App/Admin/*.js.map
+
+/JustBlog.UI/App/*/*.js
+/JustBlog.UI/App/*/*.js.map
+/JustBlog.UI/App/*.js
+/JustBlog.UI/App/*.js.map
+bin
+obj
+*.vs
+
+bin/*.dll
+**/bin/*.dll
+**/*/bin/*.dll
+**/**/*/bin/*.dll
+_Chutzpah.*
+*.jfm
+
+#Front-end dev dependencies
+/packages/*
+node_modules
+dist
+.tmp
+.sass-cache
+bower_components
+/JustBlog.UI/App/*/*/*.js.map
+/JustBlog.UI/App/*/*/*.js
+/JustBlog.UI/node_modules
+/JustBlog.UI/bower_components
+
+#Compiled front end code
+/JustBlog.UI/wwwroot
+/JustBlog.UI/wwwrootTest
+/JustBlog.Models.Tests/JustBlog.Models.Tests.csproj.user
+/JustBlog.UI/testResults
+/JustBlog.UI/package-lock.json
+/JustBlog.UI/npm-debug.log

@@ -1,0 +1,26 @@
+﻿<div id="content">
+    <div ng-include="'admin/adminHeader.html'"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <uib-tabset active="activeJustified" justified="false">
+
+                <!--Posts-->
+                <uib-tab index="0" heading="Posts">
+                    <postsGrid></postsGrid>
+                </uib-tab>
+
+                <!--Categories-->
+                <uib-tab tabindex="1" heading="Categories">
+                    <categoriesGrid></categoriesGrid>
+                </uib-tab>
+
+                <!--Tags-->
+                <uib-tab index="2" heading="Tags">
+                    <tagsgrid></tagsgrid>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+        <br />
+        <br />
+    </div>
+</div>

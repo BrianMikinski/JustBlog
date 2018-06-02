@@ -1,0 +1,90 @@
+﻿<div id="content">
+    <div class="row">
+        <br />
+        <div class="col-md-12">
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th title="Name of the category"  class="table-header-custom" ng-click="$categoriesGridCtrl.CategoriesPageAndSort(null,'Name')">
+                            Name
+                            <span class="glyphicon table-header-icon" title="Sort by Name"
+                                  ng-class="$categoriesGridCtrl.SortFieldIsAscending('Name', $categoriesGridCtrl.Categories.PagingProperties.SortFields, true)"></span>
+                        </th>
+                        <th title="The url slug of the category" class="table-header-custom" ng-click="$categoriesGridCtrl.CategoriesPageAndSort(null,'UrlSlug')">
+                            Url Slug
+                            <span class="glyphicon table-header-icon" title="Sort by url slug"
+                                  ng-class="$categoriesGridCtrl.SortFieldIsAscending('UrlSlug', $categoriesGridCtrl.Categories.PagingProperties.SortFields, true)"></span>
+                        </th>
+                        <th class="text-center table-header-custom" ng-click="$categoriesGridCtrl.CategoriesPageAndSort(null,'PostCount')">
+                            Posts
+                            <span class="glyphicon table-header-icon" title="Sort by posts"
+                                  ng-class="$categoriesGridCtrl.SortFieldIsAscending('PostCount', $categoriesGridCtrl.Categories.PagingProperties.SortFields, true)"></span>
+                        </th>
+                        <th class="text-center table-header-custom" title="ID of the category" ng-click="$categoriesGridCtrl.CategoriesPageAndSort(null,'Id')">
+                            ID 
+                            <span class="glyphicon table-header-icon" title="Sort by posts"
+                                  ng-class="$categoriesGridCtrl.SortFieldIsAscending('Id', $categoriesGridCtrl.Categories.PagingProperties.SortFields, true)"></span>
+                        </th>
+                        <th class="text-center" title="Last modification date" ng-click="$categoriesGridCtrl.CategoriesPageAndSort(null,'Modified')">
+                            Modified
+                            <span class="glyphicon table-header-icon" title="Sort by posts"
+                                  ng-class="$categoriesGridCtrl.SortFieldIsAscending('Modified', $categoriesGridCtrl.Categories.PagingProperties.SortFields, true)"></span>
+                        </th>
+                        <th class="text-center">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="category in $categoriesGridCtrl.Categories.Results">
+                        <td>
+                            {{ ($index + 1)}}
+                        </td>
+                        <td>
+                           <a href="category/{{category.UrlSlug}}">{{category.Name}}</a>
+                        </td>
+                        <td>
+                            {{category.UrlSlug}}
+                        </td>
+                        <td class="text-center">
+                            <!--{{category.PostCount}}-->
+                            {{category.PostCount}}
+                        </td>
+                        <td class="text-center">
+                            {{category.Id}}
+                        </td>
+                        <td class="text-center">
+                            {{category.Modified}}
+                        </td>
+                        <td class="text-center">
+                            <a href="category/edit/{{category.Id}}" title="Edit Category">
+                                <span class="glyphicon glyphicon-edit edit-post-glyphicon">
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-12">
+            <div class="text-center">
+                <uib-pagination class="pagination-sm"
+                                total-items="$categoriesGridCtrl.Categories.PagingProperties.TotalResults"
+                                ng-model="index"
+                                max-size="$categoriesGridCtrl.Categories.PagingProperties.TotalPages"
+                                boundary-links="true"
+                                ng-change="$categoriesGridCtrl.CategoriesPageAndSort(index, null)"
+                                rotate="true"></uib-pagination>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3 pull-right">
+            <a class="add-new-content-link" href="category/add">Add Category</a>
+        </div>
+    </div>
+</div>
