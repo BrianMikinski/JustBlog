@@ -1,4 +1,4 @@
-# JustBlog Custom Angular Demo App
+# JustBlog Web Application
 
 The goal of this project is to explore app development using Angular Js and the Microsoft Asp.Net Core stack. Following technologies are being used for development
 
