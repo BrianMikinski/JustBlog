@@ -89,9 +89,12 @@ namespace JustBlog.UI
                 blogConnectionString = Configuration.GetValue<string>(JUST_BLOG_CONNECTION_STRING);
             }
 
+            blogConnectionString = "Filename=./justblog.sqlite";
+
             services.AddDbContext<JustBlogContext>(options =>
             {
-                options.UseSqlServer(blogConnectionString);
+                options.UseSqlite(blogConnectionString);
+                //options.UseSqlServer(blogConnectionString);
             });
 
             // identity management
@@ -101,8 +104,8 @@ namespace JustBlog.UI
                 {
                     blogConnectionString = Configuration.GetValue<string>(JUST_BLOG_CONNECTION_STRING);
                 }
-
-                options.UseSqlServer(blogConnectionString);
+                options.UseSqlite(blogConnectionString);
+                //options.UseSqlServer(blogConnectionString);
             });
 
             services.AddIdentity<ApplicationUser, IdentityRole>()

@@ -53,3 +53,4 @@ bower_components
 /JustBlog.UI/testResults
 /JustBlog.UI/package-lock.json
 /JustBlog.UI/npm-debug.log
+*.sqlite
