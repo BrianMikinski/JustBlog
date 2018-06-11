@@ -19,7 +19,7 @@ namespace JustBlog.Models.Models
         public JustBlogContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<JustBlogContext>();
-            optionsBuilder.UseSqlite("Filename=./justblog.sqlite");
+            optionsBuilder.UseSqlite("Filename=../JustBlog.UI/justblog.sqlite");
 
             return new JustBlogContext(optionsBuilder.Options);
         }

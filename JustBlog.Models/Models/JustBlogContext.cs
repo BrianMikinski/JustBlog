@@ -22,7 +22,7 @@ namespace JustBlog.Models
         public JustBlogContext(DbContextOptions<JustBlogContext> options)
             : base(options)
         {
-
+         
         }
 
         /// <summary>

@@ -51,8 +51,6 @@ namespace JustBlog.IdentityManagement.Services
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = EmailConfirmationLink(user.Id, code, requestSchema);
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
-
-                    //await _signInManager.SignInAsync(user, isPersistent: false, authenticationMethod: string.Empty);
                 }
 
                 return result;
