@@ -89,8 +89,6 @@ namespace JustBlog.UI
                 blogConnectionString = Configuration.GetValue<string>(JUST_BLOG_CONNECTION_STRING);
             }
 
-            blogConnectionString = "Filename=./justblog.sqlite";
-
             services.AddDbContext<JustBlogContext>(options =>
             {
                 options.UseSqlite(blogConnectionString);
