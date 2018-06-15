@@ -2,7 +2,8 @@
 import { NavigationController } from "Layout/navigation.controller"
 import { ShellComponentName, ShellComponent } from "Layout/Shell/shell.component";
 import { ShellController } from "Layout/shell.controller";
-import {BaseModule} from "Core/Models/BaseModule";
+import { BaseModule } from "Core/Models/BaseModule";
+import * as angular from "Angular";
 
 /**
  * Create a shell controller for our application

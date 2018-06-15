@@ -5,30 +5,23 @@
  * @version 1.0
  * @see README.md for more information on building, testing and the project in general
  */
-import {CoreModule} from './Core/core.module';
-import {AdminModule} from './Admin/admin.module';
-import {BlogModule} from './Blog/blog.module';
-import {LayoutModule} from './Layout/layout.module';
-import {NotificationModule} from './Notification/notification.module';
+import { CoreModule } from './Core/core.module';
+import { AdminModule } from './Admin/admin.module';
+import { BlogModule } from './Blog/blog.module';
+import { LayoutModule } from './Layout/layout.module';
+import { NotificationModule } from './Notification/notification.module';
+import * as angular from "Angular";
 
-// hackish fix for getting around global module definitions
-// local module definitions
-import * as __angular from "../node_modules/@types/angular";
+let App: ng.IModule = angular.module('app', [
 
-declare global {
-    const angular: typeof __angular;
-}
+    /*Main modules*/
+    "app.core",
+    "app.layout",
+    "app.notification",
 
-let App:ng.IModule = angular.module('app', [
-
-        /*Main modules*/
-        "app.core",
-        "app.layout",
-        "app.notification",
-
-        ///*Feature modules*/
-        "app.admin",
-        "app.blog"
+    ///*Feature modules*/
+    "app.admin",
+    "app.blog"
 ]);
 
 //App.run(function ( $uiRouter: ng.ui.IUrlRouterProvider) {

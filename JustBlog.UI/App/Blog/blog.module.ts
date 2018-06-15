@@ -14,6 +14,7 @@ import { PostComponentName, PostComponent } from "Blog/Post/post.component";
 import { PostsGridComponentName, PostsGridComponent } from "Blog/Post/postgrid.component";
 import { ProfileComponentName, ProfileComponent } from "Blog/Profile/profile.component";
 import { TagsGridComponentName, TagsGridComponent } from "Blog/Tag/tagsGrid.component";
+import * as angular from "Angular";
 
 /**
  * Class for setting up the admin module

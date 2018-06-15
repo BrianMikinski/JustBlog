@@ -16,6 +16,7 @@ import Notification from "Notification/notification.module"; // required by blog
 import Core from "Core/core.module"; // required by blog controller which is a part of the blog.module
 import { Tag } from "Blog/Tag/Tag";
 import { MetaData } from "Blog/MetaData/MetaData";
+import * as angular from "Angular";
 
 /*
  * Mocking out the Blog Angular controller. Blog controller depends on

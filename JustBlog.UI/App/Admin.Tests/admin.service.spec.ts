@@ -11,6 +11,7 @@ import App from "app.module";
 import Core, { CoreModule } from "Core/core.module";
 import Notification from "Notification/notification.module";
 import { IHttpAdminRoutes } from "Admin/Interfaces/IHttpAdminRoutes";
+import * as angular from "Angular";
 
 describe(`Module "${Admin.Name()}: Blog Controller Mockup, dependencies to "${Notification.Name()}", and "${Core.Name()}"`, function () {
 

@@ -12,6 +12,7 @@ import { IResources } from "Core/Interfaces/IResources";
 import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
 import { LoginComponentName, LoginComponent } from "Admin/Login/login.component";
 import { RegisterUserComponent, RegisterUserComponentName } from "Admin/Register/registerUser.component";
+import * as angular from "Angular";
 
 /**
  * Class for setting up the admin module

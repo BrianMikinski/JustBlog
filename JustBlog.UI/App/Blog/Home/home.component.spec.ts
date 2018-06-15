@@ -7,6 +7,7 @@ import { HomeComponentController, HomeComponentName } from "Blog/Home/home.compo
 import { MetaData } from "Blog/MetaData/MetaData";
 import { CoreModule } from "Core/core.module";
 import { GridQuery } from "Core/Models/GridQuery";
+import * as angular from "Angular";
 
 describe(` ${Blog.Name()}: Home Component Tests - `, function () {
 

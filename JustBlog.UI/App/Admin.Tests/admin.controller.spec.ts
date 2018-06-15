@@ -7,6 +7,7 @@ import App from "app.module";
 import Core from "Core/core.module";
 import Notification from "Notification/notification.module";
 import { AdminService } from "Admin/admin.service";
+import * as angular from "Angular";
 
 /*
  * Mocking out the Admin Angular controller. Admin controller depends on

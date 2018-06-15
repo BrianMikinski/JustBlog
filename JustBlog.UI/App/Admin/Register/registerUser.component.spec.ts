@@ -7,6 +7,7 @@ import { RegistrationAttempt } from "Admin/Register/RegistrationAttempt";
 import { RegisterUserComponentName, RegisterUserController, RegisterUserComponent } from "Admin/Register/registerUser.component";
 import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
 import { IHttpHeadersGetter } from "angular";
+import * as angular from "Angular";
 
 describe(` ${Admin.Name()}: Register New User Component Tests - `, function () {
 

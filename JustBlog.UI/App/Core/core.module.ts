@@ -10,6 +10,8 @@ import { IHttpAuthRoutes } from "Core/Interfaces/IHttpAuthRoutes";
 import { BlogState } from "Core/Models/BlogState";
 import { TransitionService, TransitionHook, Transition, StateDeclaration } from "@uirouter/angularjs"
 import { RegisteredHook, TransitionHookOptions, TransitionHookFn, HookResult, HookMatchCriteria } from "@uirouter/core/lib";
+import * as angular from "Angular";
+import uiRouter from 'angular-ui-router';
 
 export class CoreModule extends BaseModule {
 
