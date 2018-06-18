@@ -1,17 +1,15 @@
-﻿import { BaseModule } from "Core/Models/BaseModule";
-import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
-import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
-import { RouteAuthorizationError } from "Core/Models/RouteAuthorizationError";
-import { CoreService, ICoreService } from "Core/core.service";
-import { AuthService } from "Core/auth.service";
-import { IAuthInterceptor, AuthInterceptor } from "Core/auth.interceptor";
-import { AuthorizationDirective } from "Core/auth.directive";
-import { IHttpAuthRoutes } from "Core/Interfaces/IHttpAuthRoutes";
-import { BlogState } from "Core/Models/BlogState";
-import { TransitionService, TransitionHook, Transition, StateDeclaration } from "@uirouter/angularjs"
-import { RegisteredHook, TransitionHookOptions, TransitionHookFn, HookResult, HookMatchCriteria } from "@uirouter/core/lib";
+﻿import { HookMatchCriteria, HookResult, Transition, TransitionHookFn, TransitionService } from "@uirouter/angularjs";
 import * as angular from "Angular";
-import uiRouter from 'angular-ui-router';
+import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
+import { IHttpAuthRoutes } from "Core/Interfaces/IHttpAuthRoutes";
+import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
+import { BaseModule } from "Core/Models/BaseModule";
+import { BlogState } from "Core/Models/BlogState";
+import { RouteAuthorizationError } from "Core/Models/RouteAuthorizationError";
+import { AuthorizationDirective } from "Core/auth.directive";
+import { AuthInterceptor, IAuthInterceptor } from "Core/auth.interceptor";
+import { AuthService } from "Core/auth.service";
+import { CoreService, ICoreService } from "Core/core.service";
 
 export class CoreModule extends BaseModule {
 
@@ -19,7 +17,7 @@ export class CoreModule extends BaseModule {
         super();
 
         this.moduleName = "app.core";
-        this.moduleDependencies = ["ngRoute", "ui.router"];
+        this.moduleDependencies = ["ui.router"];
 
         // must set our constants before passing them to the config controller
         this.app = angular.module(this.moduleName, this.moduleDependencies);

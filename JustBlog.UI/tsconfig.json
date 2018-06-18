@@ -31,11 +31,11 @@
     "outDir": "dist/",
     "skipLibCheck": true,
     "rootDir": "App",
-    //"paths": {
-    //  "*": [
-    //    "*"
-    //  ]
-    //},
+    "paths": {
+      "*": [
+        "*"
+      ]
+    },
     /**
       * This is required to gain intellisense for imported packages and
       * the "node" value must be spcified.
