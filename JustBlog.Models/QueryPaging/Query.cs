@@ -132,7 +132,7 @@ namespace JustBlog.Models
                 throw new NotImplementedException("No queryable has been assigned");
             }
 
-            if (PagingProperties.SortFields.Count() == 0 && sortResults)
+            if (!PagingProperties.SortFields.Any() && sortResults)
             {
                 throw new NotImplementedException("No sort definitions are present");
             }
