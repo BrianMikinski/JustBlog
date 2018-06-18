@@ -1,7 +1,6 @@
 ﻿using JustBlog.Domain.Services;
 using JustBlog.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
