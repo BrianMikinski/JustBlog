@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using JustBlog.IdentityManagement;
+using JustBlog.Models;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -15,6 +18,44 @@ namespace JustBlog.UI.Tests
     /// </summary>
     public static class WebHostBuilderFactory
     {
+        private const string SQLITE_DB_LOCATION = "Filename=./justblog.sqlite";
+
+        /// <summary>
+        /// Create the proper db contexts for ensuring creationg and deletion of databases
+        /// </summary>
+        /// <returns></returns>
+        private static (JustBlogContext justBlogContext, AppIdentityDbContext appIdentityContext) JustBlogDbContextForIntegrationTesting()
+        {
+            var justBlogOptionsBuilder = new DbContextOptionsBuilder<JustBlogContext>();
+            justBlogOptionsBuilder.UseSqlite(SQLITE_DB_LOCATION);
+
+            var appIdentityBuilder = new DbContextOptionsBuilder<AppIdentityDbContext>();
+            appIdentityBuilder.UseSqlite(SQLITE_DB_LOCATION);
+
+            return (new JustBlogContext(justBlogOptionsBuilder.Options), new AppIdentityDbContext(appIdentityBuilder.Options));
+        }
+
+        /// <summary>
+        /// Ensure the database has been created
+        /// </summary>
+        public static void EnsureDatabaseAvailable()
+        {
+            (var justBlogDbContext, var appIdentityDbContext) = JustBlogDbContextForIntegrationTesting();
+
+            justBlogDbContext.Database.EnsureCreated();
+            appIdentityDbContext.Database.Migrate();
+        }
+
+        /// <summary>
+        /// Ensure database has been deleted once we reset the tests
+        /// </summary>
+        public static void CleanUpDatabases()
+        {
+            (var justBlogDbContext, var appIdentityDbContext) = JustBlogDbContextForIntegrationTesting();
+
+            justBlogDbContext.Database.EnsureDeleted();
+        }
+
         public static IWebHostBuilder Create()
         {
             return Create(Enumerable.Empty<Action<IServiceCollection>>());
@@ -40,6 +81,10 @@ namespace JustBlog.UI.Tests
             var webHostBuilder = new WebHostBuilder()
               .UseContentRoot(contentRoot.FullName)
               .UseEnvironment(EnvironmentName.Development)
+              .ConfigureAppConfiguration((hostingContext, config) =>
+              {
+                  config.AddEnvironmentVariables();
+              })
               .ConfigureServices(services =>
               {
                   var hostingEnvironment = GetHostingEnvironment(services);
@@ -47,6 +92,11 @@ namespace JustBlog.UI.Tests
 
                   app = new Startup(configuration, hostingEnvironment);
                   ConfigureServices(app, services, configureServices);
+
+                  services.AddDbContext<JustBlogContext>(options =>
+                  {
+                      options.UseSqlite(SQLITE_DB_LOCATION);
+                  });
               })
               .Configure(builder =>
               {
@@ -90,8 +140,9 @@ namespace JustBlog.UI.Tests
         /// <returns></returns>
         private static IHostingEnvironment GetHostingEnvironment(IServiceCollection services)
         {
-            Func<ServiceDescriptor, bool> isHostingEnvironmet = service => service.ImplementationInstance is IHostingEnvironment;
-            var hostingEnvironment = (IHostingEnvironment)services.Single(isHostingEnvironmet).ImplementationInstance;
+            bool isHostingEnvironmet(ServiceDescriptor service) => service.ImplementationInstance is IHostingEnvironment;
+
+            var hostingEnvironment = (IHostingEnvironment)services.First(isHostingEnvironmet).ImplementationInstance;
             var assembly = typeof(Startup).GetTypeInfo().Assembly;
 
             // This can be skipped if you keep your tests and production code in the same assembly.
@@ -101,8 +152,8 @@ namespace JustBlog.UI.Tests
 
         private static IConfiguration GetHostingConfiguration(IServiceCollection services)
         {
-            Func<ServiceDescriptor, bool> isHostingEnvironmet = service => service.ImplementationInstance is IConfiguration;
-            var hostingEnvironment = (IConfiguration)services.Single(isHostingEnvironmet).ImplementationInstance;
+            bool isHostingEnvironmet(ServiceDescriptor service) => service.ImplementationInstance is IConfiguration;
+            var hostingEnvironment = (IConfiguration)services.First(isHostingEnvironmet).ImplementationInstance;
            
             return hostingEnvironment;
         }

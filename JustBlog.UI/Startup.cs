@@ -91,7 +91,7 @@ namespace JustBlog.UI
 
             services.AddDbContext<JustBlogContext>(options =>
             {
-                options.UseSqlServer(blogConnectionString);
+                options.UseSqlite(blogConnectionString);
             });
 
             // identity management
@@ -101,8 +101,7 @@ namespace JustBlog.UI
                 {
                     blogConnectionString = Configuration.GetValue<string>(JUST_BLOG_CONNECTION_STRING);
                 }
-
-                options.UseSqlServer(blogConnectionString);
+                options.UseSqlite(blogConnectionString);
             });
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
