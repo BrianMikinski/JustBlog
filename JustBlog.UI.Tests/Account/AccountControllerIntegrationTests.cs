@@ -31,9 +31,6 @@ namespace JustBlog.UI.Tests
 
         private readonly string loginUrl = $"Authentication/{nameof(AuthenticationController.Login)}";
 
-        /// <summary>
-        /// Create the base test server that can be used to recieve requests
-        /// </summary>
         public AccountControllerIntegrationTests()
         {
             // This middleware stores all HTTP contexts created by the test server to be inspected by our tests.
@@ -51,8 +48,26 @@ namespace JustBlog.UI.Tests
             _testServer = new TestServer(webHostBuilder);
         }
 
+        /// <summary>
+        /// Create the base test server that can be used to recieve requests
+        /// </summary>
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            WebHostBuilderFactory.EnsureDatabaseAvailable();
+        }
+
+        /// <summary>
+        /// Clean up databases after tests have been run
+        /// </summary>
+        [ClassCleanup]
+        public static void TestCleanup()
+        {
+            WebHostBuilderFactory.CleanUpDatabases();
+        }
+
         [TestInitialize]
-        public async Task InitAccountController()
+        public async Task TestInitialize()
         {
             _browser = new TestServerBrowser(_testServer);
             _accountService = _browser.GetConfiguredService<IAccountService>();
