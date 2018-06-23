@@ -9,6 +9,10 @@
     "type": "git",
     "url": "https://brianmikinski.visualstudio.com/DefaultCollection/_git/JustBlog"
   },
+  "scripts": {
+    "test": "karma start .\\conf\\karma.conf.js",
+    "build": "webpack --config=webpack.config.js"
+  },
   "dependencies": {
     "@uirouter/angularjs": "^1.0.3",
     "@uirouter/visualizer": "^4.0.0",
@@ -42,10 +46,13 @@
     "@types/toastr": "^2.1.32",
     "clean-webpack-plugin": "^0.1.19",
     "event-stream": "^3.3.4",
+    "extract-loader": "^2.0.1",
+    "file-loader": "^1.1.11",
     "gulp": "^3.9.1",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-typescript": "^3.1.6",
     "gulp-util": "^3.0.8",
+    "html-loader": "^0.5.5",
     "jasmine": "^2.8.0",
     "jasmine-core": "^2.6.1",
     "jslint": "^0.10.3",

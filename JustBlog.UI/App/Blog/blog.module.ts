@@ -23,10 +23,13 @@ import * as tinyMCE from "tinymce";
  * Angular ui bootstrap and angular tiny mce doesn't have a a default export so we have to require it manually
  */ 
 require("angular-ui-bootstrap");
-let angularUIBootstrapModuleName: string = "ui.bootstrap";
+const angularUIBootstrapModuleName: string = "ui.bootstrap";
 
 require("angular-ui-tinymce");
-let tinyMCEModuleName: string = "ui.tinymce";
+const tinyMCEModuleName: string = "ui.tinymce";
+
+const moduleName: string = "app.blog";
+export default moduleName;
 
 /**
  * Class for setting up the admin module
@@ -36,7 +39,7 @@ export class BlogModule extends BaseModule {
     constructor() {
         super();
 
-        this.moduleName = "app.blog";
+        this.moduleName = moduleName;
         this.moduleDependencies = [ngAnimate, ngSantize, uirouter.default, angularUIBootstrapModuleName, tinyMCEModuleName ];
 
         this.app = angular.module(this.moduleName, this.moduleDependencies);
@@ -51,43 +54,43 @@ export class BlogModule extends BaseModule {
      */
     private uiStateConfig($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider): void {
 
-        let homeState: ng.ui.IState = {
+        const homeState: ng.ui.IState = {
             name: "home",
             component: HomeComponentName,
             url: "/home"
         };
 
-        let defaultState: ng.ui.IState = {
+        const defaultState: ng.ui.IState = {
             name: "default",
             component: HomeComponentName,
             url: "/"
         };
 
-        let postState: ng.ui.IState = {
+        const postState: ng.ui.IState = {
             name: "post",
             component: PostComponentName,
             url: "/post/{urlSlug:string}"
         };
 
-        let categoriesState: ng.ui.IState = {
+        const categoriesState: ng.ui.IState = {
             name: "categories",
             component: CategoryComponentName,
             url: "/categories"
         };
 
-        let addPostState: ng.ui.IState = {
+        const addPostState: ng.ui.IState = {
             name: "addPost",
             component: CreatePostComponentName,
             url: "/post/add"
         }
 
-        let editPostState: ng.ui.IState = {
+        const editPostState: ng.ui.IState = {
             name: "editpost",
             component: CreatePostComponentName,
             url: "/post/edit/{postId:string}"
         }
 
-        let aboutMeState: ng.ui.IState = {
+        const aboutMeState: ng.ui.IState = {
             name: "aboutme",
             url: "/aboutme",
             templateUrl: "Blog/AboutMe/aboutme.html"
@@ -223,8 +226,6 @@ export class BlogModule extends BaseModule {
 // export container for blog module. Used or initializing the module and
 // adding to an angular mock. This is necessary to use required
 let Blog: BlogModule = new BlogModule();
-
-export default Blog;
 
 Blog.AddFactory("blogService", blogFactory);
 

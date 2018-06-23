@@ -3,19 +3,19 @@ import { MetaData } from "Blog/MetaData/MetaData";
 import { Post } from "Blog/Post/Post";
 import { Tag } from "Blog/Tag/Tag";
 import { BlogController } from "Blog/blog.controller";
-import Blog from "Blog/blog.module"; // required by blog controller which is a part of the blog.module
+import { default as blogModule } from "Blog/blog.module";
 import { BlogService } from "Blog/blog.service";
 import { GridQuery } from "Core/Models/GridQuery";
-import Core, { CoreModule } from "Core/core.module"; // required by blog controller which is a part of the blog.module
+import {default as coreModule, CoreModule } from "Core/core.module"; // required by blog controller which is a part of the blog.module
 import { ICoreService } from "Core/core.service";
-import Notification from "Notification/notification.module"; // required by blog controller which is a part of the blog.module
+import {default as notificationModule } from "Notification/notification.module"; // required by blog controller which is a part of the blog.module
 import * as angular from "angular";
 
 /*
  * Mocking out the Blog Angular controller. Blog controller depends on
  * the notification and core modules, therefore they must be imported
  */
-describe(`Module "${Blog.Name()}: Blog Controller Mockup, dependencies to "${Notification.Name()}", "${Blog.Name()}" and "${Core.Name()}"`, function () {
+describe(`Module "${blogModule}: Blog Controller Mockup, dependencies to "${notificationModule}", "${blogModule}" and "${coreModule}"`, function () {
 
     // arrange
 

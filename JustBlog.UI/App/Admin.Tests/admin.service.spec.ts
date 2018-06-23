@@ -2,15 +2,15 @@
 import { IUser } from "Admin/Account/IUser";
 import { IHttpAdminRoutes } from "Admin/Interfaces/IHttpAdminRoutes";
 import { LoginModel } from "Admin/Login/LoginModel";
-import Admin, { AdminModule } from "Admin/admin.module";
+import { AdminModule, default as adminModule } from "Admin/admin.module";
 import { AdminService } from "Admin/admin.service";
 import { MetaData } from "Blog/MetaData/MetaData";
 import { AuthService } from "Core/auth.service";
-import Core from "Core/core.module";
-import Notification from "Notification/notification.module";
+import { default as coreModule } from "Core/core.module";
+import { default as notificationModule } from "Notification/notification.module";
 import * as angular from "angular";
 
-describe(`Module "${Admin.Name()}: Blog Controller Mockup, dependencies to "${Notification.Name()}", and "${Core.Name()}"`, function () {
+describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${notificationModule}", and "${coreModule}"`, function () {
 
     let $q: ng.IQService;
     let $httpBackend: ng.IHttpBackendService;

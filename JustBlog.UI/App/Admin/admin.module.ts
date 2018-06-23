@@ -21,7 +21,10 @@ import * as ngSantize from "angular-sanitize";
  * import. Therefore we just require it to make sure webpack defines it as a dependency
  */
 require("angular-ui-bootstrap");
-let angularUIBootstrapModule: string = "ui.bootstrap";
+const angularUIBootstrapModule: string = "ui.bootstrap";
+
+const moduleName: string = "app.admin";
+export default moduleName;
 
 /**
  * Class for setting up the admin module
@@ -31,7 +34,7 @@ export class AdminModule extends BaseModule {
     constructor() {
         super();
 
-        this.moduleName = "app.admin";
+        this.moduleName = moduleName;
         this.moduleDependencies = [ngAnimate, ngSantize, uirouter.default, angularUIBootstrapModule];
 
         this.app = angular.module(this.moduleName, this.moduleDependencies);
@@ -286,8 +289,6 @@ export class AdminModule extends BaseModule {
 
 // create the module
 let Admin:AdminModule = new AdminModule();
-
-export default Admin; // default export for module mocks
 
 Admin.AddFactory("adminService", adminFactory);
 

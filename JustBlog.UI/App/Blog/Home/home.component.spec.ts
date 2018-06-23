@@ -1,5 +1,5 @@
 ﻿import App from "app.module";
-import Blog from "Blog/blog.module";
+import { default as blogModule } from "Blog/blog.module";
 import { Post } from "Blog/Post/Post";
 import { BlogService } from "Blog/blog.service";
 import { ICoreService } from "Core/core.service";
@@ -9,7 +9,7 @@ import { CoreModule } from "Core/core.module";
 import { GridQuery } from "Core/Models/GridQuery";
 import * as angular from "Angular";
 
-describe(` ${Blog.Name()}: Home Component Tests - `, function () {
+describe(` ${blogModule}: Home Component Tests - `, function () {
 
     let $provide: ng.auto.IProvideService;
     let $rootScope: ng.IRootScopeService;

@@ -1,26 +1,21 @@
-﻿//import * as angular from "angular";
+﻿import * as uirouter from "@uirouter/angularjs";
 import { module } from 'angular';
-import { AdminModule } from './admin/admin.module';
-import { BlogModule } from './blog/blog.module';
-import { CoreModule } from './core/core.module';
-import { NotificationModule } from './notification/notification.module';
-import { LayoutModule } from './Layout/layout.module';
-
-let core = CoreModule;
-let admin = AdminModule;
-let blog = BlogModule;
-let notificaiton = NotificationModule;
-let layout = LayoutModule;
+import { default as adminModule } from './admin/admin.module';
+import { default as blogModule } from './blog/blog.module';
+import { default as coreModule } from './core/core.module';
+import { default as notificationModule } from './notification/notification.module';
+import { default as layoutModule } from './Layout/layout.module';
 
 let App: ng.IModule = module('app', [
 
-    "app.core",
-    "app.layout",
-    "app.notification",
+    uirouter.default,
+    coreModule,
+    layoutModule,
+    notificationModule,
 
     ///*Feature modules*/
-    "app.admin",
-    "app.blog"
+    adminModule,
+    blogModule
 ]);
 
 //App.run(function ( $uiRouter: ng.ui.IUrlRouterProvider) {

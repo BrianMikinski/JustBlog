@@ -12,12 +12,15 @@ import { AuthService } from "Core/auth.service";
 import { CoreService, ICoreService } from "Core/core.service";
 import * as angular from "angular";
 
+const moduleName: string = "app.core";
+export default moduleName;
+
 export class CoreModule extends BaseModule {
 
     constructor() {
         super();
 
-        this.moduleName = "app.core";
+        this.moduleName = moduleName;
         this.moduleDependencies = [uirouter.default];
 
         // must set our constants before passing them to the config controller
@@ -224,8 +227,6 @@ export class CoreModule extends BaseModule {
  * Module Setup - Instantiating all module services and controllers
  */
 let Core: CoreModule = new CoreModule();
-
-export default Core; // default export for mocking the module
 
 Core.AddFactory("coreService", coreService);
 

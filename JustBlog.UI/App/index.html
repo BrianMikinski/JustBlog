@@ -13,27 +13,11 @@
 </head>
 <body>
 
-    <!--Vendor-->
-    <!--<script src="vendor/scripts/jquery.min.js"></script>
-    <script src="vendor/scripts/tinymce.min.js"></script>
-    <script src="vendor/scripts/angular.min.js"></script>
-    <script src="vendor/scripts/angular-route.min.js"></script>
-    <script src="vendor/scripts/angular-animate.min.js"></script>
-    <script src="vendor/scripts/angular-sanitize.min.js"></script>
-    <script src="vendor/scripts/ui-bootstrap-tpls.js"></script>
-    <script src="vendor/scripts/bootstrap.min.js"></script>
-    <script src="vendor/scripts/toastr.min.js"></script>-->
-    <!--<script src="vendor/scripts/angularMCE/tinymce.min.js"></script>-->
-    <!--<script src="./bundle.js"></script>-->
-
     <script src="runtime~app.chunkhash.bundle.js"></script>
     <script src="vendors.chunkhash.bundle.js"></script>
     <script src="app.chunkhash.bundle.js"></script>
 
     <shell></shell>
-
-    <!--Module Loading the application-->
-    <!--<script data-main="main.js" src="vendor/scripts/require.js"></script>-->
 
     <script type="text/javascript">var appInsights = window.appInsights || function (config) { function i(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } } var t = { config: config }, u = document, e = window, o = "script", s = "AuthenticatedUserContext", h = "start", c = "stop", l = "Track", a = l + "Event", v = l + "Page", y = u.createElement(o), r, f; y.src = config.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js"; u.getElementsByTagName(o)[0].parentNode.appendChild(y); try { t.cookie = u.cookie } catch (p) { } for (t.queue = [], t.version = "1.0", r = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; r.length;)i("track" + r.pop()); return i("set" + s), i("clear" + s), i(h + a), i(c + a), i(h + v), i(c + v), i("flush"), config.disableExceptionTracking || (r = "onerror", i("_" + r), f = e[r], e[r] = function (config, i, u, e, o) { var s = f && f(config, i, u, e, o); return s !== !0 && t["_" + r](config, i, u, e, o), s }), t }({ instrumentationKey: "49a5fb91-bc34-45ea-95a9-3dfd13dfd66c" }); window.appInsights = appInsights; appInsights.trackPageView();</script>
 </body>
