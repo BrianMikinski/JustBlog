@@ -1,6 +1,6 @@
 ﻿import { IAuthEventConstants } from "Admin/Interfaces/IAuthEventConstants";
 import { AuthService } from "Core/auth.service";
-import * as angular from "Angular";
+import * as angular from "angular";
 
 
 interface IAuthorizationScope extends ng.IScope {

@@ -1,20 +1,32 @@
-﻿import { AuthService } from "Core/auth.service";
-import { BaseModule } from "Core/Models/BaseModule";
+﻿import * as uirouter from "@uirouter/angularjs";
+import { CategoryComponent, CategoryComponentName } from "Blog/Category/category.component";
+import { CategoriesGridComponent, CategoriesGridComponentName } from "Blog/Category/categoryGrid.component";
+import { HomeComponent, HomeComponentName } from "Blog/Home/home.component";
+import { CreatePostComponent, CreatePostComponentName } from "Blog/Post/createpost.component";
+import { PostComponent, PostComponentName } from "Blog/Post/post.component";
+import { PostsGridComponent, PostsGridComponentName } from "Blog/Post/postgrid.component";
+import { ProfileComponent, ProfileComponentName } from "Blog/Profile/profile.component";
+import { TagsGridComponent, TagsGridComponentName } from "Blog/Tag/tagsGrid.component";
 import { BlogController } from "Blog/blog.controller";
 import { BlogService } from "Blog/blog.service";
-import { CategoriesGridComponentName, CategoriesGridComponent } from "Blog/Category/categoryGrid.component";
-import { CategoryComponentName, CategoryComponent } from "Blog/Category/category.component";
-import { CreatePostComponentName, CreatePostComponent } from "Blog/Post/createpost.component";
-import { HomeComponentName, HomeComponent } from "Blog/Home/home.component";
 import { IActions } from "Core/Interfaces/IActions";
 import { IResources } from "Core/Interfaces/IResources";
 import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
-import { LoginComponentName } from "Admin/Login/login.component";
-import { PostComponentName, PostComponent } from "Blog/Post/post.component";
-import { PostsGridComponentName, PostsGridComponent } from "Blog/Post/postgrid.component";
-import { ProfileComponentName, ProfileComponent } from "Blog/Profile/profile.component";
-import { TagsGridComponentName, TagsGridComponent } from "Blog/Tag/tagsGrid.component";
-import * as angular from "Angular";
+import { BaseModule } from "Core/Models/BaseModule";
+import { AuthService } from "Core/auth.service";
+import * as angular from "angular";
+import * as ngAnimate from "angular-animate";
+import * as ngSantize from "angular-sanitize";
+import * as tinyMCE from "tinymce";
+
+/**
+ * Angular ui bootstrap and angular tiny mce doesn't have a a default export so we have to require it manually
+ */ 
+require("angular-ui-bootstrap");
+let angularUIBootstrapModuleName: string = "ui.bootstrap";
+
+require("angular-ui-tinymce");
+let tinyMCEModuleName: string = "ui.tinymce";
 
 /**
  * Class for setting up the admin module
@@ -25,7 +37,7 @@ export class BlogModule extends BaseModule {
         super();
 
         this.moduleName = "app.blog";
-        this.moduleDependencies = ["ngAnimate", "ui.bootstrap", "ngSanitize", "ui.tinymce", "ui.router"];
+        this.moduleDependencies = [ngAnimate, ngSantize, uirouter.default, angularUIBootstrapModuleName, tinyMCEModuleName ];
 
         this.app = angular.module(this.moduleName, this.moduleDependencies);
         this.app.config(this.uiStateConfig);

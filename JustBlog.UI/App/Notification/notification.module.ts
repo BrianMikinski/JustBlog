@@ -1,6 +1,6 @@
-﻿import {BaseModule} from "Core/Models/BaseModule";
+﻿import { BaseModule } from "Core/Models/BaseModule";
 import { NotificationFactory } from "Notification/notification.factory";
-import * as angular from "Angular";
+import * as angular from "angular";
 
 /**
  * Create a shell controller for our application

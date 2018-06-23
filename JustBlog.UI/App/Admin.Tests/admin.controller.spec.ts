@@ -1,13 +1,11 @@
 ﻿import { AdminController } from "Admin/admin.controller";
-import { AuthService } from "Core/auth.service";
-import { ICoreService, CoreService } from "Core/core.service";
-import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
 import Admin from "Admin/admin.module";
-import App from "app.module";
-import Core from "Core/core.module";
-import Notification from "Notification/notification.module";
 import { AdminService } from "Admin/admin.service";
-import * as angular from "Angular";
+import { AuthService } from "Core/auth.service";
+import Core from "Core/core.module";
+import { ICoreService } from "Core/core.service";
+import Notification from "Notification/notification.module";
+import * as angular from "angular";
 
 /*
  * Mocking out the Admin Angular controller. Admin controller depends on

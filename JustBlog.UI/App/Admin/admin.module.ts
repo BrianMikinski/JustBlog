@@ -1,18 +1,27 @@
-﻿import { AdminController } from "Admin/admin.controller";
-import { AdminService, } from "Admin/admin.service";
-import { AuthService } from "Core/auth.service";
-import { BaseModule } from "Core/Models/BaseModule";
-import { BlogState } from "Core/Models/BlogState";
-import { IActions } from "Core/Interfaces/IActions";
-import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
+﻿import * as uirouter from "@uirouter/angularjs";
 import { IAuthEventConstants } from "Admin/Interfaces/IAuthEventConstants";
 import { IHttpAdminRoutes } from "Admin/Interfaces/IHttpAdminRoutes";
-import { IHttpAuthRoutes } from "Core/Interfaces/IHttpAuthRoutes";
+import { LoginComponent, LoginComponentName } from "Admin/Login/login.component";
+import { RegisterUserComponent, RegisterUserComponentName } from "Admin/Register/registerUser.component";
+import { AdminController } from "Admin/admin.controller";
+import { AdminService } from "Admin/admin.service";
+import { IActions } from "Core/Interfaces/IActions";
+import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
 import { IResources } from "Core/Interfaces/IResources";
 import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
-import { LoginComponentName, LoginComponent } from "Admin/Login/login.component";
-import { RegisterUserComponent, RegisterUserComponentName } from "Admin/Register/registerUser.component";
-import * as angular from "Angular";
+import { BaseModule } from "Core/Models/BaseModule";
+import { BlogState } from "Core/Models/BlogState";
+import { AuthService } from "Core/auth.service";
+import * as angular from "angular";
+import * as ngAnimate from "angular-animate";
+import * as ngSantize from "angular-sanitize";
+
+/**
+ * Angular ui bootstrap does not define a default export so typescript elides the
+ * import. Therefore we just require it to make sure webpack defines it as a dependency
+ */
+require("angular-ui-bootstrap");
+let angularUIBootstrapModule: string = "ui.bootstrap";
 
 /**
  * Class for setting up the admin module
@@ -23,7 +32,7 @@ export class AdminModule extends BaseModule {
         super();
 
         this.moduleName = "app.admin";
-        this.moduleDependencies = ["ngRoute", "ngAnimate", "ui.bootstrap", "ngSanitize", "ui.router"];
+        this.moduleDependencies = [ngAnimate, ngSantize, uirouter.default, angularUIBootstrapModule];
 
         this.app = angular.module(this.moduleName, this.moduleDependencies);
         this.app.constant(this.adminRouteConstants, AdminModule.HttpAdminServiceRoutes());

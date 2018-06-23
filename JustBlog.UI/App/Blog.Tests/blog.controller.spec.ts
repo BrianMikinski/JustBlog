@@ -1,22 +1,15 @@
-﻿import { AuthService } from "Core/auth.service";
-import { AdminModule } from "Admin/admin.module";
-import { CoreModule } from "Core/core.module";
-import { BlogController } from "Blog/blog.controller";
-import { BlogModule } from "Blog/blog.module";
-import { BlogService } from "Blog/blog.service";
-import { Category } from "Blog/Category/Category";
-import { IBlogRouteParams } from "Blog/Interfaces/IBlogRouteParams";
-import { ICoreService, CoreService } from "Core/core.service";
-import { NotificationFactory } from "Notification/notification.factory";
-import { Post } from "Blog/Post/Post";
-import { GridQuery } from "Core/Models/GridQuery";
-import App from "app.module";
-import Blog from "Blog/blog.module"; // required by blog controller which is a part of the blog.module
-import Notification from "Notification/notification.module"; // required by blog controller which is a part of the blog.module
-import Core from "Core/core.module"; // required by blog controller which is a part of the blog.module
-import { Tag } from "Blog/Tag/Tag";
+﻿import { Category } from "Blog/Category/Category";
 import { MetaData } from "Blog/MetaData/MetaData";
-import * as angular from "Angular";
+import { Post } from "Blog/Post/Post";
+import { Tag } from "Blog/Tag/Tag";
+import { BlogController } from "Blog/blog.controller";
+import Blog from "Blog/blog.module"; // required by blog controller which is a part of the blog.module
+import { BlogService } from "Blog/blog.service";
+import { GridQuery } from "Core/Models/GridQuery";
+import Core, { CoreModule } from "Core/core.module"; // required by blog controller which is a part of the blog.module
+import { ICoreService } from "Core/core.service";
+import Notification from "Notification/notification.module"; // required by blog controller which is a part of the blog.module
+import * as angular from "angular";
 
 /*
  * Mocking out the Blog Angular controller. Blog controller depends on

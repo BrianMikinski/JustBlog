@@ -1,37 +1,67 @@
 ﻿'use strict';
 
-var path = require('path');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const path = require("path");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = {
-    entry: './App/app.module.ts',
-    mode: 'development',
+    mode: "development",
     devtool: "inline-source-map",
+    entry: {
+        app: "./App/app.module.ts",
+        vendors: [ "jquery",
+            "bootstrap",
+            "toastr",
+            "tinymce",
+            "angular",
+            "@uirouter/angularjs/release/angular-ui-router",
+            "angular-animate",
+            "angular-sanitize",
+            "@uirouter/visualizer",
+            "angular-ui-bootstrap",
+            "angular-ui-tinymce"]
+    },
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
-                loader: 'ts-loader',
+                loader: "ts-loader",
                 exclude: /node_modules/
             }
         ]
     },
     resolve: {
-        extensions: ['tsx','.ts', '.js'],
+        extensions: ["tsx", ".ts", ".js"],
         plugins: [
-            new CleanWebpackPlugin(['./dist']),
+            new CleanWebpackPlugin(["./dist"]),
             new TsconfigPathsPlugin(
                 {
                     baseUrl: "App",
                     configFile: "tsconfig.json"
-                }),
+                })
+            //new BundleAnalyzerPlugin()
         ]
     },
     output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, './wwwroot'),
-        sourceMapFilename: 'bundle.map'
+        sourceMapFilename: "bundle.map",
+        path: path.resolve(__dirname, "./wwwroot"),
+        filename: '[name].chunkhash.bundle.js',
+        chunkFilename: '[name].chunkhash.bundle.js',
+        publicPath: '/',
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    chunks: 'initial',
+                    name: 'vendors',
+                    test: 'vendors',
+                    enforce: true
+                },
+            }
+        },
+        runtimeChunk: true
     }
 }
 

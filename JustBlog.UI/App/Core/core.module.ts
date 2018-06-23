@@ -1,5 +1,5 @@
-﻿import { HookMatchCriteria, HookResult, Transition, TransitionHookFn, TransitionService } from "@uirouter/angularjs";
-import * as angular from "Angular";
+﻿import * as uirouter from "@uirouter/angularjs";
+import { HookMatchCriteria, HookResult, Transition, TransitionHookFn, TransitionService } from "@uirouter/angularjs";
 import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
 import { IHttpAuthRoutes } from "Core/Interfaces/IHttpAuthRoutes";
 import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
@@ -10,6 +10,7 @@ import { AuthorizationDirective } from "Core/auth.directive";
 import { AuthInterceptor, IAuthInterceptor } from "Core/auth.interceptor";
 import { AuthService } from "Core/auth.service";
 import { CoreService, ICoreService } from "Core/core.service";
+import * as angular from "angular";
 
 export class CoreModule extends BaseModule {
 
@@ -17,7 +18,7 @@ export class CoreModule extends BaseModule {
         super();
 
         this.moduleName = "app.core";
-        this.moduleDependencies = ["ui.router"];
+        this.moduleDependencies = [uirouter.default];
 
         // must set our constants before passing them to the config controller
         this.app = angular.module(this.moduleName, this.moduleDependencies);
@@ -246,6 +247,5 @@ Core.AddService("authInterceptor", authInterceptor);
 
 authInterceptor.$inject = ["$rootScope", "$q", "AUTHENTICATION_CONSTANTS"];
 function authInterceptor($rootScope: ng.IRootScopeService, $q: ng.IQService, AUTHENTICATION_CONSTANTS: IAuthenticationConstants): IAuthInterceptor {
-    "use strict";
     return new AuthInterceptor($rootScope, $q, AUTHENTICATION_CONSTANTS);
 }
