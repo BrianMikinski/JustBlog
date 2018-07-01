@@ -194,7 +194,7 @@ export class CoreModule extends BaseModule {
         try {
             $routeProvider
                 .when("/forbidden", {
-                    templateUrl: "core/forbidden.html",
+                    templateUrl: require("core/forbidden.html"),
                     caseInsensitiveMatch: true
                 })
         } catch (err) {

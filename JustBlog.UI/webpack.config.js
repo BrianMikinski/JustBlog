@@ -50,6 +50,17 @@ module.exports = {
                 ]
             },
             {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: "style-loader"
+                    },
+                    {
+                        loader: "css-loader"
+                    }
+                ]
+            },
+            {
                 test: /\.(jpg|gif|png)$/,
                 loader: "file-loader",
                 options: {
@@ -69,14 +80,7 @@ module.exports = {
                     baseUrl: "App",
                     configFile: "tsconfig.json"
                 })
-            //new BundleAnalyzerPlugin()
-        ],
-        //include: [
-        //    path.resolve(__dirname, "Content")
-        //]
-        //root: [
-        //    path.resolve('Content')
-        //]
+        ]
     },
     output: {
         sourceMapFilename: "bundle.map",

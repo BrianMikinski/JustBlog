@@ -336,11 +336,7 @@ gulp.task("build:compileTypeScriptTests", ["build:copyVendorScriptsTest"], funct
 /**
  * build All
  */
-gulp.task("build:All", ["build:copyVendorCSS",
-    "build:copyHTML",
-    "build:compileTypeScript",
-    "build:copyFonts",
-    "build:copyContent"], function () { });
+gulp.task("build:All", ["build:copyFonts", "build:copyContent"], function () { });
 
 /**
  * run test once and exit

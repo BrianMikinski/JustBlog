@@ -6,6 +6,11 @@ import { default as coreModule } from './core/core.module';
 import { default as notificationModule } from './notification/notification.module';
 import { default as layoutModule } from './Layout/layout.module';
 
+// include our CSS
+require("./index.html");
+require("./content/css/style.css");
+require("./content/css/ng-animate.css");
+
 let App: ng.IModule = module('app', [
 
     uirouter.default,

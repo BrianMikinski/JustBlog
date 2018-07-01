@@ -93,7 +93,7 @@ export class BlogModule extends BaseModule {
         const aboutMeState: ng.ui.IState = {
             name: "aboutme",
             url: "/aboutme",
-            templateUrl: "Blog/AboutMe/aboutme.html"
+            templateUrl: require("blog/aboutme/aboutme.html")
         }
 
         // order matters! Routes will not fall through unless specified
@@ -159,7 +159,7 @@ export class BlogModule extends BaseModule {
 
             $routeProvider
                 .when("/aboutme", {
-                    templateUrl: "blog/aboutme.html",
+                    templateUrl: "blog/aboutme/aboutme.html",
                     caseInsensitiveMatch: true,
                     controller: BlogController,
                     controllerAs: "vm"
@@ -184,7 +184,7 @@ export class BlogModule extends BaseModule {
                 .when("/post/create/:postId", createPostRoute)
                 .when("/post/edit/:postId", editPostRoute)
                 .when("/post/retrieve/:postId", {
-                    templateUrl: "blog/post/post.html",
+                    templateUrl: require("Blog/Post/post.html"),
                     caseInsensitiveMatch: true,
                     controller: BlogController,
                     controllerAs: "vm"
