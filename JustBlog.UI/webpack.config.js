@@ -42,9 +42,21 @@ module.exports = {
                         loader: "extract-loader"
                     },
                     {
-                        loader: "html-loader"
+                        loader: "html-loader",
+                        options: {
+                            attrs: ['img:src']
+                        }
                     }
                 ]
+            },
+            {
+                test: /\.(jpg|gif|png)$/,
+                loader: "file-loader",
+                options: {
+                    name: "[name].[ext]",
+                    outputPath: "img/",
+                    publicPath: "img/"
+                }
             }
         ]
     },
@@ -58,7 +70,13 @@ module.exports = {
                     configFile: "tsconfig.json"
                 })
             //new BundleAnalyzerPlugin()
-        ]
+        ],
+        //include: [
+        //    path.resolve(__dirname, "Content")
+        //]
+        //root: [
+        //    path.resolve('Content')
+        //]
     },
     output: {
         sourceMapFilename: "bundle.map",

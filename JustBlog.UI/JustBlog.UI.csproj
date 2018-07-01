@@ -8,6 +8,12 @@
     <ApplicationInsightsAnnotationResourceId>/subscriptions/9e26ce65-f50e-4cce-b040-fc81755a0e74/resourcegroups/JustBlog/providers/microsoft.insights/components/JustBlogDev</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="dist\**" />
+    <Content Remove="dist\**" />
+    <EmbeddedResource Remove="dist\**" />
+    <None Remove="dist\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="App\Admin\Register\IdentityError.ts" />
     <None Remove="App\Admin\Register\registerUser.component.spec.ts" />
   </ItemGroup>
