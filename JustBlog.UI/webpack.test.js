@@ -10,20 +10,6 @@ const outputDirectory = "./wwwrootTest";
 module.exports = {
     mode: "development",
     devtool: "inline-source-map",
-    entry: {
-        app: "./App/app.module.ts",
-        vendors: [ "jquery",
-            "bootstrap",
-            "toastr",
-            "tinymce",
-            "angular",
-            "@uirouter/angularjs/release/angular-ui-router",
-            "angular-animate",
-            "angular-sanitize",
-            "@uirouter/visualizer",
-            "angular-ui-bootstrap",
-            "angular-ui-tinymce"]
-    },
     module: {
         rules: [
             {

@@ -14,6 +14,7 @@
     <None Remove="dist\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="App\Admin\app.unitTest.ts" />
     <None Remove="App\Admin\Register\IdentityError.ts" />
     <None Remove="App\Admin\Register\registerUser.component.spec.ts" />
   </ItemGroup>
