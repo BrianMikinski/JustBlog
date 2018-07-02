@@ -11,7 +11,9 @@
   },
   "scripts": {
     "test": "karma start .\\conf\\karma.conf.js",
-    "build": "webpack --config=webpack.config.js"
+    "build:dev": "webpack --config=webpack.config.js --env dev --progress --profile --colors",
+    "build:prod": "webpack --config=webpack.config.js --env prod --progress --profile --colors",
+    "build:test": "webpack --config=webpack.config.js --env test --progress --profile --colors"
   },
   "dependencies": {
     "@uirouter/angularjs": "^1.0.3",
@@ -68,6 +70,7 @@
     "karma-ng-html2js-preprocessor": "1.0.0",
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-requirejs": "^1.1.0",
+    "karma-webpack": "^3.0.0",
     "protractor": "^5.1.1",
     "requirejs": "^2.3.3",
     "style-loader": "^0.21.0",
