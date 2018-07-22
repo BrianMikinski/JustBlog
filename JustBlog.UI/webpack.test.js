@@ -76,19 +76,6 @@ module.exports = {
         filename: '[name].chunkhash.bundle.js',
         chunkFilename: '[name].chunkhash.bundle.js',
         publicPath: '/',
-    },
-    optimization: {
-        splitChunks: {
-            cacheGroups: {
-                vendor: {
-                    chunks: 'initial',
-                    name: 'vendors',
-                    test: 'vendors',
-                    enforce: true
-                },
-            }
-        },
-        runtimeChunk: true
     }
 }
 

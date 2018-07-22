@@ -5,11 +5,11 @@
  */
 module.exports = function (config) {
     const configuration = {
-        basePath: "../wwwrootTest/", // this is the default path where you are able to find all spec files
+        basePath: "../App/", // this is the default path where you are able to find all spec files
         logLevel: "DEBUG", //use "DEBUG" for troubleshooting
         browserNoActivityTimeout: 10000,
 
-        plugins: [ "karma-phantomjs-launcher", 
+        plugins: ["karma-phantomjs-launcher", 
             "karma-jasmine",
             "karma-junit-reporter",
             "karma-coverage",
@@ -26,7 +26,9 @@ module.exports = function (config) {
         // You also must be certain to only include a file once - i.e.
         // you cannot load a module using requirejs as well as include
         // it using the pattern matcher or specifically specified.
-        files: [{ pattern: 'test/App/**/*.spec.ts', watched: false }],
+        files: ['./app/bundle.js',
+            //'../node_modules/angular-mocks/angular-mocks.js',
+            { pattern: '**/*.spec.ts', watched: false }],
           //  "runtime~app.chunkhash.bundle.js",
           //  "vendors.chunkhash.bundle.js",
           //"app.chunkhash.bundle.js",
@@ -80,7 +82,7 @@ module.exports = function (config) {
         webpackMiddleware: {
             // webpack-dev-middleware configuration
             // i. e.
-            stats: 'errors-only'
+            //stats: 'errors-only'
         },
 
         ngHtml2JsPreprocessor: {

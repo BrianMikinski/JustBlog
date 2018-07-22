@@ -7,7 +7,8 @@ import { RegistrationAttempt } from "Admin/Register/RegistrationAttempt";
 import { RegisterUserComponentName, RegisterUserController, RegisterUserComponent } from "Admin/Register/registerUser.component";
 import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
 import { IHttpHeadersGetter } from "angular";
-import * as angular from "Angular";
+import * as angular from "angular";
+import 'angular-mocks';
 
 describe(` ${adminModule}: Register New User Component Tests - `, function () {
 

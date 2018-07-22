@@ -6,6 +6,7 @@ import { default as coreModule } from "Core/core.module";
 import { ICoreService } from "Core/core.service";
 import { default as notificationModule } from "Notification/notification.module";
 import * as angular from "angular";
+import 'angular-mocks';
 
 /*
  * Mocking out the Admin Angular controller. Admin controller depends on

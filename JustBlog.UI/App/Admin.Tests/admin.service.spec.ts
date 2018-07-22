@@ -8,9 +8,15 @@ import { MetaData } from "Blog/MetaData/MetaData";
 import { AuthService } from "Core/auth.service";
 import { default as coreModule } from "Core/core.module";
 import { default as notificationModule } from "Notification/notification.module";
-import * as angular from "angular";
+import * as angular from 'angular'
+//import { IHttpBackendService} from "angular";
+import * as angularMocks from 'angular-mocks';
+//import { IAngularStatic.IMockService  } from 'angular-mocks';
+//import {  } from "angular-mocks";
 
 describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${notificationModule}", and "${coreModule}"`, function () {
+
+    var dependencies = angularMocks;
 
     let $q: ng.IQService;
     let $httpBackend: ng.IHttpBackendService;
