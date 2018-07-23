@@ -5,6 +5,10 @@ import { default as blogModule } from './blog/blog.module';
 import { default as coreModule } from './core/core.module';
 import { default as notificationModule } from './notification/notification.module';
 import { default as layoutModule } from './Layout/layout.module';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'toastr/build/toastr.min.css'
+import 'font-awesome/css/font-awesome.min.css';
+import 'angular-ui-bootstrap/dist/ui-bootstrap-csp.css';
 
 // include our CSS
 require("./index.html");

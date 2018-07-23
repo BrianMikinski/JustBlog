@@ -1,4 +1,6 @@
 ﻿/*
+ * Not currently being used but left in here in case we want to make it work at some point
+ *
  * Chutzpah test runner configuration file. This allows JavaScript unit tests to show up
  * in the Test Explorer.
  */
