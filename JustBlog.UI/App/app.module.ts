@@ -33,3 +33,8 @@ let App: ng.IModule = module('app', [
 
 // export the default app modules so that we can reference it in unit tests
 export default App;
+
+// hack for hot web pack hot module replacement
+if ((module as any).hot) {
+    (module as any).hot.accept()
+}

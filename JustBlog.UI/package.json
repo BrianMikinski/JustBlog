@@ -45,6 +45,8 @@
     "@types/requirejs": "^2.1.28",
     "@types/tinymce": "^4.5.1",
     "@types/toastr": "^2.1.32",
+    "@types/webpack-env": "^1.13.6",
+    "aspnet-webpack": "^3.0.0",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
     "event-stream": "^3.3.4",
@@ -76,6 +78,7 @@
     "webpack": "^4.16.1",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.0.6",
+    "webpack-hot-middleware": "^2.22.3",
     "yargs": "^10.0.3"
   }
 }
