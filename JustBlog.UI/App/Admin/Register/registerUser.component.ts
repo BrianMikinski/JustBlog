@@ -128,7 +128,7 @@ export class RegisterUserComponent extends ComponentBase {
         this.controllerAs = "$registerUserCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return "Admin/Register/register.html"
+            return require("Admin/Register/register.html");
         }];
     }
 }

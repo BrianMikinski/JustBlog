@@ -73,7 +73,7 @@ export class PostComponent extends ComponentBase {
         this.controllerAs = "$postCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return "Blog/Post/post.html"
+            return require("Blog/Post/post.html");
         }];
     }
 }

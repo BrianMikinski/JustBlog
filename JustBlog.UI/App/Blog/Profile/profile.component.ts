@@ -55,7 +55,7 @@ export class ProfileComponent extends ComponentBase { //implements ng.IComponent
         this.controllerAs = "$profileCtrl"
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes):string => {
-            return "Blog/Profile/profile.html"
+            return require("Blog/Profile/profile.html");
         }];
     }
 }
