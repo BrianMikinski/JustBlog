@@ -9,9 +9,9 @@
         * See compiler-options.html for full details
         */
     "baseUrl": "app",
-    "module": "amd",
+    "module": "es6",
     "sourceMap": true,
-    //"sourceRoot": "App", // Actual source files are in wwwroot/
+    "sourceRoot": "App", // Actual source files are in wwwroot/
     "inlineSources": true,
     "noImplicitAny": true,
     "emitDecoratorMetadata": true,
@@ -28,12 +28,19 @@
     "pretty": true,
     "diagnostics": false,
     "watch": false,
-    "outDir": "wwwroot/",
+    "outDir": "dist/",
     "skipLibCheck": true,
     "rootDir": "App",
     "paths": {
       "*": [
         "*"
+      ],
+      "typeRoots": [
+        "node_modules/@types"
+      ],
+      "lib": [
+        "es2017",
+        "dom"
       ]
     },
     /**

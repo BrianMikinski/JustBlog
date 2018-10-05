@@ -1,23 +1,27 @@
-﻿import { BaseModule } from "Core/Models/BaseModule";
+﻿import * as uirouter from "@uirouter/angularjs";
+import { HookMatchCriteria, HookResult, Transition, TransitionHookFn, TransitionService } from "@uirouter/angularjs";
 import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
-import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
-import { RouteAuthorizationError } from "Core/Models/RouteAuthorizationError";
-import { CoreService, ICoreService } from "Core/core.service";
-import { AuthService } from "Core/auth.service";
-import { IAuthInterceptor, AuthInterceptor } from "Core/auth.interceptor";
-import { AuthorizationDirective } from "Core/auth.directive";
 import { IHttpAuthRoutes } from "Core/Interfaces/IHttpAuthRoutes";
+import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
+import { BaseModule } from "Core/Models/BaseModule";
 import { BlogState } from "Core/Models/BlogState";
-import { TransitionService, TransitionHook, Transition, StateDeclaration } from "@uirouter/angularjs"
-import { RegisteredHook, TransitionHookOptions, TransitionHookFn, HookResult, HookMatchCriteria } from "@uirouter/core/lib";
+import { RouteAuthorizationError } from "Core/Models/RouteAuthorizationError";
+import { AuthorizationDirective } from "Core/auth.directive";
+import { AuthInterceptor, IAuthInterceptor } from "Core/auth.interceptor";
+import { AuthService } from "Core/auth.service";
+import { CoreService, ICoreService } from "Core/core.service";
+import * as angular from "angular";
+
+const moduleName: string = "app.core";
+export default moduleName;
 
 export class CoreModule extends BaseModule {
 
     constructor() {
         super();
 
-        this.moduleName = "app.core";
-        this.moduleDependencies = ["ngRoute", "ui.router"];
+        this.moduleName = moduleName;
+        this.moduleDependencies = [uirouter.default];
 
         // must set our constants before passing them to the config controller
         this.app = angular.module(this.moduleName, this.moduleDependencies);
@@ -190,7 +194,7 @@ export class CoreModule extends BaseModule {
         try {
             $routeProvider
                 .when("/forbidden", {
-                    templateUrl: "core/forbidden.html",
+                    templateUrl: require("core/forbidden.html"),
                     caseInsensitiveMatch: true
                 })
         } catch (err) {
@@ -224,8 +228,6 @@ export class CoreModule extends BaseModule {
  */
 let Core: CoreModule = new CoreModule();
 
-export default Core; // default export for mocking the module
-
 Core.AddFactory("coreService", coreService);
 
 coreService.$inject = ["$http"];
@@ -246,6 +248,5 @@ Core.AddService("authInterceptor", authInterceptor);
 
 authInterceptor.$inject = ["$rootScope", "$q", "AUTHENTICATION_CONSTANTS"];
 function authInterceptor($rootScope: ng.IRootScopeService, $q: ng.IQService, AUTHENTICATION_CONSTANTS: IAuthenticationConstants): IAuthInterceptor {
-    "use strict";
     return new AuthInterceptor($rootScope, $q, AUTHENTICATION_CONSTANTS);
 }

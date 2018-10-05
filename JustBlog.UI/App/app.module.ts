@@ -1,34 +1,30 @@
-﻿/**
- * Main module for the JustBlog angular application
- * 
- * @author Brian Mikinski - TomMikinley on GitHub
- * @version 1.0
- * @see README.md for more information on building, testing and the project in general
- */
-import {CoreModule} from './Core/core.module';
-import {AdminModule} from './Admin/admin.module';
-import {BlogModule} from './Blog/blog.module';
-import {LayoutModule} from './Layout/layout.module';
-import {NotificationModule} from './Notification/notification.module';
+﻿import * as uirouter from "@uirouter/angularjs";
+import { module } from 'angular';
+import { default as adminModule } from './admin/admin.module';
+import { default as blogModule } from './blog/blog.module';
+import { default as coreModule } from './core/core.module';
+import { default as notificationModule } from './notification/notification.module';
+import { default as layoutModule } from './Layout/layout.module';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'toastr/build/toastr.min.css'
+import 'font-awesome/css/font-awesome.min.css';
+import 'angular-ui-bootstrap/dist/ui-bootstrap-csp.css';
 
-// hackish fix for getting around global module definitions
-// local module definitions
-import * as __angular from "../node_modules/@types/angular";
+// include our CSS
+require("./index.html");
+require("./content/css/style.css");
+require("./content/css/ng-animate.css");
 
-declare global {
-    const angular: typeof __angular;
-}
+let App: ng.IModule = module('app', [
 
-let App:ng.IModule = angular.module('app', [
+    uirouter.default,
+    coreModule,
+    layoutModule,
+    notificationModule,
 
-        /*Main modules*/
-        "app.core",
-        "app.layout",
-        "app.notification",
-
-        ///*Feature modules*/
-        "app.admin",
-        "app.blog"
+    ///*Feature modules*/
+    adminModule,
+    blogModule
 ]);
 
 //App.run(function ( $uiRouter: ng.ui.IUrlRouterProvider) {
@@ -37,3 +33,8 @@ let App:ng.IModule = angular.module('app', [
 
 // export the default app modules so that we can reference it in unit tests
 export default App;
+
+// hack for hot web pack hot module replacement
+if ((module as any).hot) {
+    (module as any).hot.accept()
+}

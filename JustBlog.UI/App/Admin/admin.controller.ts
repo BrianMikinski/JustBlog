@@ -1,20 +1,15 @@
-﻿import { AdminService } from "Admin/admin.service";
-import { ApplicationUser } from "Admin/Account/ApplicationUser";
-import { AuthService } from "Core/auth.service";
-import { BaseController } from "Core/Models/BaseController";
-import { ChangePasswordViewModel } from "Admin/Account/ChangePasswordViewModel";
-import { GridQuery } from "Core/Models/GridQuery";
+﻿import { ChangePasswordViewModel } from "Admin/Account/ChangePasswordViewModel";
 import { IChangePasswordViewModel } from "Admin/Account/IChangePasswordViewModel";
-import { ICoreService } from "Core/core.service";
 import { ILoginUpdate } from "Admin/Account/ILoginUpdate";
 import { IUser } from "Admin/Account/IUser";
-import { LoginModel } from "Admin/Login/LoginModel";
-import { NotificationFactory } from "Notification/notification.factory";
-import { Post } from "Blog/Post/Post";
-import { RegistrationAttempt } from "Admin/Register/RegistrationAttempt";
-import { RegistrationUser } from "Admin/Register/RegistrationUser";
 import { ResetPasswordModel } from "Admin/Account/ResetPasswordModel";
-import { SignInStatusEnum } from "Admin/Login/SignInStatusEnum";
+import { AdminService } from "Admin/admin.service";
+import { Post } from "Blog/Post/Post";
+import { BaseController } from "Core/Models/BaseController";
+import { GridQuery } from "Core/Models/GridQuery";
+import { AuthService } from "Core/auth.service";
+import { ICoreService } from "Core/core.service";
+import { NotificationFactory } from "Notification/notification.factory";
 
 /**
  * admin controller used for controlling and defining all admin portions of the application
@@ -36,8 +31,7 @@ export class AdminController extends BaseController {
     BirthDateFormatOptions: Array<string> = ["dd-MMMM-yyyy", "yyyy/MM/dd", "dd.MM.yyyy", "shortDate"];
     BirthDateFormat: string = this.BirthDateFormatOptions[0];
 
-    static $inject = ["coreService", "authService", "adminService",
-        "notificationFactory", "$route", "$location", "$sce", "$window"];
+    static $inject = ["coreService", "authService", "adminService", "notificationFactory", "$route", "$location", "$sce", "$window"];
     constructor(private coreService: ICoreService,
         private _authService: AuthService,
         private _adminService: AdminService,
