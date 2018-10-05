@@ -59,7 +59,7 @@ export class TagsGridComponent extends ComponentBase {
         this.controllerAs = "$tagsGridCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return "Blog/tag/tagsGrid.html"
+            return require("Blog/tag/tagsGrid.html");
         }];
     }
 }

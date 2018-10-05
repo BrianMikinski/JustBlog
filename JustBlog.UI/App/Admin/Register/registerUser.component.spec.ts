@@ -1,5 +1,5 @@
 ﻿import App from "app.module";
-import Admin from "Admin/admin.module";
+import { default as adminModule } from "Admin/admin.module";
 import { CoreModule } from "Core/core.module";
 import { RegistrationUser } from "Admin/Register/RegistrationUser";
 import { AdminService } from "Admin/admin.service";
@@ -7,8 +7,10 @@ import { RegistrationAttempt } from "Admin/Register/RegistrationAttempt";
 import { RegisterUserComponentName, RegisterUserController, RegisterUserComponent } from "Admin/Register/registerUser.component";
 import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
 import { IHttpHeadersGetter } from "angular";
+import * as angular from "angular";
+import 'angular-mocks';
 
-describe(` ${Admin.Name()}: Register New User Component Tests - `, function () {
+describe(` ${adminModule}: Register New User Component Tests - `, function () {
 
     // angular service mocks
     let $provide: ng.auto.IProvideService;

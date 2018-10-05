@@ -99,7 +99,7 @@ export class PostsGridComponent extends ComponentBase {
         this.controllerAs = "$postsGridCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return "Blog/Post/postsGrid.html"
+            return require("Blog/Post/postsGrid.html");
         }];
     }
 }

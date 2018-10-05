@@ -1,19 +1,35 @@
-﻿import { AuthService } from "Core/auth.service";
-import { BaseModule } from "Core/Models/BaseModule";
+﻿import * as uirouter from "@uirouter/angularjs";
+import { CategoryComponent, CategoryComponentName } from "Blog/Category/category.component";
+import { CategoriesGridComponent, CategoriesGridComponentName } from "Blog/Category/categoryGrid.component";
+import { HomeComponent, HomeComponentName } from "Blog/Home/home.component";
+import { CreatePostComponent, CreatePostComponentName } from "Blog/Post/createpost.component";
+import { PostComponent, PostComponentName } from "Blog/Post/post.component";
+import { PostsGridComponent, PostsGridComponentName } from "Blog/Post/postgrid.component";
+import { ProfileComponent, ProfileComponentName } from "Blog/Profile/profile.component";
+import { TagsGridComponent, TagsGridComponentName } from "Blog/Tag/tagsGrid.component";
 import { BlogController } from "Blog/blog.controller";
 import { BlogService } from "Blog/blog.service";
-import { CategoriesGridComponentName, CategoriesGridComponent } from "Blog/Category/categoryGrid.component";
-import { CategoryComponentName, CategoryComponent } from "Blog/Category/category.component";
-import { CreatePostComponentName, CreatePostComponent } from "Blog/Post/createpost.component";
-import { HomeComponentName, HomeComponent } from "Blog/Home/home.component";
 import { IActions } from "Core/Interfaces/IActions";
 import { IResources } from "Core/Interfaces/IResources";
 import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
-import { LoginComponentName } from "Admin/Login/login.component";
-import { PostComponentName, PostComponent } from "Blog/Post/post.component";
-import { PostsGridComponentName, PostsGridComponent } from "Blog/Post/postgrid.component";
-import { ProfileComponentName, ProfileComponent } from "Blog/Profile/profile.component";
-import { TagsGridComponentName, TagsGridComponent } from "Blog/Tag/tagsGrid.component";
+import { BaseModule } from "Core/Models/BaseModule";
+import { AuthService } from "Core/auth.service";
+import * as angular from "angular";
+import * as ngAnimate from "angular-animate";
+import * as ngSantize from "angular-sanitize";
+import * as tinyMCE from "tinymce";
+
+/**
+ * Angular ui bootstrap and angular tiny mce doesn't have a a default export so we have to require it manually
+ */ 
+require("angular-ui-bootstrap");
+const angularUIBootstrapModuleName: string = "ui.bootstrap";
+
+require("angular-ui-tinymce");
+const tinyMCEModuleName: string = "ui.tinymce";
+
+const moduleName: string = "app.blog";
+export default moduleName;
 
 /**
  * Class for setting up the admin module
@@ -23,8 +39,8 @@ export class BlogModule extends BaseModule {
     constructor() {
         super();
 
-        this.moduleName = "app.blog";
-        this.moduleDependencies = ["ngAnimate", "ui.bootstrap", "ngSanitize", "ui.tinymce", "ui.router"];
+        this.moduleName = moduleName;
+        this.moduleDependencies = [ngAnimate, ngSantize, uirouter.default, angularUIBootstrapModuleName, tinyMCEModuleName ];
 
         this.app = angular.module(this.moduleName, this.moduleDependencies);
         this.app.config(this.uiStateConfig);
@@ -38,46 +54,46 @@ export class BlogModule extends BaseModule {
      */
     private uiStateConfig($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider): void {
 
-        let homeState: ng.ui.IState = {
+        const homeState: ng.ui.IState = {
             name: "home",
             component: HomeComponentName,
             url: "/home"
         };
 
-        let defaultState: ng.ui.IState = {
+        const defaultState: ng.ui.IState = {
             name: "default",
             component: HomeComponentName,
             url: "/"
         };
 
-        let postState: ng.ui.IState = {
+        const postState: ng.ui.IState = {
             name: "post",
             component: PostComponentName,
             url: "/post/{urlSlug:string}"
         };
 
-        let categoriesState: ng.ui.IState = {
+        const categoriesState: ng.ui.IState = {
             name: "categories",
             component: CategoryComponentName,
             url: "/categories"
         };
 
-        let addPostState: ng.ui.IState = {
+        const addPostState: ng.ui.IState = {
             name: "addPost",
             component: CreatePostComponentName,
             url: "/post/add"
         }
 
-        let editPostState: ng.ui.IState = {
+        const editPostState: ng.ui.IState = {
             name: "editpost",
             component: CreatePostComponentName,
             url: "/post/edit/{postId:string}"
         }
 
-        let aboutMeState: ng.ui.IState = {
+        const aboutMeState: ng.ui.IState = {
             name: "aboutme",
             url: "/aboutme",
-            templateUrl: "Blog/AboutMe/aboutme.html"
+            templateUrl: require("blog/aboutme/aboutme.html")
         }
 
         // order matters! Routes will not fall through unless specified
@@ -143,7 +159,7 @@ export class BlogModule extends BaseModule {
 
             $routeProvider
                 .when("/aboutme", {
-                    templateUrl: "blog/aboutme.html",
+                    templateUrl: "blog/aboutme/aboutme.html",
                     caseInsensitiveMatch: true,
                     controller: BlogController,
                     controllerAs: "vm"
@@ -168,7 +184,7 @@ export class BlogModule extends BaseModule {
                 .when("/post/create/:postId", createPostRoute)
                 .when("/post/edit/:postId", editPostRoute)
                 .when("/post/retrieve/:postId", {
-                    templateUrl: "blog/post/post.html",
+                    templateUrl: require("Blog/Post/post.html"),
                     caseInsensitiveMatch: true,
                     controller: BlogController,
                     controllerAs: "vm"
@@ -210,8 +226,6 @@ export class BlogModule extends BaseModule {
 // export container for blog module. Used or initializing the module and
 // adding to an angular mock. This is necessary to use required
 let Blog: BlogModule = new BlogModule();
-
-export default Blog;
 
 Blog.AddFactory("blogService", blogFactory);
 

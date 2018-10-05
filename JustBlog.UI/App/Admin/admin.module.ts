@@ -1,17 +1,30 @@
-﻿import { AdminController } from "Admin/admin.controller";
-import { AdminService, } from "Admin/admin.service";
-import { AuthService } from "Core/auth.service";
-import { BaseModule } from "Core/Models/BaseModule";
-import { BlogState } from "Core/Models/BlogState";
-import { IActions } from "Core/Interfaces/IActions";
-import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
+﻿import * as uirouter from "@uirouter/angularjs";
 import { IAuthEventConstants } from "Admin/Interfaces/IAuthEventConstants";
 import { IHttpAdminRoutes } from "Admin/Interfaces/IHttpAdminRoutes";
-import { IHttpAuthRoutes } from "Core/Interfaces/IHttpAuthRoutes";
+import { LoginComponent, LoginComponentName } from "Admin/Login/login.component";
+import { RegisterUserComponent, RegisterUserComponentName } from "Admin/Register/registerUser.component";
+import { AdminController } from "Admin/admin.controller";
+import { AdminService } from "Admin/admin.service";
+import { IActions } from "Core/Interfaces/IActions";
+import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
 import { IResources } from "Core/Interfaces/IResources";
 import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
-import { LoginComponentName, LoginComponent } from "Admin/Login/login.component";
-import { RegisterUserComponent, RegisterUserComponentName } from "Admin/Register/registerUser.component";
+import { BaseModule } from "Core/Models/BaseModule";
+import { BlogState } from "Core/Models/BlogState";
+import { AuthService } from "Core/auth.service";
+import * as angular from "angular";
+import * as ngAnimate from "angular-animate";
+import * as ngSantize from "angular-sanitize";
+
+/**
+ * Angular ui bootstrap does not define a default export so typescript elides the
+ * import. Therefore we just require it to make sure webpack defines it as a dependency
+ */
+require("angular-ui-bootstrap");
+const angularUIBootstrapModule: string = "ui.bootstrap";
+
+const moduleName: string = "app.admin";
+export default moduleName;
 
 /**
  * Class for setting up the admin module
@@ -21,8 +34,8 @@ export class AdminModule extends BaseModule {
     constructor() {
         super();
 
-        this.moduleName = "app.admin";
-        this.moduleDependencies = ["ngRoute", "ngAnimate", "ui.bootstrap", "ngSanitize", "ui.router"];
+        this.moduleName = moduleName;
+        this.moduleDependencies = [ngAnimate, ngSantize, uirouter.default, angularUIBootstrapModule];
 
         this.app = angular.module(this.moduleName, this.moduleDependencies);
         this.app.constant(this.adminRouteConstants, AdminModule.HttpAdminServiceRoutes());
@@ -55,7 +68,7 @@ export class AdminModule extends BaseModule {
         };
 
         let manageContentState: BlogState = {
-            templateUrl: "admin/manageContent.html",
+            templateUrl: require("admin/manageContent.html"),
             controller: AdminController,
             controllerAs: "vm",
             authorize: true,
@@ -83,7 +96,7 @@ export class AdminModule extends BaseModule {
 
             // custom routes with security
             let logoffRoute: IRouteBlog = {
-                templateUrl: "admin/login/logoff.html",
+                templateUrl: require("admin/login/logoff.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -94,7 +107,7 @@ export class AdminModule extends BaseModule {
             };
 
             let manageBlogRoute: IRouteBlog = {
-                templateUrl: "admin/manageContent.html",
+                templateUrl: require("admin/manageContent.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -105,7 +118,7 @@ export class AdminModule extends BaseModule {
             };
 
             let accountsRoute: IRouteBlog = {
-                templateUrl: "admin/account/accounts.html",
+                templateUrl: require("admin/account/accounts.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -116,7 +129,7 @@ export class AdminModule extends BaseModule {
             };
 
             let myAccountRoute: IRouteBlog = {
-                templateUrl: "admin/account/myAccount.html",
+                templateUrl: require("admin/account/myAccount.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -127,7 +140,7 @@ export class AdminModule extends BaseModule {
             };
 
             let accountUpdate: IRouteBlog = {
-                templateUrl: "admin/account/update.html",
+                templateUrl: require("admin/account/update.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -138,7 +151,7 @@ export class AdminModule extends BaseModule {
             };
 
             let passwordUpdateRoute: IRouteBlog = {
-                templateUrl: "Admin/account/passwordUpdate.html",
+                templateUrl: require("Admin/account/passwordUpdate.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -149,7 +162,7 @@ export class AdminModule extends BaseModule {
             };
 
             let confirmPasswordUpdateRoute: IRouteBlog = {
-                templateUrl: "account/passwordUpdateConfirmation.html",
+                templateUrl: require("admin/account/passwordUpdateConfirmation.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -160,7 +173,7 @@ export class AdminModule extends BaseModule {
             };
 
             let passwordResetRoute: IRouteBlog = {
-                templateUrl: "admin/account/passwordReset.html",
+                templateUrl: require("admin/account/passwordReset.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -171,7 +184,7 @@ export class AdminModule extends BaseModule {
             };
 
             let passwordResetConfirmationRoute: IRouteBlog = {
-                templateUrl: "admin/Account/passwordResetConfirmation.html",
+                templateUrl: require("admin/Account/passwordResetConfirmation.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -182,7 +195,7 @@ export class AdminModule extends BaseModule {
             };
 
             let loginUpdateRoute: IRouteBlog = {
-                templateUrl: "admin/login/loginUpdate.html",
+                templateUrl: require("admin/login/loginUpdate.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -193,7 +206,7 @@ export class AdminModule extends BaseModule {
             };
 
             let loginUpdateConfirmationRoute: IRouteBlog = {
-                templateUrl: "admin/login/loginUpdateConfirmation.html",
+                templateUrl: require("admin/login/loginUpdateConfirmation.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -204,12 +217,6 @@ export class AdminModule extends BaseModule {
             };
 
             $routeProvider
-                //.when("/register", {
-                //    templateUrl: "admin/account/register.html",
-                //    caseInsensitiveMatch: true,
-                //    controller: AdminController,
-                //    controllerAs: "vm"
-                //})
                 .when("/logoff", logoffRoute)
                 .when("/manageContent", manageBlogRoute)
                 .when("/accounts", accountsRoute)
@@ -276,8 +283,6 @@ export class AdminModule extends BaseModule {
 
 // create the module
 let Admin:AdminModule = new AdminModule();
-
-export default Admin; // default export for module mocks
 
 Admin.AddFactory("adminService", adminFactory);
 
