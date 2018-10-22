@@ -29,10 +29,10 @@ export class NavBarComponent extends ComponentBase {
         this.bindings = { }
 
         this.controller = NavBarComponentController;
-        this.controllerAs = "$navBarCtrl"
+        this.controllerAs = "$navBarCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes):string => {
-            return "Layout/NavBar/navbar.html"
+            return require("Layout/NavBar/navbar.html");
         }];
     }
 }

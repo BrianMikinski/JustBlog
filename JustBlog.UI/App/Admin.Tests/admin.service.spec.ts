@@ -1,18 +1,18 @@
-﻿import { AdminService } from "Admin/admin.service";
-import { AuthService } from "Core/auth.service";
-import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
-import { ICoreService, CoreService } from "Core/core.service";
-import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
+﻿import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
 import { IUser } from "Admin/Account/IUser";
-import { LoginModel } from "Admin/Login/LoginModel";
-import { MetaData } from "Blog/MetaData/MetaData";
-import Admin, { AdminModule } from "Admin/admin.module";
-import App from "app.module";
-import Core, { CoreModule } from "Core/core.module";
-import Notification from "Notification/notification.module";
 import { IHttpAdminRoutes } from "Admin/Interfaces/IHttpAdminRoutes";
+import { LoginModel } from "Admin/Login/LoginModel";
+import { AdminModule, default as adminModule } from "Admin/admin.module";
+import { AdminService } from "Admin/admin.service";
+import { MetaData } from "Blog/MetaData/MetaData";
+import { AuthService } from "Core/auth.service";
+import { default as coreModule } from "Core/core.module";
+import { default as notificationModule } from "Notification/notification.module";
+import * as angular from 'angular'
+import * as angularMocks from'angular-mocks';
+require('angular-mocks');
 
-describe(`Module "${Admin.Name()}: Blog Controller Mockup, dependencies to "${Notification.Name()}", and "${Core.Name()}"`, function () {
+describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${notificationModule}", and "${coreModule}"`, function () {
 
     let $q: ng.IQService;
     let $httpBackend: ng.IHttpBackendService;

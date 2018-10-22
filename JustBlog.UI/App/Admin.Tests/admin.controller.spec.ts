@@ -1,18 +1,18 @@
 ﻿import { AdminController } from "Admin/admin.controller";
-import { AuthService } from "Core/auth.service";
-import { ICoreService, CoreService } from "Core/core.service";
-import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
-import Admin from "Admin/admin.module";
-import App from "app.module";
-import Core from "Core/core.module";
-import Notification from "Notification/notification.module";
+import { default as adminModule } from "Admin/admin.module";
 import { AdminService } from "Admin/admin.service";
+import { AuthService } from "Core/auth.service";
+import { default as coreModule } from "Core/core.module";
+import { ICoreService } from "Core/core.service";
+import { default as notificationModule } from "Notification/notification.module";
+import * as angular from "angular";
+import 'angular-mocks';
 
 /*
  * Mocking out the Admin Angular controller. Admin controller depends on
  * the notification and core modules, therefore they must be imported
  */
-describe(`Module "${Admin.Name()}: Admin Controller Mockup, dependencies to "${Notification.Name()}", and "${Core.Name()}"`, function () {
+describe(`Module "${adminModule}: Admin Controller Mockup, dependencies to "${notificationModule}", and "${coreModule}"`, function () {
 
     // arrange
 

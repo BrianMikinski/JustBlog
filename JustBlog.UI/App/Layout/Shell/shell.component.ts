@@ -32,7 +32,7 @@ export class ShellComponent extends ComponentBase {
         this.controllerAs = "$shellCtrl"
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes):string => {
-            return "Layout/Shell/shell.html"
+            return require("Layout/Shell/shell.html");
         }];
     }
 }
