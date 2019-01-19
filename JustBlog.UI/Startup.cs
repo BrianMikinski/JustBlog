@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,6 +50,9 @@ namespace JustBlog.UI
             Environment = environment;
 
             string secretKey = Configuration.GetValue<string>(SECRET_KEY_STRING);
+
+            secretKey = "hello world";
+
             _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
         }
 
@@ -82,6 +86,8 @@ namespace JustBlog.UI
             services.AddTransient<IJwtFactory, JwtFactory>();
 
             var blogConnectionString = Configuration.GetSection(DATABASE_APP_SETTINGS).GetValue<string>(JUST_BLOG_CONNECTION_STRING);
+
+            blogConnectionString = "Filename =./justblog.sqlite";
 
             if (string.IsNullOrEmpty(blogConnectionString))
             {
@@ -170,6 +176,11 @@ namespace JustBlog.UI
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions() {
+                    HotModuleReplacement = true,
+                    ConfigFile = "./webpack.config.js"
+                });
             }
             else
             {

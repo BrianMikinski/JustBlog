@@ -1,5 +1,9 @@
-﻿import {BaseModule} from "Core/Models/BaseModule";
-import {NotificationFactory} from "Notification/notification.factory";
+﻿import { BaseModule } from "Core/Models/BaseModule";
+import { NotificationFactory } from "Notification/notification.factory";
+import * as angular from "angular";
+
+const moduleName: string = 'app.notification';
+export default moduleName;
 
 /**
  * Create a shell controller for our application
@@ -9,7 +13,7 @@ export class NotificationModule extends BaseModule {
     constructor() {
         super();
 
-        this.moduleName = 'app.notification';
+        this.moduleName = moduleName;
         this.moduleDependencies = [];
 
         this.app = angular.module(this.moduleName, this.moduleDependencies);
@@ -18,7 +22,6 @@ export class NotificationModule extends BaseModule {
 
 // set default export for adding to mocks
 let Notification = new NotificationModule();
-export default Notification;
 
 
 function notificationFactory() {

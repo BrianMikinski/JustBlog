@@ -111,7 +111,7 @@ export class HomeComponent extends ComponentBase { //implements ng.IComponentOpt
         this.controllerAs = "homeCtrl"
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return "Blog/Home/home.html"
+            return require("Blog/Home/home.html");
         }];
     }
 }
