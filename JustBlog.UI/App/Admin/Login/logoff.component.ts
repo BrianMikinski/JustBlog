@@ -1,9 +1,7 @@
 ﻿import { AdminService } from "Admin/admin.service";
 import { AuthService } from "Core/auth.service";
-import { BaseController } from "Core/Models/BaseController";
 import { ComponentBase } from "Core/component.base";
-import { ICoreService } from "Core/core.service";
-import { LoginModel } from "Admin/Login/LoginModel";
+import { BaseController } from "Core/Models/BaseController";
 import { NotificationFactory } from "Notification/notification.factory";
 
 export const LogoffComponentName: string = "logoff";

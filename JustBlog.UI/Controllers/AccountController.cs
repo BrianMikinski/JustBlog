@@ -3,6 +3,7 @@ using JustBlog.IdentityManagement.Passwords;
 using JustBlog.IdentityManagement.Register;
 using JustBlog.IdentityManagement.Services;
 using JustBlog.UI.Filters;
+using JustBlog.UI.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -70,8 +71,6 @@ namespace JustBlog.UI.Controllers
             if (ModelState.IsValid)
             {
                 result = await _accountService.Register(model, "http");
-
-               
             }
 
             return new RegistrationAttempt(model, result.Succeeded, result.Errors);
@@ -88,7 +87,7 @@ namespace JustBlog.UI.Controllers
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                throw new ApplicationException($"Unable to load user with ID '{userId}'.");
+                throw new AccountException($"Unable to load user with ID '{userId}'.");
             }
             var result = await _userManager.ConfirmEmailAsync(user, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
@@ -141,7 +140,7 @@ namespace JustBlog.UI.Controllers
         {
             if (code == null)
             {
-                throw new ApplicationException("A code must be supplied for password reset.");
+                throw new AccountException("A code must be supplied for password reset.");
             }
             var model = new ResetPasswordViewModel { Code = code };
             return View(model);

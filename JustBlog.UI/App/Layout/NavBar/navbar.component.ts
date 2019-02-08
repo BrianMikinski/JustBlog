@@ -1,8 +1,5 @@
 ﻿import { BaseController } from "Core/Models/BaseController";
 import { ComponentBase } from "Core/component.base";
-import { ICoreService } from "Core/core.service";
-import { Post } from "Blog/Post/Post";
-import { MetaData } from "Blog/MetaData/MetaData";
 
 export const NavBarComponentName: string = "navbar";
 
@@ -10,12 +7,21 @@ export const NavBarComponentName: string = "navbar";
  * Controller for the Navigation Bar
  */
 class NavBarComponentController extends BaseController implements ng.IController {
-   
+
+    isOpen: boolean = false;
+
     constructor(public $sce: ng.ISCEService) {
         super($sce);
     }
 
-    $onInit?(): void { }
+    $onInit?(): void {
+        
+    }
+
+    toggle() {
+        this.isOpen = !this.isOpen;
+    }
+
 }
 
 /**
@@ -26,12 +32,12 @@ export class NavBarComponent extends ComponentBase {
     constructor() {
         super();
 
-        this.bindings = { }
+        this.bindings = {}
 
         this.controller = NavBarComponentController;
         this.controllerAs = "$navBarCtrl";
 
-        this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes):string => {
+        this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
             return require("Layout/NavBar/navbar.html");
         }];
     }

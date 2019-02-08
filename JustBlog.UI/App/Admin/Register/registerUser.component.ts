@@ -1,15 +1,14 @@
-﻿import { AdminService } from "Admin/admin.service";
-import { ApplicationUser } from "Admin/Account/ApplicationUser";
-import { BaseController } from "Core/Models/BaseController";
-import { ComponentBase } from "Core/component.base";
-import { NotificationFactory } from "Notification/notification.factory";
+﻿import { ApplicationUser } from "Admin/Account/ApplicationUser";
+import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
+import { AdminService } from "Admin/admin.service";
+import { LoginModel } from "Admin/Login/LoginModel";
+import { IdentityError } from "Admin/Register/IdentityError";
 import { RegistrationAttempt } from "Admin/Register/RegistrationAttempt";
 import { RegistrationUser } from "Admin/Register/RegistrationUser";
-import { IdentityError } from "Admin/Register/IdentityError";
-import { LoginModel } from "Admin/Login/LoginModel";
-import { IHttpResponse } from "angular";
-import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
 import { AuthService } from "Core/auth.service";
+import { ComponentBase } from "Core/component.base";
+import { BaseController } from "Core/Models/BaseController";
+import { NotificationFactory } from "Notification/notification.factory";
 
 export const RegisterUserComponentName: string = "registerusercomponent";
 
@@ -32,6 +31,8 @@ export class RegisterUserController extends BaseController implements ng.IContro
     BirthDateFormat: string = "MM/dd/yyyy";
 
     AltInputFormats: Array<string> = ["M!/d!/yyyy"];
+
+    userBirthDate: Date;
 
     /**
      * Datetime Popup
@@ -103,7 +104,7 @@ export class RegisterUserController extends BaseController implements ng.IContro
             }
         };
 
-        this.NewUser.BirthDate = (<Date>this.NewUser.BirthDate).toLocaleDateString();
+        this.NewUser.BirthDate = (<Date>this.userBirthDate).toLocaleDateString();
 
         this.adminService.RegisterUser(this.NewUser, this.AntiForgeryToken).then(onRegistrationCallback, this.OnErrorCallback);
     }
@@ -128,7 +129,7 @@ export class RegisterUserComponent extends ComponentBase {
         this.controllerAs = "$registerUserCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Admin/Register/register.html");
+            return require("Admin/Register/registerUser.html");
         }];
     }
 }
