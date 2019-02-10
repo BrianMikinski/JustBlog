@@ -63,7 +63,7 @@ namespace JustBlog.UI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<string> Login(LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             if (ModelState.IsValid)
             {
@@ -76,34 +76,30 @@ namespace JustBlog.UI.Controllers
 
                     var identity = await GetClaimsIdentity(model.Email, model.Password);
 
-                    var jwt = await Tokens.GenerateJwt(identity,
-                                        _jwtFactory,
-                                        model.Email,
-                                        _jwtIssuerOptions,
-                                        new JsonSerializerSettings { Formatting = Formatting.Indented });
+                    var jwt = await Tokens.GenerateJwt(identity, _jwtFactory, model.Email, _jwtIssuerOptions);
 
-                    return jwt;
+                    return Ok(jwt);
                 }
 
                 if (result.RequiresTwoFactor)
                 {
-                    return returnUrl; //RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
+                    return Ok(returnUrl); //RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
                 }
 
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning("User account locked out.");
-                    return returnUrl; //RedirectToAction(nameof(Lockout));
+                    return Ok(returnUrl); //RedirectToAction(nameof(Lockout));
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return returnUrl; //View(model);
+                    return Ok(returnUrl); //View(model);
                 }
             }
 
             // If we got this far, something failed, redisplay form
-            return returnUrl; //View(model);
+            return Ok(returnUrl); //View(model);
         }
 
         [HttpGet]

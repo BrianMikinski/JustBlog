@@ -144,7 +144,7 @@ export class AdminService extends BaseService {
 
             if (response.status === 200) {
 
-                let authResponse: ITokenAuthResponse = <ITokenAuthResponse>response.data;
+                let authResponse: ITokenAuthResponse =  response.data;
                 this.authService.SetUserToken(authResponse.auth_token);
                 this.$rootScope.$broadcast(this.AUTH_EVENT_CONSTANTS.loginSuccess, true);
 
