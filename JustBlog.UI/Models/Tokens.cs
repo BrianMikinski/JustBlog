@@ -8,6 +8,15 @@ namespace JustBlog.UI.Models
 {
     public static class Tokens
     {
+        /// <summary>
+        /// Create a serialized JWT with the identity, auth_token and expiration date
+        /// </summary>
+        /// <param name="identity"></param>
+        /// <param name="jwtFactory"></param>
+        /// <param name="userName"></param>
+        /// <param name="jwtOptions"></param>
+        /// <param name="serializerSettings"></param>
+        /// <returns></returns>
         public static async Task<string> GenerateJwt(ClaimsIdentity identity, IJwtFactory jwtFactory, string userName, JwtIssuerOptions jwtOptions, JsonSerializerSettings serializerSettings)
         {
             var response = new
@@ -19,5 +28,6 @@ namespace JustBlog.UI.Models
 
             return JsonConvert.SerializeObject(response, serializerSettings);
         }
+        
     }
 }

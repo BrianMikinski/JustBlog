@@ -19,10 +19,16 @@ namespace JustBlog.UI.Services
             ThrowIfInvalidOptions(_jwtOptions);
         }
 
+        /// <summary>
+        /// Create a jwt token
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="identity"></param>
+        /// <returns></returns>
         public async Task<string> GenerateEncodedToken(string userName, ClaimsIdentity identity)
         {
             var claims = new[]
-         {
+            {
                  new Claim(JwtRegisteredClaimNames.Sub, userName),
                  new Claim(JwtRegisteredClaimNames.Jti, await _jwtOptions.JtiGenerator()),
                  new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(), ClaimValueTypes.Integer64),
@@ -44,6 +50,12 @@ namespace JustBlog.UI.Services
             return encodedJwt;
         }
 
+        /// <summary>
+        /// Create the claims identity for the specified user
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ClaimsIdentity GenerateClaimsIdentity(string userName, string id)
         {
             return new ClaimsIdentity(new GenericIdentity(userName, "Token"), new[]
@@ -65,23 +77,27 @@ namespace JustBlog.UI.Services
                               .TotalSeconds);
         }
 
+        /// <summary>
+        /// Check for invalid options
+        /// </summary>
+        /// <param name="options"></param>
         private void ThrowIfInvalidOptions(JwtIssuerOptions options)
         {
             if (options == null) throw new ArgumentNullException(nameof(options));
 
             if (options.ValidFor <= TimeSpan.Zero)
             {
-                throw new ArgumentException("Must be a non-zero TimeSpan.", nameof(JwtIssuerOptions.ValidFor));
+                throw new JwtFactoryException($"Must be a non-zero TimeSpan: {nameof(JwtIssuerOptions.ValidFor)}");
             }
 
             if (options.SigningCredentials == null)
             {
-                throw new ArgumentNullException(nameof(JwtIssuerOptions.SigningCredentials));
+                throw new JwtFactoryException(nameof(JwtIssuerOptions.SigningCredentials));
             }
 
             if (options.JtiGenerator == null)
             {
-                throw new ArgumentNullException(nameof(JwtIssuerOptions.JtiGenerator));
+                throw new JwtFactoryException(nameof(JwtIssuerOptions.JtiGenerator));
             }
         }
     }

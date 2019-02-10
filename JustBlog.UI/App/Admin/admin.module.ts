@@ -1,20 +1,20 @@
 ﻿import * as uirouter from "@uirouter/angularjs";
+import { AdminController } from "Admin/admin.controller";
+import { AdminService } from "Admin/admin.service";
 import { IAuthEventConstants } from "Admin/Interfaces/IAuthEventConstants";
 import { IHttpAdminRoutes } from "Admin/Interfaces/IHttpAdminRoutes";
 import { LoginComponent, LoginComponentName } from "Admin/Login/login.component";
 import { RegisterUserComponent, RegisterUserComponentName } from "Admin/Register/registerUser.component";
-import { AdminController } from "Admin/admin.controller";
-import { AdminService } from "Admin/admin.service";
+import * as angular from "angular";
+import * as ngAnimate from "angular-animate";
+import * as ngSantize from "angular-sanitize";
+import { AuthService } from "Core/auth.service";
 import { IActions } from "Core/Interfaces/IActions";
 import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
 import { IResources } from "Core/Interfaces/IResources";
 import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
 import { BaseModule } from "Core/Models/BaseModule";
 import { BlogState } from "Core/Models/BlogState";
-import { AuthService } from "Core/auth.service";
-import * as angular from "angular";
-import * as ngAnimate from "angular-animate";
-import * as ngSantize from "angular-sanitize";
 
 /**
  * Angular ui bootstrap does not define a default export so typescript elides the
@@ -78,7 +78,6 @@ export class AdminModule extends BaseModule {
             name: "manageContent",
             url: "/manageContent"
         };
-
 
 
         $stateProvider.state(loginState);

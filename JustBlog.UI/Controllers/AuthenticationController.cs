@@ -27,7 +27,7 @@ namespace JustBlog.UI.Controllers
         private readonly IJwtFactory _jwtFactory;
         private readonly JwtIssuerOptions _jwtIssuerOptions;
 
-        public AuthenticationController( UserManager<ApplicationUser> userManager,
+        public AuthenticationController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<AuthenticationController> logger,
             IAccountService accountService,
@@ -53,6 +53,13 @@ namespace JustBlog.UI.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Log a user into the application. If the user is locked out or requires 2 factor authentication, the correct return url is returned in place of the
+        /// the jwt token
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -65,9 +72,10 @@ namespace JustBlog.UI.Controllers
                 var result = await _accountService.Login(model);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
+                    _logger.LogInformation($"User {model.Email} logged in.");
 
                     var identity = await GetClaimsIdentity(model.Email, model.Password);
+
                     var jwt = await Tokens.GenerateJwt(identity,
                                         _jwtFactory,
                                         model.Email,
@@ -228,7 +236,10 @@ namespace JustBlog.UI.Controllers
         private async Task<ClaimsIdentity> GetClaimsIdentity(string userName, string password)
         {
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
+            {
                 return await Task.FromResult<ClaimsIdentity>(null);
+            }
+                
 
             // get the user to verifty
             var userToVerify = await _userManager.FindByNameAsync(userName);

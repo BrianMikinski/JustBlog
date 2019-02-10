@@ -78,11 +78,9 @@ export class RegisterUserController extends BaseController implements ng.IContro
         let onRegistrationCallback: (response: RegistrationAttempt) => void;
         onRegistrationCallback = (response: RegistrationAttempt) => {
 
-            let registrationAttempt = <RegistrationAttempt>response;
+            if (response != null && response.Succeeded) {
 
-            if (registrationAttempt != null && registrationAttempt.Succeeded) {
-
-                this.CurrentUser = registrationAttempt.User;
+                this.CurrentUser = response.User;
 
                 this.notificationFactory.Success(`Registration was successful. Welcome to the blog ${this.CurrentUser.FirstName} ${this.CurrentUser.LastName}!`);
 
@@ -96,8 +94,8 @@ export class RegisterUserController extends BaseController implements ng.IContro
 
             } else {
 
-                for (var i in registrationAttempt.Errors) {
-                    let error: IdentityError = registrationAttempt.Errors[i];
+                for (var i in response.Errors) {
+                    let error: IdentityError = response.Errors[i];
 
                     this.notificationFactory.Error(`Error Code: ${error.Code} - ${error.Description}`);
                 }
