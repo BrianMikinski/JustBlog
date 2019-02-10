@@ -1,7 +1,9 @@
 ﻿<div ng-include="'admin/adminHeader.html'"></div>
 <div class="row">
     <div class="col-md-12">
-        <h4 class="text-center">Update Account</h4>
+        <h4 class="text-center">
+            Update Account
+        </h4>
         <br />
     </div>
     <div class="col-md-6">
@@ -10,7 +12,9 @@
 
             <!--First Name-->
             <div class="form-group" ng-class="{ 'has-error' : userForm.FirstName.$invalid && !userForm.FirstName.$pristine }">
-                <label class="col-md-2 control-label">First Name</label>
+                <label class="col-md-2 control-label">
+                    First Name
+                </label>
                 <div class="col-md-10">
                     <input class="form-control"
                            name="FirstName"
@@ -19,13 +23,17 @@
                            value=""
                            ng-model="vm.UpdatedAccount.FirstName"
                            ng-required="true">
-                    <p ng-show="userForm.FirstName.$invalid && !userForm.FirstName.$pristine" class="help-block">Your first name is required.</p>
+                    <p ng-show="userForm.FirstName.$invalid && !userForm.FirstName.$pristine" class="help-block">
+                        Your first name is required.
+                    </p>
                 </div>
             </div>
 
             <!--Last Name-->
             <div class="form-group" ng-class="{ 'has-error' : userForm.LastName.$invalid && !userForm.LastName.$pristine }">
-                <label class="col-md-2 control-label">Last Name</label>
+                <label class="col-md-2 control-label">
+                    Last Name
+                </label>
                 <div class="col-md-10">
                     <input class="form-control"
                            name="LastName"
@@ -35,13 +43,17 @@
                            ng-model="vm.UpdatedAccount.LastName"
                            ng-maxlength="128"
                            ng-required="true">
-                    <p ng-show="userForm.LastName.$invalid && !userForm.LastName.$pristine" class="help-block">Your last name is required.</p>
+                    <p ng-show="userForm.LastName.$invalid && !userForm.LastName.$pristine" class="help-block">
+                        Your last name is required.
+                    </p>
                 </div>
             </div>
 
             <!--BirthDate-->
             <div class="form-group" ng-class="{ 'has-error' : userForm.BirthDate.$invalid && !userForm.BirthDate.$pristine }">
-                <label class="col-md-2 control-label">Birthday</label>
+                <label class="col-md-2 control-label">
+                    Birthday
+                </label>
                 <div class="col-md-10">
                     <p class="input-group">
                         <input type="text"
@@ -61,13 +73,17 @@
                             </button>
                         </span>
                     </p>
-                    <p ng-show="userForm.BirthDate.$invalid && !userForm.BirthDate.$pristine" class="help-block">Your last name is required.</p>
+                    <p ng-show="userForm.BirthDate.$invalid && !userForm.BirthDate.$pristine" class="help-block">
+                        Your last name is required.
+                    </p>
                 </div>
             </div>
 
             <!--Email-->
             <div class="form-group" ng-class="{ 'has-error' : userForm.Email.$invalid && !userForm.Email.$pristine }">
-                <label class="col-md-2 control-label">Email</label>
+                <label class="col-md-2 control-label">
+                    Email
+                </label>
                 <div class="col-md-10">
                     <input class="form-control"
                            name="Email"
@@ -77,13 +93,17 @@
                            value=""
                            readonly
                            required />
-                    <p ng-show="userForm.Email.$invalid && !userForm.Email.$pristine" class="help-block">Your email is required.</p>
+                    <p ng-show="userForm.Email.$invalid && !userForm.Email.$pristine" class="help-block">
+                        Your email is required.
+                    </p>
                 </div>
             </div>
 
             <!--Phone Number-->
             <div class="form-group" ng-class="{ 'has-error' : userForm.PhoneNumber.$invalid && !userForm.PhoneNumber.$pristine }">
-                <label class="col-md-2 control-label">Phone Number</label>
+                <label class="col-md-2 control-label">
+                    Phone Number
+                </label>
                 <div class="col-md-10">
                     <input class="form-control"
                            type="text"
@@ -92,13 +112,17 @@
                            ng-model="vm.UpdatedAccount.PhoneNumber"
                            value=""
                            required>
-                    <p ng-show="userform.PhoneNumber.$invalid && !userform.PhoneNumber.$pristine" class="help-block">Your cell phone is required.</p>
+                    <p ng-show="userform.PhoneNumber.$invalid && !userform.PhoneNumber.$pristine" class="help-block">
+                        Your cell phone is required.
+                    </p>
                 </div>
             </div>
 
             <!--Home Town-->
             <div class="form-group" ng-class="{ 'has-error' : userForm.HomeTown.$invalid && !userForm.HomeTown.$pristine }">
-                <label class="col-md-2 control-label">Hometown</label>
+                <label class="col-md-2 control-label">
+                    Hometown
+                </label>
                 <div class="col-md-10">
                     <input class="form-control"
                            type="text"
@@ -107,7 +131,9 @@
                            ng-model="vm.UpdatedAccount.Hometown"
                            value=""
                            required>
-                    <p ng-show="userForm.HomeTown.$invalid && !userForm.HomeTown.$pristine" class="help-block">Your home town is required.</p>
+                    <p ng-show="userForm.HomeTown.$invalid && !userForm.HomeTown.$pristine" class="help-block">
+                        Your home town is required.
+                    </p>
                 </div>
             </div>
 

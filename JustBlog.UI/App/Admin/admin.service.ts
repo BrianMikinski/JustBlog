@@ -1,20 +1,15 @@
-﻿import { ApplicationUser } from "Admin/Account/ApplicationUser";
-import { AuthService } from "Core/auth.service";
-import { BaseService } from "Core/Models/BaseService";
-import { ChangePasswordViewModel } from "Admin/password/ChangePasswordViewModel";
-import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
-import { IAuthEventConstants } from "Admin/Interfaces/IAuthEventConstants";
-import { IChangePasswordViewModel } from "Admin/password/IChangePasswordViewModel";
-import { IHttpAdminRoutes } from "Admin/Interfaces/IHttpAdminRoutes";
-import { ILoginAttempt } from "Admin/Login/ILoginAttempt";
-import { ILoginUpdate } from "Admin/Account/ILoginUpdate";
+﻿import { LoginUpdate } from "admin/login/LoginUpdate";
 import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
 import { IUser } from "Admin/Account/IUser";
+import { IAuthEventConstants } from "Admin/Interfaces/IAuthEventConstants";
+import { IHttpAdminRoutes } from "Admin/Interfaces/IHttpAdminRoutes";
 import { LoginModel } from "Admin/Login/LoginModel";
+import { IChangePasswordViewModel } from "Admin/password/IChangePasswordViewModel";
 import { RegistrationAttempt } from "Admin/Register/RegistrationAttempt";
 import { RegistrationUser } from "Admin/Register/RegistrationUser";
-import { SignInStatusEnum } from "Admin/Login/SignInStatusEnum";
-import { TokenLoginModel } from "Admin/Account/TokenLoginModel";
+import { AuthService } from "Core/auth.service";
+import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
+import { BaseService } from "Core/Models/BaseService";
 
 //Admin service class that allows users to perform common account management actions
 export class AdminService extends BaseService {
@@ -242,7 +237,7 @@ export class AdminService extends BaseService {
     /**
      * Update a user login.
      */
-    UpdateUserLogin(UpdateLoginModel: ILoginUpdate, antiForgeryToken: string): ng.IPromise<void | boolean> {
+    UpdateUserLogin(UpdateLoginModel: LoginUpdate, antiForgeryToken: string): ng.IPromise<void | boolean> {
 
         let params:any = {
             updateLogin: UpdateLoginModel

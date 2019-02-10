@@ -1,6 +1,6 @@
 ﻿import { ChangePasswordViewModel } from "Admin/password/ChangePasswordViewModel";
 import { IChangePasswordViewModel } from "Admin/password/IChangePasswordViewModel";
-import { ILoginUpdate } from "Admin/Account/ILoginUpdate";
+import { LoginUpdate } from "admin/login/LoginUpdate";
 import { IUser } from "Admin/Account/IUser";
 import { ResetPasswordModel } from "Admin/password/ResetPasswordModel";
 import { AdminService } from "Admin/admin.service";
@@ -18,7 +18,7 @@ export class AdminController extends BaseController {
 
     ApplicationAdmins: Array<IUser> = [];
     IsLoggedIn: boolean;
-    LoginUpdate: ILoginUpdate;
+    LoginUpdate: LoginUpdate;
     MyCurrentUser: IUser;
     UpdatedAccount: IUser;
     UpdatePasswordModel: IChangePasswordViewModel = new ChangePasswordViewModel();

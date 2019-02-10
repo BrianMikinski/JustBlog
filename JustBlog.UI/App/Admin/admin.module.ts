@@ -16,6 +16,7 @@ import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
 import { BaseModule } from "Core/Models/BaseModule";
 import { BlogState } from "Core/Models/BlogState";
 import { AdminHeaderComponentName, AdminHeaderComponent } from "./adminHeader.component";
+import { LogoffComponent, LogoffComponentName } from "./Login/logoff.component";
 
 /**
  * Angular ui bootstrap does not define a default export so typescript elides the
@@ -77,9 +78,20 @@ export class AdminModule extends BaseModule {
             authorizationResolver: null,
         };
 
+        let logoffState: BlogState = {
+            name: "logoff",
+            url: "/logoff",
+            component: LogoffComponentName,
+            authorize: true,
+            action: ACTIONS.Read,
+            resource: RESOURCES.Admin,
+            authorizationResolver: null,
+        };
+
         $stateProvider.state(loginState);
         $stateProvider.state(manageContentState);
         $stateProvider.state(registerUserState);
+        $stateProvider.state(logoffState);
     }
 
     /**
@@ -295,5 +307,6 @@ function adminFactory($rootScope: ng.IRootScopeService,
 
 Admin.AddController("Admin", AdminController as ng.Injectable<angular.IControllerConstructor>);
 Admin.AddComponent(LoginComponentName, new LoginComponent())
+Admin.AddComponent(LogoffComponentName, new LogoffComponent());
 Admin.AddComponent(RegisterUserComponentName, new RegisterUserComponent())
 Admin.AddComponent(AdminHeaderComponentName, new AdminHeaderComponent());

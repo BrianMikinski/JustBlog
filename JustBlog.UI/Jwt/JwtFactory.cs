@@ -33,7 +33,9 @@ namespace JustBlog.UI.Services
                  new Claim(JwtRegisteredClaimNames.Jti, await _jwtOptions.JtiGenerator()),
                  new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(), ClaimValueTypes.Integer64),
                  identity.FindFirst(Constants.ROLE),
-                 identity.FindFirst(Constants.ID)
+                 identity.FindFirst(Constants.ID),
+                 new Claim(Constants.ADMIN_CLAIM_VALUE_TYPE, $"{Constants.ADMIN_CLAIM_ACTION}|{Constants.ADMIN_CLAIM_RESOURCE}"),
+                 new Claim(Constants.DATA_CLAIM_TYPE, $"{Constants.DATA_CLAIM_ACTION}|{Constants.DATA_CLAIM_RESOURCE}")
              };
 
             // Create the JWT security token and encode it.
@@ -51,7 +53,8 @@ namespace JustBlog.UI.Services
         }
 
         /// <summary>
-        /// Create the claims identity for the specified user
+        /// Create the claims identity for the specified user. This is where we would generate specific claims or 
+        /// retrieve claims that had been stored in the database
         /// </summary>
         /// <param name="userName"></param>
         /// <param name="id"></param>
@@ -61,7 +64,9 @@ namespace JustBlog.UI.Services
             return new ClaimsIdentity(new GenericIdentity(userName, "Token"), new[]
             {
                 new Claim(Constants.ID, id),
-                new Claim(Constants.ROLE, Constants.API_ACCESS)
+                new Claim(Constants.ROLE, Constants.API_ACCESS),
+                new Claim(Constants.ADMIN_CLAIM_VALUE_TYPE, $"{Constants.ADMIN_CLAIM_RESOURCE}|{Constants.ADMIN_CLAIM_ACTION}"),
+                new Claim(Constants.DATA_CLAIM_TYPE, $"{Constants.DATA_CLAIM_RESOURCE}|{Constants.DATA_CLAIM_ACTION}")
             });
         }
 

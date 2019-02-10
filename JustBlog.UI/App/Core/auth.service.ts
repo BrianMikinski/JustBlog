@@ -199,10 +199,10 @@ export class AuthService extends BaseService {
         if (localToken !== undefined && localToken !== "") {
 
             // jwt tokens have three parts - header, payload and verification signature
-            let payload: any = JSON.parse(atob(localToken.split(".")[1]));
+            let payload:any = JSON.parse(atob(localToken.split(".")[1]));
 
-            let jwtAdminClaim: string = payload.AppClaim;
-            let jwtAppData: string = payload.AppData;
+            let jwtAdminClaim: string = payload.auth_claim;
+            let jwtAppData: string = payload.data_claim;
             let claims: Array<Claim> = new Array<Claim>();
 
             // retrieve admin claim
