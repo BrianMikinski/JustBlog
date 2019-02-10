@@ -50,10 +50,7 @@ export class AdminModule extends BaseModule {
      * @param $stateProvider
      * @param $urlRouterProvider
      */
-    private uiRouteConfig($stateProvider: ng.ui.IStateProvider,
-        $urlRouterProvider: ng.ui.IUrlRouterProvider,
-        RESOURCES: IResources,
-        ACTIONS: IActions): void {
+    private uiRouteConfig($stateProvider: ng.ui.IStateProvider, RESOURCES: IResources, ACTIONS: IActions): void {
 
         let loginState: ng.ui.IState = {
             name: "login",

@@ -1,10 +1,10 @@
 ﻿import { ApplicationUser } from "Admin/Account/ApplicationUser";
 import { AuthService } from "Core/auth.service";
 import { BaseService } from "Core/Models/BaseService";
-import { ChangePasswordViewModel } from "Admin/Account/ChangePasswordViewModel";
+import { ChangePasswordViewModel } from "Admin/password/ChangePasswordViewModel";
 import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
 import { IAuthEventConstants } from "Admin/Interfaces/IAuthEventConstants";
-import { IChangePasswordViewModel } from "Admin/Account/IChangePasswordViewModel";
+import { IChangePasswordViewModel } from "Admin/password/IChangePasswordViewModel";
 import { IHttpAdminRoutes } from "Admin/Interfaces/IHttpAdminRoutes";
 import { ILoginAttempt } from "Admin/Login/ILoginAttempt";
 import { ILoginUpdate } from "Admin/Account/ILoginUpdate";

@@ -1,8 +1,8 @@
-﻿import { ChangePasswordViewModel } from "Admin/Account/ChangePasswordViewModel";
-import { IChangePasswordViewModel } from "Admin/Account/IChangePasswordViewModel";
+﻿import { ChangePasswordViewModel } from "Admin/password/ChangePasswordViewModel";
+import { IChangePasswordViewModel } from "Admin/password/IChangePasswordViewModel";
 import { ILoginUpdate } from "Admin/Account/ILoginUpdate";
 import { IUser } from "Admin/Account/IUser";
-import { ResetPasswordModel } from "Admin/Account/ResetPasswordModel";
+import { ResetPasswordModel } from "Admin/password/ResetPasswordModel";
 import { AdminService } from "Admin/admin.service";
 import { Post } from "Blog/Post/Post";
 import { BaseController } from "Core/Models/BaseController";
