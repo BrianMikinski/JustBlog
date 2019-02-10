@@ -54,8 +54,8 @@ namespace JustBlog.UI.Controllers
         }
 
         /// <summary>
-        /// Log a user into the application. If the user is locked out or requires 2 factor authentication, the correct return url is returned in place of the
-        /// the jwt token
+        /// Sign a user into the application and create a jwt token.
+        /// If the user is locked out or requires 2 factor authentication, the correct return url is returned in place of the jwt token with the correct token
         /// </summary>
         /// <param name="model"></param>
         /// <param name="returnUrl"></param>
