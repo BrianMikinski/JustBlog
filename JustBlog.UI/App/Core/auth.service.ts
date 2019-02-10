@@ -2,7 +2,7 @@
 import { Claim } from "Core/Models/Claim";
 import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
 import { IHttpAuthRoutes } from "Core/Interfaces/IHttpAuthRoutes";
-import { JWTPayload } from "Core/Models/JWTPayload";
+import { JwtPayload } from "Core/Models/JWTPayload";
 import { RouteAuthorizationError } from "Core/Models/RouteAuthorizationError";
 
 /**
@@ -42,7 +42,7 @@ export class AuthService extends BaseService {
      * Retrieve the user login from local storage
      */
     GetUserLogin(): string {
-        let payload: JWTPayload | null = this.getBearerPayload();
+        let payload: JwtPayload | null = this.getBearerPayload();
 
         if (payload !== null && (this.jwtDataKey in payload.Claims) && payload.IsValid()) {
 
@@ -73,10 +73,9 @@ export class AuthService extends BaseService {
      */
     IsAuthenticatedPromise(): ng.IPromise<void | boolean> {
 
-        let jwtToken: JWTPayload | null = this.getBearerPayload();
+        let jwtToken: JwtPayload | null = this.getBearerPayload();
 
         let isAuthenticated: boolean = false;
-        let currentTime: number = new Date().getUTCDate();
 
         if (jwtToken !== null) {
             isAuthenticated = jwtToken.IsValid();
@@ -107,7 +106,7 @@ export class AuthService extends BaseService {
      */
     GetUserClaims(): Array<Claim> {
 
-        let payload: JWTPayload | null = this.getBearerPayload();
+        let payload: JwtPayload | null = this.getBearerPayload();
 
         if (payload !== null && payload.IsValid()) {
             return payload.Claims;
@@ -128,7 +127,7 @@ export class AuthService extends BaseService {
         // if we already have the user claims, create a promise and return it's value
         if (this.GetLocalToken() !== undefined) {
 
-            let payload: JWTPayload | null = this.getBearerPayload();
+            let payload: JwtPayload | null = this.getBearerPayload();
 
             // check that token is still valid for current time frame
             if (payload !== null && payload.IsValid()) {
@@ -193,7 +192,7 @@ export class AuthService extends BaseService {
     /**
      * Retrieve token payload from locally stored jwt token. - Bush league and needs reworked
      */
-    private getBearerPayload(): JWTPayload | null {
+    private getBearerPayload(): JwtPayload | null {
 
         let localToken: string | null = this.GetLocalToken();
 
@@ -218,7 +217,7 @@ export class AuthService extends BaseService {
             dataClaim.Resource = jwtAppData.split("|")[1];
             claims.push(dataClaim);
 
-            let jwtPayload: JWTPayload = new JWTPayload();
+            let jwtPayload: JwtPayload = new JwtPayload();
             jwtPayload.Audience = <string>payload.aud;
             jwtPayload.Expiration = <number>payload.exp;
             jwtPayload.Issuer = <string>payload.iss;

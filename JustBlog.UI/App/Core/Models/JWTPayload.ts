@@ -3,7 +3,7 @@
 /**
  * Authentication model for JWT tokens
  */
-export class JWTPayload {
+export class JwtPayload {
     Issuer: string;
     Audience: string;
     NotBefore: number;
