@@ -1,8 +1,7 @@
-﻿import { BaseController } from "Core/Models/BaseController";
+﻿import { MetaData } from "Blog/MetaData/MetaData";
 import { ComponentBase } from "Core/component.base";
 import { ICoreService } from "Core/core.service";
-import { Post } from "Blog/Post/Post";
-import { MetaData } from "Blog/MetaData/MetaData";
+import { BaseController } from "Core/Models/BaseController";
 
 export const ProfileComponentName: string = "profile";
 

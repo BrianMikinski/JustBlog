@@ -15,6 +15,7 @@ import { IResources } from "Core/Interfaces/IResources";
 import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
 import { BaseModule } from "Core/Models/BaseModule";
 import { BlogState } from "Core/Models/BlogState";
+import { AdminHeaderComponentName, AdminHeaderComponent } from "./adminHeader.component";
 
 /**
  * Angular ui bootstrap does not define a default export so typescript elides the
@@ -75,7 +76,6 @@ export class AdminModule extends BaseModule {
             resource: RESOURCES.Admin,
             authorizationResolver: null,
         };
-
 
         $stateProvider.state(loginState);
         $stateProvider.state(manageContentState);
@@ -147,7 +147,7 @@ export class AdminModule extends BaseModule {
             };
 
             let passwordUpdateRoute: IRouteBlog = {
-                templateUrl: require("Admin/account/passwordUpdate.html"),
+                templateUrl: require("Admin/password/passwordUpdate.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -158,7 +158,7 @@ export class AdminModule extends BaseModule {
             };
 
             let confirmPasswordUpdateRoute: IRouteBlog = {
-                templateUrl: require("admin/account/passwordUpdateConfirmation.html"),
+                templateUrl: require("admin/password/passwordUpdateConfirmation.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -169,7 +169,7 @@ export class AdminModule extends BaseModule {
             };
 
             let passwordResetRoute: IRouteBlog = {
-                templateUrl: require("admin/account/passwordReset.html"),
+                templateUrl: require("admin/password/passwordReset.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -180,7 +180,7 @@ export class AdminModule extends BaseModule {
             };
 
             let passwordResetConfirmationRoute: IRouteBlog = {
-                templateUrl: require("admin/Account/passwordResetConfirmation.html"),
+                templateUrl: require("admin/password/passwordResetConfirmation.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -296,3 +296,4 @@ function adminFactory($rootScope: ng.IRootScopeService,
 Admin.AddController("Admin", AdminController as ng.Injectable<angular.IControllerConstructor>);
 Admin.AddComponent(LoginComponentName, new LoginComponent())
 Admin.AddComponent(RegisterUserComponentName, new RegisterUserComponent())
+Admin.AddComponent(AdminHeaderComponentName, new AdminHeaderComponent());

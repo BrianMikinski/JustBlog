@@ -17,6 +17,7 @@
     <Content Remove="package-lock.json" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="App\Admin\adminHeader.component.ts" />
     <None Remove="App\Admin\app.unitTest.ts" />
     <None Remove="App\Admin\Register\IdentityError.ts" />
     <None Remove="App\Admin\Register\registerUser.component.spec.ts" />
@@ -75,6 +76,7 @@
     <ProjectReference Include="..\JustBlog.Models\JustBlog.Models.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="App\Admin\adminHeader.component.ts" />
     <TypeScriptCompile Include="App\Admin\Register\IdentityError.ts" />
     <TypeScriptCompile Include="App\Admin\Register\registerUser.component.spec.ts" />
   </ItemGroup>
