@@ -59,13 +59,6 @@ export class CoreModule extends BaseModule {
         let startTransitionAuthHookFn: TransitionHookFn = (transition: Transition): HookResult => {
 
             let toState: BlogState = <BlogState><any>transition.to();
-            let fromState: BlogState = <BlogState><any>transition.from();
-
-            console.log(`State change start from "${fromState.url}" to "${toState.url}"`);
-
-            if (toState.component !== undefined && fromState.component !== undefined) {
-                console.log(`From component "${fromState.component} to "${toState.component}"`)
-            }
 
             if (toState.authorize === true) {
                 toState.resolve = toState.resolve || {};
@@ -81,8 +74,6 @@ export class CoreModule extends BaseModule {
                         }
                     };
                 }
-            } else {
-                console.log("State Authorization: State does not need authorization.");
             }
         };
 
@@ -110,9 +101,8 @@ export class CoreModule extends BaseModule {
 
             let fromState: BlogState = <any>transition.from();
             let toState: BlogState = <any>transition.to();
-            let error: any = transition.error();
 
-            console.log(`State change success from "${fromState.url}" to "${toState.url}"`);
+            //console.log(`State change success from "${fromState.url}" to "${toState.url}"`);
         };
 
         $transitions.onSuccess(authenticationHookCriteria, stateTransitionSuccessHookFn);

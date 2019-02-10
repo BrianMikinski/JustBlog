@@ -1,4 +1,10 @@
-﻿/**
+﻿import * as toastr from "toastr"
+
+// You must utilize the import before webpack
+// removes itRequired for webpack. 
+toastr.options.closeButton = true;
+
+/**
  * Factory for showing toastr notifications
  */
 export class NotificationFactory {

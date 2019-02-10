@@ -1,20 +1,22 @@
 ﻿import * as uirouter from "@uirouter/angularjs";
+import { AdminController } from "Admin/admin.controller";
+import { AdminService } from "Admin/admin.service";
 import { IAuthEventConstants } from "Admin/Interfaces/IAuthEventConstants";
 import { IHttpAdminRoutes } from "Admin/Interfaces/IHttpAdminRoutes";
 import { LoginComponent, LoginComponentName } from "Admin/Login/login.component";
 import { RegisterUserComponent, RegisterUserComponentName } from "Admin/Register/registerUser.component";
-import { AdminController } from "Admin/admin.controller";
-import { AdminService } from "Admin/admin.service";
+import * as angular from "angular";
+import * as ngAnimate from "angular-animate";
+import * as ngSantize from "angular-sanitize";
+import { AuthService } from "Core/auth.service";
 import { IActions } from "Core/Interfaces/IActions";
 import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
 import { IResources } from "Core/Interfaces/IResources";
 import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
 import { BaseModule } from "Core/Models/BaseModule";
 import { BlogState } from "Core/Models/BlogState";
-import { AuthService } from "Core/auth.service";
-import * as angular from "angular";
-import * as ngAnimate from "angular-animate";
-import * as ngSantize from "angular-sanitize";
+import { AdminHeaderComponentName, AdminHeaderComponent } from "./adminHeader.component";
+import { LogoffComponent, LogoffComponentName } from "./Login/logoff.component";
 
 /**
  * Angular ui bootstrap does not define a default export so typescript elides the
@@ -50,10 +52,7 @@ export class AdminModule extends BaseModule {
      * @param $stateProvider
      * @param $urlRouterProvider
      */
-    private uiRouteConfig($stateProvider: ng.ui.IStateProvider,
-        $urlRouterProvider: ng.ui.IUrlRouterProvider,
-        RESOURCES: IResources,
-        ACTIONS: IActions): void {
+    private uiRouteConfig($stateProvider: ng.ui.IStateProvider, RESOURCES: IResources, ACTIONS: IActions): void {
 
         let loginState: ng.ui.IState = {
             name: "login",
@@ -68,6 +67,8 @@ export class AdminModule extends BaseModule {
         };
 
         let manageContentState: BlogState = {
+            name: "manageContent",
+            url: "/manageContent",
             templateUrl: require("admin/manageContent.html"),
             controller: AdminController,
             controllerAs: "vm",
@@ -75,15 +76,22 @@ export class AdminModule extends BaseModule {
             action: ACTIONS.Read,
             resource: RESOURCES.Admin,
             authorizationResolver: null,
-            name: "manageContent",
-            url: "/manageContent"
         };
 
-
+        let logoffState: BlogState = {
+            name: "logoff",
+            url: "/logoff",
+            component: LogoffComponentName,
+            authorize: true,
+            action: ACTIONS.Read,
+            resource: RESOURCES.Admin,
+            authorizationResolver: null,
+        };
 
         $stateProvider.state(loginState);
         $stateProvider.state(manageContentState);
         $stateProvider.state(registerUserState);
+        $stateProvider.state(logoffState);
     }
 
     /**
@@ -151,7 +159,7 @@ export class AdminModule extends BaseModule {
             };
 
             let passwordUpdateRoute: IRouteBlog = {
-                templateUrl: require("Admin/account/passwordUpdate.html"),
+                templateUrl: require("Admin/password/passwordUpdate.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -162,7 +170,7 @@ export class AdminModule extends BaseModule {
             };
 
             let confirmPasswordUpdateRoute: IRouteBlog = {
-                templateUrl: require("admin/account/passwordUpdateConfirmation.html"),
+                templateUrl: require("admin/password/passwordUpdateConfirmation.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -173,7 +181,7 @@ export class AdminModule extends BaseModule {
             };
 
             let passwordResetRoute: IRouteBlog = {
-                templateUrl: require("admin/account/passwordReset.html"),
+                templateUrl: require("admin/password/passwordReset.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -184,7 +192,7 @@ export class AdminModule extends BaseModule {
             };
 
             let passwordResetConfirmationRoute: IRouteBlog = {
-                templateUrl: require("admin/Account/passwordResetConfirmation.html"),
+                templateUrl: require("admin/password/passwordResetConfirmation.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -299,4 +307,6 @@ function adminFactory($rootScope: ng.IRootScopeService,
 
 Admin.AddController("Admin", AdminController as ng.Injectable<angular.IControllerConstructor>);
 Admin.AddComponent(LoginComponentName, new LoginComponent())
+Admin.AddComponent(LogoffComponentName, new LogoffComponent());
 Admin.AddComponent(RegisterUserComponentName, new RegisterUserComponent())
+Admin.AddComponent(AdminHeaderComponentName, new AdminHeaderComponent());

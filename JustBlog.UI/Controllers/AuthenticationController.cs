@@ -27,7 +27,7 @@ namespace JustBlog.UI.Controllers
         private readonly IJwtFactory _jwtFactory;
         private readonly JwtIssuerOptions _jwtIssuerOptions;
 
-        public AuthenticationController( UserManager<ApplicationUser> userManager,
+        public AuthenticationController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<AuthenticationController> logger,
             IAccountService accountService,
@@ -53,10 +53,17 @@ namespace JustBlog.UI.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Sign a user into the application and create a jwt token.
+        /// If the user is locked out or requires 2 factor authentication, the correct return url is returned in place of the jwt token with the correct token
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<string> Login(LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             if (ModelState.IsValid)
             {
@@ -65,37 +72,34 @@ namespace JustBlog.UI.Controllers
                 var result = await _accountService.Login(model);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
+                    _logger.LogInformation($"User {model.Email} logged in.");
 
                     var identity = await GetClaimsIdentity(model.Email, model.Password);
-                    var jwt = await Tokens.GenerateJwt(identity,
-                                        _jwtFactory,
-                                        model.Email,
-                                        _jwtIssuerOptions,
-                                        new JsonSerializerSettings { Formatting = Formatting.Indented });
 
-                    return jwt;
+                    var jwt = await Tokens.GenerateJwt(identity, _jwtFactory, model.Email, _jwtIssuerOptions);
+
+                    return Ok(jwt);
                 }
 
                 if (result.RequiresTwoFactor)
                 {
-                    return returnUrl; //RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
+                    return Ok(returnUrl); //RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
                 }
 
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning("User account locked out.");
-                    return returnUrl; //RedirectToAction(nameof(Lockout));
+                    return Ok(returnUrl); //RedirectToAction(nameof(Lockout));
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return returnUrl; //View(model);
+                    return Ok(returnUrl); //View(model);
                 }
             }
 
             // If we got this far, something failed, redisplay form
-            return returnUrl; //View(model);
+            return Ok(returnUrl); //View(model);
         }
 
         [HttpGet]
@@ -228,7 +232,10 @@ namespace JustBlog.UI.Controllers
         private async Task<ClaimsIdentity> GetClaimsIdentity(string userName, string password)
         {
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
+            {
                 return await Task.FromResult<ClaimsIdentity>(null);
+            }
+                
 
             // get the user to verifty
             var userToVerify = await _userManager.FindByNameAsync(userName);

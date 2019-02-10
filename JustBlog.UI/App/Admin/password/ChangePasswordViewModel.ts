@@ -1,4 +1,4 @@
-﻿import {IChangePasswordViewModel} from "Admin/Account/IChangePasswordViewModel";
+﻿import {IChangePasswordViewModel} from "Admin/password/IChangePasswordViewModel";
 
 /**
  * Model for changing a password
