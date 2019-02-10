@@ -65,6 +65,8 @@ export class AdminModule extends BaseModule {
         };
 
         let manageContentState: BlogState = {
+            name: "manageContent",
+            url: "/manageContent",
             templateUrl: require("admin/manageContent.html"),
             controller: AdminController,
             controllerAs: "vm",
@@ -72,8 +74,6 @@ export class AdminModule extends BaseModule {
             action: ACTIONS.Read,
             resource: RESOURCES.Admin,
             authorizationResolver: null,
-            name: "manageContent",
-            url: "/manageContent"
         };
 
 
