@@ -6,5 +6,5 @@ module.exports = (env) => {
         env = 'dev';
     }
 
-    return require(`./webpack.${env}.js`)
-}
+    return require(`./webpack.${env}.js`);
+};

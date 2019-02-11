@@ -1,8 +1,8 @@
-﻿import { ChangePasswordViewModel } from "Admin/Account/ChangePasswordViewModel";
-import { IChangePasswordViewModel } from "Admin/Account/IChangePasswordViewModel";
-import { ILoginUpdate } from "Admin/Account/ILoginUpdate";
+﻿import { ChangePasswordViewModel } from "Admin/password/ChangePasswordViewModel";
+import { IChangePasswordViewModel } from "Admin/password/IChangePasswordViewModel";
+import { LoginUpdate } from "admin/login/LoginUpdate";
 import { IUser } from "Admin/Account/IUser";
-import { ResetPasswordModel } from "Admin/Account/ResetPasswordModel";
+import { ResetPasswordModel } from "Admin/password/ResetPasswordModel";
 import { AdminService } from "Admin/admin.service";
 import { Post } from "Blog/Post/Post";
 import { BaseController } from "Core/Models/BaseController";
@@ -18,7 +18,7 @@ export class AdminController extends BaseController {
 
     ApplicationAdmins: Array<IUser> = [];
     IsLoggedIn: boolean;
-    LoginUpdate: ILoginUpdate;
+    LoginUpdate: LoginUpdate;
     MyCurrentUser: IUser;
     UpdatedAccount: IUser;
     UpdatePasswordModel: IChangePasswordViewModel = new ChangePasswordViewModel();
@@ -31,12 +31,11 @@ export class AdminController extends BaseController {
     BirthDateFormatOptions: Array<string> = ["dd-MMMM-yyyy", "yyyy/MM/dd", "dd.MM.yyyy", "shortDate"];
     BirthDateFormat: string = this.BirthDateFormatOptions[0];
 
-    static $inject = ["coreService", "authService", "adminService", "notificationFactory", "$route", "$location", "$sce", "$window"];
+    static $inject = ["coreService", "authService", "adminService", "notificationFactory", "$location", "$sce", "$window"];
     constructor(private coreService: ICoreService,
         private _authService: AuthService,
         private _adminService: AdminService,
         private _notificationService: NotificationFactory,
-        private $route: ng.route.IRouteService,
         private $location: ng.ILocationService,
         public $sce: ng.ISCEService,
         private $window: ng.IWindowService) {

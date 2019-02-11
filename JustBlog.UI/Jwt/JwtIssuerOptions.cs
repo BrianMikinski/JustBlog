@@ -44,8 +44,6 @@ namespace JustBlog.UI.Models
         /// </summary>
         public TimeSpan ValidFor { get; set; } = TimeSpan.FromMinutes(120);
 
-
-
         /// <summary>
         /// "jti" (JWT ID) Claim (default ID is a GUID)
         /// </summary>
