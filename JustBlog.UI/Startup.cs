@@ -34,7 +34,7 @@ namespace JustBlog.UI
         private const string JUST_BLOG_CONNECTION_STRING = "JustBlogDbConnection";
         private const string SECRET_KEY_STRING = "SecretKey";
 
-        private readonly SymmetricSecurityKey _signingKey ;
+        private readonly SymmetricSecurityKey _signingKey;
 
         public IConfiguration Configuration { get; }
 
@@ -50,9 +50,6 @@ namespace JustBlog.UI
             Environment = environment;
 
             string secretKey = Configuration.GetValue<string>(SECRET_KEY_STRING);
-
-            secretKey = "hello world";
-
             _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
         }
 
@@ -115,12 +112,12 @@ namespace JustBlog.UI
                 .AddDefaultTokenProviders();
 
             // authentication
-            var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
+            var _jwtOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
 
             services.Configure<JwtIssuerOptions>(options =>
             {
-                options.Issuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
-                options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
+                options.Issuer = _jwtOptions[nameof(JwtIssuerOptions.Issuer)];
+                options.Audience = _jwtOptions[nameof(JwtIssuerOptions.Audience)];
                 options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
             });
 
@@ -135,14 +132,14 @@ namespace JustBlog.UI
             {
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
-                
+
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
-                    ValidIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)],
+                    ValidIssuer = _jwtOptions[nameof(JwtIssuerOptions.Issuer)],
 
                     ValidateAudience = true,
-                    ValidAudience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)],
+                    ValidAudience = _jwtOptions[nameof(JwtIssuerOptions.Audience)],
 
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = _signingKey,
@@ -160,7 +157,11 @@ namespace JustBlog.UI
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "JustBlog API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info
+                {
+                    Title = "JustBlog API",
+                    Version = "v1"
+                });
             });
         }
 
@@ -177,7 +178,8 @@ namespace JustBlog.UI
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
 
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions() {
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
+                {
                     HotModuleReplacement = true,
                     ConfigFile = "./webpack.config.js"
                 });

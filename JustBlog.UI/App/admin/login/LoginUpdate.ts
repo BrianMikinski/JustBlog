@@ -1,5 +1,5 @@
 ﻿// interface used to update logins
-export interface ILoginUpdate {
+export interface LoginUpdate {
     OldEmail: string;
     NewEmail: string;
     ConfirmNewEmail: string;
