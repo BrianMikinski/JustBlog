@@ -62,7 +62,7 @@ namespace JustBlog.UI.Controllers
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             if (ModelState.IsValid)
@@ -83,23 +83,25 @@ namespace JustBlog.UI.Controllers
 
                 if (result.RequiresTwoFactor)
                 {
-                    return Ok(returnUrl); //RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
+                    throw new NotImplementedException();
+                    return Ok(returnUrl);
                 }
 
                 if (result.IsLockedOut)
                 {
+                    throw new NotImplementedException();
                     _logger.LogWarning("User account locked out.");
-                    return Ok(returnUrl); //RedirectToAction(nameof(Lockout));
+                    return Ok(returnUrl);
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return Ok(returnUrl); //View(model);
+                    return Ok(returnUrl);
                 }
             }
 
             // If we got this far, something failed, redisplay form
-            return Ok(returnUrl); //View(model);
+            return Ok(returnUrl); 
         }
 
         [HttpGet]
@@ -122,7 +124,7 @@ namespace JustBlog.UI.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> LoginWith2fa(LoginWith2faViewModel model, bool rememberMe, string returnUrl = null)
         {
             if (!ModelState.IsValid)
@@ -176,7 +178,7 @@ namespace JustBlog.UI.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> LoginWithRecoveryCode(LoginWithRecoveryCodeViewModel model, string returnUrl = null)
         {
             if (!ModelState.IsValid)
@@ -213,7 +215,7 @@ namespace JustBlog.UI.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
