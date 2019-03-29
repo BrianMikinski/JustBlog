@@ -215,13 +215,13 @@ namespace JustBlog.UI.Controllers
         }
 
         [HttpPost]
-        [AutoValidateAntiforgeryToken]
+        //[AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
 
-            return Redirect("");
+            return Ok();
         }
 
         [HttpGet]

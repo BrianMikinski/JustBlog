@@ -105,7 +105,7 @@ describe(` ${adminModule}: Register New User Component Tests - `, function () {
         
         let registerNewUserDeferred: ng.IDeferred<RegistrationAttempt> = $q.defer();
         registerNewUserDeferred.resolve(registrationAttempt);
-        let registerUserSpy: jasmine.Spy = spyOn(adminService, "RegisterUser").and.returnValue(registerNewUserDeferred.promise);
+        let registerUserSpy: jasmine.Spy = spyOn(adminService, "registerUser").and.returnValue(registerNewUserDeferred.promise);
 
         // mock user login
         let tokenResponse: ITokenAuthResponse = {
@@ -128,7 +128,7 @@ describe(` ${adminModule}: Register New User Component Tests - `, function () {
         let loginUserDeferred: ng.IDeferred<ng.IHttpPromiseCallbackArg<ITokenAuthResponse> > = $q.defer();
         loginUserDeferred.resolve(loginResponse);
 
-        let loginSpy: jasmine.Spy = spyOn(adminService, "Login").and.returnValue(loginUserDeferred.promise);
+        let loginSpy: jasmine.Spy = spyOn(adminService, "login").and.returnValue(loginUserDeferred.promise);
 
         $provide.value("adminService", adminService);
 
@@ -175,7 +175,7 @@ describe(` ${adminModule}: Register New User Component Tests - `, function () {
 
         let registerNewUserPromise: ng.IDeferred<RegistrationAttempt> = $q.defer();
         registerNewUserPromise.resolve(registrationAttempt);
-        let registeredUserSpy:jasmine.Spy =  spyOn(adminService, "RegisterUser").and.returnValue(registerNewUserPromise.promise);
+        let registeredUserSpy:jasmine.Spy =  spyOn(adminService, "registerUser").and.returnValue(registerNewUserPromise.promise);
 
         $provide.value("adminService", adminService);
 

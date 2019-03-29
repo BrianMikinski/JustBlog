@@ -1,6 +1,6 @@
-﻿import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
-import { AdminService } from "Admin/admin.service";
-import { LoginModel } from "Admin/Login/LoginModel";
+﻿import { ITokenAuthResponse } from "admin/Account/ITokenAuthResponse";
+import { AdminService } from "admin/admin.service";
+import { LoginModel } from "admin/login/LoginModel";
 import { AuthService } from "Core/auth.service";
 import { ComponentBase } from "Core/component.base";
 import { BaseController } from "Core/Models/BaseController";
@@ -45,7 +45,7 @@ class LoginComponentController extends BaseController implements ng.IController 
             }
         };
 
-        this.adminService.Login(this.LoginUser).then(onLoginCallback, this.OnErrorCallback);
+        this.adminService.login(this.LoginUser).then(onLoginCallback, this.OnErrorCallback);
     }
 }
 

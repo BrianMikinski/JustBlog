@@ -139,7 +139,7 @@ describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${not
         $httpBackend.whenPOST("/Manage/ReadIdentityUsers").respond(applicationUsers);
 
         // act
-        adminService.ReadApplicationUsers().then((response) => {
+        adminService.readApplicationUsers().then((response) => {
 
             // assert
             expect(applicationUsers).toEqual(response);
@@ -167,7 +167,7 @@ describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${not
         $httpBackend.whenPOST(AUTH_ROUTE_CONSTANTS.Login).respond(jwtMockToken);
 
         // act
-        adminService.Login(login).then((response) => {
+        adminService.login(login).then((response) => {
 
             let authToken: string = authService.GetLocalToken();
 

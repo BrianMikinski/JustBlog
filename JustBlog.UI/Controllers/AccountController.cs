@@ -35,6 +35,12 @@ namespace JustBlog.UI.Controllers
             _accountService = accountService;
         }
 
+        [HttpGet]
+        public string Test()
+        {
+            return "This is a test";
+        }
+
         /// <summary>
         /// Method used to generate and add an XSRF token to the headers via a global filter.
         /// This is most commonly used by the test server for integration tests.

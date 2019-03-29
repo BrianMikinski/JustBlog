@@ -1,4 +1,4 @@
-﻿import { AdminService } from "Admin/admin.service";
+﻿import { AdminService } from "admin/admin.service";
 import { AuthService } from "Core/auth.service";
 import { ComponentBase } from "Core/component.base";
 import { BaseController } from "Core/Models/BaseController";
@@ -20,6 +20,10 @@ class LogoffComponentController extends BaseController implements ng.IController
                 public $state: ng.ui.IStateService) {
         super($sce);
     }
+    
+    $onInit?(): void {
+
+    }
 
     /**
      * Log a user out of the admin section of the application
@@ -27,7 +31,9 @@ class LogoffComponentController extends BaseController implements ng.IController
     public Logoff(): void {
 
         let onLogOffCallback: (response: boolean) => void = (response: boolean) => {
-            let loginAttempt: boolean = <boolean>response;
+
+            let loginAttempt: boolean = response;
+
             if (loginAttempt) {
 
                 this.notificationFactory.Success("Logoff was successful.");
@@ -41,7 +47,7 @@ class LogoffComponentController extends BaseController implements ng.IController
             }
         };
 
-        this.adminService.LogOff(this.AntiForgeryToken).then(onLogOffCallback, this.OnErrorCallback);
+        this.adminService.logOff().then(onLogOffCallback, this.OnErrorCallback);
     }
 }
 

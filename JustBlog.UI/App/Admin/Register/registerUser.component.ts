@@ -1,10 +1,10 @@
-﻿import { ApplicationUser } from "Admin/Account/ApplicationUser";
-import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
-import { AdminService } from "Admin/admin.service";
-import { LoginModel } from "Admin/Login/LoginModel";
-import { IdentityError } from "Admin/Register/IdentityError";
-import { RegistrationAttempt } from "Admin/Register/RegistrationAttempt";
-import { RegistrationUser } from "Admin/Register/RegistrationUser";
+﻿import { ApplicationUser } from "admin/account/ApplicationUser";
+import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
+import { AdminService } from "admin/admin.service";
+import { LoginModel } from "admin/login/LoginModel";
+import { IdentityError } from "admin/register/IdentityError";
+import { RegistrationAttempt } from "admin/register/RegistrationAttempt";
+import { RegistrationUser } from "admin/register/RegistrationUser";
 import { AuthService } from "Core/auth.service";
 import { ComponentBase } from "Core/component.base";
 import { BaseController } from "Core/Models/BaseController";
@@ -90,7 +90,7 @@ export class RegisterUserController extends BaseController implements ng.IContro
                     RememberMe: false
                 };
 
-                this.adminService.Login(userLogin).then(onLoginSuccessCallback, this.OnErrorCallback);
+                this.adminService.login(userLogin).then(onLoginSuccessCallback, this.OnErrorCallback);
 
             } else {
 
@@ -104,7 +104,7 @@ export class RegisterUserController extends BaseController implements ng.IContro
 
         this.NewUser.BirthDate = (<Date>this.userBirthDate).toLocaleDateString();
 
-        this.adminService.RegisterUser(this.NewUser, this.AntiForgeryToken).then(onRegistrationCallback, this.OnErrorCallback);
+        this.adminService.registerUser(this.NewUser, this.AntiForgeryToken).then(onRegistrationCallback, this.OnErrorCallback);
     }
 
     /**
