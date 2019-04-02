@@ -1,9 +1,9 @@
-﻿import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
-import { IUser } from "Admin/Account/IUser";
-import { IHttpAdminRoutes } from "Admin/Interfaces/IHttpAdminRoutes";
-import { LoginModel } from "Admin/Login/LoginModel";
-import { AdminModule, default as adminModule } from "Admin/admin.module";
-import { AdminService } from "Admin/admin.service";
+﻿import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
+import { IUser } from "admin/account/IUser";
+import { IHttpAdminRoutes } from "admin/interfaces/IHttpAdminRoutes";
+import { LoginModel } from "admin/login/LoginModel";
+import { AdminModule, default as adminModule } from "admin/admin.module";
+import { AdminService } from "admin/admin.service";
 import { MetaData } from "Blog/MetaData/MetaData";
 import { AuthService } from "Core/auth.service";
 import { default as coreModule } from "Core/core.module";

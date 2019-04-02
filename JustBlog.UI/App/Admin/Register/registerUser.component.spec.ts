@@ -1,11 +1,10 @@
-﻿import App from "app.module";
-import { default as adminModule } from "Admin/admin.module";
+﻿import { default as adminModule } from "admin/admin.module";
 import { CoreModule } from "Core/core.module";
-import { RegistrationUser } from "Admin/Register/RegistrationUser";
-import { AdminService } from "Admin/admin.service";
-import { RegistrationAttempt } from "Admin/Register/RegistrationAttempt";
-import { RegisterUserComponentName, RegisterUserController, RegisterUserComponent } from "Admin/Register/registerUser.component";
-import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
+import { RegistrationUser } from "admin/register/RegistrationUser";
+import { AdminService } from "admin/admin.service";
+import { RegistrationAttempt } from "admin/register/RegistrationAttempt";
+import { RegisterUserComponentName, RegisterUserController, RegisterUserComponent } from "admin/register/registerUser.component";
+import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
 import { IHttpHeadersGetter } from "angular";
 import * as angular from "angular";
 import 'angular-mocks';

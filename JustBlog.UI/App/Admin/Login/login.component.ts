@@ -1,4 +1,4 @@
-﻿import { ITokenAuthResponse } from "admin/Account/ITokenAuthResponse";
+﻿import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
 import { AdminService } from "admin/admin.service";
 import { LoginModel } from "admin/login/LoginModel";
 import { AuthService } from "Core/auth.service";
@@ -63,7 +63,7 @@ export class LoginComponent extends ComponentBase {
         this.controllerAs = "$loginCtrl"
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Admin/Login/login.html");
+            return require("admin/login/login.html");
         }];
     }
 }
