@@ -14,21 +14,21 @@ namespace JustBlog.IdentityManagement.Services
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IEmailSender _emailSender;
+        private readonly IMessagingService _messagingService;
         private readonly ILogger _logger;
 
         public AccountService(UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager,
-                                IEmailSender emailSender,
+                                IMessagingService emailSender,
                                 ILogger<IAccountService> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
+            _messagingService = emailSender;
             _logger = logger;
         }
 
-        public async Task<IdentityResult> Register(RegisterViewModel model, string requestSchema)
+        public async Task<IdentityResult> Register(RegisterViewModel model, string baseUrl, string requestSchema = "https")
         {
             try
             {
@@ -49,8 +49,10 @@ namespace JustBlog.IdentityManagement.Services
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = EmailConfirmationLink(user.Id, code, requestSchema);
-                    await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+
+                    var callbackUrl = _messagingService.EmailConfirmationLink(user.Id, code, baseUrl,  requestSchema);
+
+                    await _messagingService.SendEmailConfirmationAsync($"{model.FirstName} {model.LastName}", model.Email, callbackUrl);
                 }
 
                 return result;
@@ -187,17 +189,7 @@ namespace JustBlog.IdentityManagement.Services
             }
         }
 
-        /// <summary>
-        /// Generate an email confirmation link based on the user id, confirmation code and request protocol scheme
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="code"></param>
-        /// <param name="scheme"></param>
-        /// <returns></returns>
-        private string EmailConfirmationLink(string userId, string code, string scheme)
-        {
-            return $"{scheme}\\\\baseurl.com\\Account\\ConfirmEmail\\userId?{userId}code?{code}";
-        }
+
 
         private string ResetPasswordCallbackLink(/*this IUrlHelper urlHelper, */string userId, string code, string scheme)
         {

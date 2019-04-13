@@ -225,7 +225,6 @@ namespace JustBlog.UI.Controllers
         }
 
         [HttpPost]
-        //[AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Logout()
         {
             try

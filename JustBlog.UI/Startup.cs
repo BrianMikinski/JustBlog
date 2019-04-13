@@ -5,6 +5,7 @@ using JustBlog.IdentityManagement.Login;
 using JustBlog.IdentityManagement.Services;
 using JustBlog.Models;
 using JustBlog.UI.Filters;
+using JustBlog.UI.Infrastructure;
 using JustBlog.UI.Models;
 using JustBlog.UI.Services;
 using Microsoft.AspNetCore.Antiforgery;
@@ -35,6 +36,7 @@ namespace JustBlog.UI
         private const string DATABASE_APP_SETTINGS = "ConnectionStrings";
         private const string JUST_BLOG_CONNECTION_STRING = "JustBlogDbConnection";
         private const string SECRET_KEY_STRING = "SecretKey";
+        private const string DOMAIN_KEY = "Domain";
 
         private readonly SymmetricSecurityKey _signingKey;
 
@@ -87,76 +89,14 @@ namespace JustBlog.UI
             services.AddTransient<ITagService, TagService>();
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<AngularAntiforgeryCookieResultFilterAttribute>();
-            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IMessagingService, MessagingService>();
             services.AddTransient<IJwtFactory, JwtFactory>();
 
-            var blogConnectionString = Configuration.GetSection(DATABASE_APP_SETTINGS).GetValue<string>(JUST_BLOG_CONNECTION_STRING);
+            var connectionString = configureBlogServices();
 
-            blogConnectionString = "Filename =./justblog.sqlite";
+            identityManagementServices(connectionString);
 
-            if (string.IsNullOrEmpty(blogConnectionString))
-            {
-                // load connection string from environment variables
-                blogConnectionString = Configuration.GetValue<string>(JUST_BLOG_CONNECTION_STRING);
-            }
-
-            services.AddDbContext<JustBlogContext>(options =>
-            {
-                options.UseSqlite(blogConnectionString);
-            });
-
-            // identity management
-            services.AddDbContext<AppIdentityDbContext>(options =>
-            {
-                if (string.IsNullOrEmpty(blogConnectionString))
-                {
-                    blogConnectionString = Configuration.GetValue<string>(JUST_BLOG_CONNECTION_STRING);
-                }
-                options.UseSqlite(blogConnectionString);
-            });
-
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppIdentityDbContext>()
-                .AddDefaultTokenProviders();
-
-            // authentication
-            var _jwtOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
-
-            services.Configure<JwtIssuerOptions>(options =>
-            {
-                options.Issuer = _jwtOptions[nameof(JwtIssuerOptions.Issuer)];
-                options.Audience = _jwtOptions[nameof(JwtIssuerOptions.Audience)];
-                options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
-            });
-
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // remove default claims
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(options =>
-            {
-                options.RequireHttpsMetadata = false;
-                options.SaveToken = true;
-
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidIssuer = _jwtOptions[nameof(JwtIssuerOptions.Issuer)],
-
-                    ValidateAudience = true,
-                    ValidAudience = _jwtOptions[nameof(JwtIssuerOptions.Audience)],
-
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = _signingKey,
-
-                    RequireExpirationTime = false,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero
-                };
-            });
+            authenticationServices();
 
             services.AddAuthorization(options =>
             {
@@ -171,6 +111,95 @@ namespace JustBlog.UI
                     Version = "v1"
                 });
             });
+
+            domainServices();
+
+            string configureBlogServices()
+            {
+                var blogConnectionString = Configuration.GetSection(DATABASE_APP_SETTINGS).GetValue<string>(JUST_BLOG_CONNECTION_STRING);
+
+                blogConnectionString = "Filename =./justblog.sqlite";
+
+                if (string.IsNullOrEmpty(blogConnectionString))
+                {
+                    // load connection string from environment variables
+                    blogConnectionString = Configuration.GetValue<string>(JUST_BLOG_CONNECTION_STRING);
+                }
+
+                services.AddDbContext<JustBlogContext>(options =>
+                {
+                    options.UseSqlite(blogConnectionString);
+                });
+
+                return blogConnectionString;
+            }
+
+            void identityManagementServices(string dbConnectionSTring)
+            {
+                // identity management
+                services.AddDbContext<AppIdentityDbContext>(options =>
+                {
+                    if (string.IsNullOrEmpty(dbConnectionSTring))
+                    {
+                        dbConnectionSTring = Configuration.GetValue<string>(JUST_BLOG_CONNECTION_STRING);
+                    }
+                    options.UseSqlite(dbConnectionSTring);
+                });
+
+                services.AddIdentity<ApplicationUser, IdentityRole>()
+                    .AddEntityFrameworkStores<AppIdentityDbContext>()
+                    .AddDefaultTokenProviders();
+            }
+
+            void authenticationServices()
+            {
+                // authentication
+                var _jwtOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
+
+                services.Configure<JwtIssuerOptions>(options =>
+                {
+                    options.Issuer = _jwtOptions[nameof(JwtIssuerOptions.Issuer)];
+                    options.Audience = _jwtOptions[nameof(JwtIssuerOptions.Audience)];
+                    options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
+                });
+
+                JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // remove default claims
+                services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = _jwtOptions[nameof(JwtIssuerOptions.Issuer)],
+
+                        ValidateAudience = true,
+                        ValidAudience = _jwtOptions[nameof(JwtIssuerOptions.Audience)],
+
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = _signingKey,
+
+                        RequireExpirationTime = false,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero
+                    };
+                });
+            }
+
+            void domainServices()
+            {
+                services.Configure<DomainOptions>(options =>
+                {
+                    options.BaseUrl = Configuration.GetValue<string>(DOMAIN_KEY);
+                });
+            }
         }
 
         /// <summary>
