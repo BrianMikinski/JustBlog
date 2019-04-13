@@ -14,37 +14,31 @@ class LogoffComponentController extends BaseController implements ng.IController
 
     inject = ["authService", "adminService", "notificationFactory", "$sce", "$location"]
     constructor(public authService: AuthService,
-                public adminService: AdminService,
-                public notificationFactory: NotificationFactory,
-                public $sce: ng.ISCEService,
-                public $state: ng.ui.IStateService) {
+        public adminService: AdminService,
+        public notificationFactory: NotificationFactory,
+        public $sce: ng.ISCEService,
+        public $state: ng.ui.IStateService) {
         super($sce);
     }
-    
+
     $onInit?(): void {
 
+        this.OnErrorCallback = (error: any):void => {
+            this.notificationFactory.Error("Logoff was unsuccessful.");
+        }
     }
 
     /**
      * Log a user out of the admin section of the application
      */
-    public Logoff(): void {
+    public logoff(): void {
 
-        let onLogOffCallback: (response: boolean) => void = (response: boolean) => {
+        let onLogOffCallback: () => void = () => {
 
-            let loginAttempt: boolean = response;
+            this.notificationFactory.Success("Logoff was successful.");
 
-            if (loginAttempt) {
-
-                this.notificationFactory.Success("Logoff was successful.");
-
-                // reroute to the management screen now that we have logged in
-                this.$state.go(HomeComponentName)
-
-            } else {
-                // notify that we did 
-                this.notificationFactory.Error("Logoff was unsuccessful.");
-            }
+            // reroute to the management screen now that we have logged in
+            this.$state.go(HomeComponentName)
         };
 
         this.adminService.logOff().then(onLogOffCallback, this.OnErrorCallback);

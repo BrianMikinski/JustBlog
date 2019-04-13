@@ -160,22 +160,15 @@ export class AdminService extends BaseService {
      * Log a user out of the admin area
      * @param antiForgeryToken
      */
-    logOff(): ng.IPromise<void | boolean> {
+    logOff(): ng.IPromise<void> {
 
-        let onLogoffCallback: (response: ng.IHttpPromiseCallbackArg<boolean>) => boolean;
-        onLogoffCallback = (response: ng.IHttpPromiseCallbackArg<boolean>) => {
+        let onLogoffCallback: () => void;
+        onLogoffCallback = () => {
 
-            let logoffStatus: boolean = <boolean>response.data;
+            this.authService.DestroyUserTokens();
 
-            // remove the auth token value so we know we are logged off
-            if (logoffStatus != null && logoffStatus === true) {
-                this.authService.DestroyUserTokens();
-
-                // false here so that we let event handlers know we're not logged-in anymore
-                this.$rootScope.$broadcast(this.AUTH_EVENT_CONSTANTS.logoutSuccess, false);
-            }
-
-            return <boolean>response.data;
+            // false here so that we let event handlers know we're not logged-in anymore
+            this.$rootScope.$broadcast(this.AUTH_EVENT_CONSTANTS.logoutSuccess, false);
         };
 
         return this.$http.post(`${this.AUTH_ROUTE_CONSTANTS.Logoff}`, null, this.ConfigSecureAppJson(this.authService.GetLocalToken()))

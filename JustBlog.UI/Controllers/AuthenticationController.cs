@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -67,37 +66,48 @@ namespace JustBlog.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _accountService.Login(model);
-                if (result.Succeeded)
+                try
                 {
-                    _logger.LogInformation($"User {model.Email} logged in.");
+                    // This doesn't count login failures towards account lockout
+                    // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                    var result = await _accountService.Login(model);
+                    if (result.Succeeded)
+                    {
+                        _logger.LogInformation($"User {model.Email} logged in.");
 
-                    var identity = await GetClaimsIdentity(model.Email, model.Password);
+                        var identity = await GetClaimsIdentity(model.Email, model.Password);
 
-                    var jwt = await Tokens.GenerateJwt(identity, _jwtFactory, model.Email, _jwtIssuerOptions);
+                        var jwt = await Tokens.GenerateJwt(identity, _jwtFactory, model.Email, _jwtIssuerOptions);
 
-                    return Ok(jwt);
+                        return Ok(jwt);
+                    }
+
+                    if (result.RequiresTwoFactor)
+                    {
+                        throw new NotImplementedException();
+                        return Ok(returnUrl);
+                    }
+
+                    if (result.IsLockedOut)
+                    {
+                        throw new NotImplementedException();
+                        _logger.LogWarning("User account locked out.");
+                        return Ok(returnUrl);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                        return Ok(returnUrl);
+                    }
                 }
-
-                if (result.RequiresTwoFactor)
+                catch(Exception ex)
                 {
-                    throw new NotImplementedException();
-                    return Ok(returnUrl);
+                    return BadRequest();
                 }
-
-                if (result.IsLockedOut)
-                {
-                    throw new NotImplementedException();
-                    _logger.LogWarning("User account locked out.");
-                    return Ok(returnUrl);
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return Ok(returnUrl);
-                }
+            }
+            else
+            {
+                return BadRequest();
             }
 
             // If we got this far, something failed, redisplay form
@@ -218,10 +228,17 @@ namespace JustBlog.UI.Controllers
         //[AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Logout()
         {
-             await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
+            try
+            {
+                await _signInManager.SignOutAsync();
+                _logger.LogInformation("User logged out.");
 
-            return Ok();
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpGet]
