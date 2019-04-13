@@ -16,7 +16,7 @@ namespace JustBlog.IdentityManagement.Services
 
         Task<SignInResult> Login(LoginViewModel model);
 
-        Task<IdentityResult> Register(RegisterViewModel model, string requestSchema);
+        Task<IdentityResult> Register(RegisterViewModel model, string baseUrl, string requestSchema = "https");
 
         Task RemoveLogin(RemoveLoginViewModel model, ClaimsPrincipal userPrincipal);
     }

@@ -138,7 +138,7 @@ export class BlogController extends BaseController {
             this._notificationService.Success(`Post "${category.Name}" was succesfully saved.`);
         };
 
-        this._blogService.SaveCategory(category, this.AntiForgeryToken).then(onCategorySavedReturned, this.OnErrorCallback);
+        this._blogService.SaveCategory(category).then(onCategorySavedReturned, this.OnErrorCallback);
     }
 
     /**
