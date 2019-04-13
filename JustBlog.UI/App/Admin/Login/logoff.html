@@ -1,20 +1,28 @@
 ﻿<div id="login-div">
-    <form ng-submit="vm.Logoff()" method="post" role="form">
-        <input id="antiForgeryToken" name="__RequestVerificationToken" value="{{vm.AntiForgeryToken}}" ng-model="vm.AntiForgeryToken" type="hidden" />
-        <fieldset>
-            <legend>Logoff</legend>
-            <p>
+    <form class="login-form" method="post" role="form" ng-submit="$ctrl.logoff()">
+        <h1 class="text-center">
+            End Session
+        </h1>
+        <br />
+        <br/>
+        <div class="form-group">
+            <p class="text-center">
                 Are you sure you want to logoff?
-                <input type="submit" value="Logoff">
             </p>
-        </fieldset>
+            <br/>
+            <button class="form-control btn btn-md btn-primary" type="submit">
+                Logoff
+            </button>
+        </div>
     </form>
     <div class="row">
-        <div class="col-md-3 pull-left">
-            <a href="manageContent">Go to admin management screen</a>
-        </div>
-        <div class="col-md-3 pull-right">
-            <a href="">Go to Blog</a>
+        <div class="col-md-offset-4 col-md-4">
+            <a ui-sref="manageContent" class="pull-left">
+                Content Admin
+            </a>
+            <a ui-sref="home" class="pull-right">
+                Home
+            </a>
         </div>
     </div>
 </div>

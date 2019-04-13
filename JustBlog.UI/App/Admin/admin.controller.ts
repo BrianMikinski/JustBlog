@@ -1,9 +1,9 @@
-﻿import { ChangePasswordViewModel } from "Admin/password/ChangePasswordViewModel";
-import { IChangePasswordViewModel } from "Admin/password/IChangePasswordViewModel";
+﻿import { ChangePasswordViewModel } from "admin/password/ChangePasswordViewModel";
+import { IChangePasswordViewModel } from "admin/password/IChangePasswordViewModel";
 import { LoginUpdate } from "admin/login/LoginUpdate";
-import { IUser } from "Admin/Account/IUser";
-import { ResetPasswordModel } from "Admin/password/ResetPasswordModel";
-import { AdminService } from "Admin/admin.service";
+import { IUser } from "admin/account/IUser";
+import { ResetPasswordModel } from "admin/password/ResetPasswordModel";
+import { AdminService } from "admin/admin.service";
 import { Post } from "Blog/Post/Post";
 import { BaseController } from "Core/Models/BaseController";
 import { GridQuery } from "Core/Models/GridQuery";
@@ -76,7 +76,7 @@ export class AdminController extends BaseController {
             }
         };
 
-        this._adminService.ForgotPassword(this.ForgottenPasswordEmail, this.AntiForgeryToken).then(onPasswordResetSubmitted, this.OnErrorCallback);
+        this._adminService.forgotPassword(this.ForgottenPasswordEmail, this.AntiForgeryToken).then(onPasswordResetSubmitted, this.OnErrorCallback);
     }
 
     /**
@@ -99,7 +99,7 @@ export class AdminController extends BaseController {
             }
         };
 
-        this._adminService.UpdatePassword(this.UpdatePasswordModel, this.AntiForgeryToken).then(onPasswordChangeCompleted, this.OnErrorCallback);
+        this._adminService.updatePassword(this.UpdatePasswordModel, this.AntiForgeryToken).then(onPasswordChangeCompleted, this.OnErrorCallback);
     }
 
     /**
@@ -112,7 +112,7 @@ export class AdminController extends BaseController {
             this.ApplicationAdmins = data;
         };
 
-        this._adminService.ReadApplicationUsers().then(onReadUserAccountsComplete, this.OnErrorCallback);
+        this._adminService.readApplicationUsers().then(onReadUserAccountsComplete, this.OnErrorCallback);
     }
 
     /**
@@ -131,7 +131,7 @@ export class AdminController extends BaseController {
             }
         };
 
-        this._adminService.MyAccount().then(onReadMyAccountComplete, this.OnErrorCallback);
+        this._adminService.myAccount().then(onReadMyAccountComplete, this.OnErrorCallback);
     }
 
     /**
@@ -156,7 +156,7 @@ export class AdminController extends BaseController {
         this.UpdatedAccount.UserName = "";
         this.UpdatedAccount.LockoutEndDateUtc = new Date();
 
-        this._adminService.UpdateUser(this.UpdatedAccount, this.AntiForgeryToken).then(onUpdateAccountComplete, this.OnErrorCallback);
+        this._adminService.updateUser(this.UpdatedAccount, this.AntiForgeryToken).then(onUpdateAccountComplete, this.OnErrorCallback);
     }
 
     /**
@@ -176,7 +176,7 @@ export class AdminController extends BaseController {
             this.$location.path("/myAccount");
         };
 
-        this._adminService.UpdateUserLogin(this.LoginUpdate, this.AntiForgeryToken).then(onUpdateLoginComplete, this.OnErrorCallback);
+        this._adminService.updateUserLogin(this.LoginUpdate, this.AntiForgeryToken).then(onUpdateLoginComplete, this.OnErrorCallback);
     }
 
     /**
