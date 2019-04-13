@@ -29,7 +29,7 @@ namespace JustBlog.UI.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        [AutoValidateAntiforgeryToken]
         public IActionResult ExternalLogin(string provider, string returnUrl = null)
         {
             // Request a redirect to the external login provider.
@@ -39,7 +39,7 @@ namespace JustBlog.UI.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {
             if (remoteError != null)
@@ -76,7 +76,7 @@ namespace JustBlog.UI.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginViewModel model, string returnUrl = null)
         {
             if (ModelState.IsValid)

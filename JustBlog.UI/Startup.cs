@@ -7,9 +7,11 @@ using JustBlog.Models;
 using JustBlog.UI.Filters;
 using JustBlog.UI.Models;
 using JustBlog.UI.Services;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
@@ -59,6 +61,12 @@ namespace JustBlog.UI
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            // configure angularjs header name for xsrf tokens
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-XRSF-TOKEN";
+            });
+
             // Asp.NET core switched default json serialization from pascal casing to camel casing,
             // the just blog angular app expects pascal casing so we have to switch this back
             services.AddMvc(options =>
@@ -170,8 +178,31 @@ namespace JustBlog.UI
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IAntiforgery antiforgery)
         {
+            // add anti forgery token that AngularJs will know how to read and understand
+            app.Use(next => context =>
+            {
+                string path = context.Request.Path.Value;
+
+                if (string.Equals(path, "/", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(path, "/index.html", StringComparison.OrdinalIgnoreCase))
+                {
+                    // The request token can be sent as a JavaScript-readable cookie, 
+                    // and Angular uses it by default.
+                    var tokens = antiforgery.GetAndStoreTokens(context);
+                    context.Response.Cookies.Append(
+                        "XSRF-TOKEN", 
+                        tokens.RequestToken,
+                        new CookieOptions()
+                        {
+                            HttpOnly = false
+                        });
+                }
+
+                return next(context);
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();

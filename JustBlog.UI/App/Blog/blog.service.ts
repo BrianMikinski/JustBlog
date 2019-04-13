@@ -222,7 +222,7 @@ export class BlogService extends BaseService {
 
         return this.$http.post(`${this.postEndPoint}/Save/${this.CreateWebAPIParams(publishparams)}`,
             post,
-            this.ConfigSecureAppJson(antiForgeryToken, this.authService.GetLocalToken()))
+            this.ConfigSecureAppJson(this.authService.GetLocalToken()))
             .then(onSaveReturned, this.OnErrorCallback);
     }
 
@@ -235,7 +235,7 @@ export class BlogService extends BaseService {
             postId: postId
         };
 
-        let config: ng.IRequestShortcutConfig = this.ConfigSecureAppJson(antiForgeryToken, this.authService.GetLocalToken());
+        let config: ng.IRequestShortcutConfig = this.ConfigSecureAppJson(this.authService.GetLocalToken());
 
         // defining callback within function
         let onPostReturned: (response: ng.IHttpPromiseCallbackArg<Post>) => Post
@@ -258,7 +258,7 @@ export class BlogService extends BaseService {
             postId: postId
         };
 
-        let config: ng.IRequestShortcutConfig = this.ConfigSecureAppJson(antiForgeryToken, this.authService.GetLocalToken());
+        let config: ng.IRequestShortcutConfig = this.ConfigSecureAppJson(this.authService.GetLocalToken());
 
         // defining callback within function
         let onTagsReturned: (response: ng.IHttpPromiseCallbackArg<Post>) => Post
@@ -276,7 +276,7 @@ export class BlogService extends BaseService {
      * @param categoryId
      * @param antiForgeryToken
      */
-    SaveCategory(category: Category, antiForgeryToken: string): ng.IPromise<void | Category> {
+    SaveCategory(category: Category): ng.IPromise<void | Category> {
 
         // defining callback within function
         let onSaveCategoryReturned: (response: ng.IHttpPromiseCallbackArg<Category>) => Category
@@ -285,7 +285,7 @@ export class BlogService extends BaseService {
             };
 
         return this.$http.post(`${this.categoryEndPoint}/Save/`, category,
-            this.ConfigSecureAppJson(antiForgeryToken, this.authService.GetLocalToken())).then(onSaveCategoryReturned, this.OnErrorCallback);
+            this.ConfigSecureAppJson(this.authService.GetLocalToken())).then(onSaveCategoryReturned, this.OnErrorCallback);
     }
 
     /**
