@@ -24,6 +24,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace JustBlog.UI
 {
@@ -209,6 +210,20 @@ namespace JustBlog.UI
         /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IAntiforgery antiforgery)
         {
+            // fix url rewrites for angularjs application
+            // need to switch all api calls to include api in them
+            app.Use(async (HttpContext context, Func<Task> next) =>
+            {
+                await next.Invoke();
+
+                if (context.Response.StatusCode == 404 && !context.Request.Path.Value.Contains("/api"))
+                {
+                    context.Request.Path = new PathString("/index.html");
+                    await next.Invoke();
+                }
+            });
+
+
             // add anti forgery token that AngularJs will know how to read and understand
             app.Use(next => context =>
             {
@@ -221,7 +236,7 @@ namespace JustBlog.UI
                     // and Angular uses it by default.
                     var tokens = antiforgery.GetAndStoreTokens(context);
                     context.Response.Cookies.Append(
-                        "XSRF-TOKEN", 
+                        "XSRF-TOKEN",
                         tokens.RequestToken,
                         new CookieOptions()
                         {
