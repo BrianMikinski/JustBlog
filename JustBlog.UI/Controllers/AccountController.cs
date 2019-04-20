@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace JustBlog.UI.Controllers
 {
     [Authorize]
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -86,20 +86,24 @@ namespace JustBlog.UI.Controllers
         {
             if (userId == null || code == null)
             {
-                return Redirect("");
+                return BadRequest("Null user id or code.");
             }
 
             var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
             {
-                throw new AccountException($"Unable to load user with ID '{userId}'.");
+                return BadRequest($"Unable to load user with ID '{userId}'.");
             }
 
-            throw new NotImplementedException();
-
             var result = await _userManager.ConfirmEmailAsync(user, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return BadRequest("Could not confirm code.");
         }
 
         [HttpGet]

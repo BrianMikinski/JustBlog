@@ -1,8 +1,6 @@
-﻿
-
-<div class="row">
-    <div class="col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4 " method="post" role="form">
-        <form class="col-login" ng-submit="$loginCtrl.Login()" method="post" role="form">
+﻿<div class="row">
+    <div class="col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4 ">
+        <form class="col-login" ng-submit="$ctrl.login()" method="post" role="form">
             <div style="display:block;" class="text-center">
                 <img src="../../content/images/profile.jpg" class="img-circle profile-picture-sm"/>
             </div>
@@ -14,7 +12,13 @@
                     <div class="input-group-addon">
                         <i class="fa fa-envelope"></i>
                     </div>
-                    <input class="form-control" ng-model="$loginCtrl.LoginUser.Email" name="UserName" type="text" value="" placeholder="youremail@domain.com">
+                    <input class="form-control"  
+                           name="UserName" 
+                           type="text" 
+                           value="" 
+                           placeholder="youremail@domain.com"
+                           ng-enabled="!$ctrl.submitLogin"
+                           ng-model="$ctrl.LoginUser.Email">
                 </div>
             </div>
             <div class="form-group" style="margin-bottom: 10px;">
@@ -22,20 +26,20 @@
                     <div class="input-group-addon">
                         <i class="fa fa-key"></i>
                     </div>
-                    <input class="form-control" ng-model="$loginCtrl.LoginUser.Password" name="Password" type="password" placeholder="your password">
+                    <input class="form-control" name="Password" type="password" placeholder="your password" ng-enabled="!$ctrl.submitLogin" ng-model="$ctrl.LoginUser.Password" >
                 </div>
             </div>
 
-            <a ui-sref=".forgotPassword" class="text-center" style="display:block; margin-bottom: 10px;">
+            <a ui-sref="forgotPassword" class="text-center" style="display:block; margin-bottom: 10px;">
                 Forgot Password?
             </a>
 
-            <button class="btn btn-default login-btn" type="submit">
+            <button class="btn btn-primary login-btn" type="submit" ng-enabled="!$ctrl.submitLogin">
                 Log In
             </button>
 
-            <a ui-sref=".register">
-                <button class="btn btn-default login-btn" type="button">
+            <a ui-sref="register">
+                <button class="btn btn-primary login-btn" type="button">
                     Register
                 </button>
             </a>

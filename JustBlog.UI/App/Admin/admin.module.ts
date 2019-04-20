@@ -286,13 +286,13 @@ export class AdminModule extends BaseModule {
             ForgotPassword: "/Submit/Login",
             ForgotPasswordUpdateAccount: "",
             Logoff: "/Authentication/Logout",
-            MyAccount: "/Account/MyAccount",
+            MyAccount: "api/Account/MyAccount",
             ReadApplicationUsers: "/Manage/ReadIdentityUsers",
-            RegisterNewUser: "/Account/Register",
-            ConfirmEmail: "/ConfirmEmail",
+            RegisterNewUser: "api/Account/Register",
+            ConfirmEmail: "api/Account/ConfirmEmail",
             Login: "/Authentication/Login",
             UpdatePassword: "/Manage/ChangePassword",
-            UpdateUser: `/Manage/UpdateAccount`,
+            UpdateUser: `api/Manage/UpdateAccount`,
             UpdateUserLogin: "/Manage/UpdateLogin",
         }
 

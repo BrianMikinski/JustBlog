@@ -14,6 +14,7 @@ export const LoginComponentName: string = "login";
 class LoginComponentController extends BaseController implements ng.IController {
 
     private LoginUser: LoginModel = new LoginModel();
+    private submitLogin: boolean = false;
 
     inject = ["authService", "adminService", "notificationFactory", "$sce", "$state"]
     constructor(public authService: AuthService,
@@ -27,10 +28,14 @@ class LoginComponentController extends BaseController implements ng.IController 
     /**
      * Log a user into the admin section of the application
      */
-    private Login(): void {
+    private login(): void {
+
+        this.submitLogin = true;
 
         let onLoginCallback: (response: ITokenAuthResponse) => void;
         onLoginCallback = (response: ITokenAuthResponse) => {
+
+            this.submitLogin = true;
 
             let authBearerTokenPresent: string | null = this.authService.GetLocalToken()
 
@@ -47,6 +52,10 @@ class LoginComponentController extends BaseController implements ng.IController 
 
         this.adminService.login(this.LoginUser).then(onLoginCallback, this.OnErrorCallback);
     }
+
+    OnErrorCallback = (error: any) => {
+        this.submitLogin = false;
+    };
 }
 
 /**
@@ -60,7 +69,6 @@ export class LoginComponent extends ComponentBase {
         this.bindings = {}
 
         this.controller = LoginComponentController;
-        this.controllerAs = "$loginCtrl"
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
             return require("admin/login/login.html");

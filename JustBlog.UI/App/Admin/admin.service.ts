@@ -1,16 +1,15 @@
-﻿import { LoginUpdate } from "admin/login/LoginUpdate";
-import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
+﻿import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
 import { IUser } from "admin/account/IUser";
 import { IAuthEventConstants } from "admin/interfaces/IAuthEventConstants";
 import { IHttpAdminRoutes } from "admin/interfaces/IHttpAdminRoutes";
 import { LoginModel } from "admin/login/LoginModel";
+import { LoginUpdate } from "admin/login/LoginUpdate";
 import { IChangePasswordViewModel } from "admin/password/IChangePasswordViewModel";
 import { RegistrationAttempt } from "admin/register/RegistrationAttempt";
 import { RegistrationUser } from "admin/register/RegistrationUser";
 import { AuthService } from "Core/auth.service";
 import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
 import { BaseService } from "Core/Models/BaseService";
-import { IRequestShortcutConfig } from "angular";
 
 //Admin service class that allows users to perform common account management actions
 export class AdminService extends BaseService {
@@ -88,7 +87,7 @@ export class AdminService extends BaseService {
             return response.data;
         };
 
-        return this.$http.get(`${this.AUTH_ROUTE_CONSTANTS.ConfirmEmail}/userId?=${userId}&userCode?=${userCode}`)
+        return this.$http.get(`${this.AUTH_ROUTE_CONSTANTS.ConfirmEmail}?userId=${userId}&code=${userCode}`)
             .then(onConfirmEmailCallback, this.onError);
     }
 
@@ -202,7 +201,7 @@ export class AdminService extends BaseService {
 
         let params = {};
 
-        return this.$http.post("/Account/MyAccount", params).then(onAntiForgeryTokenCallback, this.onError);
+        return this.$http.post("api/Account/MyAccount", params).then(onAntiForgeryTokenCallback, this.onError);
     }
 
     /**
