@@ -1,7 +1,9 @@
 ﻿{
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    "target": "es5",
+    "allowJs": false,
+    "allowUnreachableCode": false,
+    "alwaysStrict": true,
     /**
         * Module resolution for code generation. Different from "moduleResolution" which is
         * which is how d.ts definition files are picked up. "module" resolution specifies
@@ -9,28 +11,24 @@
         * See compiler-options.html for full details
         */
     "baseUrl": "app",
-    "module": "es6",
-    "sourceMap": true,
-    "sourceRoot": "App", // Actual source files are in wwwroot/
-    "inlineSources": true,
-    "noImplicitAny": true,
+    "diagnostics": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    //"incremental": true,
+    "inlineSources": true,
+    "module": "es6",
+    /**
+      * This is required to gain intellisense for imported packages and
+      * the "node" value must be spcified.
+      * See https://github.com/Microsoft/TypeScript/issues/9725 or https://github.com/Microsoft/TypeScript/issues/9831
+      */
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "noImplicitAny": true,
     "noImplicitReturns": true,
-    "removeComments": false,
-    "alwaysStrict": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "strictNullChecks": false,
-    "allowJs": false,
-    "noEmitOnError": true,
-    "allowUnreachableCode": false,
-    "pretty": true,
-    "diagnostics": false,
-    "watch": false,
     "outDir": "dist/",
-    "skipLibCheck": true,
-    "rootDir": "App",
     "paths": {
       "*": [
         "*"
@@ -43,15 +41,17 @@
         "dom"
       ]
     },
-    /**
-      * This is required to gain intellisense for imported packages and
-      * the "node" value must be spcified.
-      * See https://github.com/Microsoft/TypeScript/issues/9725 or https://github.com/Microsoft/TypeScript/issues/9831
-      */
-    "moduleResolution": "node"
+    "pretty": true,
+    "removeComments": false,
+    "rootDir": "App",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "sourceRoot": "App", // Actual source files are in wwwroot/
+    "strictNullChecks": false,
+    "target": "es5",
+    "watch": false
   },
   "compileOnSave": true,
-  //"filesGlob":{}
   "filesGlob": [
     "App/**/*",
     "!typings/**", // if we have to use the old typings library

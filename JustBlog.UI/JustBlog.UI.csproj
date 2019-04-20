@@ -17,6 +17,7 @@
     <Content Remove="package-lock.json" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="App\admin\account\confirmEmail.component.ts" />
     <None Remove="App\admin\adminHeader.component.ts" />
     <None Remove="App\admin\app.unitTest.ts" />
     <None Remove="App\admin\register\IdentityError.ts" />
@@ -31,13 +32,11 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Sendgrid" Version="9.10.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\aboutme.html" />
@@ -76,6 +75,7 @@
     <ProjectReference Include="..\JustBlog.Models\JustBlog.Models.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="App\admin\register\confirmEmail.component.ts" />
     <TypeScriptCompile Include="App\admin\adminHeader.component.ts" />
     <TypeScriptCompile Include="App\admin\register\IdentityError.ts" />
     <TypeScriptCompile Include="App\admin\register\registerUser.component.spec.ts" />

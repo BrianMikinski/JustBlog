@@ -39,7 +39,7 @@ namespace JustBlog.UI.Tests
                 Mock.Of<IHttpContextAccessor>(),
                 Mock.Of<IUserClaimsPrincipalFactory<ApplicationUser>>(), null, null, null);
 
-            Mock<IEmailSender> _emailSender = new Mock<IEmailSender>();
+            Mock<IMessagingService> _emailSender = new Mock<IMessagingService>();
 
             Mock<ILogger<IAccountService>> _logger = new Mock<ILogger<IAccountService>>();
 
@@ -286,7 +286,7 @@ namespace JustBlog.UI.Tests
             AppIdentityDbContext _identityDbContext = new AppIdentityDbContext(options);
 
             SignInManager<ApplicationUser> signInManager = new SignInManager<ApplicationUser>(null, null, null, null, null, null);
-            IEmailSender emailSender;
+            IMessagingService emailSender;
             ILogger<IAccountService> logger;
             IAccountService accountService;
 
