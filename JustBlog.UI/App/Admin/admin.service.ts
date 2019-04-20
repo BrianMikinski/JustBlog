@@ -59,7 +59,7 @@ export class AdminService extends BaseService {
      * @param newUser
      * @param antiForgeryToken
      */
-    registerUser(newUser: RegistrationUser, antiForgeryToken: string): ng.IPromise<void | RegistrationAttempt> {
+    registerUser(newUser: RegistrationUser): ng.IPromise<void | RegistrationAttempt> {
 
         let params = {
             model: newUser,
@@ -74,6 +74,22 @@ export class AdminService extends BaseService {
         return this.$http.post(`${this.AUTH_ROUTE_CONSTANTS.RegisterNewUser}`,
             this.SerializeToQueryStringParams(params, null), this.httpPostConfig)
             .then(onRegistrationCallback, this.onError);
+    }
+
+    /**
+     * Confirm user email
+     * @param userId the users unique identifier
+     * @param userCode the users unique code
+     */
+    confirmUserEmail(userId: string, userCode: string ): ng.IPromise<void> {
+
+        let onConfirmEmailCallback: (response: ng.IHttpPromiseCallbackArg<any>) => any;
+        onConfirmEmailCallback = (response: ng.IHttpPromiseCallbackArg<any>) => {
+            return response.data;
+        };
+
+        return this.$http.get(`${this.AUTH_ROUTE_CONSTANTS.ConfirmEmail}/userId?=${userId}&userCode?=${userCode}`)
+            .then(onConfirmEmailCallback, this.onError);
     }
 
     /**

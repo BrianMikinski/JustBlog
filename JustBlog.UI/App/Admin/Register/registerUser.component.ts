@@ -104,7 +104,7 @@ export class RegisterUserController extends BaseController implements ng.IContro
 
         this.NewUser.BirthDate = (<Date>this.userBirthDate).toLocaleDateString();
 
-        this.adminService.registerUser(this.NewUser, this.AntiForgeryToken).then(onRegistrationCallback, this.OnErrorCallback);
+        this.adminService.registerUser(this.NewUser).then(onRegistrationCallback, this.OnErrorCallback);
     }
 
     /**

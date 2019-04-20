@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System;
 using System.Threading.Tasks;
 
 namespace JustBlog.UI.Controllers
@@ -73,7 +74,7 @@ namespace JustBlog.UI.Controllers
 
             if (ModelState.IsValid)
             {
-                result = await _accountService.Register(model, _baseUrlOptions.BaseUrl, "http");
+                result = await _accountService.Register(model, _baseUrlOptions.BaseUrl);
             }
 
             return new RegistrationAttempt(model, result.Succeeded, result.Errors);
@@ -87,11 +88,16 @@ namespace JustBlog.UI.Controllers
             {
                 return Redirect("");
             }
+
             var user = await _userManager.FindByIdAsync(userId);
+
             if (user == null)
             {
                 throw new AccountException($"Unable to load user with ID '{userId}'.");
             }
+
+            throw new NotImplementedException();
+
             var result = await _userManager.ConfirmEmailAsync(user, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }

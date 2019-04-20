@@ -17,6 +17,7 @@ import { BaseModule } from "Core/Models/BaseModule";
 import { BlogState } from "Core/Models/BlogState";
 import { AdminHeaderComponentName, AdminHeaderComponent } from "./adminHeader.component";
 import { LogoffComponent, LogoffComponentName } from "./Login/logoff.component";
+import { ConfirmEmailComponentName, ConfirmEmailComponent } from "./register/confirmEmail.component";
 
 /**
  * Angular ui bootstrap does not define a default export so typescript elides the
@@ -66,6 +67,20 @@ export class AdminModule extends BaseModule {
             url: "/register",
         };
 
+        let confirmEmailState: ng.ui.IState = {
+            name: "confirmEmail",
+            component: ConfirmEmailComponentName,
+            url: "/confirmEmail?userId&code",
+            resolve: {
+                userId: ["$state", ($state: ng.ui.IStateService) => {
+                    return $state.params.userId;
+                }],
+                code: ["$state", ($state: ng.ui.IStateService) => {
+                    return $state.params.code;
+                }]
+            }
+        };
+
         let manageContentState: BlogState = {
             name: "manageContent",
             url: "/manageContent",
@@ -92,6 +107,7 @@ export class AdminModule extends BaseModule {
         $stateProvider.state(manageContentState);
         $stateProvider.state(registerUserState);
         $stateProvider.state(logoffState);
+        $stateProvider.state(confirmEmailState);
     }
 
     /**
@@ -224,6 +240,17 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
+            let confirmEmailRoute: IRouteBlog = {
+                templateUrl: require("admin/login/loginUpdateConfirmation.html"),
+                caseInsensitiveMatch: true,
+                controller: AdminController,
+                controllerAs: "vm",
+                authorize: true,
+                action: ACTIONS.Read,
+                resource: RESOURCES.Admin,
+                authorizationResolver: null
+            };
+
             $routeProvider
                 .when("/logoff", logoffRoute)
                 .when("/manageContent", manageBlogRoute)
@@ -262,6 +289,7 @@ export class AdminModule extends BaseModule {
             MyAccount: "/Account/MyAccount",
             ReadApplicationUsers: "/Manage/ReadIdentityUsers",
             RegisterNewUser: "/Account/Register",
+            ConfirmEmail: "/ConfirmEmail",
             Login: "/Authentication/Login",
             UpdatePassword: "/Manage/ChangePassword",
             UpdateUser: `/Manage/UpdateAccount`,
@@ -310,3 +338,4 @@ Admin.AddComponent(LoginComponentName, new LoginComponent())
 Admin.AddComponent(LogoffComponentName, new LogoffComponent());
 Admin.AddComponent(RegisterUserComponentName, new RegisterUserComponent())
 Admin.AddComponent(AdminHeaderComponentName, new AdminHeaderComponent());
+Admin.AddComponent(ConfirmEmailComponentName, new ConfirmEmailComponent());

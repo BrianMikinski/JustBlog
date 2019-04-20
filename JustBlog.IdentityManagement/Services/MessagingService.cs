@@ -55,7 +55,8 @@ namespace JustBlog.IdentityManagement.Services
             {
                 From = new EmailAddress(email, "JustBlog Team"),
                 Subject = "Just Blog Registeration",
-                HtmlContent = $"<strong>Hello, {recipientName} Welcome to the Just Blog family!</strong> Please click the following link to <a href='{link}'>confirm your account</a>."
+                HtmlContent = $"<strong>Hello, {recipientName} Welcome to the Just Blog family!</strong> Please click the following link to <a href=\"{link}\">confirm your account</a>.",
+                
             };
 
             message.AddTo(new EmailAddress(email, recipientName));
@@ -86,7 +87,7 @@ namespace JustBlog.IdentityManagement.Services
         /// <returns></returns>
         public string EmailConfirmationLink(string userId, string code, string baseUrl, string scheme)
         {
-            return $"{scheme}\\\\{baseUrl}\\\\manageContent\\userId?{userId}&code?{code}";
+            return $"{scheme}://{baseUrl}/confirmEmail?userId={userId}&code={code}";
         }
     }
 }
