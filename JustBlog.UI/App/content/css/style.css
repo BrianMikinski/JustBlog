@@ -11,14 +11,42 @@
     box-sizing: border-box;
 }
 
+/*gray background rgba(238, 238, 238, 0.74);*/
+
+.col-login {
+    padding: 50px 7% 20px 7%;
+    border: aliceblue;
+    border-width: thick;
+    background: rgba(238, 238, 238, 0.74);
+    border-color: azure;
+    border-radius: 5px;
+    max-width: 400px;
+    margin: auto;
+    margin-top: 50%;
+}
+
 .login-btn {
     width: 100%;
+    height: 35px;
+    margin: auto;
+    display: block;
+    margin-bottom: 5px;
+    text-transform: uppercase;
 }
 
 .login-form {
-    max-width: 330px;
+    max-width: 300px;
     margin: auto;
     padding-top: 50px;
+}
+
+.text-capitalize {
+    text-transform: uppercase;
+}
+
+.profile-picture-sm {
+    height: 112px;
+    width: 140px;
 }
 
 /**********************
@@ -415,8 +443,8 @@ code {
      * Sidebar Profile
      **********************/
     .sidebar .profile-picture {
-        height: 80px;
-        width: 100px;
+        width: 200px;
+        height: 160px;
     }
 
 /**********************

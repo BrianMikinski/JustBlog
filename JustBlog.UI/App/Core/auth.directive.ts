@@ -1,4 +1,4 @@
-﻿import { IAuthEventConstants } from "Admin/Interfaces/IAuthEventConstants";
+﻿import { IAuthEventConstants } from "admin/interfaces/IAuthEventConstants";
 import { AuthService } from "Core/auth.service";
 import * as angular from "angular";
 

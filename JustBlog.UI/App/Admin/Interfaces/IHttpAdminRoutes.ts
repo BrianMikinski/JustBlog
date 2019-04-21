@@ -8,6 +8,7 @@ export interface IHttpAdminRoutes {
     MyAccount: string;
     ReadApplicationUsers: string;
     RegisterNewUser: string;
+    ConfirmEmail: string,
     Login: string;
     UpdatePassword: string;
     UpdateUserLogin: string;

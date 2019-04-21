@@ -1,20 +1,32 @@
-﻿<div id="login-div">
-    <form ng-submit="vm.Logoff()" method="post" role="form">
-        <input id="antiForgeryToken" name="__RequestVerificationToken" value="{{vm.AntiForgeryToken}}" ng-model="vm.AntiForgeryToken" type="hidden" />
-        <fieldset>
-            <legend>Logoff</legend>
-            <p>
-                Are you sure you want to logoff?
-                <input type="submit" value="Logoff">
-            </p>
-        </fieldset>
-    </form>
-    <div class="row">
-        <div class="col-md-3 pull-left">
-            <a href="manageContent">Go to admin management screen</a>
-        </div>
-        <div class="col-md-3 pull-right">
-            <a href="">Go to Blog</a>
-        </div>
+﻿<div class="row">
+    <div class="col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4 ">
+        <form class="col-login" method="post" role="form" ng-submit="$ctrl.logoff()">
+            <div style="display:block;" class="text-center">
+                <img src="../../content/images/profile.jpg" class="img-circle profile-picture-sm" />
+            </div>
+            <h2 class="text-center">
+                End Session
+            </h2>
+            <br />
+            <div class="form-group">
+                <p class="text-center">
+                    Are you sure you want to logoff?
+                </p>
+                <br />
+                <button class="btn btn-primary login-btn" type="submit">
+                    Logoff
+                </button>
+            </div>
+            <a ui-sref="manageContent">
+                <button class="btn btn-primary login-btn" type="button">
+                    Content Admin
+                </button>
+            </a>
+            <a ui-sref="home" class="text-center">
+                <button class="btn btn-primary login-btn" type="button">
+                    Home
+                </button>
+            </a>
+        </form>
     </div>
 </div>
