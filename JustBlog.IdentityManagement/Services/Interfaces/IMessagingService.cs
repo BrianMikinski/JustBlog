@@ -7,7 +7,7 @@ namespace JustBlog.IdentityManagement.Services
     {
         Task<Response> SendEmailAsync(string recipientName,  string email, string subject, string message);
 
-        Task<Response> SendEmailConfirmationAsync(string recipientName, string email, string link);
+        Task<Response> SendEmailConfirmationAsync(string email, string link);
 
         Task<Response> MultipleRecipientsExample();
 

@@ -47,24 +47,14 @@ namespace JustBlog.UI.Tests
 
             newRegistrationUser = new RegisterViewModel()
             {
-                BirthDate = new DateTime(1990, 1, 1),
                 ConfirmPassword = "thisIsABadPassword123$",
                 Email = "john.doe@gmail.com",
-                FirstName = "John",
-                Hometown = "Sprinfield",
-                LastName = "Doe",
-                Password = "thisIsABadPassword123$",
-                PhoneNumber = "111-111-1111"
+                Password = "thisIsABadPassword123$"
             };
 
             newApplicationUser = new ApplicationUser()
             {
-                Id = new Guid().ToString(),
-                BirthDate = newRegistrationUser.BirthDate,
-                Email = newRegistrationUser.Email,
-                Hometown = newRegistrationUser.Hometown,
-                LastName = newRegistrationUser.LastName,
-                PhoneNumber = newRegistrationUser.PhoneNumber
+                Id = Guid.NewGuid().ToString()
             };
 
             GenericIdentity myIdentity = new GenericIdentity("userToRemove");

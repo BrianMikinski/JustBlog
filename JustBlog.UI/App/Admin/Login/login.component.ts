@@ -50,7 +50,8 @@ class LoginComponentController extends BaseController implements ng.IController 
             }
         };
 
-        this.adminService.login(this.LoginUser).then(onLoginCallback, this.OnErrorCallback);
+        this.adminService.login(this.LoginUser)
+            .then(onLoginCallback, this.OnErrorCallback);
     }
 
     OnErrorCallback = (error: any) => {

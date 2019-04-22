@@ -121,11 +121,11 @@ namespace JustBlog.UI.Controllers
 
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-            var callbackUrl = "";// Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+            var callbackUrl = "";
 
             var email = user.Email;
 
-            await _emailSender.SendEmailConfirmationAsync("", email, callbackUrl);
+            await _emailSender.SendEmailConfirmationAsync(email, callbackUrl);
 
             StatusMessage = "Verification email sent. Please check your email.";
 

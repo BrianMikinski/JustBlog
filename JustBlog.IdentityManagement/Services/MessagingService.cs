@@ -49,17 +49,17 @@ namespace JustBlog.IdentityManagement.Services
             return await client.SendEmailAsync(msg);
         }
 
-        public async Task<Response> SendEmailConfirmationAsync(string recipientName, string email, string link)
+        public async Task<Response> SendEmailConfirmationAsync(string email, string link)
         {
             var message = new SendGridMessage()
             {
                 From = new EmailAddress(email, "JustBlog Team"),
                 Subject = "Just Blog Registeration",
-                HtmlContent = $"<strong>Hello, {recipientName} Welcome to the Just Blog family!</strong> Please click the following link to <a href=\"{link}\">confirm your account</a>.",
+                HtmlContent = $"<strong>Hello {email}, welcome to the Just Blog family!</strong> Please click the following link to <a href=\"{link}\">confirm your account</a>.",
                 
             };
 
-            message.AddTo(new EmailAddress(email, recipientName));
+            message.AddTo(new EmailAddress(email, email));
 
             return await SendEmail(message);
         }

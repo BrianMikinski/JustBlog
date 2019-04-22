@@ -36,10 +36,6 @@ namespace JustBlog.IdentityManagement.Services
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    BirthDate = model.BirthDate,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    Hometown = model.Hometown,
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -52,7 +48,7 @@ namespace JustBlog.IdentityManagement.Services
 
                     var callbackUrl = _messagingService.EmailConfirmationLink(user.Id, code, baseUrl,  requestSchema);
 
-                    await _messagingService.SendEmailConfirmationAsync($"{model.FirstName} {model.LastName}", model.Email, callbackUrl);
+                    await _messagingService.SendEmailConfirmationAsync(model.Email, callbackUrl);
                 }
 
                 return result;
