@@ -41,17 +41,6 @@ namespace JustBlog.UI.Controllers
             _jwtIssuerOptions = jwtIssuerOptions.Value;
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> Login(string returnUrl = null)
-        {
-            // Clear the existing external cookie to ensure a clean login process
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
-            ViewData["ReturnUrl"] = returnUrl;
-            return View();
-        }
-
         /// <summary>
         /// Sign a user into the application and create a jwt token.
         /// If the user is locked out or requires 2 factor authentication, the correct return url is returned in place of the jwt token with the correct token
@@ -71,6 +60,7 @@ namespace JustBlog.UI.Controllers
                     // This doesn't count login failures towards account lockout
                     // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                     var result = await _accountService.Login(model);
+
                     if (result.Succeeded)
                     {
                         _logger.LogInformation($"User {model.Email} logged in.");
@@ -84,15 +74,12 @@ namespace JustBlog.UI.Controllers
 
                     if (result.RequiresTwoFactor)
                     {
-                        throw new NotImplementedException();
-                        return Ok(returnUrl);
+                        return BadRequest("Error: Two factor authentication required.");
                     }
 
                     if (result.IsLockedOut)
                     {
-                        throw new NotImplementedException();
-                        _logger.LogWarning("User account locked out.");
-                        return Ok(returnUrl);
+                        return BadRequest("Error: Account is locked out.");
                     }
                     else
                     {
@@ -102,16 +89,13 @@ namespace JustBlog.UI.Controllers
                 }
                 catch(Exception ex)
                 {
-                    return BadRequest();
+                    return BadRequest("Error: could not login user.");
                 }
             }
             else
             {
                 return BadRequest();
             }
-
-            // If we got this far, something failed, redisplay form
-            return Ok(returnUrl); 
         }
 
         [HttpGet]

@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
 using System.Threading.Tasks;
 
 namespace JustBlog.UI.Controllers
@@ -52,9 +51,6 @@ namespace JustBlog.UI.Controllers
                 $"the header as \"XSRF_TOKEN_NAME\" from the" +
                 $" {nameof(AngularAntiforgeryCookieResultFilterAttribute)} global filter";
         }
-
-        [TempData]
-        public string ErrorMessage { get; set; }
 
         [HttpPost]
         [AllowAnonymous]
@@ -141,6 +137,30 @@ namespace JustBlog.UI.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        /// <summary>
+        /// Get the users account
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> MyAccount()
+        {
+            var ApplicationUser = await _accountService.GetUser(User.FindFirst("sub").Value);
+
+            return Ok(ApplicationUser);
+        }
+
+        /// <summary>
+        /// Update a users account
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        [Route("api/account/myaccount")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateAccount(ApplicationUser user)
+        {
+            return Ok();
         }
 
         [HttpPost]

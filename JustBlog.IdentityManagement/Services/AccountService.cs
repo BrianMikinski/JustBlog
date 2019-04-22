@@ -185,16 +185,14 @@ namespace JustBlog.IdentityManagement.Services
             }
         }
 
-
-
-        private string ResetPasswordCallbackLink(/*this IUrlHelper urlHelper, */string userId, string code, string scheme)
+        private string ResetPasswordCallbackLink(string userId, string code, string scheme)
         {
             return "this is the password callback link";
-            //return urlHelper.Action(
-            //    action: nameof(AccountController.ResetPassword),
-            //    controller: "Account",
-            //    values: new { userId, code },
-            //    protocol: scheme);
+        }
+         
+        public async Task<ApplicationUser> GetUser(string userName)
+        {
+            return await _userManager.FindByEmailAsync(userName);
         }
     }
 }

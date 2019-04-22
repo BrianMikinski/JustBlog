@@ -4,12 +4,12 @@ import { IAuthEventConstants } from "admin/interfaces/IAuthEventConstants";
 import { IHttpAdminRoutes } from "admin/interfaces/IHttpAdminRoutes";
 import { LoginModel } from "admin/login/LoginModel";
 import { LoginUpdate } from "admin/login/LoginUpdate";
-import { IChangePasswordViewModel } from "admin/password/IChangePasswordViewModel";
 import { RegistrationAttempt } from "admin/register/RegistrationAttempt";
 import { RegistrationUser } from "admin/register/RegistrationUser";
 import { AuthService } from "Core/auth.service";
 import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
 import { BaseService } from "Core/Models/BaseService";
+import { ChangePasswordViewModel } from "./password/ChangePasswordViewModel";
 
 //Admin service class that allows users to perform common account management actions
 export class AdminService extends BaseService {
@@ -80,7 +80,7 @@ export class AdminService extends BaseService {
      * @param userId the users unique identifier
      * @param userCode the users unique code
      */
-    confirmUserEmail(userId: string, userCode: string ): ng.IPromise<void> {
+    confirmUserEmail(userId: string, userCode: string): ng.IPromise<void> {
 
         let onConfirmEmailCallback: (response: ng.IHttpPromiseCallbackArg<any>) => any;
         onConfirmEmailCallback = (response: ng.IHttpPromiseCallbackArg<any>) => {
@@ -104,16 +104,16 @@ export class AdminService extends BaseService {
      * @param user
      * @param antiForgeryToken
      */
-    updatePassword(updatePasswordModel: IChangePasswordViewModel, antiForgeryToken: string): ng.IPromise<void | boolean> {
+    updatePassword(updatePasswordModel: ChangePasswordViewModel, antiForgeryToken: string): ng.IPromise<void | boolean> {
         //Add headers for anti forgery token
         let config: ng.IRequestShortcutConfig = this.ConfigAntiForgery(antiForgeryToken);
 
-        let onLoginCallback: (response: ng.IHttpPromiseCallbackArg<boolean>) => boolean;
-        onLoginCallback = (response: ng.IHttpPromiseCallbackArg<boolean>) => {
+        let onUpdatePasswordCallback: (response: ng.IHttpPromiseCallbackArg<boolean>) => boolean;
+        onUpdatePasswordCallback = (response: ng.IHttpPromiseCallbackArg<boolean>) => {
             return <boolean>response.data;
         };
 
-        return this.$http.post("/Manage/ChangePassword", updatePasswordModel, config).then(onLoginCallback, this.onError);
+        return this.$http.post("/Manage/ChangePassword", updatePasswordModel, config).then(onUpdatePasswordCallback, this.onError);
     }
 
     /**
@@ -194,34 +194,34 @@ export class AdminService extends BaseService {
      * Get the currently logged in users account information
      */
     myAccount(): ng.IPromise<void | IUser> {
-        let onAntiForgeryTokenCallback: (response: ng.IHttpPromiseCallbackArg<IUser>) => IUser =
-            (response: ng.IHttpPromiseCallbackArg<IUser>) => {
-                return <IUser>response.data;
-            };
 
-        let params = {};
+        let onMyAccountCallback: (response: ng.IHttpPromiseCallbackArg<IUser>) => IUser;
 
-        return this.$http.post("api/Account/MyAccount", params).then(onAntiForgeryTokenCallback, this.onError);
+        onMyAccountCallback = (response: ng.IHttpPromiseCallbackArg<IUser>) => {
+            return response.data;
+        };
+
+        return this.$http.get(this.AUTH_ROUTE_CONSTANTS.MyAccount, this.ConfigSecureAppJson(this.authService.GetLocalToken()))
+            .then(onMyAccountCallback, this.onError);
     }
 
     /**
      * Update a user account
      * @param User
      */
-    updateUser(updatedAccount: IUser, antiForgeryToken: string): ng.IPromise<void | boolean> {
+    updateAccount(updatedAccount: IUser): ng.IPromise<void | boolean> {
 
         let params: any = {
             updatedAccount: updatedAccount
         };
-
-        let config: ng.IRequestShortcutConfig = this.ConfigAntiForgery(antiForgeryToken);
 
         let onAccountUpdatedReturned: (response: ng.IHttpPromiseCallbackArg<boolean>) => boolean;
         onAccountUpdatedReturned = (response: ng.IHttpPromiseCallbackArg<boolean>) => {
             return <boolean>response.data;
         };
 
-        return this.$http.post(`/Manage/UpdateAccount`, params, config).then(onAccountUpdatedReturned, this.onError);
+        return this.$http.post(`/Manage/UpdateAccount`, params)
+            .then(onAccountUpdatedReturned, this.onError);
     }
 
     /**

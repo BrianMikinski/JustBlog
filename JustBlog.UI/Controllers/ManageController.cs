@@ -495,8 +495,6 @@ namespace JustBlog.UI.Controllers
             return View(nameof(ShowRecoveryCodes), model);
         }
 
-        #region Helpers
-
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -543,7 +541,5 @@ namespace JustBlog.UI.Controllers
             model.SharedKey = FormatKey(unformattedKey);
             model.AuthenticatorUri = GenerateQrCodeUri(user.Email, unformattedKey);
         }
-
-        #endregion
     }
 }

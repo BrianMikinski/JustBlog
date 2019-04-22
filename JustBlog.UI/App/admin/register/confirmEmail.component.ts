@@ -34,7 +34,7 @@ export class ConfirmEmailController extends BaseController implements ng.IContro
       
     }
 
-    $onInit = () => {
+    $onInit?():void {
 
         let code: string = this.$state.params.code;
         let userId: string = this.$state.params.userId;

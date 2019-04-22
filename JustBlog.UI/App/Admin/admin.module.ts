@@ -15,9 +15,10 @@ import { IResources } from "Core/Interfaces/IResources";
 import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
 import { BaseModule } from "Core/Models/BaseModule";
 import { BlogState } from "Core/Models/BlogState";
-import { AdminHeaderComponentName, AdminHeaderComponent } from "./adminHeader.component";
+import { MyAccountComponent, MyAccountComponentName } from "./account/myAcccount.component";
+import { AdminHeaderComponent, AdminHeaderComponentName } from "./adminHeader.component";
 import { LogoffComponent, LogoffComponentName } from "./Login/logoff.component";
-import { ConfirmEmailComponentName, ConfirmEmailComponent } from "./register/confirmEmail.component";
+import { ConfirmEmailComponent, ConfirmEmailComponentName } from "./register/confirmEmail.component";
 
 /**
  * Angular ui bootstrap does not define a default export so typescript elides the
@@ -67,6 +68,17 @@ export class AdminModule extends BaseModule {
             url: "/register",
         };
 
+        let myAccountState: ng.ui.IState = {
+            name: "myAccount",
+            component: MyAccountComponentName,
+            url: "/myAccount",
+            resolve: {
+                account: ["adminService", (adminService: AdminService) => {
+                    return adminService.myAccount();
+                }]
+            }
+        };
+
         let confirmEmailState: ng.ui.IState = {
             name: "confirmEmail",
             component: ConfirmEmailComponentName,
@@ -108,6 +120,7 @@ export class AdminModule extends BaseModule {
         $stateProvider.state(registerUserState);
         $stateProvider.state(logoffState);
         $stateProvider.state(confirmEmailState);
+        $stateProvider.state(myAccountState);
     }
 
     /**
@@ -118,42 +131,8 @@ export class AdminModule extends BaseModule {
 
         try {
 
-            // custom routes with security
-            let logoffRoute: IRouteBlog = {
-                templateUrl: require("admin/login/logoff.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let manageBlogRoute: IRouteBlog = {
-                templateUrl: require("admin/manageContent.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
             let accountsRoute: IRouteBlog = {
                 templateUrl: require("admin/account/accounts.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let myAccountRoute: IRouteBlog = {
-                templateUrl: require("admin/account/myAccount.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -240,28 +219,15 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let confirmEmailRoute: IRouteBlog = {
-                templateUrl: require("admin/login/loginUpdateConfirmation.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
             $routeProvider
-                .when("/logoff", logoffRoute)
-                .when("/manageContent", manageBlogRoute)
                 .when("/accounts", accountsRoute)
-                .when("/myAccount", myAccountRoute)
                 .when("/updateAccount", accountUpdate)
                 .when("/passwordReset", passwordResetRoute)
                 .when("/passwordUpdate", passwordUpdateRoute)
                 .when("/passwordResetConfirmation", confirmPasswordUpdateRoute)
                 .when("/loginUpdate", loginUpdateRoute)
-                .when("/loginUpdateConfirmation", loginUpdateConfirmationRoute)
+                .when("/loginUpdateConfirmation", loginUpdateConfirmationRoute);
+
         } catch (error) {
             console.log(error.message);
         }
@@ -339,3 +305,4 @@ Admin.AddComponent(LogoffComponentName, new LogoffComponent());
 Admin.AddComponent(RegisterUserComponentName, new RegisterUserComponent())
 Admin.AddComponent(AdminHeaderComponentName, new AdminHeaderComponent());
 Admin.AddComponent(ConfirmEmailComponentName, new ConfirmEmailComponent());
+Admin.AddComponent(MyAccountComponentName, new MyAccountComponent());
