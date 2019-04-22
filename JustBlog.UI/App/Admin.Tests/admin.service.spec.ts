@@ -1,9 +1,9 @@
-﻿import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
-import { IUser } from "Admin/Account/IUser";
-import { IHttpAdminRoutes } from "Admin/Interfaces/IHttpAdminRoutes";
-import { LoginModel } from "Admin/Login/LoginModel";
-import { AdminModule, default as adminModule } from "Admin/admin.module";
-import { AdminService } from "Admin/admin.service";
+﻿import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
+import { IUser } from "admin/account/IUser";
+import { IHttpAdminRoutes } from "admin/interfaces/IHttpAdminRoutes";
+import { LoginModel } from "admin/login/LoginModel";
+import { AdminModule, default as adminModule } from "admin/admin.module";
+import { AdminService } from "admin/admin.service";
 import { MetaData } from "Blog/MetaData/MetaData";
 import { AuthService } from "Core/auth.service";
 import { default as coreModule } from "Core/core.module";
@@ -139,7 +139,7 @@ describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${not
         $httpBackend.whenPOST("/Manage/ReadIdentityUsers").respond(applicationUsers);
 
         // act
-        adminService.ReadApplicationUsers().then((response) => {
+        adminService.readApplicationUsers().then((response) => {
 
             // assert
             expect(applicationUsers).toEqual(response);
@@ -167,7 +167,7 @@ describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${not
         $httpBackend.whenPOST(AUTH_ROUTE_CONSTANTS.Login).respond(jwtMockToken);
 
         // act
-        adminService.Login(login).then((response) => {
+        adminService.login(login).then((response) => {
 
             let authToken: string = authService.GetLocalToken();
 
