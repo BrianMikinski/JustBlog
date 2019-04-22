@@ -1,11 +1,9 @@
-﻿import { BaseController } from "Core/Models/BaseController";
-import { ComponentBase } from "Core/component.base";
-import { GridQuery } from "Core/Models/GridQuery";
-import { ICoreService } from "Core/core.service";
-import { Post } from "Blog/Post/Post";
-import { PostQueryFilter } from "Blog/Post/PostQueryFilter";
-import { BlogService } from "Blog/blog.service";
+﻿import { BlogService } from "Blog/blog.service";
 import { Category } from "Blog/Category/Category";
+import { Post } from "Blog/Post/Post";
+import { ComponentBase } from "Core/component.base";
+import { ICoreService } from "Core/core.service";
+import { BaseController } from "Core/Models/BaseController";
 
 export const CategoryComponentName: string = "category";
 
@@ -69,7 +67,7 @@ export class CategoryComponent extends ComponentBase {
     constructor() {
         super();
 
-        this.bindings = {}
+        this.bindings = { }
 
         this.controller = CategoryComponentController;
         this.controllerAs = "$categoryCtrl"

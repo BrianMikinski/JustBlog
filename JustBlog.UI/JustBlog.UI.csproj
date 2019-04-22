@@ -9,14 +9,24 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="dist\**" />
+    <Compile Remove="wwwrootTest\**" />
+    <Compile Remove="wwwroot\**" />
     <Content Remove="dist\**" />
+    <Content Remove="wwwrootTest\**" />
+    <Content Remove="wwwroot\**" />
     <EmbeddedResource Remove="dist\**" />
+    <EmbeddedResource Remove="wwwrootTest\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
     <None Remove="dist\**" />
+    <None Remove="wwwrootTest\**" />
+    <None Remove="wwwroot\**" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="package-lock.json" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="App\admin\account\confirmEmail.component.ts" />
+    <None Remove="App\admin\account\myAcccount.component.ts" />
     <None Remove="App\admin\adminHeader.component.ts" />
     <None Remove="App\admin\app.unitTest.ts" />
     <None Remove="App\admin\register\IdentityError.ts" />
@@ -24,51 +34,18 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.6.1" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.1">
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Sendgrid" Version="9.11.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="wwwroot\aboutme.html" />
-    <None Include="wwwroot\accounts.html" />
-    <None Include="wwwroot\app.chunkhash.bundle.js" />
-    <None Include="wwwroot\categories.html" />
-    <None Include="wwwroot\categoriesGrid.html" />
-    <None Include="wwwroot\forbidden.html" />
-    <None Include="wwwroot\home.html" />
-    <None Include="wwwroot\img\profile.jpg" />
-    <None Include="wwwroot\index.html" />
-    <None Include="wwwroot\login.html" />
-    <None Include="wwwroot\loginUpdate.html" />
-    <None Include="wwwroot\loginUpdateConfirmation.html" />
-    <None Include="wwwroot\logoff.html" />
-    <None Include="wwwroot\manageContent.html" />
-    <None Include="wwwroot\myAccount.html" />
-    <None Include="wwwroot\navbar.html" />
-    <None Include="wwwroot\passwordReset.html" />
-    <None Include="wwwroot\passwordResetConfirmation.html" />
-    <None Include="wwwroot\passwordUpdate.html" />
-    <None Include="wwwroot\passwordUpdateConfirmation.html" />
-    <None Include="wwwroot\post.html" />
-    <None Include="wwwroot\postsGrid.html" />
-    <None Include="wwwroot\profile.html" />
-    <None Include="wwwroot\register.html" />
-    <None Include="wwwroot\runtime~app.chunkhash.bundle.js" />
-    <None Include="wwwroot\shell.html" />
-    <None Include="wwwroot\tagsGrid.html" />
-    <None Include="wwwroot\update.html" />
-    <None Include="wwwroot\vendors.chunkhash.bundle.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JustBlog.Domain\JustBlog.Domain.csproj" />
@@ -76,6 +53,8 @@
     <ProjectReference Include="..\JustBlog.Models\JustBlog.Models.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="App\admin\account\myAcccount.component.ts" />
+    <TypeScriptCompile Include="App\admin\register\confirmEmail.component.ts" />
     <TypeScriptCompile Include="App\admin\adminHeader.component.ts" />
     <TypeScriptCompile Include="App\admin\register\IdentityError.ts" />
     <TypeScriptCompile Include="App\admin\register\registerUser.component.spec.ts" />

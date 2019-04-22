@@ -16,7 +16,7 @@ namespace JustBlog.IdentityManagement
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite("Filename=./justblog.sqlite");
+                optionsBuilder.UseSqlite("Filename=../JustBlog.UI/justblog.sqlite");
             }
         }
 

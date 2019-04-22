@@ -1,14 +1,13 @@
-﻿import { ChangePasswordViewModel } from "Admin/password/ChangePasswordViewModel";
-import { IChangePasswordViewModel } from "Admin/password/IChangePasswordViewModel";
+﻿import { IUser } from "admin/account/IUser";
+import { AdminService } from "admin/admin.service";
 import { LoginUpdate } from "admin/login/LoginUpdate";
-import { IUser } from "Admin/Account/IUser";
-import { ResetPasswordModel } from "Admin/password/ResetPasswordModel";
-import { AdminService } from "Admin/admin.service";
+import { ChangePasswordViewModel } from "admin/password/ChangePasswordViewModel";
+import { ResetPasswordModel } from "admin/password/ResetPasswordModel";
 import { Post } from "Blog/Post/Post";
-import { BaseController } from "Core/Models/BaseController";
-import { GridQuery } from "Core/Models/GridQuery";
 import { AuthService } from "Core/auth.service";
 import { ICoreService } from "Core/core.service";
+import { BaseController } from "Core/Models/BaseController";
+import { GridQuery } from "Core/Models/GridQuery";
 import { NotificationFactory } from "Notification/notification.factory";
 
 /**
@@ -19,9 +18,8 @@ export class AdminController extends BaseController {
     ApplicationAdmins: Array<IUser> = [];
     IsLoggedIn: boolean;
     LoginUpdate: LoginUpdate;
-    MyCurrentUser: IUser;
-    UpdatedAccount: IUser;
-    UpdatePasswordModel: IChangePasswordViewModel = new ChangePasswordViewModel();
+
+    UpdatePasswordModel: ChangePasswordViewModel = new ChangePasswordViewModel();
 
     // forgotten Password
     ResetPasswordUser: ResetPasswordModel = new ResetPasswordModel();
@@ -46,14 +44,6 @@ export class AdminController extends BaseController {
         if ($location.path() === "/accounts") {
             this.ReadUserAccounts();
         }
-
-        if ($location.path() === "/myAccount") {
-            this.MyAccount(false);
-        }
-
-        if ($location.path() === "/updateAccount") {
-            this.MyAccount(true);
-        }
     }
 
     /**
@@ -76,7 +66,7 @@ export class AdminController extends BaseController {
             }
         };
 
-        this._adminService.ForgotPassword(this.ForgottenPasswordEmail, this.AntiForgeryToken).then(onPasswordResetSubmitted, this.OnErrorCallback);
+        this._adminService.forgotPassword(this.ForgottenPasswordEmail, this.AntiForgeryToken).then(onPasswordResetSubmitted, this.OnErrorCallback);
     }
 
     /**
@@ -99,7 +89,7 @@ export class AdminController extends BaseController {
             }
         };
 
-        this._adminService.UpdatePassword(this.UpdatePasswordModel, this.AntiForgeryToken).then(onPasswordChangeCompleted, this.OnErrorCallback);
+        this._adminService.updatePassword(this.UpdatePasswordModel, this.AntiForgeryToken).then(onPasswordChangeCompleted, this.OnErrorCallback);
     }
 
     /**
@@ -112,51 +102,7 @@ export class AdminController extends BaseController {
             this.ApplicationAdmins = data;
         };
 
-        this._adminService.ReadApplicationUsers().then(onReadUserAccountsComplete, this.OnErrorCallback);
-    }
-
-    /**
-     * Get the currently logged in users account information
-     */
-    public MyAccount(isUpdatedAccount: boolean): void {
-        let onReadMyAccountComplete: (data: IUser) => void;
-
-        onReadMyAccountComplete = (data: IUser) => {
-            data.BirthDate = this.calculateBirthDate(data.BirthDate.toString());
-
-            if (!isUpdatedAccount) {
-                this.MyCurrentUser = data;
-            } else {
-                this.UpdatedAccount = data;
-            }
-        };
-
-        this._adminService.MyAccount().then(onReadMyAccountComplete, this.OnErrorCallback);
-    }
-
-    /**
-     * Update the currently logged in user
-     */
-    public UpdateAccount(): void {
-
-        let onUpdateAccountComplete: (data: boolean) => void;
-
-        onUpdateAccountComplete = (data: boolean) => {
-            if (data === true) {
-                this._notificationService.Success("Account details successfully updated.");
-            } else {
-                this._notificationService.Error("Account details could not be updated.");
-            }
-
-            this.$location.path("/myAccount");
-        };
-
-        // make sure we don't update our email address nor user name
-        this.UpdatedAccount.Email = "";
-        this.UpdatedAccount.UserName = "";
-        this.UpdatedAccount.LockoutEndDateUtc = new Date();
-
-        this._adminService.UpdateUser(this.UpdatedAccount, this.AntiForgeryToken).then(onUpdateAccountComplete, this.OnErrorCallback);
+        this._adminService.readApplicationUsers().then(onReadUserAccountsComplete, this.OnErrorCallback);
     }
 
     /**
@@ -176,26 +122,6 @@ export class AdminController extends BaseController {
             this.$location.path("/myAccount");
         };
 
-        this._adminService.UpdateUserLogin(this.LoginUpdate, this.AntiForgeryToken).then(onUpdateLoginComplete, this.OnErrorCallback);
-    }
-
-    /**
-     * Calcuate a birthdate in the current format
-     * @param date
-     */
-    private calculateBirthDate(date: string): Date {
-        let currentBirthDay: Date | null = this.ParseJsonDate(date.toString());
-
-        let day: number | undefined = currentBirthDay ? currentBirthDay.getDay() : undefined;
-        let month: number | undefined = currentBirthDay ? currentBirthDay.getMonth() : undefined;
-        let year: number | undefined = currentBirthDay ? currentBirthDay.getFullYear() : undefined;
-
-        if (month && day && year) {
-            currentBirthDay = new Date(month.toString() + "/" + day.toString() + "/" + year.toString());
-            return new Date(currentBirthDay.toLocaleDateString());
-        }
-        else {
-            return new Date();
-        }
+        this._adminService.updateUserLogin(this.LoginUpdate, this.AntiForgeryToken).then(onUpdateLoginComplete, this.OnErrorCallback);
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace JustBlog.IdentityManagement.Migrations
 {
-    public partial class AppIdentityInitialCreate : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,10 +40,15 @@ namespace JustBlog.IdentityManagement.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    BirthDate = table.Column<DateTime>(nullable: false),
-                    FirstName = table.Column<string>(maxLength: 50, nullable: false),
-                    Hometown = table.Column<string>(nullable: false),
-                    LastName = table.Column<string>(maxLength: 50, nullable: false)
+                    BirthDate = table.Column<DateTime>(nullable: true),
+                    FirstName = table.Column<string>(maxLength: 100, nullable: true),
+                    LastName = table.Column<string>(maxLength: 100, nullable: true),
+                    AddressLine1 = table.Column<string>(maxLength: 100, nullable: true),
+                    AddressLine2 = table.Column<string>(maxLength: 100, nullable: true),
+                    City = table.Column<string>(maxLength: 100, nullable: true),
+                    State = table.Column<string>(maxLength: 100, nullable: true),
+                    PostalCode = table.Column<string>(maxLength: 100, nullable: true),
+                    Country = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {

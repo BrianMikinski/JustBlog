@@ -165,7 +165,7 @@ namespace JustBlog.UI.Tests
                 applicationConfiguration(builder);
             }
 
-            app.Configure(builder, app.Environment);
+            //app.Configure(builder, app.Environment);
         }
     }
 }
