@@ -1,4 +1,4 @@
-﻿export interface IUser {
+﻿export interface User {
     BirthDate: Date;
     FirstName: string;
     LastName: string;
@@ -11,7 +11,12 @@
     PhoneNumberConfirmed: boolean;
     TwoFactorEnabled: boolean;
     UserName: string;
-    Hometown: string;
+    AddressLine1: string;
+    AddressLine2: string;
+    City: string;
+    State: string;
+    PostalCode: string;
+    Country: string;
     // GUID
     Id: string;
 }

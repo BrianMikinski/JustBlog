@@ -1,10 +1,10 @@
-﻿import { ApplicationUser } from "Admin/Account/ApplicationUser";
-import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
-import { AdminService } from "Admin/admin.service";
-import { LoginModel } from "Admin/Login/LoginModel";
-import { IdentityError } from "Admin/Register/IdentityError";
-import { RegistrationAttempt } from "Admin/Register/RegistrationAttempt";
-import { RegistrationUser } from "Admin/Register/RegistrationUser";
+﻿import { ApplicationUser } from "admin/account/ApplicationUser";
+import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
+import { AdminService } from "admin/admin.service";
+import { LoginModel } from "admin/login/LoginModel";
+import { IdentityError } from "admin/register/IdentityError";
+import { RegistrationAttempt } from "admin/register/RegistrationAttempt";
+import { RegistrationUser } from "admin/register/RegistrationUser";
 import { AuthService } from "Core/auth.service";
 import { ComponentBase } from "Core/component.base";
 import { BaseController } from "Core/Models/BaseController";
@@ -20,38 +20,12 @@ export class RegisterUserController extends BaseController implements ng.IContro
     CurrentUser: ApplicationUser = new ApplicationUser();
     NewUser: RegistrationUser = new RegistrationUser();
 
-    DatePickerOptions: any = {
-        dateDisabled: this.DateDisabled,
-        formatYear: "yy",
-        maxDate: Date.now(),
-        minDate: new Date(1900, 0, 0),
-        startingDay: 1
-    };
-
-    BirthDateFormat: string = "MM/dd/yyyy";
-
-    AltInputFormats: Array<string> = ["M!/d!/yyyy"];
-
-    userBirthDate: Date;
-
-    /**
-     * Datetime Popup
-     */
-    public DateTimePopup(): void {
-        this.DatePickerPopup.opened = true;
-    }
-
-    // dateTime Picker Options
-    DatePickerPopup: any = {
-        opened: false
-    };
-
-    static inject = ["$sce", "notificationFactory", "adminService", "authService", "$location"]
+    static inject = ["$sce", "notificationFactory", "adminService", "authService", "$state"]
     constructor(public $sce: ng.ISCEService,
         private notificationFactory: NotificationFactory,
         private adminService: AdminService,
         private authService: AuthService,
-        private $location: ng.ILocationService) {
+        private $state: ng.ui.IStateService) {
         super($sce);
     }
 
@@ -65,13 +39,13 @@ export class RegisterUserController extends BaseController implements ng.IContro
             let authBearerTokenPresent: string | null = this.authService.GetLocalToken()
 
             if (authBearerTokenPresent !== null) {
-                this.notificationFactory.Success(`Login for user ${this.CurrentUser.FirstName} ${this.CurrentUser.LastName} was successful`);
+                this.notificationFactory.Success(`Login for user ${this.CurrentUser.Email}was successful`);
 
                 // reroute to the management screen now that we are authenticated and registered
-                this.$location.path("/manageContent");
+                this.$state.go("manageContent");
             }
             else {
-                this.notificationFactory.Error(`Error: Could not log user ${this.CurrentUser.FirstName} ${this.CurrentUser.LastName} into the system.`);
+                this.notificationFactory.Error(`Error: Could not log user ${this.CurrentUser.Email} into the system.`);
             }
         };
 
@@ -82,7 +56,7 @@ export class RegisterUserController extends BaseController implements ng.IContro
 
                 this.CurrentUser = response.User;
 
-                this.notificationFactory.Success(`Registration was successful. Welcome to the blog ${this.CurrentUser.FirstName} ${this.CurrentUser.LastName}!`);
+                this.notificationFactory.Success(`Registration was successful. Welcome to the blog ${this.CurrentUser.Email}!`);
 
                 let userLogin: LoginModel = {
                     Email: this.NewUser.Email,
@@ -90,7 +64,8 @@ export class RegisterUserController extends BaseController implements ng.IContro
                     RememberMe: false
                 };
 
-                this.adminService.Login(userLogin).then(onLoginSuccessCallback, this.OnErrorCallback);
+                this.adminService.login(userLogin)
+                    .then(onLoginSuccessCallback, this.OnErrorCallback);
 
             } else {
 
@@ -102,19 +77,7 @@ export class RegisterUserController extends BaseController implements ng.IContro
             }
         };
 
-        this.NewUser.BirthDate = (<Date>this.userBirthDate).toLocaleDateString();
-
-        this.adminService.RegisterUser(this.NewUser, this.AntiForgeryToken).then(onRegistrationCallback, this.OnErrorCallback);
-    }
-
-    /**
-     * Disable the date
-     * @param data
-     */
-    private DateDisabled(data: any): any {
-        var date = data.date,
-            mode = data.mode;
-        return mode === "day" && (date.getDay() === 0 || date.getDay() === 6);
+        this.adminService.registerUser(this.NewUser).then(onRegistrationCallback, this.OnErrorCallback);
     }
 }
 
@@ -127,7 +90,7 @@ export class RegisterUserComponent extends ComponentBase {
         this.controllerAs = "$registerUserCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Admin/Register/registerUser.html");
+            return require("admin/register/registerUser.html");
         }];
     }
 }

@@ -39,7 +39,7 @@ namespace JustBlog.UI.Tests
                 Mock.Of<IHttpContextAccessor>(),
                 Mock.Of<IUserClaimsPrincipalFactory<ApplicationUser>>(), null, null, null);
 
-            Mock<IEmailSender> _emailSender = new Mock<IEmailSender>();
+            Mock<IMessagingService> _emailSender = new Mock<IMessagingService>();
 
             Mock<ILogger<IAccountService>> _logger = new Mock<ILogger<IAccountService>>();
 
@@ -47,24 +47,14 @@ namespace JustBlog.UI.Tests
 
             newRegistrationUser = new RegisterViewModel()
             {
-                BirthDate = new DateTime(1990, 1, 1),
                 ConfirmPassword = "thisIsABadPassword123$",
                 Email = "john.doe@gmail.com",
-                FirstName = "John",
-                Hometown = "Sprinfield",
-                LastName = "Doe",
-                Password = "thisIsABadPassword123$",
-                PhoneNumber = "111-111-1111"
+                Password = "thisIsABadPassword123$"
             };
 
             newApplicationUser = new ApplicationUser()
             {
-                Id = new Guid().ToString(),
-                BirthDate = newRegistrationUser.BirthDate,
-                Email = newRegistrationUser.Email,
-                Hometown = newRegistrationUser.Hometown,
-                LastName = newRegistrationUser.LastName,
-                PhoneNumber = newRegistrationUser.PhoneNumber
+                Id = Guid.NewGuid().ToString()
             };
 
             GenericIdentity myIdentity = new GenericIdentity("userToRemove");
@@ -286,7 +276,7 @@ namespace JustBlog.UI.Tests
             AppIdentityDbContext _identityDbContext = new AppIdentityDbContext(options);
 
             SignInManager<ApplicationUser> signInManager = new SignInManager<ApplicationUser>(null, null, null, null, null, null);
-            IEmailSender emailSender;
+            IMessagingService emailSender;
             ILogger<IAccountService> logger;
             IAccountService accountService;
 

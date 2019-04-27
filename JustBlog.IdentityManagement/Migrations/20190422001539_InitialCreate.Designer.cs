@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JustBlog.IdentityManagement.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20180609155143_AppIdentityInitialCreate")]
-    partial class AppIdentityInitialCreate
+    [Migration("20190422001539_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799");
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062");
 
             modelBuilder.Entity("JustBlog.IdentityManagement.Account.ApplicationUser", b =>
                 {
@@ -25,11 +25,22 @@ namespace JustBlog.IdentityManagement.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<DateTime?>("BirthDate")
-                        .IsRequired();
+                    b.Property<string>("AddressLine1")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("AddressLine2")
+                        .HasMaxLength(100);
+
+                    b.Property<DateTime?>("BirthDate");
+
+                    b.Property<string>("City")
+                        .HasMaxLength(100);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
+
+                    b.Property<string>("Country")
+                        .HasMaxLength(100);
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -37,15 +48,10 @@ namespace JustBlog.IdentityManagement.Migrations
                     b.Property<bool>("EmailConfirmed");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.Property<string>("Hometown")
-                        .IsRequired();
+                        .HasMaxLength(100);
 
                     b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                        .HasMaxLength(100);
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -63,7 +69,13 @@ namespace JustBlog.IdentityManagement.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
+                    b.Property<string>("PostalCode")
+                        .HasMaxLength(100);
+
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("State")
+                        .HasMaxLength(100);
 
                     b.Property<bool>("TwoFactorEnabled");
 

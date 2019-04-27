@@ -7,7 +7,7 @@ export abstract class BaseController {
 
     // error handling callbacks
     private errorMessage: string = "An error has been encountered in this controller.";
-    public OnErrorCallback: (Error: any) => void;
+    public OnErrorCallback: (error: any) => void;
     public AntiForgeryToken: string;
 
     inject = ["$sce"]

@@ -1,20 +1,18 @@
-﻿import { LoginUpdate } from "admin/login/LoginUpdate";
-import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
-import { IUser } from "Admin/Account/IUser";
-import { IAuthEventConstants } from "Admin/Interfaces/IAuthEventConstants";
-import { IHttpAdminRoutes } from "Admin/Interfaces/IHttpAdminRoutes";
-import { LoginModel } from "Admin/Login/LoginModel";
-import { IChangePasswordViewModel } from "Admin/password/IChangePasswordViewModel";
-import { RegistrationAttempt } from "Admin/Register/RegistrationAttempt";
-import { RegistrationUser } from "Admin/Register/RegistrationUser";
+﻿import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
+import { User } from "admin/account/User";
+import { IAuthEventConstants } from "admin/interfaces/IAuthEventConstants";
+import { IHttpAdminRoutes } from "admin/interfaces/IHttpAdminRoutes";
+import { LoginModel } from "admin/login/LoginModel";
+import { LoginUpdate } from "admin/login/LoginUpdate";
+import { RegistrationAttempt } from "admin/register/RegistrationAttempt";
+import { RegistrationUser } from "admin/register/RegistrationUser";
 import { AuthService } from "Core/auth.service";
 import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
 import { BaseService } from "Core/Models/BaseService";
+import { ChangePasswordViewModel } from "./password/ChangePasswordViewModel";
 
 //Admin service class that allows users to perform common account management actions
 export class AdminService extends BaseService {
-
-    MangementEndPont: string = "/Manage/";
 
     private httpPostConfig: ng.IRequestShortcutConfig = {
         headers: {
@@ -44,12 +42,12 @@ export class AdminService extends BaseService {
     /**
      * Get all registered users
      */
-    Users(): ng.IPromise<void | Array<IUser>> {
+    users(): ng.IPromise<void | Array<User>> {
 
         // defining callback within function
-        let onDataReturned: (response: ng.IHttpPromiseCallbackArg<Array<IUser>>) => Array<IUser>;
-        onDataReturned = (response: ng.IHttpPromiseCallbackArg<Array<IUser>>) => {
-            return <Array<IUser>>JSON.parse(<any>response.data);
+        let onDataReturned: (response: ng.IHttpPromiseCallbackArg<Array<User>>) => Array<User>;
+        onDataReturned = (response: ng.IHttpPromiseCallbackArg<Array<User>>) => {
+            return <Array<User>>JSON.parse(<any>response.data);
         };
 
         return this.$http.post("/manage/ReadIdentityUsers", null).then(onDataReturned, this.onError);
@@ -60,7 +58,7 @@ export class AdminService extends BaseService {
      * @param newUser
      * @param antiForgeryToken
      */
-    RegisterUser(newUser: RegistrationUser, antiForgeryToken: string): ng.IPromise<void | RegistrationAttempt> {
+    registerUser(newUser: RegistrationUser): ng.IPromise<void | RegistrationAttempt> {
 
         let params = {
             model: newUser,
@@ -72,15 +70,32 @@ export class AdminService extends BaseService {
             return <RegistrationAttempt>response.data;
         };
 
-        return this.$http.post(`${this.AUTH_ROUTE_CONSTANTS.RegisterNewUser}`, this.SerializeToQueryStringParams(params, null), this.httpPostConfig)
+        return this.$http.post(`${this.AUTH_ROUTE_CONSTANTS.RegisterNewUser}`,
+            this.SerializeToQueryStringParams(params, null), this.httpPostConfig)
             .then(onRegistrationCallback, this.onError);
+    }
+
+    /**
+     * Confirm user email
+     * @param userId the users unique identifier
+     * @param userCode the users unique code
+     */
+    confirmUserEmail(userId: string, userCode: string): ng.IPromise<void> {
+
+        let onConfirmEmailCallback: (response: ng.IHttpPromiseCallbackArg<any>) => any;
+        onConfirmEmailCallback = (response: ng.IHttpPromiseCallbackArg<any>) => {
+            return response.data;
+        };
+
+        return this.$http.get(`${this.AUTH_ROUTE_CONSTANTS.ConfirmEmail}?userId=${userId}&code=${userCode}`)
+            .then(onConfirmEmailCallback, this.onError);
     }
 
     /**
      * Remove an account
      * @param userGUID
      */
-    DeleteUser(userGUID: string): ng.IPromise<boolean> {
+    deleteUser(userGUID: string): ng.IPromise<boolean> {
         throw new Error("Not Implemented");
     }
 
@@ -89,16 +104,16 @@ export class AdminService extends BaseService {
      * @param user
      * @param antiForgeryToken
      */
-    UpdatePassword(updatePasswordModel: IChangePasswordViewModel, antiForgeryToken: string): ng.IPromise<void | boolean> {
+    updatePassword(updatePasswordModel: ChangePasswordViewModel, antiForgeryToken: string): ng.IPromise<void | boolean> {
         //Add headers for anti forgery token
         let config: ng.IRequestShortcutConfig = this.ConfigAntiForgery(antiForgeryToken);
 
-        let onLoginCallback: (response: ng.IHttpPromiseCallbackArg<boolean>) => boolean;
-        onLoginCallback = (response: ng.IHttpPromiseCallbackArg<boolean>) => {
+        let onUpdatePasswordCallback: (response: ng.IHttpPromiseCallbackArg<boolean>) => boolean;
+        onUpdatePasswordCallback = (response: ng.IHttpPromiseCallbackArg<boolean>) => {
             return <boolean>response.data;
         };
 
-        return this.$http.post("/Manage/ChangePassword", updatePasswordModel, config).then(onLoginCallback, this.onError);
+        return this.$http.post("/Manage/ChangePassword", updatePasswordModel, config).then(onUpdatePasswordCallback, this.onError);
     }
 
     /**
@@ -106,7 +121,7 @@ export class AdminService extends BaseService {
      * @param emailAddress
      * @param antiForgeryToken
      */
-    ForgotPassword(emailAddress: string, antiForgeryToken: string): ng.IPromise<void | boolean> {
+    forgotPassword(emailAddress: string, antiForgeryToken: string): ng.IPromise<void | boolean> {
 
         //Add headers for anti forgery token
         let config: ng.IRequestShortcutConfig = this.ConfigAntiForgery(antiForgeryToken);
@@ -123,7 +138,7 @@ export class AdminService extends BaseService {
      * Service for updating a forgotten password
      * @param ForgottenPasswordModel
      */
-    ForgotPasswordUpdateAccount(ForgottenPasswordModel: any): void {
+    forgotPasswordUpdateAccount(ForgottenPasswordModel: any): void {
         throw new Error("Not Implemented");
     }
 
@@ -132,14 +147,14 @@ export class AdminService extends BaseService {
      * @param loginModel
      * @param antiForgeryToken
      */
-    Login(loginModel: LoginModel): ng.IPromise<void | ITokenAuthResponse> {
+    login(loginModel: LoginModel): ng.IPromise<void | ITokenAuthResponse> {
 
         let onLoginCallback: (response: ng.IHttpPromiseCallbackArg<ITokenAuthResponse>) => ITokenAuthResponse;
         onLoginCallback = (response: ng.IHttpPromiseCallbackArg<ITokenAuthResponse>) => {
 
             if (response.status === 200) {
 
-                let authResponse: ITokenAuthResponse =  response.data;
+                let authResponse: ITokenAuthResponse = response.data;
                 this.authService.SetUserToken(authResponse.auth_token);
                 this.$rootScope.$broadcast(this.AUTH_EVENT_CONSTANTS.loginSuccess, true);
 
@@ -160,86 +175,75 @@ export class AdminService extends BaseService {
      * Log a user out of the admin area
      * @param antiForgeryToken
      */
-    LogOff(antiForgeryToken: string): ng.IPromise<void | boolean> {
+    logOff(): ng.IPromise<void> {
 
-        let params: any = {};
-        let config: ng.IRequestShortcutConfig = this.ConfigAntiForgery(antiForgeryToken);
+        let onLogoffCallback: () => void;
+        onLogoffCallback = () => {
 
-        let onLogoffCallback: (response: ng.IHttpPromiseCallbackArg<boolean>) => boolean;
-        onLogoffCallback = (response: ng.IHttpPromiseCallbackArg<boolean>) => {
+            this.authService.DestroyUserTokens();
 
-            let logoffStatus: boolean = <boolean>response.data;
-
-            // remove the auth token value so we know we are logged off
-            if (logoffStatus != null && logoffStatus === true) {
-                this.authService.DestroyUserTokens();
-
-                // false here so that we let event handlers know we're not logged-in anymore
-                this.$rootScope.$broadcast(this.AUTH_EVENT_CONSTANTS.logoutSuccess, false); 
-            }
-
-            return <boolean>response.data;
+            // false here so that we let event handlers know we're not logged-in anymore
+            this.$rootScope.$broadcast(this.AUTH_EVENT_CONSTANTS.logoutSuccess, false);
         };
 
-        return this.$http.post(`${this.AUTH_ROUTE_CONSTANTS.Logoff}`,
-                    params,
-                    this.ConfigSecureAppJson(antiForgeryToken, this.authService.GetLocalToken())).then(onLogoffCallback, this.onError);
+        return this.$http.post(`${this.AUTH_ROUTE_CONSTANTS.Logoff}`, null, this.ConfigSecureAppJson(this.authService.GetLocalToken()))
+            .then(onLogoffCallback, this.onError);
     }
 
     /**
      * Get the currently logged in users account information
      */
-    MyAccount(): ng.IPromise<void | IUser> {
-        let onAntiForgeryTokenCallback: (response: ng.IHttpPromiseCallbackArg<IUser>) => IUser =
-            (response: ng.IHttpPromiseCallbackArg<IUser>) => {
-                return <IUser>response.data;
-            };
+    myAccount(): ng.IPromise<void | User> {
 
-        let params = {};
+        let onMyAccountCallback: (response: ng.IHttpPromiseCallbackArg<User>) => User;
 
-        return this.$http.post("/Account/MyAccount", params).then(onAntiForgeryTokenCallback, this.onError);
+        onMyAccountCallback = (response: ng.IHttpPromiseCallbackArg<User>) => {
+            return response.data;
+        };
+
+        return this.$http.get(this.AUTH_ROUTE_CONSTANTS.MyAccount, this.ConfigSecureAppJson(this.authService.GetLocalToken()))
+            .then(onMyAccountCallback, this.onError);
     }
 
     /**
      * Update a user account
      * @param User
      */
-    UpdateUser(updatedAccount: IUser, antiForgeryToken: string): ng.IPromise<void | boolean> {
+    updateAccount(updatedAccount: User): ng.IPromise<void | boolean> {
 
         let params: any = {
             updatedAccount: updatedAccount
         };
-
-        let config: ng.IRequestShortcutConfig = this.ConfigAntiForgery(antiForgeryToken);
 
         let onAccountUpdatedReturned: (response: ng.IHttpPromiseCallbackArg<boolean>) => boolean;
         onAccountUpdatedReturned = (response: ng.IHttpPromiseCallbackArg<boolean>) => {
             return <boolean>response.data;
         };
 
-        return this.$http.post(`/Manage/UpdateAccount`, params, config).then(onAccountUpdatedReturned, this.onError);
+        return this.$http.post(`/Manage/UpdateAccount`, params)
+            .then(onAccountUpdatedReturned, this.onError);
     }
 
     /**
      * Get all of the users of the current application
      */
-    ReadApplicationUsers(): ng.IPromise<any | Array<IUser>> {
+    readApplicationUsers(): ng.IPromise<any | Array<User>> {
 
-        let onReadApplicationUsersCompleted: (response: ng.IHttpPromiseCallbackArg<Array<IUser>>) => Array<IUser> =
-            (response: ng.IHttpPromiseCallbackArg<Array<IUser>>) => {
-                return <Array<IUser>>response.data;
+        let onReadApplicationUsersCompleted: (response: ng.IHttpPromiseCallbackArg<Array<User>>) => Array<User> =
+            (response: ng.IHttpPromiseCallbackArg<Array<User>>) => {
+                return <Array<User>>response.data;
             };
 
-        return this.$http.post(`${this.MangementEndPont}ReadIdentityUsers`, {},
-                        this.ConfigSecureAppJson("", this.authService.GetLocalToken())).then(onReadApplicationUsersCompleted, this.onError);
+        return this.$http.post(`/manage/readIdentityUsers`, {},
+            this.ConfigSecureAppJson(this.authService.GetLocalToken())).then(onReadApplicationUsersCompleted, this.onError);
     }
 
     /**
      * Update a user login.
      */
-    UpdateUserLogin(UpdateLoginModel: LoginUpdate, antiForgeryToken: string): ng.IPromise<void | boolean> {
+    updateUserLogin(UpdateLoginModel: LoginUpdate, antiForgeryToken: string): ng.IPromise<void | boolean> {
 
-        let params:any = {
+        let params: any = {
             updateLogin: UpdateLoginModel
         };
 
