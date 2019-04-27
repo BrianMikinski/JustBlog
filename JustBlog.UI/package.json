@@ -11,7 +11,7 @@
   },
   "scripts": {
     "test": "karma start .\\conf\\karma.conf.js",
-    "build": "webpack --config=webpack.config.js --env dev --progress --profile --colors",
+    "build": "webpack --config=webpack.config.js --env dev --progress --profile --colors --display verbose",
     "build:prod": "webpack --config=webpack.config.js --env prod --progress --profile --colors",
     "build:test": "webpack --config=webpack.config.js --env test --progress --profile --colors"
   },
