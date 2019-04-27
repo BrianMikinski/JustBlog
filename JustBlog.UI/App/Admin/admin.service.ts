@@ -1,5 +1,5 @@
 ﻿import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
-import { IUser } from "admin/account/IUser";
+import { User } from "admin/account/User";
 import { IAuthEventConstants } from "admin/interfaces/IAuthEventConstants";
 import { IHttpAdminRoutes } from "admin/interfaces/IHttpAdminRoutes";
 import { LoginModel } from "admin/login/LoginModel";
@@ -42,12 +42,12 @@ export class AdminService extends BaseService {
     /**
      * Get all registered users
      */
-    users(): ng.IPromise<void | Array<IUser>> {
+    users(): ng.IPromise<void | Array<User>> {
 
         // defining callback within function
-        let onDataReturned: (response: ng.IHttpPromiseCallbackArg<Array<IUser>>) => Array<IUser>;
-        onDataReturned = (response: ng.IHttpPromiseCallbackArg<Array<IUser>>) => {
-            return <Array<IUser>>JSON.parse(<any>response.data);
+        let onDataReturned: (response: ng.IHttpPromiseCallbackArg<Array<User>>) => Array<User>;
+        onDataReturned = (response: ng.IHttpPromiseCallbackArg<Array<User>>) => {
+            return <Array<User>>JSON.parse(<any>response.data);
         };
 
         return this.$http.post("/manage/ReadIdentityUsers", null).then(onDataReturned, this.onError);
@@ -193,11 +193,11 @@ export class AdminService extends BaseService {
     /**
      * Get the currently logged in users account information
      */
-    myAccount(): ng.IPromise<void | IUser> {
+    myAccount(): ng.IPromise<void | User> {
 
-        let onMyAccountCallback: (response: ng.IHttpPromiseCallbackArg<IUser>) => IUser;
+        let onMyAccountCallback: (response: ng.IHttpPromiseCallbackArg<User>) => User;
 
-        onMyAccountCallback = (response: ng.IHttpPromiseCallbackArg<IUser>) => {
+        onMyAccountCallback = (response: ng.IHttpPromiseCallbackArg<User>) => {
             return response.data;
         };
 
@@ -209,7 +209,7 @@ export class AdminService extends BaseService {
      * Update a user account
      * @param User
      */
-    updateAccount(updatedAccount: IUser): ng.IPromise<void | boolean> {
+    updateAccount(updatedAccount: User): ng.IPromise<void | boolean> {
 
         let params: any = {
             updatedAccount: updatedAccount
@@ -227,11 +227,11 @@ export class AdminService extends BaseService {
     /**
      * Get all of the users of the current application
      */
-    readApplicationUsers(): ng.IPromise<any | Array<IUser>> {
+    readApplicationUsers(): ng.IPromise<any | Array<User>> {
 
-        let onReadApplicationUsersCompleted: (response: ng.IHttpPromiseCallbackArg<Array<IUser>>) => Array<IUser> =
-            (response: ng.IHttpPromiseCallbackArg<Array<IUser>>) => {
-                return <Array<IUser>>response.data;
+        let onReadApplicationUsersCompleted: (response: ng.IHttpPromiseCallbackArg<Array<User>>) => Array<User> =
+            (response: ng.IHttpPromiseCallbackArg<Array<User>>) => {
+                return <Array<User>>response.data;
             };
 
         return this.$http.post(`/manage/readIdentityUsers`, {},

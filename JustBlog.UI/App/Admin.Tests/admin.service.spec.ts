@@ -1,5 +1,5 @@
 ﻿import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
-import { IUser } from "admin/account/IUser";
+import { User } from "admin/account/User";
 import { AdminModule, default as adminModule } from "admin/admin.module";
 import { AdminService } from "admin/admin.service";
 import { IHttpAdminRoutes } from "admin/interfaces/IHttpAdminRoutes";
@@ -80,15 +80,15 @@ describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${not
         _$httpBackend_.whenPOST("./blog/metadata").respond(metadata);
     }));
 
-    let applicationUsers: Array<IUser>;
+    let applicationUsers: Array<User>;
 
 
     // setup list of application users
     beforeEach(() => {
 
-        applicationUsers = new Array<IUser>();
+        applicationUsers = new Array<User>();
 
-        let userA: IUser = {
+        let userA: User = {
             AccessFailedCount: 0,
             BirthDate: new Date(1990, 5, 5),
             Email: "johnTestEmail@gmail.com",
@@ -110,7 +110,7 @@ describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${not
             AddressLine2: ""
         };
 
-        let userB: IUser = {
+        let userB: User = {
             AccessFailedCount: 0,
             BirthDate: new Date(1992, 5, 5),
             Email: "janeTestEmail@gmail.com",

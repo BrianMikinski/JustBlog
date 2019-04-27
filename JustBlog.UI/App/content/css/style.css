@@ -45,8 +45,8 @@
 }
 
 .profile-picture-sm {
-    height: 112px;
-    width: 140px;
+    height: 150px;
+    width: 180px;
 }
 
 /**********************
@@ -578,4 +578,32 @@ code {
 }
 .fade.ng-leave-active {
     opacity: 0;
+}
+
+.toggle-active, .toggle-inactive {
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.toggle-active, .toggle-inactive {
+    font-size: 26px;
+    cursor: pointer;
+}
+
+i.toggle-active {
+    color: #5cb85c;
+}
+
+i.toggle-inactive {
+    color: #d9534f;
+}
+
+.contact-confirmed {
+    color: #5cb85c;
+}
+
+.profile-border {
+    border-top-color: rgb(245, 245, 245);
+    border-top-width: thin;
+    border-top-style: solid;
 }

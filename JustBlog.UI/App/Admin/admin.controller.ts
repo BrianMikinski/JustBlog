@@ -1,4 +1,4 @@
-﻿import { IUser } from "admin/account/IUser";
+﻿import { User } from "admin/account/User";
 import { AdminService } from "admin/admin.service";
 import { LoginUpdate } from "admin/login/LoginUpdate";
 import { ChangePasswordViewModel } from "admin/password/ChangePasswordViewModel";
@@ -15,7 +15,7 @@ import { NotificationFactory } from "Notification/notification.factory";
  */
 export class AdminController extends BaseController {
 
-    ApplicationAdmins: Array<IUser> = [];
+    ApplicationAdmins: Array<User> = [];
     IsLoggedIn: boolean;
     LoginUpdate: LoginUpdate;
 
@@ -97,8 +97,8 @@ export class AdminController extends BaseController {
      */
     public ReadUserAccounts(): void {
 
-        let onReadUserAccountsComplete: (data: Array<IUser>) => void;
-        onReadUserAccountsComplete = (data: Array<IUser>) => {
+        let onReadUserAccountsComplete: (data: Array<User>) => void;
+        onReadUserAccountsComplete = (data: Array<User>) => {
             this.ApplicationAdmins = data;
         };
 
