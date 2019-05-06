@@ -6,7 +6,7 @@
                 <img src="../../content/images/profile.jpg" class="img-circle profile-picture-sm" />
             </div>
             <div class="row profile-border" style="margin-top: 15px;">
-                <div class="col-md-6">
+                <div class="col-lg-6 col-md-12">
                     <div class="form-group  ">
                         <label class="control-label">
                             First Name
@@ -14,7 +14,7 @@
                         <input class="form-control" type="text" value="{{$ctrl.account.FirstName}}" ng-readonly="!$ctrl.editEnabled" />
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-6 col-md-12">
                     <div class="form-group ">
                         <label class="control-label">
                             Last Name
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-lg-8 col-md-9">
                     <div class="form-group">
                         <label class="control-label">
                             Email
@@ -32,7 +32,7 @@
                         <input class="form-control" type="email" value="{{$ctrl.account.Email}}" disabled readonly />
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-lg-2 col-md-3">
                     <button class="btn btn-default" style="margin-top: 24px;" ng-click="$ctrl.emailConfirmation()">
                         Confirm
                     </button>
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-lg-8">
                     <div class="form-group">
                         <label class="control-label">
                             Phone Number
@@ -53,7 +53,7 @@
                         <input class="form-control" type="text" value="{{$ctrl.account.PhoneNumber}}" ng-readonly="!$ctrl.editEnabled" />
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-lg-2">
                     <button class="btn btn-default" style="margin-top: 24px;" ng-click="$ctrl.phoneConfirmation()">
                         Confirm
                     </button>
@@ -119,7 +119,7 @@
                         <input class="form-control" type="text" value="{{$ctrl.account.City}}" ng-readonly="!$ctrl.editEnabled" />
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 pull-right">
                     <div class="form-group">
                         <label class="control-label">
                             State
@@ -127,7 +127,7 @@
                         <input class="form-control" type="text" value="{{$ctrl.account.State}}" ng-readonly="!$ctrl.editEnabled" />
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label class="control-label">
                             Postal Code
@@ -135,9 +135,7 @@
                         <input class="form-control" type="text" value="{{$ctrl.account.PostalCode}}" ng-readonly="!$ctrl.editEnabled" />
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 pull-left">
+                <div class="col-md-4 pull-right">
                     <div class="form-group">
                         <label class="control-label">
                             Country
