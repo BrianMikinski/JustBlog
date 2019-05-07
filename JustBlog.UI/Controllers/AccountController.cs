@@ -179,14 +179,13 @@ namespace JustBlog.UI.Controllers
         /// <param name="user"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IActionResult> UpdateAccount(UserViewModel user)
+        public async Task<IActionResult> UpdateAccount([FromBody]UserViewModel user)
         {
             // need to locate the account
-            throw new NotImplementedException();
 
             var ApplicationUser = await _accountService.GetUser(User.FindFirst("sub").Value);
 
-            return Ok(ApplicationUser);
+            return Ok(new UserViewModel(ApplicationUser));
         }
 
         [HttpPost]

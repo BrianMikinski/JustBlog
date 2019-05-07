@@ -194,5 +194,19 @@ namespace JustBlog.IdentityManagement.Services
         {
             return await _userManager.FindByEmailAsync(userName);
         }
+
+        /// <summary>
+        /// Update the user model
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public async Task<UserViewModel> UpdateUser(UserViewModel user)
+        {
+            var Applicationuser = await _userManager.FindByIdAsync(user.Id.ToString());
+
+            //IdentityDbContext
+
+            throw new NotImplementedException();
+        }
     }
 }

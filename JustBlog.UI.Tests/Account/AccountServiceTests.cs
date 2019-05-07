@@ -268,12 +268,12 @@ namespace JustBlog.UI.Tests
         [Ignore("Probably not going to use in memory db provider to test this.")]
         public void Register_New_User_InMemory()
         {
-            var options = new DbContextOptionsBuilder<AppIdentityDbContext>()
+            var options = new DbContextOptionsBuilder<IdentityDbContext>()
                                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                                 .EnableSensitiveDataLogging(true)
                                 .Options;
 
-            AppIdentityDbContext _identityDbContext = new AppIdentityDbContext(options);
+            IdentityDbContext _identityDbContext = new IdentityDbContext(options);
 
             SignInManager<ApplicationUser> signInManager = new SignInManager<ApplicationUser>(null, null, null, null, null, null);
             IMessagingService emailSender;

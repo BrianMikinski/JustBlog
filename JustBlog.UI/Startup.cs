@@ -138,7 +138,7 @@ namespace JustBlog.UI
             void identityManagementServices(string dbConnectionSTring)
             {
                 // identity management
-                services.AddDbContext<AppIdentityDbContext>(options =>
+                services.AddDbContext<IdentityDbContext>(options =>
                 {
                     if (string.IsNullOrEmpty(dbConnectionSTring))
                     {
@@ -148,7 +148,7 @@ namespace JustBlog.UI
                 });
 
                 services.AddIdentity<ApplicationUser, IdentityRole>()
-                    .AddEntityFrameworkStores<AppIdentityDbContext>()
+                    .AddEntityFrameworkStores<IdentityDbContext>()
                     .AddDefaultTokenProviders();
             }
 

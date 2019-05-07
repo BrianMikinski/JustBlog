@@ -22,5 +22,7 @@ namespace JustBlog.IdentityManagement.Services
         Task RemoveLogin(RemoveLoginViewModel model, ClaimsPrincipal userPrincipal);
 
         Task<ApplicationUser> GetUser(string userName);
+
+        Task<UserViewModel> UpdateUser(UserViewModel user);
     }
 }

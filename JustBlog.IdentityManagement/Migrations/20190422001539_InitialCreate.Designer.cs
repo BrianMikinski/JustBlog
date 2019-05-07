@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JustBlog.IdentityManagement.Migrations
 {
-    [DbContext(typeof(AppIdentityDbContext))]
+    [DbContext(typeof(IdentityDbContext))]
     [Migration("20190422001539_InitialCreate")]
     partial class InitialCreate
     {

@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JustBlog.IdentityManagement
 {
-    public class AppIdentityDbContext : IdentityDbContext<ApplicationUser>
+    public class IdentityDbContext : IdentityDbContext<ApplicationUser>
     {
-        public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options)
+        public IdentityDbContext(DbContextOptions<IdentityDbContext> options)
             : base(options)
         {
 
