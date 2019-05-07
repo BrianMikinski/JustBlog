@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System;
 using System.Threading.Tasks;
 
 namespace JustBlog.UI.Controllers
@@ -22,6 +23,7 @@ namespace JustBlog.UI.Controllers
         private readonly ILogger _logger;
         private readonly IAccountService _accountService;
         private readonly DomainOptions _baseUrlOptions;
+        private readonly IMessagingService _messagingService;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -29,6 +31,7 @@ namespace JustBlog.UI.Controllers
             IMessagingService emailSender,
             ILogger<AccountController> logger,
             IAccountService accountService,
+            IMessagingService messagingService,
             IOptions<DomainOptions> baseUrlOptions)
         {
             _userManager = userManager;
@@ -36,6 +39,7 @@ namespace JustBlog.UI.Controllers
             _logger = logger;
             _accountService = accountService;
             _baseUrlOptions = baseUrlOptions.Value;
+            _messagingService = messagingService;
         }
 
         /// <summary>
@@ -74,6 +78,24 @@ namespace JustBlog.UI.Controllers
             }
 
             return new RegistrationAttempt(model, result.Succeeded, result.Errors);
+        }
+
+        /// <summary>
+        /// Confirm email address after being logged in
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> ConfirmEmail()
+        {
+            var user = await _userManager.FindByIdAsync(User.FindFirst("sub").Value);
+
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var callbackUrl = _messagingService.EmailConfirmationLink(user.Id, code, _baseUrlOptions.BaseUrl, "https");
+
+            await _messagingService.SendEmailConfirmationAsync(user.Email, callbackUrl);
+
+            return Ok();
         }
 
         [HttpGet]
@@ -148,7 +170,7 @@ namespace JustBlog.UI.Controllers
         {
             var ApplicationUser = await _accountService.GetUser(User.FindFirst("sub").Value);
 
-            return Ok(ApplicationUser);
+            return Ok(new UserViewModel(ApplicationUser));
         }
 
         /// <summary>
@@ -156,11 +178,15 @@ namespace JustBlog.UI.Controllers
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        [Route("api/account/myaccount")]
         [HttpPut]
-        public async Task<IActionResult> UpdateAccount(ApplicationUser user)
+        public async Task<IActionResult> UpdateAccount(UserViewModel user)
         {
-            return Ok();
+            // need to locate the account
+            throw new NotImplementedException();
+
+            var ApplicationUser = await _accountService.GetUser(User.FindFirst("sub").Value);
+
+            return Ok(ApplicationUser);
         }
 
         [HttpPost]

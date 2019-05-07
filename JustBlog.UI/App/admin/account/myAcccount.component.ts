@@ -4,6 +4,7 @@ import { ComponentBase } from "Core/component.base";
 import { BaseController } from "Core/Models/BaseController";
 import { NotificationFactory } from "Notification/notification.factory";
 import { User } from "./User";
+import * as angular from "angular";
 
 export const MyAccountComponentName: string = "myAccount";
 
@@ -23,7 +24,7 @@ interface IMyAccountComponentController extends IMyAccountControllerBindings {
 class MyAccountComponentController extends BaseController implements IMyAccountComponentController, ng.IController {
 
     account: User;
-    updatedAccount: User;
+    accountCopy: User;
     editEnabled: boolean = false;
 
     // dateTime Picker Options	
@@ -53,7 +54,7 @@ class MyAccountComponentController extends BaseController implements IMyAccountC
     }
 
     $onInit?() {
-        
+        angular.copy(this.account, this.accountCopy);
     }
 
     /**
@@ -99,30 +100,40 @@ class MyAccountComponentController extends BaseController implements IMyAccountC
         console.log("Phone confirmation clicked.");
     }
 
+    toggleEdit(): void {
+
+        //this.editEnabled = !this.editEnabled;
+
+        //if (this.editEnabled === true) {
+        //    angular.copy(this.account, this.legacyAccountData);
+        //} else {
+        //    this.account = this.legacyAccountData;
+        //}
+
+        //console.log("toggle edit called!");
+    }
+
     /**
      * Update the currently logged in user
      */
     updateAccount(): void {
 
-        let onUpdateAccountComplete: (data: boolean) => void;
+        let onUpdateAccountComplete: (updatedUser: User) => void;
 
-        onUpdateAccountComplete = (data: boolean) => {
-            if (data === true) {
+        onUpdateAccountComplete = (updatedUser: User) => {
+            if (updatedUser !== undefined) {
                 this.notificationFactory.Success("Account details successfully updated.");
+                this.account = updatedUser;
+                angular.copy(this.account, this.accountCopy);
             } else {
                 this.notificationFactory.Error("Account details could not be updated.");
             }
         };
 
-        // make sure we don't update our email address nor user name
-        this.updatedAccount.Email = "";
-        this.updatedAccount.UserName = "";
-        this.updatedAccount.LockoutEndDateUtc = new Date();
-
         //this.updatedAccount.BirthDate = (<Date>this.userBirthDate).toLocaleDateString();
 
         this.adminService
-            .updateAccount(this.updatedAccount)
+            .updateAccount(this.account)
             .then(onUpdateAccountComplete, this.OnErrorCallback);
     }
 }

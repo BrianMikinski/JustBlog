@@ -142,17 +142,6 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let accountUpdate: IRouteBlog = {
-                templateUrl: require("admin/account/update.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
             let passwordUpdateRoute: IRouteBlog = {
                 templateUrl: require("Admin/password/passwordUpdate.html"),
                 caseInsensitiveMatch: true,
@@ -221,7 +210,6 @@ export class AdminModule extends BaseModule {
 
             $routeProvider
                 .when("/accounts", accountsRoute)
-                .when("/updateAccount", accountUpdate)
                 .when("/passwordReset", passwordResetRoute)
                 .when("/passwordUpdate", passwordUpdateRoute)
                 .when("/passwordResetConfirmation", confirmPasswordUpdateRoute)
@@ -258,7 +246,7 @@ export class AdminModule extends BaseModule {
             ConfirmEmail: "api/Account/ConfirmEmail",
             Login: "/Authentication/Login",
             UpdatePassword: "/Manage/ChangePassword",
-            UpdateUser: `api/Manage/UpdateAccount`,
+            UpdateUser: `api/account/UpdateAccount`,
             UpdateUserLogin: "/Manage/UpdateLogin",
         }
 

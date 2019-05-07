@@ -75,6 +75,17 @@ export class AdminService extends BaseService {
             .then(onRegistrationCallback, this.onError);
     }
 
+    initiateEmailConfirmation(): ng.IPromise<void> {
+
+        let onInitiateEmailConfirmationCallback: (response: ng.IHttpPromiseCallbackArg<{}>) => void;
+        onInitiateEmailConfirmationCallback = (response: ng.IHttpPromiseCallbackArg<{}>) => {
+            //return response.data;
+        };
+
+        return this.$http.post(`${this.AUTH_ROUTE_CONSTANTS.ConfirmEmail}`, null)
+            .then(onInitiateEmailConfirmationCallback, this.onError);
+    }
+
     /**
      * Confirm user email
      * @param userId the users unique identifier
@@ -207,20 +218,20 @@ export class AdminService extends BaseService {
 
     /**
      * Update a user account
-     * @param User
+     * @param user
      */
-    updateAccount(updatedAccount: User): ng.IPromise<void | boolean> {
+    updateAccount(user: User): ng.IPromise<void | User> {
 
-        let params: any = {
-            updatedAccount: updatedAccount
+        let data: any = {
+            user: user
         };
 
-        let onAccountUpdatedReturned: (response: ng.IHttpPromiseCallbackArg<boolean>) => boolean;
-        onAccountUpdatedReturned = (response: ng.IHttpPromiseCallbackArg<boolean>) => {
-            return <boolean>response.data;
+        let onAccountUpdatedReturned: (response: ng.IHttpPromiseCallbackArg<User>) => User;
+        onAccountUpdatedReturned = (response: ng.IHttpPromiseCallbackArg<User>) => {
+            return response.data;
         };
 
-        return this.$http.post(`/Manage/UpdateAccount`, params)
+        return this.$http.put(this.AUTH_ROUTE_CONSTANTS.UpdateUser, user, this.ConfigSecureAppJson(this.authService.GetLocalToken()))
             .then(onAccountUpdatedReturned, this.onError);
     }
 
@@ -254,9 +265,12 @@ export class AdminService extends BaseService {
             return <boolean>response.data;
         }
 
-        return this.$http.post("/Manage/UpdateLogin", params, config).then(onAccountUpdatedReturned, this.onError);
+        return this.$http.post("/Manage/UpdateLogin", params, config)
+            .then(onAccountUpdatedReturned, this.onError);
     }
 
     // error handling callbacks
-    private onError: (Error: any) => void;
+    private onError: (Error: any) => void = (Error: any) => {
+        console.log(Error);
+    };
 }

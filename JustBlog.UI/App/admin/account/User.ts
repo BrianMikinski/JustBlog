@@ -4,9 +4,6 @@
     LastName: string;
     Email: string;
     EmailConfirmed: boolean;
-    AccessFailedCount: number;
-    LockoutEnabled: boolean;
-    LockoutEndDateUtc: Date;
     PhoneNumber: string;
     PhoneNumberConfirmed: boolean;
     TwoFactorEnabled: boolean;

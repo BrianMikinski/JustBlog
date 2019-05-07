@@ -1,7 +1,7 @@
 ﻿<admin-header></admin-header>
 <div class="row">
     <div class="col-md-offset-4 col-md-4">
-        <form name="currentUserForm" role="form">
+        <form name="currentUserForm" role="form" ng-submit="$ctrl.updateAccount()">
             <div style="display:block;" class="text-center">
                 <img src="../../content/images/profile.jpg" class="img-circle profile-picture-sm" />
             </div>
@@ -11,7 +11,7 @@
                         <label class="control-label">
                             First Name
                         </label>
-                        <input class="form-control" type="text" value="{{$ctrl.account.FirstName}}" ng-readonly="!$ctrl.editEnabled" />
+                        <input class="form-control" type="text" ng-model="$ctrl.account.FirstName" ng-readonly="!$ctrl.editEnabled" />
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12">
@@ -19,7 +19,7 @@
                         <label class="control-label">
                             Last Name
                         </label>
-                        <input class="form-control" type="text" value="{{$ctrl.account.LastName}}" ng-readonly="!$ctrl.editEnabled" />
+                        <input class="form-control" type="text" ng-model="$ctrl.account.LastName" ng-readonly="!$ctrl.editEnabled" />
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                         <label class="control-label">
                             Email
                         </label>
-                        <input class="form-control" type="email" value="{{$ctrl.account.Email}}" disabled readonly />
+                        <input class="form-control" type="email" ng-model="$ctrl.account.Email" disabled readonly />
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-3">
@@ -50,7 +50,7 @@
                         <label class="control-label">
                             Phone Number
                         </label>
-                        <input class="form-control" type="text" value="{{$ctrl.account.PhoneNumber}}" ng-readonly="!$ctrl.editEnabled" />
+                        <input class="form-control" type="text" ng-model="$ctrl.account.PhoneNumber" ng-readonly="!$ctrl.editEnabled" />
                     </div>
                 </div>
                 <div class="col-lg-2">
@@ -100,13 +100,13 @@
                         <label class="control-label">
                             Address Line 1
                         </label>
-                        <input class="form-control" type="text" value="{{$ctrl.account.AddressLine1}}" ng-enabled="$ctrl.editEnabled" ng-readonly="!$ctrl.editEnabled" />
+                        <input class="form-control" type="text" ng-model="$ctrl.account.AddressLine1" ng-enabled="$ctrl.editEnabled" ng-readonly="!$ctrl.editEnabled" />
                     </div>
                     <div class="form-group">
                         <label class="control-label">
                             Address Line 2
                         </label>
-                        <input class="form-control" type="text" value="{{$ctrl.account.AddressLine2}}" ng-readonly="!$ctrl.editEnabled" />
+                        <input class="form-control" type="text" ng-model="$ctrl.account.AddressLine2" ng-readonly="!$ctrl.editEnabled" />
                     </div>
                 </div>
             </div>
@@ -116,7 +116,7 @@
                         <label class="control-label">
                             City
                         </label>
-                        <input class="form-control" type="text" value="{{$ctrl.account.City}}" ng-readonly="!$ctrl.editEnabled" />
+                        <input class="form-control" type="text" ng-model="$ctrl.account.City" ng-readonly="!$ctrl.editEnabled" />
                     </div>
                 </div>
                 <div class="col-md-4 pull-right">
@@ -124,7 +124,7 @@
                         <label class="control-label">
                             State
                         </label>
-                        <input class="form-control" type="text" value="{{$ctrl.account.State}}" ng-readonly="!$ctrl.editEnabled" />
+                        <input class="form-control" type="text" ng-model="$ctrl.account.State" ng-readonly="!$ctrl.editEnabled" />
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -132,7 +132,7 @@
                         <label class="control-label">
                             Postal Code
                         </label>
-                        <input class="form-control" type="text" value="{{$ctrl.account.PostalCode}}" ng-readonly="!$ctrl.editEnabled" />
+                        <input class="form-control" type="text" ng-model="$ctrl.account.PostalCode" ng-readonly="!$ctrl.editEnabled" />
                     </div>
                 </div>
                 <div class="col-md-4 pull-right">
@@ -140,7 +140,7 @@
                         <label class="control-label">
                             Country
                         </label>
-                        <input class="form-control" type="text" value="{{$ctrl.account.Country}}" ng-readonly="!$ctrl.editEnabled" />
+                        <input class="form-control" type="text" ng-model="$ctrl.account.Country" ng-readonly="!$ctrl.editEnabled" />
                     </div>
                 </div>
             </div>
@@ -148,7 +148,7 @@
                 <label class="control-label">
                     ID
                 </label>
-                <input class="form-control" type="text" value="{{$ctrl.account.Id}}" readonly />
+                <input class="form-control" type="text" ng-model="$ctrl.account.Id" readonly />
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -161,7 +161,7 @@
                             <span>
                                 <i class="fa fa-toggle-on"
                                    ng-class="$ctrl.editEnabled ? 'toggle-active' : 'fa-rotate-180 toggle-inactive'"
-                                   ng-click="$ctrl.editEnabled = !$ctrl.editEnabled">
+                                   ng-click="$ctrl.editEnabled = !$ctrl.editEnabled; $ctrl.toggleEdit()">
                                 </i>
                             </span>
                         </div>

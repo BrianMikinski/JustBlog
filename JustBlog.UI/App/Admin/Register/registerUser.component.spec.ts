@@ -27,19 +27,9 @@ describe(` ${adminModule}: Register New User Component Tests - `, function () {
     let birthDate: Date = new Date(1990, 2, 1);
 
     let newUser: RegistrationUser = {
-        BirthDate: birthDate,
-        ConfirmPassword: "password",
         Email: "joe.smith@smith.com",
-        EmailConfirmed: false,
-        FirstName: "Joe",
-        LastName: "Smith",
-        HomeTown: "Coffeyville",
-        ID: "234123432",
         Password: "password",
-        PhoneNumber: "234234",
-        PhoneNumberConfirmed: true,
-        TwoFactorEnabled: false,
-        UseName: "joe.smith@smith.com"
+        ConfirmPassword: "password",
     };
 
     let registrationAttempt: RegistrationAttempt;
@@ -76,8 +66,6 @@ describe(` ${adminModule}: Register New User Component Tests - `, function () {
         $timeout = _$timeout_;
         $q = _$q_;
         adminService = _adminService_;
-        
-        newUser.BirthDate = birthDate;
     }));
 
     afterAll(function () {
@@ -96,9 +84,9 @@ describe(` ${adminModule}: Register New User Component Tests - `, function () {
             Succeeded: true,
             User: {
                 Email: newUser.Email,
-                FirstName: newUser.FirstName,
-                LastName: newUser.LastName,
-                UseName: newUser.UseName
+                FirstName: "John",
+                LastName: "Doe",
+                UserName: newUser.Email
             }
         };
         
@@ -153,9 +141,6 @@ describe(` ${adminModule}: Register New User Component Tests - `, function () {
 
         // assert
         expect(newUser.Email).toEqual(registerUserController.CurrentUser.Email);
-        expect(newUser.FirstName).toEqual(registerUserController.CurrentUser.FirstName);
-        expect(newUser.LastName).toEqual(registerUserController.CurrentUser.LastName);
-        expect(newUser.UseName).toEqual(registerUserController.CurrentUser.UseName);
         expect(loginSpy).toHaveBeenCalledTimes(1);
         expect(registerUserSpy).toHaveBeenCalledTimes(1);
     });
@@ -199,7 +184,7 @@ describe(` ${adminModule}: Register New User Component Tests - `, function () {
         expect(registerUserController.CurrentUser.FirstName).toBeUndefined();
         expect(registerUserController.CurrentUser.FirstName).toBeUndefined();
         expect(registerUserController.CurrentUser.LastName).toBeUndefined();
-        expect(registerUserController.CurrentUser.UseName).toBeUndefined();
+        expect(registerUserController.CurrentUser.UserName).toBeUndefined();
         expect(registeredUserSpy).toHaveBeenCalledTimes(1);
     });
 });

@@ -89,15 +89,12 @@ describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${not
         applicationUsers = new Array<User>();
 
         let userA: User = {
-            AccessFailedCount: 0,
             BirthDate: new Date(1990, 5, 5),
             Email: "johnTestEmail@gmail.com",
             EmailConfirmed: true,
             FirstName: "John",
             LastName: "Doe",
             Id: "0fbab5f8-3225-48a8-906b-64ee9a75a24b",
-            LockoutEnabled: false,
-            LockoutEndDateUtc: new Date(),
             PhoneNumber: "7772234",
             PhoneNumberConfirmed: true,
             TwoFactorEnabled: true,
@@ -111,15 +108,12 @@ describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${not
         };
 
         let userB: User = {
-            AccessFailedCount: 0,
             BirthDate: new Date(1992, 5, 5),
             Email: "janeTestEmail@gmail.com",
             EmailConfirmed: true,
             FirstName: "John",
             LastName: "Doe",
             Id: "1fbab5f8-3225-48a8-906b-64ee9a75a24s",
-            LockoutEnabled: false,
-            LockoutEndDateUtc: new Date(),
             PhoneNumber: "7772224",
             PhoneNumberConfirmed: true,
             TwoFactorEnabled: true,

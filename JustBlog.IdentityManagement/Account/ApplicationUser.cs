@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace JustBlog.IdentityManagement.Account
 {
+    /// <summary>
+    /// Data model representation of an application user
+    /// </summary>
     public class ApplicationUser : IdentityUser
     {
         [Display(Name = "Birthday")]
