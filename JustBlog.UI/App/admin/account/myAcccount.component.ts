@@ -102,15 +102,6 @@ class MyAccountComponentController extends BaseController implements IMyAccountC
 
     toggleEdit(): void {
 
-        //this.editEnabled = !this.editEnabled;
-
-        //if (this.editEnabled === true) {
-        //    angular.copy(this.account, this.legacyAccountData);
-        //} else {
-        //    this.account = this.legacyAccountData;
-        //}
-
-        //console.log("toggle edit called!");
     }
 
     /**
@@ -124,6 +115,7 @@ class MyAccountComponentController extends BaseController implements IMyAccountC
             if (updatedUser !== undefined) {
                 this.notificationFactory.Success("Account details successfully updated.");
                 this.account = updatedUser;
+                this.editEnabled = false;
                 angular.copy(this.account, this.accountCopy);
             } else {
                 this.notificationFactory.Error("Account details could not be updated.");
