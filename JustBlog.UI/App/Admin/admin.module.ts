@@ -1,10 +1,10 @@
 ﻿import * as uirouter from "@uirouter/angularjs";
-import { AdminController } from "Admin/admin.controller";
-import { AdminService } from "Admin/admin.service";
-import { IAuthEventConstants } from "Admin/Interfaces/IAuthEventConstants";
-import { IHttpAdminRoutes } from "Admin/Interfaces/IHttpAdminRoutes";
-import { LoginComponent, LoginComponentName } from "Admin/Login/login.component";
-import { RegisterUserComponent, RegisterUserComponentName } from "Admin/Register/registerUser.component";
+import { AdminController } from "admin/admin.controller";
+import { AdminService } from "admin/admin.service";
+import { IAuthEventConstants } from "admin/interfaces/IAuthEventConstants";
+import { IHttpAdminRoutes } from "admin/interfaces/IHttpAdminRoutes";
+import { LoginComponent, LoginComponentName } from "admin/login/login.component";
+import { RegisterUserComponent, RegisterUserComponentName } from "admin/register/registerUser.component";
 import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";
@@ -15,8 +15,10 @@ import { IResources } from "Core/Interfaces/IResources";
 import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
 import { BaseModule } from "Core/Models/BaseModule";
 import { BlogState } from "Core/Models/BlogState";
-import { AdminHeaderComponentName, AdminHeaderComponent } from "./adminHeader.component";
+import { MyAccountComponent, MyAccountComponentName } from "./account/myAcccount.component";
+import { AdminHeaderComponent, AdminHeaderComponentName } from "./adminHeader.component";
 import { LogoffComponent, LogoffComponentName } from "./Login/logoff.component";
+import { ConfirmEmailComponent, ConfirmEmailComponentName } from "./register/confirmEmail.component";
 
 /**
  * Angular ui bootstrap does not define a default export so typescript elides the
@@ -66,6 +68,31 @@ export class AdminModule extends BaseModule {
             url: "/register",
         };
 
+        let myAccountState: ng.ui.IState = {
+            name: "myAccount",
+            component: MyAccountComponentName,
+            url: "/myAccount",
+            resolve: {
+                account: ["adminService", (adminService: AdminService) => {
+                    return adminService.myAccount();
+                }]
+            }
+        };
+
+        let confirmEmailState: ng.ui.IState = {
+            name: "confirmEmail",
+            component: ConfirmEmailComponentName,
+            url: "/confirmEmail?userId&code",
+            resolve: {
+                userId: ["$state", ($state: ng.ui.IStateService) => {
+                    return $state.params.userId;
+                }],
+                code: ["$state", ($state: ng.ui.IStateService) => {
+                    return $state.params.code;
+                }]
+            }
+        };
+
         let manageContentState: BlogState = {
             name: "manageContent",
             url: "/manageContent",
@@ -92,6 +119,8 @@ export class AdminModule extends BaseModule {
         $stateProvider.state(manageContentState);
         $stateProvider.state(registerUserState);
         $stateProvider.state(logoffState);
+        $stateProvider.state(confirmEmailState);
+        $stateProvider.state(myAccountState);
     }
 
     /**
@@ -102,53 +131,8 @@ export class AdminModule extends BaseModule {
 
         try {
 
-            // custom routes with security
-            let logoffRoute: IRouteBlog = {
-                templateUrl: require("admin/login/logoff.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let manageBlogRoute: IRouteBlog = {
-                templateUrl: require("admin/manageContent.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
             let accountsRoute: IRouteBlog = {
                 templateUrl: require("admin/account/accounts.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let myAccountRoute: IRouteBlog = {
-                templateUrl: require("admin/account/myAccount.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let accountUpdate: IRouteBlog = {
-                templateUrl: require("admin/account/update.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
                 controllerAs: "vm",
@@ -225,16 +209,13 @@ export class AdminModule extends BaseModule {
             };
 
             $routeProvider
-                .when("/logoff", logoffRoute)
-                .when("/manageContent", manageBlogRoute)
                 .when("/accounts", accountsRoute)
-                .when("/myAccount", myAccountRoute)
-                .when("/updateAccount", accountUpdate)
                 .when("/passwordReset", passwordResetRoute)
                 .when("/passwordUpdate", passwordUpdateRoute)
                 .when("/passwordResetConfirmation", confirmPasswordUpdateRoute)
                 .when("/loginUpdate", loginUpdateRoute)
-                .when("/loginUpdateConfirmation", loginUpdateConfirmationRoute)
+                .when("/loginUpdateConfirmation", loginUpdateConfirmationRoute);
+
         } catch (error) {
             console.log(error.message);
         }
@@ -259,12 +240,13 @@ export class AdminModule extends BaseModule {
             ForgotPassword: "/Submit/Login",
             ForgotPasswordUpdateAccount: "",
             Logoff: "/Authentication/Logout",
-            MyAccount: "/Account/MyAccount",
+            MyAccount: "api/Account/MyAccount",
             ReadApplicationUsers: "/Manage/ReadIdentityUsers",
-            RegisterNewUser: "/Account/Register",
+            RegisterNewUser: "api/Account/Register",
+            ConfirmEmail: "api/Account/ConfirmEmail",
             Login: "/Authentication/Login",
             UpdatePassword: "/Manage/ChangePassword",
-            UpdateUser: `/Manage/UpdateAccount`,
+            UpdateUser: `api/account/UpdateAccount`,
             UpdateUserLogin: "/Manage/UpdateLogin",
         }
 
@@ -310,3 +292,5 @@ Admin.AddComponent(LoginComponentName, new LoginComponent())
 Admin.AddComponent(LogoffComponentName, new LogoffComponent());
 Admin.AddComponent(RegisterUserComponentName, new RegisterUserComponent())
 Admin.AddComponent(AdminHeaderComponentName, new AdminHeaderComponent());
+Admin.AddComponent(ConfirmEmailComponentName, new ConfirmEmailComponent());
+Admin.AddComponent(MyAccountComponentName, new MyAccountComponent());
