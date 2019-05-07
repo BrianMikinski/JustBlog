@@ -181,11 +181,9 @@ namespace JustBlog.UI.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateAccount([FromBody]UserViewModel user)
         {
-            // need to locate the account
+            var modifiedUser = await _accountService.UpdateUser(user);
 
-            var ApplicationUser = await _accountService.GetUser(User.FindFirst("sub").Value);
-
-            return Ok(new UserViewModel(ApplicationUser));
+            return Ok(modifiedUser);
         }
 
         [HttpPost]

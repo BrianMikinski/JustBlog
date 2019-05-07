@@ -20,6 +20,7 @@ namespace JustBlog.IdentityManagement.Account
         {
             FirstName = user.FirstName;
             LastName = user.LastName;
+            Birthdate = user.BirthDate;
 
             Email = user.Email;
             EmailConfirmed = user.EmailConfirmed;
@@ -50,6 +51,8 @@ namespace JustBlog.IdentityManagement.Account
 
         [JsonProperty]
         public string LastName { get; private set; }
+
+        public DateTime? Birthdate { get; set; }
 
         [JsonProperty]
         public string Email { get; private set; }

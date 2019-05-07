@@ -24,6 +24,7 @@ namespace JustBlog.UI.Tests
     {
         private Mock<UserManager<ApplicationUser>> _userManager;
         private Mock<SignInManager<ApplicationUser>> _signInManager;
+        private Mock<IdentityDbContext> _identityContext;
         private IAccountService _accountService;
         private RegisterViewModel newRegistrationUser;
         private ApplicationUser newApplicationUser;
@@ -43,7 +44,7 @@ namespace JustBlog.UI.Tests
 
             Mock<ILogger<IAccountService>> _logger = new Mock<ILogger<IAccountService>>();
 
-            _accountService = new AccountService(_userManager.Object, _signInManager.Object, _emailSender.Object, _logger.Object);
+            _accountService = new AccountService(_userManager.Object, _signInManager.Object, _emailSender.Object, _logger.Object, _identityContext.Object);
 
             newRegistrationUser = new RegisterViewModel()
             {

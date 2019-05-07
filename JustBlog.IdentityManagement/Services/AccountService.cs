@@ -16,16 +16,20 @@ namespace JustBlog.IdentityManagement.Services
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IMessagingService _messagingService;
         private readonly ILogger _logger;
+        private readonly IdentityDbContext _identityContext;
 
         public AccountService(UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager,
                                 IMessagingService emailSender,
-                                ILogger<IAccountService> logger)
+                                ILogger<IAccountService> logger,
+                                IdentityDbContext identityContext)
         {
             _userManager = userManager;
+            _identityContext = identityContext;
             _signInManager = signInManager;
             _messagingService = emailSender;
             _logger = logger;
+            
         }
 
         public async Task<IdentityResult> Register(RegisterViewModel model, string baseUrl, string requestSchema = "https")
@@ -202,11 +206,48 @@ namespace JustBlog.IdentityManagement.Services
         /// <returns></returns>
         public async Task<UserViewModel> UpdateUser(UserViewModel user)
         {
-            var Applicationuser = await _userManager.FindByIdAsync(user.Id.ToString());
+            var applicationUser = await _userManager.FindByIdAsync(user.Id.ToString());
 
-            //IdentityDbContext
+            _identityContext.Attach(applicationUser);
 
-            throw new NotImplementedException();
+            // User information
+            applicationUser.FirstName = user.FirstName;
+            _identityContext.Entry(applicationUser).Property(p => p.FirstName).IsModified = true;
+
+            applicationUser.LastName = user.LastName;
+            _identityContext.Entry(applicationUser).Property(p => p.LastName).IsModified = true;
+
+            applicationUser.BirthDate = user.Birthdate;
+            _identityContext.Entry(applicationUser).Property(p => p.BirthDate).IsModified = true;
+
+            if (string.IsNullOrEmpty(applicationUser.PhoneNumber))
+            {
+                applicationUser.PhoneNumber = user.PhoneNumber;
+                _identityContext.Entry(applicationUser).Property(p => p.PhoneNumber).IsModified = true;
+            }
+
+            // Address
+            applicationUser.AddressLine1 = user.AddressLine1;
+            _identityContext.Entry(applicationUser).Property(p => p.AddressLine1).IsModified = true;
+
+            applicationUser.AddressLine2 = user.AddressLine2;
+            _identityContext.Entry(applicationUser).Property(p => p.AddressLine2).IsModified = true;
+
+            applicationUser.City = user.City;
+            _identityContext.Entry(applicationUser).Property(p => p.City).IsModified = true;
+
+            applicationUser.State = user.State;
+            _identityContext.Entry(applicationUser).Property(p => p.State).IsModified = true;
+
+            applicationUser.PostalCode = user.PostalCode;
+            _identityContext.Entry(applicationUser).Property(p => p.PostalCode).IsModified = true;
+
+            applicationUser.Country = user.Country;
+            _identityContext.Entry(applicationUser).Property(p => p.Country).IsModified = true;
+
+            await _identityContext.SaveChangesAsync();
+
+            return new UserViewModel(applicationUser);
         }
     }
 }
