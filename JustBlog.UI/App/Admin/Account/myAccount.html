@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-8 col-md-9">
+                <div class="col-lg-8 col-md-9 col-xs-9">
                     <div class="form-group">
                         <label class="control-label">
                             Email
@@ -32,7 +32,7 @@
                         <input class="form-control" type="email" ng-model="$ctrl.account.Email" disabled readonly />
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-3">
+                <div class="col-lg-2 col-md-3 col-xs-3 pull-right">
                     <button class="btn btn-default" style="margin-top: 24px;" ng-click="$ctrl.emailConfirmation()">
                         Confirm
                     </button>
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-8  col-md-9 col-xs-9">
                     <div class="form-group">
                         <label class="control-label">
                             Phone Number
@@ -53,7 +53,7 @@
                         <input class="form-control" type="text" ng-model="$ctrl.account.PhoneNumber" ng-readonly="!$ctrl.editEnabled" />
                     </div>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-2 col-md-3 col-xs-3 pull-right">
                     <button class="btn btn-default" style="margin-top: 24px;" ng-click="$ctrl.phoneConfirmation()">
                         Confirm
                     </button>
