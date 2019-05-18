@@ -220,9 +220,7 @@ export class BlogService extends BaseService {
                 return <Post>response.data;
             };
 
-        return this.$http.post(`${this.postEndPoint}/Save/${this.CreateWebAPIParams(publishparams)}`,
-            post,
-            this.ConfigSecureAppJson(this.authService.GetLocalToken()))
+        return this.$http.post(`${this.postEndPoint}/Save/${this.CreateWebAPIParams(publishparams)}`, post)
             .then(onSaveReturned, this.OnErrorCallback);
     }
 
@@ -235,7 +233,6 @@ export class BlogService extends BaseService {
             postId: postId
         };
 
-        let config: ng.IRequestShortcutConfig = this.ConfigSecureAppJson(this.authService.GetLocalToken());
 
         // defining callback within function
         let onPostReturned: (response: ng.IHttpPromiseCallbackArg<Post>) => Post
@@ -243,9 +240,8 @@ export class BlogService extends BaseService {
                 return <Post>response.data;
             };
 
-        return this.$http.post(`${this.postEndPoint}/UnpublishPost/${this.CreateWebAPIParams(params)}`,
-                null,
-                config).then(onPostReturned, this.OnErrorCallback);
+        return this.$http.post(`${this.postEndPoint}/UnpublishPost/${this.CreateWebAPIParams(params)}`, null)
+            .then(onPostReturned, this.OnErrorCallback);
     }
 
     /**
@@ -258,17 +254,14 @@ export class BlogService extends BaseService {
             postId: postId
         };
 
-        let config: ng.IRequestShortcutConfig = this.ConfigSecureAppJson(this.authService.GetLocalToken());
-
         // defining callback within function
         let onTagsReturned: (response: ng.IHttpPromiseCallbackArg<Post>) => Post
             = (response: ng.IHttpPromiseCallbackArg<Post>) => {
                 return <Post>response.data;
             };
 
-        return this.$http.post(`${this.postEndPoint}/PublishPost/${this.CreateWebAPIParams(params)}`,
-            null,
-            config).then(onTagsReturned, this.OnErrorCallback);
+        return this.$http.post(`${this.postEndPoint}/PublishPost/${this.CreateWebAPIParams(params)}`, null)
+            .then(onTagsReturned, this.OnErrorCallback);
     }
 
     /**
@@ -284,8 +277,8 @@ export class BlogService extends BaseService {
                 return <Category>response.data;
             };
 
-        return this.$http.post(`${this.categoryEndPoint}/Save/`, category,
-            this.ConfigSecureAppJson(this.authService.GetLocalToken())).then(onSaveCategoryReturned, this.OnErrorCallback);
+        return this.$http.post(`${this.categoryEndPoint}/Save/`, category)
+            .then(onSaveCategoryReturned, this.OnErrorCallback);
     }
 
     /**

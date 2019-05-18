@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace JustBlog.UI.Controllers
@@ -85,17 +86,23 @@ namespace JustBlog.UI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> ConfirmEmail()
         {
-            var user = await _userManager.FindByIdAsync(User.FindFirst("sub").Value);
+            var user = await _userManager.FindByEmailAsync(User.FindFirst("sub").Value);
 
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var callbackUrl = _messagingService.EmailConfirmationLink(user.Id, code, _baseUrlOptions.BaseUrl, "https");
+            if(user != null)
+            {
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var callbackUrl = _messagingService.EmailConfirmationLink(user.Id, code, _baseUrlOptions.BaseUrl, "https");
 
-            await _messagingService.SendEmailConfirmationAsync(user.Email, callbackUrl);
+                await _messagingService.SendEmailConfirmationAsync(user.Email, callbackUrl);
 
-            return Ok();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("User id could not be found");
+            }
         }
 
         [HttpGet]
@@ -114,7 +121,10 @@ namespace JustBlog.UI.Controllers
                 return BadRequest($"Unable to load user with ID '{userId}'.");
             }
 
-            var result = await _userManager.ConfirmEmailAsync(user, code);
+            byte[] data = Convert.FromBase64String(code);
+            string decodedString = Encoding.UTF8.GetString(data);
+
+            var result = await _userManager.ConfirmEmailAsync(user, decodedString);
 
             if (result.Succeeded)
             {

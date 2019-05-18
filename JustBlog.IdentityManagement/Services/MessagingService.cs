@@ -87,7 +87,10 @@ namespace JustBlog.IdentityManagement.Services
         /// <returns></returns>
         public string EmailConfirmationLink(string userId, string code, string baseUrl, string scheme)
         {
-            return $"{scheme}://{baseUrl}/confirmEmail?userId={userId}&code={code}";
+            var codeAsByteArray = System.Text.Encoding.UTF8.GetBytes(code);
+            var codeAsBase64 = Convert.ToBase64String(codeAsByteArray);
+
+            return $"{scheme}://{baseUrl}/confirmEmail?userId={userId}&code={codeAsBase64}";
         }
     }
 }

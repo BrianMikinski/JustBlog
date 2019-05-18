@@ -81,17 +81,4 @@ export abstract class BaseService {
             "content-type": "application/json"
         }
     };
-
-    /**
-     * Create headers with content-type json and request verification token
-     * @param antiForgeryToken
-     */
-    ConfigSecureAppJson(bearerToken: string): ng.IRequestShortcutConfig  {
-        return {
-            headers: {
-                "content-type": "application/json",
-                "Authorization": `Bearer ${bearerToken}`
-            }  
-        };
-    }
 }

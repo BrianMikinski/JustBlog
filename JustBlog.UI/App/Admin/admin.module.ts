@@ -14,7 +14,6 @@ import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstan
 import { IResources } from "Core/Interfaces/IResources";
 import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
 import { BaseModule } from "Core/Models/BaseModule";
-import { BlogState } from "Core/Models/BlogState";
 import { MyAccountComponent, MyAccountComponentName } from "./account/myAcccount.component";
 import { AdminHeaderComponent, AdminHeaderComponentName } from "./adminHeader.component";
 import { LogoffComponent, LogoffComponentName } from "./Login/logoff.component";
@@ -65,7 +64,7 @@ export class AdminModule extends BaseModule {
         let registerUserState: ng.ui.IState = {
             name: "register",
             component: RegisterUserComponentName,
-            url: "/register",
+            url: "/register"
         };
 
         let myAccountState: ng.ui.IState = {
@@ -76,7 +75,8 @@ export class AdminModule extends BaseModule {
                 account: ["adminService", (adminService: AdminService) => {
                     return adminService.myAccount();
                 }]
-            }
+            },
+            protected: true
         };
 
         let confirmEmailState: ng.ui.IState = {
@@ -93,26 +93,24 @@ export class AdminModule extends BaseModule {
             }
         };
 
-        let manageContentState: BlogState = {
+        let manageContentState: ng.ui.IState = {
             name: "manageContent",
             url: "/manageContent",
             templateUrl: require("admin/manageContent.html"),
             controller: AdminController,
             controllerAs: "vm",
-            authorize: true,
+            protected: true,
             action: ACTIONS.Read,
             resource: RESOURCES.Admin,
-            authorizationResolver: null,
         };
 
-        let logoffState: BlogState = {
+        let logoffState: ng.ui.IState = {
             name: "logoff",
             url: "/logoff",
             component: LogoffComponentName,
-            authorize: true,
+            protected: true,
             action: ACTIONS.Read,
             resource: RESOURCES.Admin,
-            authorizationResolver: null,
         };
 
         $stateProvider.state(loginState);

@@ -75,11 +75,14 @@ export class AdminService extends BaseService {
             .then(onRegistrationCallback, this.onError);
     }
 
+    /**
+     * Start email confirmation
+     * */
     initiateEmailConfirmation(): ng.IPromise<void> {
 
         let onInitiateEmailConfirmationCallback: (response: ng.IHttpPromiseCallbackArg<{}>) => void;
         onInitiateEmailConfirmationCallback = (response: ng.IHttpPromiseCallbackArg<{}>) => {
-            //return response.data;
+            
         };
 
         return this.$http.post(`${this.AUTH_ROUTE_CONSTANTS.ConfirmEmail}`, null)
@@ -197,7 +200,7 @@ export class AdminService extends BaseService {
             this.$rootScope.$broadcast(this.AUTH_EVENT_CONSTANTS.logoutSuccess, false);
         };
 
-        return this.$http.post(`${this.AUTH_ROUTE_CONSTANTS.Logoff}`, null, this.ConfigSecureAppJson(this.authService.GetLocalToken()))
+        return this.$http.post(`${this.AUTH_ROUTE_CONSTANTS.Logoff}`, null)
             .then(onLogoffCallback, this.onError);
     }
 
@@ -212,7 +215,7 @@ export class AdminService extends BaseService {
             return response.data;
         };
 
-        return this.$http.get(this.AUTH_ROUTE_CONSTANTS.MyAccount, this.ConfigSecureAppJson(this.authService.GetLocalToken()))
+        return this.$http.get(this.AUTH_ROUTE_CONSTANTS.MyAccount)
             .then(onMyAccountCallback, this.onError);
     }
 
@@ -231,7 +234,7 @@ export class AdminService extends BaseService {
             return response.data;
         };
 
-        return this.$http.put(this.AUTH_ROUTE_CONSTANTS.UpdateUser, user, this.ConfigSecureAppJson(this.authService.GetLocalToken()))
+        return this.$http.put(this.AUTH_ROUTE_CONSTANTS.UpdateUser, user)
             .then(onAccountUpdatedReturned, this.onError);
     }
 
@@ -245,8 +248,7 @@ export class AdminService extends BaseService {
                 return <Array<User>>response.data;
             };
 
-        return this.$http.post(`/manage/readIdentityUsers`, {},
-            this.ConfigSecureAppJson(this.authService.GetLocalToken())).then(onReadApplicationUsersCompleted, this.onError);
+        return this.$http.post(`/manage/readIdentityUsers`, null).then(onReadApplicationUsersCompleted, this.onError);
     }
 
     /**

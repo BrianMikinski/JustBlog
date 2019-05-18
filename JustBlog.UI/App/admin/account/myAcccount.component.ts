@@ -88,8 +88,14 @@ class MyAccountComponentController extends BaseController implements IMyAccountC
         return mode === "day" && (date.getDay() === 0 || date.getDay() === 6);
     }
 
+    /**
+     * Confirm email address
+     * */
     emailConfirmation(): void {
-        console.log("Email confirmation clicked.");
+        this.adminService.initiateEmailConfirmation()
+            .then(() => {
+                this.notificationFactory.Success(`Please check your \"${this.account.Email}\" inbox to confirm your email address.`);
+            }, this.OnErrorCallback);
     }
 
     openBirthdayDatePicker(): void {
