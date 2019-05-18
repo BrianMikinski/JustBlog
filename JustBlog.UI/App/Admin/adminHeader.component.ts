@@ -20,7 +20,7 @@ export class AdminHeaderComponent extends ComponentBase {
         this.controllerAs = "$adminHeaderController";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Admin/adminHeader.html");
+            return require("admin/adminHeader.html");
         }];
     }
 }

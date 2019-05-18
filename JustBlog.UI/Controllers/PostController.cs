@@ -70,7 +70,7 @@ namespace JustBlog.UI.Controllers
         /// </summary>
         /// <param name="currentPost"></param>
         /// <returns></returns>
-        [HttpPost, Authorize, ValidateAntiForgeryToken, Route(nameof(PostController.Save))]
+        [HttpPost, Authorize, AutoValidateAntiforgeryToken, Route(nameof(PostController.Save))]
         public PostViewModel Save([FromBody]PostViewModel currentPost, [FromQuery] bool publishPost)
         {
             return _postService.Save(currentPost, publishPost);
@@ -81,7 +81,7 @@ namespace JustBlog.UI.Controllers
         /// </summary>
         /// <param name="postId"></param>
         /// <returns></returns>
-        [HttpPost, Authorize, ValidateAntiForgeryToken, Route(nameof(PostController.UnpublishPost))]
+        [HttpPost, Authorize, AutoValidateAntiforgeryToken, Route(nameof(PostController.UnpublishPost))]
         public PostViewModel UnpublishPost(int postId)
         {
             return _postService.Unpublish(postId);
@@ -92,7 +92,7 @@ namespace JustBlog.UI.Controllers
         /// </summary>
         /// <param name="postId"></param>
         /// <returns></returns>
-        [HttpPost, Authorize, ValidateAntiForgeryToken, Route(nameof(PostController.PublishPost))]
+        [HttpPost, Authorize, AutoValidateAntiforgeryToken, Route(nameof(PostController.PublishPost))]
         public PostViewModel PublishPost(int postId)
         {
             return _postService.Publish(postId);

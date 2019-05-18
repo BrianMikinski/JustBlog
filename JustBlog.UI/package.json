@@ -11,7 +11,7 @@
   },
   "scripts": {
     "test": "karma start .\\conf\\karma.conf.js",
-    "build": "webpack --config=webpack.config.js --env dev --progress --profile --colors",
+    "build": "webpack --config=webpack.config.js --env dev --progress --profile --colors --display verbose",
     "build:prod": "webpack --config=webpack.config.js --env prod --progress --profile --colors",
     "build:test": "webpack --config=webpack.config.js --env test --progress --profile --colors"
   },
@@ -74,7 +74,7 @@
     "ts-loader": "^4.4.1",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "tslint": "^5.11.0",
-    "typescript": "^2.9.2",
+    "typescript": "^3.4.1",
     "webpack": "^4.16.1",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.0.6",
