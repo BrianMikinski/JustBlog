@@ -5,5 +5,5 @@ export class ApplicationUser {
     FirstName: string;
     LastName: string;
     Email: string;
-    UseName: string;
+    UserName: string;
 }

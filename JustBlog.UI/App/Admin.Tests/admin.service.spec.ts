@@ -1,15 +1,14 @@
-﻿import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
-import { IUser } from "Admin/Account/IUser";
-import { IHttpAdminRoutes } from "Admin/Interfaces/IHttpAdminRoutes";
-import { LoginModel } from "Admin/Login/LoginModel";
-import { AdminModule, default as adminModule } from "Admin/admin.module";
-import { AdminService } from "Admin/admin.service";
+﻿import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
+import { User } from "admin/account/User";
+import { AdminModule, default as adminModule } from "admin/admin.module";
+import { AdminService } from "admin/admin.service";
+import { IHttpAdminRoutes } from "admin/interfaces/IHttpAdminRoutes";
+import { LoginModel } from "admin/login/LoginModel";
+import * as angular from 'angular';
 import { MetaData } from "Blog/MetaData/MetaData";
 import { AuthService } from "Core/auth.service";
 import { default as coreModule } from "Core/core.module";
 import { default as notificationModule } from "Notification/notification.module";
-import * as angular from 'angular'
-import * as angularMocks from'angular-mocks';
 require('angular-mocks');
 
 describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${notificationModule}", and "${coreModule}"`, function () {
@@ -81,46 +80,50 @@ describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${not
         _$httpBackend_.whenPOST("./blog/metadata").respond(metadata);
     }));
 
-    let applicationUsers: Array<IUser>;
+    let applicationUsers: Array<User>;
 
 
     // setup list of application users
     beforeEach(() => {
 
-        applicationUsers = new Array<IUser>();
+        applicationUsers = new Array<User>();
 
-        let userA: IUser = {
-            AccessFailedCount: 0,
+        let userA: User = {
             BirthDate: new Date(1990, 5, 5),
             Email: "johnTestEmail@gmail.com",
             EmailConfirmed: true,
             FirstName: "John",
             LastName: "Doe",
-            Hometown: "Kansas City",
             Id: "0fbab5f8-3225-48a8-906b-64ee9a75a24b",
-            LockoutEnabled: false,
-            LockoutEndDateUtc: new Date(),
             PhoneNumber: "7772234",
             PhoneNumberConfirmed: true,
             TwoFactorEnabled: true,
-            UserName: "johndoe@gmail.com"
+            UserName: "johndoe@gmail.com",
+            City: "New York City",
+            State: "New York",
+            Country: "United States",
+            PostalCode: "90210",
+            AddressLine1: "",
+            AddressLine2: ""
         };
 
-        let userB: IUser = {
-            AccessFailedCount: 0,
+        let userB: User = {
             BirthDate: new Date(1992, 5, 5),
             Email: "janeTestEmail@gmail.com",
             EmailConfirmed: true,
             FirstName: "John",
             LastName: "Doe",
-            Hometown: "Houston",
             Id: "1fbab5f8-3225-48a8-906b-64ee9a75a24s",
-            LockoutEnabled: false,
-            LockoutEndDateUtc: new Date(),
             PhoneNumber: "7772224",
             PhoneNumberConfirmed: true,
             TwoFactorEnabled: true,
-            UserName: "janedoe@gmail.com"
+            UserName: "janedoe@gmail.com",
+            City: "New York City",
+            State: "New York",
+            Country: "United States",
+            PostalCode: "90210",
+            AddressLine1: "",
+            AddressLine2: ""
         };
 
         applicationUsers.push(userA);
@@ -139,7 +142,7 @@ describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${not
         $httpBackend.whenPOST("/Manage/ReadIdentityUsers").respond(applicationUsers);
 
         // act
-        adminService.ReadApplicationUsers().then((response) => {
+        adminService.readApplicationUsers().then((response) => {
 
             // assert
             expect(applicationUsers).toEqual(response);
@@ -167,7 +170,7 @@ describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${not
         $httpBackend.whenPOST(AUTH_ROUTE_CONSTANTS.Login).respond(jwtMockToken);
 
         // act
-        adminService.Login(login).then((response) => {
+        adminService.login(login).then((response) => {
 
             let authToken: string = authService.GetLocalToken();
 

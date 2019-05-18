@@ -15,6 +15,24 @@ require("./index.html");
 require("./content/css/style.css");
 require("./content/css/ng-animate.css");
 
+declare module 'angular' {
+
+    export namespace ui {
+          interface IState {
+              action?: string | undefined;
+              resource?: string | undefined;
+
+              /**
+               * If no authorization resolve is set, then the default auth resolve
+               * will be added in the core.module. This can be overrideen by
+               * setting a resolve on the route if need be. 
+               */
+              authorizationResolver?: any | undefined;
+              protected?: boolean | undefined;
+        }
+    }
+}
+
 let App: ng.IModule = module('app', [
 
     uirouter.default,
