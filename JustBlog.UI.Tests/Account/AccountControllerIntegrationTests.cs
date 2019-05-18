@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace JustBlog.UI.Tests
 {
+    [Ignore]
     [TestClass]
     [TestCategory(TestCategories.INTEGRATION)]
     public class AccountControllerIntegrationTests : IDisposable

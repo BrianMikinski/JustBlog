@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 
 namespace JustBlog.UI.Tests
 {
+    [Ignore]
     [TestClass]
     [TestCategory(TestCategories.UNIT_TEST)]
     public class AccountServiceTests
