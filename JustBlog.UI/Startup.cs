@@ -5,11 +5,14 @@ using JustBlog.IdentityManagement.Login;
 using JustBlog.IdentityManagement.Services;
 using JustBlog.Models;
 using JustBlog.UI.Filters;
+using JustBlog.UI.Infrastructure;
 using JustBlog.UI.Models;
 using JustBlog.UI.Services;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +24,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace JustBlog.UI
 {
@@ -33,6 +37,7 @@ namespace JustBlog.UI
         private const string DATABASE_APP_SETTINGS = "ConnectionStrings";
         private const string JUST_BLOG_CONNECTION_STRING = "JustBlogDbConnection";
         private const string SECRET_KEY_STRING = "SecretKey";
+        private const string DOMAIN_KEY = "Domain";
 
         private readonly SymmetricSecurityKey _signingKey;
 
@@ -59,6 +64,12 @@ namespace JustBlog.UI
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            // configure angularjs header name for xsrf tokens
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-XRSF-TOKEN";
+            });
+
             // Asp.NET core switched default json serialization from pascal casing to camel casing,
             // the just blog angular app expects pascal casing so we have to switch this back
             services.AddMvc(options =>
@@ -79,76 +90,14 @@ namespace JustBlog.UI
             services.AddTransient<ITagService, TagService>();
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<AngularAntiforgeryCookieResultFilterAttribute>();
-            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IMessagingService, MessagingService>();
             services.AddTransient<IJwtFactory, JwtFactory>();
 
-            var blogConnectionString = Configuration.GetSection(DATABASE_APP_SETTINGS).GetValue<string>(JUST_BLOG_CONNECTION_STRING);
+            var connectionString = configureBlogServices();
 
-            blogConnectionString = "Filename =./justblog.sqlite";
+            identityManagementServices(connectionString);
 
-            if (string.IsNullOrEmpty(blogConnectionString))
-            {
-                // load connection string from environment variables
-                blogConnectionString = Configuration.GetValue<string>(JUST_BLOG_CONNECTION_STRING);
-            }
-
-            services.AddDbContext<JustBlogContext>(options =>
-            {
-                options.UseSqlite(blogConnectionString);
-            });
-
-            // identity management
-            services.AddDbContext<AppIdentityDbContext>(options =>
-            {
-                if (string.IsNullOrEmpty(blogConnectionString))
-                {
-                    blogConnectionString = Configuration.GetValue<string>(JUST_BLOG_CONNECTION_STRING);
-                }
-                options.UseSqlite(blogConnectionString);
-            });
-
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppIdentityDbContext>()
-                .AddDefaultTokenProviders();
-
-            // authentication
-            var _jwtOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
-
-            services.Configure<JwtIssuerOptions>(options =>
-            {
-                options.Issuer = _jwtOptions[nameof(JwtIssuerOptions.Issuer)];
-                options.Audience = _jwtOptions[nameof(JwtIssuerOptions.Audience)];
-                options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
-            });
-
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // remove default claims
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(options =>
-            {
-                options.RequireHttpsMetadata = false;
-                options.SaveToken = true;
-
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidIssuer = _jwtOptions[nameof(JwtIssuerOptions.Issuer)],
-
-                    ValidateAudience = true,
-                    ValidAudience = _jwtOptions[nameof(JwtIssuerOptions.Audience)],
-
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = _signingKey,
-
-                    RequireExpirationTime = false,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero
-                };
-            });
+            authenticationServices();
 
             services.AddAuthorization(options =>
             {
@@ -163,6 +112,95 @@ namespace JustBlog.UI
                     Version = "v1"
                 });
             });
+
+            domainServices();
+
+            string configureBlogServices()
+            {
+                var blogConnectionString = Configuration.GetSection(DATABASE_APP_SETTINGS).GetValue<string>(JUST_BLOG_CONNECTION_STRING);
+
+                blogConnectionString = "Filename =./justblog.sqlite";
+
+                if (string.IsNullOrEmpty(blogConnectionString))
+                {
+                    // load connection string from environment variables
+                    blogConnectionString = Configuration.GetValue<string>(JUST_BLOG_CONNECTION_STRING);
+                }
+
+                services.AddDbContext<JustBlogContext>(options =>
+                {
+                    options.UseSqlite(blogConnectionString);
+                });
+
+                return blogConnectionString;
+            }
+
+            void identityManagementServices(string dbConnectionSTring)
+            {
+                // identity management
+                services.AddDbContext<IdentityDbContext>(options =>
+                {
+                    if (string.IsNullOrEmpty(dbConnectionSTring))
+                    {
+                        dbConnectionSTring = Configuration.GetValue<string>(JUST_BLOG_CONNECTION_STRING);
+                    }
+                    options.UseSqlite(dbConnectionSTring);
+                });
+
+                services.AddIdentity<ApplicationUser, IdentityRole>()
+                    .AddEntityFrameworkStores<IdentityDbContext>()
+                    .AddDefaultTokenProviders();
+            }
+
+            void authenticationServices()
+            {
+                // authentication
+                var _jwtOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
+
+                services.Configure<JwtIssuerOptions>(options =>
+                {
+                    options.Issuer = _jwtOptions[nameof(JwtIssuerOptions.Issuer)];
+                    options.Audience = _jwtOptions[nameof(JwtIssuerOptions.Audience)];
+                    options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
+                });
+
+                JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // remove default claims
+                services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = _jwtOptions[nameof(JwtIssuerOptions.Issuer)],
+
+                        ValidateAudience = true,
+                        ValidAudience = _jwtOptions[nameof(JwtIssuerOptions.Audience)],
+
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = _signingKey,
+
+                        RequireExpirationTime = false,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero
+                    };
+                });
+            }
+
+            void domainServices()
+            {
+                services.Configure<DomainOptions>(options =>
+                {
+                    options.BaseUrl = Configuration.GetValue<string>(DOMAIN_KEY);
+                });
+            }
         }
 
         /// <summary>
@@ -170,8 +208,45 @@ namespace JustBlog.UI
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IAntiforgery antiforgery)
         {
+            // fix url rewrites for angularjs application
+            // need to switch all api calls to include api in them
+            app.Use(async (HttpContext context, Func<Task> next) =>
+            {
+                await next.Invoke();
+
+                if (context.Response.StatusCode == 404 && !context.Request.Path.Value.Contains("/api"))
+                {
+                    context.Request.Path = new PathString("/index.html");
+                    await next.Invoke();
+                }
+            });
+
+
+            // add anti forgery token that AngularJs will know how to read and understand
+            app.Use(next => context =>
+            {
+                string path = context.Request.Path.Value;
+
+                if (string.Equals(path, "/", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(path, "/index.html", StringComparison.OrdinalIgnoreCase))
+                {
+                    // The request token can be sent as a JavaScript-readable cookie, 
+                    // and Angular uses it by default.
+                    var tokens = antiforgery.GetAndStoreTokens(context);
+                    context.Response.Cookies.Append(
+                        "XSRF-TOKEN",
+                        tokens.RequestToken,
+                        new CookieOptions()
+                        {
+                            HttpOnly = false
+                        });
+                }
+
+                return next(context);
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();

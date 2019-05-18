@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -42,17 +41,6 @@ namespace JustBlog.UI.Controllers
             _jwtIssuerOptions = jwtIssuerOptions.Value;
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> Login(string returnUrl = null)
-        {
-            // Clear the existing external cookie to ensure a clean login process
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
-            ViewData["ReturnUrl"] = returnUrl;
-            return View();
-        }
-
         /// <summary>
         /// Sign a user into the application and create a jwt token.
         /// If the user is locked out or requires 2 factor authentication, the correct return url is returned in place of the jwt token with the correct token
@@ -62,44 +50,52 @@ namespace JustBlog.UI.Controllers
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _accountService.Login(model);
-                if (result.Succeeded)
+                try
                 {
-                    _logger.LogInformation($"User {model.Email} logged in.");
+                    // This doesn't count login failures towards account lockout
+                    // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                    var result = await _accountService.Login(model);
 
-                    var identity = await GetClaimsIdentity(model.Email, model.Password);
+                    if (result.Succeeded)
+                    {
+                        _logger.LogInformation($"User {model.Email} logged in.");
 
-                    var jwt = await Tokens.GenerateJwt(identity, _jwtFactory, model.Email, _jwtIssuerOptions);
+                        var identity = await GetClaimsIdentity(model.Email, model.Password);
 
-                    return Ok(jwt);
+                        var jwt = await Tokens.GenerateJwt(identity, _jwtFactory, model.Email, _jwtIssuerOptions);
+
+                        return Ok(jwt);
+                    }
+
+                    if (result.RequiresTwoFactor)
+                    {
+                        return BadRequest("Error: Two factor authentication required.");
+                    }
+
+                    if (result.IsLockedOut)
+                    {
+                        return BadRequest("Error: Account is locked out.");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                        return Ok(returnUrl);
+                    }
                 }
-
-                if (result.RequiresTwoFactor)
+                catch(Exception ex)
                 {
-                    return Ok(returnUrl); //RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
-                }
-
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return Ok(returnUrl); //RedirectToAction(nameof(Lockout));
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return Ok(returnUrl); //View(model);
+                    return BadRequest("Error: could not login user.");
                 }
             }
-
-            // If we got this far, something failed, redisplay form
-            return Ok(returnUrl); //View(model);
+            else
+            {
+                return BadRequest();
+            }
         }
 
         [HttpGet]
@@ -122,7 +118,7 @@ namespace JustBlog.UI.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> LoginWith2fa(LoginWith2faViewModel model, bool rememberMe, string returnUrl = null)
         {
             if (!ModelState.IsValid)
@@ -176,7 +172,7 @@ namespace JustBlog.UI.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> LoginWithRecoveryCode(LoginWithRecoveryCodeViewModel model, string returnUrl = null)
         {
             if (!ModelState.IsValid)
@@ -213,13 +209,19 @@ namespace JustBlog.UI.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
+            try
+            {
+                await _signInManager.SignOutAsync();
+                _logger.LogInformation("User logged out.");
 
-            return Redirect("");
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpGet]

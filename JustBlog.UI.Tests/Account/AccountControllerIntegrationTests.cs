@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace JustBlog.UI.Tests
 {
+    [Ignore]
     [TestClass]
     [TestCategory(TestCategories.INTEGRATION)]
     public class AccountControllerIntegrationTests : IDisposable
@@ -76,25 +77,15 @@ namespace JustBlog.UI.Tests
 
             newRegistrationUser = new RegisterViewModel()
             {
-                BirthDate = new DateTime(1990, 1, 1),
                 ConfirmPassword = "thisIsABadPassword123$",
                 Email = "john.doe@gmail.com",
-                FirstName = "John",
-                Hometown = "Sprinfield",
-                LastName = "Doe",
-                Password = "thisIsABadPassword123$",
-                PhoneNumber = "111-111-1111"
+                Password = "thisIsABadPassword123$"
             };
 
             currentApplicationUser = new ApplicationUser()
             {
-                Id = new Guid().ToString(),
-                BirthDate = newRegistrationUser.BirthDate,
+                Id = Guid.NewGuid().ToString(),
                 Email = newRegistrationUser.Email,
-                Hometown = newRegistrationUser.Hometown,
-                FirstName = newRegistrationUser.FirstName,
-                LastName = newRegistrationUser.LastName,
-                PhoneNumber = newRegistrationUser.PhoneNumber,
                 UserName = newRegistrationUser.Email,
                 SecurityStamp = Guid.NewGuid().ToString() // required otherwise you get a null reference error
             };
@@ -121,7 +112,6 @@ namespace JustBlog.UI.Tests
             Assert.IsTrue(response.IsSuccessStatusCode);
             Assert.IsTrue(registrationAttempt.Succeeded);
             Assert.AreEqual(0, registrationAttempt.Errors.Count());
-            Assert.AreEqual(newRegistrationUser.FirstName, registrationAttempt.User.FirstName);
 
             var createdUser = _userManager.FindByEmailAsync(newRegistrationUser.Email);
             Assert.IsNotNull(createdUser);

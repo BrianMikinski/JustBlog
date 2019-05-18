@@ -12,7 +12,7 @@ module.exports = {
     devtool: "inline-source-map",
     entry: {
         app: "./App/app.module.ts",
-        vendors: [ "jquery",
+        vendors: ["jquery",
             "bootstrap",
             "toastr",
             "tinymce",
@@ -93,7 +93,7 @@ module.exports = {
         path: path.resolve(__dirname, outputDirectory),
         filename: '[name].chunkhash.bundle.js',
         chunkFilename: '[name].chunkhash.bundle.js',
-        publicPath: '/',
+        publicPath: '/'
     },
     optimization: {
         splitChunks: {
@@ -103,11 +103,11 @@ module.exports = {
                     name: 'vendors',
                     test: 'vendors',
                     enforce: true
-                },
+                }
             }
         },
         runtimeChunk: true
     }
-}
+};
 
 console.log(__dirname);
