@@ -7,7 +7,7 @@ namespace JustBlog.IdentityManagement
     /// Just blog context factory, used to create a proper justblog identity context when creating
     /// a new database from the command line.
     /// </summary>
-    public class AppIdentityContextFactory : IDesignTimeDbContextFactory<AppIdentityDbContext>
+    public class IdentityContextFactory : IDesignTimeDbContextFactory<IdentityDbContext>
     {
         /// <summary>
         /// Accept command line arguments to provide for options when generating the context from the command line
@@ -16,12 +16,12 @@ namespace JustBlog.IdentityManagement
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
-        public AppIdentityDbContext CreateDbContext(string[] args)
+        public IdentityDbContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<AppIdentityDbContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<IdentityDbContext>();
             optionsBuilder.UseSqlite("Filename=../JustBlog.UI/justblog.sqlite");
 
-            return new AppIdentityDbContext(optionsBuilder.Options);
+            return new IdentityDbContext(optionsBuilder.Options);
         }
     }
 }

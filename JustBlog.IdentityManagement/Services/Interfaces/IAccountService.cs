@@ -3,6 +3,7 @@ using JustBlog.IdentityManagement.Login;
 using JustBlog.IdentityManagement.ManageViewModels;
 using JustBlog.IdentityManagement.Register;
 using Microsoft.AspNetCore.Identity;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -16,8 +17,12 @@ namespace JustBlog.IdentityManagement.Services
 
         Task<SignInResult> Login(LoginViewModel model);
 
-        Task<IdentityResult> Register(RegisterViewModel model, string requestSchema);
+        Task<IdentityResult> Register(RegisterViewModel model, string baseUrl, string requestSchema = "https");
 
         Task RemoveLogin(RemoveLoginViewModel model, ClaimsPrincipal userPrincipal);
+
+        Task<ApplicationUser> GetUser(string userName);
+
+        Task<UserViewModel> UpdateUser(UserViewModel user);
     }
 }

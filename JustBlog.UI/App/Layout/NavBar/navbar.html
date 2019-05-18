@@ -3,7 +3,9 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle visible-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only">
+                    Toggle navigation
+                </span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -24,16 +26,20 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav visible-xs visible-sm">
                 <li class="active">
-                    <a href="home">Home</a>
+                    <a href="home">
+                        Home
+                    </a>
                 </li>
                 <li>
-                    <a href="Categories">Categories</a>
+                    <a href="Categories">
+                        Categories
+                    </a>
                 </li>
             </ul>
         </div>
     </nav>
     <div class="btn-group hidden-xs hidden-sm pull-right" uib-dropdown is-open="$navBarCtrl.isOpen" style="margin-top: 20px; float: right; z-index: 5000; margin-right: 30px;">
-        <button type="button" class="btn btn-default" id="dropdownMenu"  uib-dropdown-toggle >
+        <button type="button" class="btn btn-default" id="dropdownMenu" uib-dropdown-toggle>
             <i class="fa fa-bars"></i>
         </button>
         <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="dropdownMenu">
@@ -51,13 +57,13 @@
             </li>
             <li role="menuitem">
                 <a href="aboutme">
-                    <i class="fa fa-info-circle"></i>About Me
+                    <i class="fa fa-info-circle"></i> About Me
                 </a>
             </li>
             <li class="divider"></li>
             <li role="menuitem">
                 <a href="#">
-                    <i class="fa fa-arrow-up"></i>Top of Page
+                    <i class="fa fa-arrow-up"></i> Top of Page
                 </a>
             </li>
             <li role="menuitem" is-authorized resource="admin" action="read">
@@ -67,12 +73,12 @@
             </li>
             <li role="menuitem" is-authorized only-show-unauthorized="true">
                 <a href="login">
-                    <i class="fa fa-sign-in" aria-hidden="true"></i>Login
+                    <i class="fa fa-sign-in" aria-hidden="true"></i> Login
                 </a>
             </li>
             <li role="menuitem" is-authorized resource="admin" action="read">
                 <a href="logoff">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out
+                    <i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out
                 </a>
             </li>
         </ul>

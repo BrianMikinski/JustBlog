@@ -1,102 +1,178 @@
-﻿<div ng-include="'admin/adminHeader.html'"></div>
+﻿<admin-header></admin-header>
 <div class="row">
-    <div class="col-md-12">
-        <h4 class="text-center">My Account</h4>
-        <br />
-    </div>
-    <div class="col-md-6">
-        <form name="currentUserForm" class="form-horizontal" role="form">
-            <!--Last Name-->
-            <div class="form-group">
-                <label class="col-md-3 control-label">User Name</label>
-                <div class="col-md-9">
-                    <input class="form-control" type="text" value="{{vm.MyCurrentUser.UserName}}" readonly>
+    <div class="col-md-offset-4 col-md-4">
+        <form name="currentUserForm" role="form" ng-submit="$ctrl.updateAccount()">
+            <div style="display:block;" class="text-center">
+                <img src="../../content/images/profile.jpg" class="img-circle profile-picture-sm" />
+            </div>
+            <div class="row profile-border" style="margin-top: 15px;">
+                <div class="col-lg-6 col-md-12">
+                    <div class="form-group  ">
+                        <label class="control-label">
+                            First Name
+                        </label>
+                        <input class="form-control" type="text" ng-model="$ctrl.account.FirstName" ng-readonly="!$ctrl.editEnabled" />
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="form-group ">
+                        <label class="control-label">
+                            Last Name
+                        </label>
+                        <input class="form-control" type="text" ng-model="$ctrl.account.LastName" ng-readonly="!$ctrl.editEnabled" />
+                    </div>
                 </div>
             </div>
-
-            <!--Last Name-->
-            <div class="form-group">
-                <label class="col-md-3 control-label">ID</label>
-                <div class="col-md-9">
-                    <input class="form-control" type="text" value="{{vm.MyCurrentUser.Id}}" readonly>
+            <div class="row">
+                <div class="col-lg-8 col-md-9 col-xs-9">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Email
+                        </label>
+                        <input class="form-control" type="email" ng-model="$ctrl.account.Email" disabled readonly />
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-xs-3 pull-right">
+                    <button class="btn btn-default" style="margin-top: 24px;" ng-click="$ctrl.emailConfirmation()">
+                        Confirm
+                    </button>
+                    <div class="form-group" style="margin-top: 35px;" uib-tooltip="Email Address Confirmed" ng-if="$ctrl.account.EmailConfirmed">
+                        <div style="display:block; max-width: 120px;">
+                            <span class="text-center" uib-toolip="Email Address Confirmed" style="margin-top:9px;">
+                                <i class="fa fa-check contact-confirmed">
+                                </i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8  col-md-9 col-xs-9">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Phone Number
+                        </label>
+                        <input class="form-control" type="text" ng-model="$ctrl.account.PhoneNumber" ng-readonly="!$ctrl.editEnabled" />
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-xs-3 pull-right">
+                    <button class="btn btn-default" style="margin-top: 24px;" ng-click="$ctrl.phoneConfirmation()">
+                        Confirm
+                    </button>
+                    <div class="form-group" style="margin-top: 35px;" uib-tooltip="Email Address Confirmed" ng-if="$ctrl.account.phoneNumberConfirmed">
+                        <div style="display:block; max-width: 120px;">
+                            <span class="text-center" uib-toolip="Phone Number Confirmed" style="margin-top:9px;">
+                                <i class="fa fa-check contact-confirmed">
+                                </i>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <!--First Name-->
-            <div class="form-group">
-                <label class="col-md-3 control-label">First Name</label>
-                <div class="col-md-9">
-                    <input class="form-control" type="text" value="{{vm.MyCurrentUser.FirstName}}" readonly>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label class="control-label">
+                        Birthday
+                    </label>
+                    <div class="input-group">
+                        <div class="input-group">
+                            <input type="text"
+                                   name="BirthDate"
+                                   class="form-control"
+                                   uib-datepicker-popup="{{$ctrl.birthDateFormat}}"
+                                   ng-model="$ctrl.account.Birthdate"
+                                   is-open="$ctrl.datePickerPopup.opened"
+                                   datepicker-options="$ctrl.datePickerOptions"
+                                   ng-required="true"
+                                   close-text="Close"
+                                   alt-input-formats="$registerUserCtrl.AltInputFormats"
+                                   readonly />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="$ctrl.openBirthdayDatePicker()" ng-disabled="!$ctrl.editEnabled">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <!--Last Name-->
-            <div class="form-group">
-                <label class="col-md-3 control-label">Last Name</label>
-                <div class="col-md-9">
-                    <input class="form-control" type="text" value="{{vm.MyCurrentUser.LastName}}" readonly>
+            <div class="row profile-border" style="margin-top: 10px;">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Address Line 1
+                        </label>
+                        <input class="form-control" type="text" ng-model="$ctrl.account.AddressLine1" ng-enabled="$ctrl.editEnabled" ng-readonly="!$ctrl.editEnabled" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">
+                            Address Line 2
+                        </label>
+                        <input class="form-control" type="text" ng-model="$ctrl.account.AddressLine2" ng-readonly="!$ctrl.editEnabled" />
+                    </div>
                 </div>
             </div>
-
-            <!--Birth Date-->
-            <div class="form-group">
-                <label class="col-md-3 control-label">Birthday</label>
-                <div class="col-md-9">
-                    <p class="input-group">
-                        <input class="form-control" value="{{vm.MyCurrentUser.BirthDate.toLocaleDateString()}}" readonly />
-                    </p>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">
+                            City
+                        </label>
+                        <input class="form-control" type="text" ng-model="$ctrl.account.City" ng-readonly="!$ctrl.editEnabled" />
+                    </div>
+                </div>
+                <div class="col-md-4 pull-right">
+                    <div class="form-group">
+                        <label class="control-label">
+                            State
+                        </label>
+                        <input class="form-control" type="text" ng-model="$ctrl.account.State" ng-readonly="!$ctrl.editEnabled" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Postal Code
+                        </label>
+                        <input class="form-control" type="text" ng-model="$ctrl.account.PostalCode" ng-readonly="!$ctrl.editEnabled" />
+                    </div>
+                </div>
+                <div class="col-md-4 pull-right">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Country
+                        </label>
+                        <input class="form-control" type="text" ng-model="$ctrl.account.Country" ng-readonly="!$ctrl.editEnabled" />
+                    </div>
                 </div>
             </div>
-
-            <!--Email-->
-            <div class="form-group">
-                <label class="col-md-3 control-label">Email</label>
-                <div class="col-md-9">
-                    <input class="form-control" type="email" value="{{vm.MyCurrentUser.Email}}" readonly />
-                </div>
+            <div class="form-group" ng-if="false">
+                <label class="control-label">
+                    ID
+                </label>
+                <input class="form-control" type="text" ng-model="$ctrl.account.Id" readonly />
             </div>
-
-            <div class="form-group">
-                <label class="col-md-3 control-label">Email Confirmed</label>
-                <div class="col-md-9">
-                    <span ng-if="vm.MyCurrentUser.EmailConfirmed">
-                        Yes
-                    </span>
-                    <span ng-if="!vm.MyCurrentUser.EmailConfirmed">
-                        No
-                    </span>
-                </div>
-            </div>
-
-            <!--Phone Number-->
-            <div class="form-group">
-                <label class="col-md-3 control-label">Phone Number</label>
-                <div class="col-md-9">
-                    <input class="form-control" type="text" value="{{vm.MyCurrentUser.PhoneNumber}}" readonly />
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-md-3 control-label">Phone Number Confirmed</label>
-                <div class="col-md-9">
-                    <span ng-if="vm.MyCurrentUser.PhoneNumberConfirmed">
-                        Yes
-                    </span>
-                    <span ng-if="!vm.MyCurrentUser.PhoneNumberConfirmed">
-                        No
-                    </span>
-                </div>
-            </div>
-
-            <!--Home Town-->
-            <div class="form-group">
-                <label class="col-md-3 control-label">Hometown</label>
-                <div class="col-md-9">
-                    <input class="form-control" type="text" value="{{vm.MyCurrentUser.Hometown}}" readonly />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class=" form-group">
+                        <div class="pull-left">
+                            <label class="control-label">
+                                Edit Acccount
+                            </label>
+                            <br />
+                            <span>
+                                <i class="fa fa-toggle-on"
+                                   ng-class="$ctrl.editEnabled ? 'toggle-active' : 'fa-rotate-180 toggle-inactive'"
+                                   ng-click="$ctrl.editEnabled = !$ctrl.editEnabled; $ctrl.toggleEdit()">
+                                </i>
+                            </span>
+                        </div>
+                        <div class="pull-right" style="margin-top: 12px;">
+                            <button class="btn btn-primary pull-right" type="submit" ng-if="$ctrl.editEnabled">
+                                Save Changes
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
     </div>
-
-    <div ng-include="'admin/account/updateLoginOptions.html'"></div>
 </div>

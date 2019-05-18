@@ -1,11 +1,10 @@
-﻿import App from "app.module";
-import { default as adminModule } from "Admin/admin.module";
+﻿import { default as adminModule } from "admin/admin.module";
 import { CoreModule } from "Core/core.module";
-import { RegistrationUser } from "Admin/Register/RegistrationUser";
-import { AdminService } from "Admin/admin.service";
-import { RegistrationAttempt } from "Admin/Register/RegistrationAttempt";
-import { RegisterUserComponentName, RegisterUserController, RegisterUserComponent } from "Admin/Register/registerUser.component";
-import { ITokenAuthResponse } from "Admin/Account/ITokenAuthResponse";
+import { RegistrationUser } from "admin/register/RegistrationUser";
+import { AdminService } from "admin/admin.service";
+import { RegistrationAttempt } from "admin/register/RegistrationAttempt";
+import { RegisterUserComponentName, RegisterUserController, RegisterUserComponent } from "admin/register/registerUser.component";
+import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
 import { IHttpHeadersGetter } from "angular";
 import * as angular from "angular";
 import 'angular-mocks';
@@ -28,19 +27,9 @@ describe(` ${adminModule}: Register New User Component Tests - `, function () {
     let birthDate: Date = new Date(1990, 2, 1);
 
     let newUser: RegistrationUser = {
-        BirthDate: birthDate,
-        ConfirmPassword: "password",
         Email: "joe.smith@smith.com",
-        EmailConfirmed: false,
-        FirstName: "Joe",
-        LastName: "Smith",
-        HomeTown: "Coffeyville",
-        ID: "234123432",
         Password: "password",
-        PhoneNumber: "234234",
-        PhoneNumberConfirmed: true,
-        TwoFactorEnabled: false,
-        UseName: "joe.smith@smith.com"
+        ConfirmPassword: "password",
     };
 
     let registrationAttempt: RegistrationAttempt;
@@ -77,8 +66,6 @@ describe(` ${adminModule}: Register New User Component Tests - `, function () {
         $timeout = _$timeout_;
         $q = _$q_;
         adminService = _adminService_;
-        
-        newUser.BirthDate = birthDate;
     }));
 
     afterAll(function () {
@@ -97,15 +84,15 @@ describe(` ${adminModule}: Register New User Component Tests - `, function () {
             Succeeded: true,
             User: {
                 Email: newUser.Email,
-                FirstName: newUser.FirstName,
-                LastName: newUser.LastName,
-                UseName: newUser.UseName
+                FirstName: "John",
+                LastName: "Doe",
+                UserName: newUser.Email
             }
         };
         
         let registerNewUserDeferred: ng.IDeferred<RegistrationAttempt> = $q.defer();
         registerNewUserDeferred.resolve(registrationAttempt);
-        let registerUserSpy: jasmine.Spy = spyOn(adminService, "RegisterUser").and.returnValue(registerNewUserDeferred.promise);
+        let registerUserSpy: jasmine.Spy = spyOn(adminService, "registerUser").and.returnValue(registerNewUserDeferred.promise);
 
         // mock user login
         let tokenResponse: ITokenAuthResponse = {
@@ -128,7 +115,7 @@ describe(` ${adminModule}: Register New User Component Tests - `, function () {
         let loginUserDeferred: ng.IDeferred<ng.IHttpPromiseCallbackArg<ITokenAuthResponse> > = $q.defer();
         loginUserDeferred.resolve(loginResponse);
 
-        let loginSpy: jasmine.Spy = spyOn(adminService, "Login").and.returnValue(loginUserDeferred.promise);
+        let loginSpy: jasmine.Spy = spyOn(adminService, "login").and.returnValue(loginUserDeferred.promise);
 
         $provide.value("adminService", adminService);
 
@@ -154,9 +141,6 @@ describe(` ${adminModule}: Register New User Component Tests - `, function () {
 
         // assert
         expect(newUser.Email).toEqual(registerUserController.CurrentUser.Email);
-        expect(newUser.FirstName).toEqual(registerUserController.CurrentUser.FirstName);
-        expect(newUser.LastName).toEqual(registerUserController.CurrentUser.LastName);
-        expect(newUser.UseName).toEqual(registerUserController.CurrentUser.UseName);
         expect(loginSpy).toHaveBeenCalledTimes(1);
         expect(registerUserSpy).toHaveBeenCalledTimes(1);
     });
@@ -175,7 +159,7 @@ describe(` ${adminModule}: Register New User Component Tests - `, function () {
 
         let registerNewUserPromise: ng.IDeferred<RegistrationAttempt> = $q.defer();
         registerNewUserPromise.resolve(registrationAttempt);
-        let registeredUserSpy:jasmine.Spy =  spyOn(adminService, "RegisterUser").and.returnValue(registerNewUserPromise.promise);
+        let registeredUserSpy:jasmine.Spy =  spyOn(adminService, "registerUser").and.returnValue(registerNewUserPromise.promise);
 
         $provide.value("adminService", adminService);
 
@@ -200,7 +184,7 @@ describe(` ${adminModule}: Register New User Component Tests - `, function () {
         expect(registerUserController.CurrentUser.FirstName).toBeUndefined();
         expect(registerUserController.CurrentUser.FirstName).toBeUndefined();
         expect(registerUserController.CurrentUser.LastName).toBeUndefined();
-        expect(registerUserController.CurrentUser.UseName).toBeUndefined();
+        expect(registerUserController.CurrentUser.UserName).toBeUndefined();
         expect(registeredUserSpy).toHaveBeenCalledTimes(1);
     });
 });

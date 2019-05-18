@@ -1,5 +1,5 @@
-﻿import { ApplicationUser } from "Admin/Account/ApplicationUser";
-import { IdentityError } from "Admin/Register/IdentityError";
+﻿import { ApplicationUser } from "admin/account/ApplicationUser";
+import { IdentityError } from "admin/register/IdentityError";
 
 /**
  * Model for a registration attempt

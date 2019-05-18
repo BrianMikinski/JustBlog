@@ -14,21 +14,25 @@ namespace JustBlog.IdentityManagement.Services
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IEmailSender _emailSender;
+        private readonly IMessagingService _messagingService;
         private readonly ILogger _logger;
+        private readonly IdentityDbContext _identityContext;
 
         public AccountService(UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager,
-                                IEmailSender emailSender,
-                                ILogger<IAccountService> logger)
+                                IMessagingService emailSender,
+                                ILogger<IAccountService> logger,
+                                IdentityDbContext identityContext)
         {
             _userManager = userManager;
+            _identityContext = identityContext;
             _signInManager = signInManager;
-            _emailSender = emailSender;
+            _messagingService = emailSender;
             _logger = logger;
+            
         }
 
-        public async Task<IdentityResult> Register(RegisterViewModel model, string requestSchema)
+        public async Task<IdentityResult> Register(RegisterViewModel model, string baseUrl, string requestSchema = "https")
         {
             try
             {
@@ -36,10 +40,6 @@ namespace JustBlog.IdentityManagement.Services
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    BirthDate = model.BirthDate,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    Hometown = model.Hometown,
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -49,8 +49,10 @@ namespace JustBlog.IdentityManagement.Services
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = EmailConfirmationLink(user.Id, code, requestSchema);
-                    await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+
+                    var callbackUrl = _messagingService.EmailConfirmationLink(user.Id, code, baseUrl,  requestSchema);
+
+                    await _messagingService.SendEmailConfirmationAsync(model.Email, callbackUrl);
                 }
 
                 return result;
@@ -187,26 +189,65 @@ namespace JustBlog.IdentityManagement.Services
             }
         }
 
-        /// <summary>
-        /// Generate an email confirmation link based on the user id, confirmation code and request protocol scheme
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="code"></param>
-        /// <param name="scheme"></param>
-        /// <returns></returns>
-        private string EmailConfirmationLink(string userId, string code, string scheme)
-        {
-            return $"{scheme}\\\\baseurl.com\\Account\\ConfirmEmail\\userId?{userId}code?{code}";
-        }
-
-        private string ResetPasswordCallbackLink(/*this IUrlHelper urlHelper, */string userId, string code, string scheme)
+        private string ResetPasswordCallbackLink(string userId, string code, string scheme)
         {
             return "this is the password callback link";
-            //return urlHelper.Action(
-            //    action: nameof(AccountController.ResetPassword),
-            //    controller: "Account",
-            //    values: new { userId, code },
-            //    protocol: scheme);
+        }
+         
+        public async Task<ApplicationUser> GetUser(string userName)
+        {
+            return await _userManager.FindByEmailAsync(userName);
+        }
+
+        /// <summary>
+        /// Update the user model
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public async Task<UserViewModel> UpdateUser(UserViewModel user)
+        {
+            var applicationUser = await _userManager.FindByIdAsync(user.Id.ToString());
+
+            _identityContext.Attach(applicationUser);
+
+            // User information
+            applicationUser.FirstName = user.FirstName;
+            _identityContext.Entry(applicationUser).Property(p => p.FirstName).IsModified = true;
+
+            applicationUser.LastName = user.LastName;
+            _identityContext.Entry(applicationUser).Property(p => p.LastName).IsModified = true;
+
+            applicationUser.BirthDate = user.Birthdate;
+            _identityContext.Entry(applicationUser).Property(p => p.BirthDate).IsModified = true;
+
+            if (string.IsNullOrEmpty(applicationUser.PhoneNumber))
+            {
+                applicationUser.PhoneNumber = user.PhoneNumber;
+                _identityContext.Entry(applicationUser).Property(p => p.PhoneNumber).IsModified = true;
+            }
+
+            // Address
+            applicationUser.AddressLine1 = user.AddressLine1;
+            _identityContext.Entry(applicationUser).Property(p => p.AddressLine1).IsModified = true;
+
+            applicationUser.AddressLine2 = user.AddressLine2;
+            _identityContext.Entry(applicationUser).Property(p => p.AddressLine2).IsModified = true;
+
+            applicationUser.City = user.City;
+            _identityContext.Entry(applicationUser).Property(p => p.City).IsModified = true;
+
+            applicationUser.State = user.State;
+            _identityContext.Entry(applicationUser).Property(p => p.State).IsModified = true;
+
+            applicationUser.PostalCode = user.PostalCode;
+            _identityContext.Entry(applicationUser).Property(p => p.PostalCode).IsModified = true;
+
+            applicationUser.Country = user.Country;
+            _identityContext.Entry(applicationUser).Property(p => p.Country).IsModified = true;
+
+            await _identityContext.SaveChangesAsync();
+
+            return new UserViewModel(applicationUser);
         }
     }
 }
