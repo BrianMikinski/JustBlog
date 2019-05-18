@@ -30,7 +30,7 @@ class ProfileComponentController extends BaseController implements IProfileCompo
     /**
      * Function called when controller is initialized
      */
-    $onInit(): void {
+    $onInit?(): void {
 
         let metaDataCallBack: (data: MetaData) => void = (data: MetaData) => {
             this.MetaData = data;

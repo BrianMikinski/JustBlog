@@ -24,15 +24,15 @@ namespace JustBlog.UI.Tests
         /// Create the proper db contexts for ensuring creationg and deletion of databases
         /// </summary>
         /// <returns></returns>
-        private static (JustBlogContext justBlogContext, AppIdentityDbContext appIdentityContext) JustBlogDbContextForIntegrationTesting()
+        private static (JustBlogContext justBlogContext, IdentityDbContext appIdentityContext) JustBlogDbContextForIntegrationTesting()
         {
             var justBlogOptionsBuilder = new DbContextOptionsBuilder<JustBlogContext>();
             justBlogOptionsBuilder.UseSqlite(SQLITE_DB_LOCATION);
 
-            var appIdentityBuilder = new DbContextOptionsBuilder<AppIdentityDbContext>();
+            var appIdentityBuilder = new DbContextOptionsBuilder<IdentityDbContext>();
             appIdentityBuilder.UseSqlite(SQLITE_DB_LOCATION);
 
-            return (new JustBlogContext(justBlogOptionsBuilder.Options), new AppIdentityDbContext(appIdentityBuilder.Options));
+            return (new JustBlogContext(justBlogOptionsBuilder.Options), new IdentityDbContext(appIdentityBuilder.Options));
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace JustBlog.UI.Tests
                 applicationConfiguration(builder);
             }
 
-            app.Configure(builder, app.Environment);
+            //app.Configure(builder, app.Environment);
         }
     }
 }
