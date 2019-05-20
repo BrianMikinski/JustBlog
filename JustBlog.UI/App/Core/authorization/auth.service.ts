@@ -1,8 +1,8 @@
 ﻿import { AuthenticationConstants } from "Core/authorization/AuthenticationConstants";
 import { BaseService } from "Core/Models/BaseService";
-import { Claim } from "Core/Models/Claim";
-import { JwtPayload } from "Core/Models/JWTPayload";
-import { RouteAuthorizationError } from "Core/Models/RouteAuthorizationError";
+import { Claim } from "Core/authorization/Claim";
+import { JwtPayload } from "Core/authorization/JWTPayload";
+import { RouteAuthorizationError } from "Core/authorization/RouteAuthorizationError";
 
 /**
  * Class for authorizing and authenticating the current logged in user.

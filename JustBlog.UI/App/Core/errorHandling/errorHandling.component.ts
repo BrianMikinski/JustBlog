@@ -40,25 +40,41 @@ interface IErrorHandlingComponentController extends IErrorHandlingControllerBind
 class ErrorHandlingController extends BaseController implements IErrorHandlingComponentController, ng.IController {
 
     error: number;
+    private onRequestCallback: () => void;
+
 
     inject = ["$sce", "errorHandlingService"]
     constructor($sce: ng.ISCEService, private errorHandlingService: ErrorHandlingService) {
         super($sce);
+
+        this.OnErrorCallback = (data: any) => {
+
+            console.log("Start here!")
+        };
+
+        let onRequestCallback: (response: any) => void  = (response: any) => {
+            console.log("Request succeeded???")
+        }
     }
 
     badRequest() {
-        this.errorHandlingService.badRequestErrorTest();
+
+        this.errorHandlingService.badRequestErrorTest()
+            .then(this.onRequestCallback, this.OnErrorCallback);
     }
 
     unauthorized() {
-        this.errorHandlingService.unauthorizedErrorTest();
+        this.errorHandlingService.unauthorizedErrorTest()
+            .then(this.onRequestCallback, this.OnErrorCallback);
     }
 
     notFound() {
-        this.errorHandlingService.notfoundErrorTest();
+        this.errorHandlingService.notfoundErrorTest()
+            .then(this.onRequestCallback, this.OnErrorCallback);
     }
 
     internalServierError() {
-        this.errorHandlingService.internalServerErrorTest();
+        this.errorHandlingService.internalServerErrorTest()
+            .then(this.onRequestCallback, this.OnErrorCallback);
     }
 }

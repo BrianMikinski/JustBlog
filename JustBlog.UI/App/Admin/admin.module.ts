@@ -9,9 +9,9 @@ import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";
 import { AuthService } from "Core/authorization/auth.service";
-import { IActions } from "Core/Interfaces/IActions";
-import { IResources } from "Core/Interfaces/IResources";
-import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
+import { Action } from "Core/authorization/Action";
+import { Resource } from "Core/authorization/Resource";
+import { BlogRoute } from "Core/authorization/BlogRoute";
 import { BaseModule } from "Core/Models/BaseModule";
 import { MyAccountComponent, MyAccountComponentName } from "./account/myAcccount.component";
 import { AdminHeaderComponent, AdminHeaderComponentName } from "./adminHeader.component";
@@ -53,7 +53,7 @@ export class AdminModule extends BaseModule {
      * @param $stateProvider
      * @param $urlRouterProvider
      */
-    private uiRouteConfig($stateProvider: ng.ui.IStateProvider, RESOURCES: IResources, ACTIONS: IActions): void {
+    private uiRouteConfig($stateProvider: ng.ui.IStateProvider, RESOURCES: Resource, ACTIONS: Action): void {
 
         let loginState: ng.ui.IState = {
             name: "login",
@@ -125,11 +125,11 @@ export class AdminModule extends BaseModule {
      * Configure all routes for this model
      * @param $routeProvider
      */
-    private routeConfig($routeProvider: ng.route.IRouteProvider, RESOURCES: IResources, ACTIONS: IActions):void {
+    private routeConfig($routeProvider: ng.route.IRouteProvider, RESOURCES: Resource, ACTIONS: Action):void {
 
         try {
 
-            let accountsRoute: IRouteBlog = {
+            let accountsRoute: BlogRoute = {
                 templateUrl: require("admin/account/accounts.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
@@ -140,7 +140,7 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let passwordUpdateRoute: IRouteBlog = {
+            let passwordUpdateRoute: BlogRoute = {
                 templateUrl: require("Admin/password/passwordUpdate.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
@@ -151,7 +151,7 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let confirmPasswordUpdateRoute: IRouteBlog = {
+            let confirmPasswordUpdateRoute: BlogRoute = {
                 templateUrl: require("admin/password/passwordUpdateConfirmation.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
@@ -162,7 +162,7 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let passwordResetRoute: IRouteBlog = {
+            let passwordResetRoute: BlogRoute = {
                 templateUrl: require("admin/password/passwordReset.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
@@ -173,7 +173,7 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let passwordResetConfirmationRoute: IRouteBlog = {
+            let passwordResetConfirmationRoute: BlogRoute = {
                 templateUrl: require("admin/password/passwordResetConfirmation.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
@@ -184,7 +184,7 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let loginUpdateRoute: IRouteBlog = {
+            let loginUpdateRoute: BlogRoute = {
                 templateUrl: require("admin/login/loginUpdate.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
@@ -195,7 +195,7 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let loginUpdateConfirmationRoute: IRouteBlog = {
+            let loginUpdateConfirmationRoute: BlogRoute = {
                 templateUrl: require("admin/login/loginUpdateConfirmation.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,

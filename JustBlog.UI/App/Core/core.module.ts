@@ -5,11 +5,13 @@ import * as angular from "angular";
 import { AuthorizationDirective } from "Core/authorization/auth.directive";
 import { AuthInterceptor } from "Core/authorization/auth.interceptor";
 import { AuthService } from "Core/authorization/auth.service";
+import { RouteAuthorizationError } from "Core/authorization/RouteAuthorizationError";
 import { CoreService } from "Core/core.service";
 import { BaseModule } from "Core/Models/BaseModule";
-import { RouteAuthorizationError } from "Core/Models/RouteAuthorizationError";
-import { ErrorHandlingComponent, ErrorHandlingComponentName } from "./errorHandling/standardErrorHandling.component";
 import { AuthenticationConstants } from "./authorization/AuthenticationConstants";
+import { ErrorHandlingComponent, ErrorHandlingComponentName } from "./errorHandling/errorHandling.component";
+import { ErrorRoutes } from "./errorHandling/ErrorRoutes";
+import { ErrorHandlingService } from "./errorHandling/errorHandling.service";
 
 const moduleName: string = "app.core";
 export default moduleName;
@@ -35,6 +37,15 @@ export class CoreModule extends BaseModule {
         };
 
         this.app.constant("AUTHENTICATION_CONSTANTS", authConstants)
+
+        let errorRoutes: ErrorRoutes = {
+            BadRequest400: "api/BadRequestTest",
+            Unauthorized401: "api/UnauthorizedTest",
+            NotFound404: "api/NotFoundTest",
+            InternalServerError500: "api/InternalServerErrorTest",
+        }
+
+        this.app.constant("ERROR_ROUTES", errorRoutes)
 
         this.app.directive("isAuthorized", AuthorizationDirective.Factory());
 
@@ -160,6 +171,12 @@ Core.AddService("authInterceptor", authInterceptor);
 authInterceptor.$inject = ["$q", "$state", "AUTHENTICATION_CONSTANTS"];
 function authInterceptor($q: ng.IQService, $state: StateService,  AUTHENTICATION_CONSTANTS: AuthenticationConstants): AuthInterceptor {
     return new AuthInterceptor($q, $state, AUTHENTICATION_CONSTANTS);
+}
+
+Core.AddService("errorHandlingService", errorHandlingService);
+
+function errorHandlingService($http: ng.IHttpService, ERROR_ROUTES: ErrorRoutes): ErrorHandlingService {
+    return new ErrorHandlingService($http, ERROR_ROUTES);
 }
 
 Core.AddComponent(ErrorHandlingComponentName, new ErrorHandlingComponent());
