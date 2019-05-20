@@ -1,6 +1,6 @@
-﻿import { IAuthEventConstants } from "admin/interfaces/IAuthEventConstants";
-import { AuthService } from "Core/auth.service";
+﻿import { AuthEventConstants } from "admin/interfaces/IAuthEventConstants";
 import * as angular from "angular";
+import { AuthService } from "Core/authorization/auth.service";
 
 
 interface IAuthorizationScope extends ng.IScope {
@@ -39,7 +39,7 @@ export class AuthorizationDirective {
      * @param authService
      * @param AUTH_EVENT_CONSTANTS
      */
-    constructor($compile: ng.ICompileService, authService: AuthService, AUTH_EVENT_CONSTANTS: IAuthEventConstants) {
+    constructor($compile: ng.ICompileService, authService: AuthService, AUTH_EVENT_CONSTANTS: AuthEventConstants) {
 
         AuthorizationDirective.prototype.link = (scope: IAuthorizationScope, element: ng.IAugmentedJQuery, attrs: ILinkAttrs) => {
 
@@ -140,7 +140,7 @@ export class AuthorizationDirective {
      * Create a factory instance of the directive
      */
     public static Factory() {
-        let directive: any = ($compile: ng.ICompileService, authService: AuthService, AUTH_EVENT_CONSTANTS: IAuthEventConstants) => {
+        let directive: any = ($compile: ng.ICompileService, authService: AuthService, AUTH_EVENT_CONSTANTS: AuthEventConstants) => {
             return new AuthorizationDirective($compile, authService, AUTH_EVENT_CONSTANTS);
         };
 

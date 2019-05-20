@@ -1,5 +1,5 @@
 ﻿import { AdminService } from "admin/admin.service";
-import { AuthService } from "Core/auth.service";
+import { AuthService } from "Core/authorization/auth.service";
 import { ComponentBase } from "Core/component.base";
 import { BaseController } from "Core/Models/BaseController";
 import { NotificationFactory } from "Notification/notification.factory";

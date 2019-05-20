@@ -13,7 +13,7 @@ import { IActions } from "Core/Interfaces/IActions";
 import { IResources } from "Core/Interfaces/IResources";
 import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
 import { BaseModule } from "Core/Models/BaseModule";
-import { AuthService } from "Core/auth.service";
+import { AuthService } from "Core/authorization/auth.service";
 import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";

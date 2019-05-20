@@ -1,7 +1,7 @@
 ﻿import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
 import { AdminService } from "admin/admin.service";
 import { LoginModel } from "admin/login/LoginModel";
-import { AuthService } from "Core/auth.service";
+import { AuthService } from "Core/authorization/auth.service";
 import { ComponentBase } from "Core/component.base";
 import { BaseController } from "Core/Models/BaseController";
 import { NotificationFactory } from "Notification/notification.factory";

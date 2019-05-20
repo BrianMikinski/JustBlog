@@ -1,4 +1,4 @@
-﻿import { AuthService } from "Core/auth.service";
+﻿import { AuthService } from "Core/authorization/auth.service";
 import { BaseController } from "Core/Models/BaseController";
 import { BlogService } from "Blog/blog.service";
 import { ComponentBase } from "Core/component.base";

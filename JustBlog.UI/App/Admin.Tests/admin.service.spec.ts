@@ -2,11 +2,11 @@
 import { User } from "admin/account/User";
 import { AdminModule, default as adminModule } from "admin/admin.module";
 import { AdminService } from "admin/admin.service";
-import { IHttpAdminRoutes } from "admin/interfaces/IHttpAdminRoutes";
+import { AdminRoutes } from "admin/interfaces/IHttpAdminRoutes";
 import { LoginModel } from "admin/login/LoginModel";
 import * as angular from 'angular';
 import { MetaData } from "Blog/MetaData/MetaData";
-import { AuthService } from "Core/auth.service";
+import { AuthService } from "Core/authorization/auth.service";
 import { default as coreModule } from "Core/core.module";
 import { default as notificationModule } from "Notification/notification.module";
 require('angular-mocks');
@@ -19,7 +19,7 @@ describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${not
     let $provide: ng.auto.IProvideService;
     let adminService: AdminService;
     let authService: AuthService;
-    let AUTH_ROUTE_CONSTANTS: IHttpAdminRoutes;
+    let AUTH_ROUTE_CONSTANTS: AdminRoutes;
 
     let metadata: MetaData = {
         AdminEmail: "admin@justblog.com",
@@ -63,7 +63,7 @@ describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${not
     beforeEach(inject((_$httpBackend_: ng.IHttpBackendService,
         _adminService_: AdminService,
         _authService_: AuthService,
-        _AUTH_ROUTE_CONSTANTS_: IHttpAdminRoutes) => {
+        _AUTH_ROUTE_CONSTANTS_: AdminRoutes) => {
 
         adminService = _adminService_;
         $httpBackend = _$httpBackend_;

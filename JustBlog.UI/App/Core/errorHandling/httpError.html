@@ -1,0 +1,36 @@
+﻿<div class="page-header">
+    <h1>
+        Oh no!!!! Not again!
+    </h1>
+    <h1>
+        Http Error: {{$ctrl.error}}
+    </h1>
+    <h3>
+        <a href="home">
+            Return to Home
+        </a>
+    </h3>
+
+    <div class="row">
+        <div class="col-md-3">
+            <button class="btn btn-default" type="button" ng-click="$ctrl.">
+                400 - Bad Request
+            </button>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-default" type="button" ng-click="">
+                401 - Unauthorized
+            </button>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-default" type="button" ng-click="">
+                404 - Not Found
+            </button>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-default" type="button" ng-click="">
+                500 - Internal Server Error
+            </button>
+        </div>
+    </div>
+</div>

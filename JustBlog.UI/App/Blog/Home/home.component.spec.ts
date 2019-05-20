@@ -1,13 +1,11 @@
-﻿import App from "app.module";
+﻿import * as angular from "angular";
 import { default as blogModule } from "Blog/blog.module";
-import { Post } from "Blog/Post/Post";
 import { BlogService } from "Blog/blog.service";
-import { ICoreService } from "Core/core.service";
-import { HomeComponentController, HomeComponentName } from "Blog/Home/home.component";
+import { HomeComponentName } from "Blog/Home/home.component";
 import { MetaData } from "Blog/MetaData/MetaData";
-import { CoreModule } from "Core/core.module";
+import { Post } from "Blog/Post/Post";
+import { CoreService } from "Core/core.service";
 import { GridQuery } from "Core/Models/GridQuery";
-import * as angular from "angular";
 
 describe(` ${blogModule}: Home Component Tests - `, function () {
 
@@ -29,14 +27,6 @@ describe(` ${blogModule}: Home Component Tests - `, function () {
     beforeEach(angular.mock.module("app.notification"));
     beforeEach(angular.mock.module('ui.router'));
 
-    beforeEach(angular.mock.module("app.core", (_$provide_: ng.auto.IProvideService) => {
-        // mock out auth route constants. All jasmine constants must be mocked using the $provide services
-        _$provide_.constant("AUTH_ROUTE_CONSTANTS", CoreModule.HttpAuthServiceRoutes());
-
-        // $provide variable can now be used to substitute mocked or spied services
-        $provide = _$provide_;
-    }));
-
     beforeEach(angular.mock.module("app.blog"));
 
     let metaData: MetaData = {
@@ -57,7 +47,7 @@ describe(` ${blogModule}: Home Component Tests - `, function () {
     beforeEach(inject((_$rootScope_: angular.IRootScopeService,
         _$compile_: angular.ICompileService,
         _$q_: ng.IQService,
-        coreService: ICoreService,
+        coreService: CoreService,
         _$httpBackend_: ng.IHttpBackendService,
         _$componentController_: ng.IComponentControllerService,
         _$timeout_: ng.ITimeoutService,

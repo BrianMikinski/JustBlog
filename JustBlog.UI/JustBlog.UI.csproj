@@ -31,6 +31,7 @@
     <None Remove="App\admin\app.unitTest.ts" />
     <None Remove="App\admin\register\IdentityError.ts" />
     <None Remove="App\admin\register\registerUser.component.spec.ts" />
+    <None Remove="App\Core\errorHandling\standardErrorHandling.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.6.1" />
@@ -58,6 +59,7 @@
     <TypeScriptCompile Include="App\admin\adminHeader.component.ts" />
     <TypeScriptCompile Include="App\admin\register\IdentityError.ts" />
     <TypeScriptCompile Include="App\admin\register\registerUser.component.spec.ts" />
+    <TypeScriptCompile Include="App\Core\errorHandling\standardErrorHandling.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />

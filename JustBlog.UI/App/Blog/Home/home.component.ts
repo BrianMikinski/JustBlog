@@ -1,7 +1,7 @@
 ﻿import { BaseController } from "Core/Models/BaseController";
 import { ComponentBase } from "Core/component.base";
 import { GridQuery } from "Core/Models/GridQuery";
-import { ICoreService } from "Core/core.service";
+import { CoreService } from "Core/core.service";
 import { Post } from "Blog/Post/Post";
 import { PostQueryFilter } from "Blog/Post/PostQueryFilter";
 import { BlogService } from "Blog/blog.service";
@@ -24,7 +24,7 @@ export class HomeComponentController extends BaseController implements IHomeComp
     private MetaData: MetaData;
 
     inject = ["coreService", "blogService", "$sce"]
-    constructor(private coreService: ICoreService, private blogService: BlogService, public $sce: ng.ISCEService) {
+    constructor(private coreService: CoreService, private blogService: BlogService, public $sce: ng.ISCEService) {
         super($sce);
 
         this.RetrieveMetaData();

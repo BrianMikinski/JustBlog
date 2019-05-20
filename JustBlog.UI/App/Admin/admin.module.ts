@@ -1,16 +1,15 @@
 ﻿import * as uirouter from "@uirouter/angularjs";
 import { AdminController } from "admin/admin.controller";
 import { AdminService } from "admin/admin.service";
-import { IAuthEventConstants } from "admin/interfaces/IAuthEventConstants";
-import { IHttpAdminRoutes } from "admin/interfaces/IHttpAdminRoutes";
+import { AuthEventConstants } from "admin/interfaces/IAuthEventConstants";
+import { AdminRoutes } from "admin/interfaces/IHttpAdminRoutes";
 import { LoginComponent, LoginComponentName } from "admin/login/login.component";
 import { RegisterUserComponent, RegisterUserComponentName } from "admin/register/registerUser.component";
 import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";
-import { AuthService } from "Core/auth.service";
+import { AuthService } from "Core/authorization/auth.service";
 import { IActions } from "Core/Interfaces/IActions";
-import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
 import { IResources } from "Core/Interfaces/IResources";
 import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
 import { BaseModule } from "Core/Models/BaseModule";
@@ -18,6 +17,7 @@ import { MyAccountComponent, MyAccountComponentName } from "./account/myAcccount
 import { AdminHeaderComponent, AdminHeaderComponentName } from "./adminHeader.component";
 import { LogoffComponent, LogoffComponentName } from "./Login/logoff.component";
 import { ConfirmEmailComponent, ConfirmEmailComponentName } from "./register/confirmEmail.component";
+import { AuthenticationConstants } from "Core/authorization/AuthenticationConstants";
 
 /**
  * Angular ui bootstrap does not define a default export so typescript elides the
@@ -230,9 +230,9 @@ export class AdminModule extends BaseModule {
     /**
      * Set auth service routes
      */
-    public static HttpAdminServiceRoutes(): IHttpAdminRoutes {
+    public static HttpAdminServiceRoutes(): AdminRoutes {
 
-        const resources: IHttpAdminRoutes = {
+        const resources: AdminRoutes = {
             ContentManagement: "",
             DeleteUser: "",
             ForgotPassword: "/Submit/Login",
@@ -254,9 +254,9 @@ export class AdminModule extends BaseModule {
     /**
      * Add any auth event constants
      */
-    public static AuthEventConstants(): IAuthEventConstants {
+    public static AuthEventConstants(): AuthEventConstants {
 
-        const resources: IAuthEventConstants = {
+        const resources: AuthEventConstants = {
             loginSuccess: "auth-login-success",
             loginFailed: "auth-login-failed",
             logoutSuccess: "auth-logout-success",
@@ -278,9 +278,9 @@ adminFactory.$inject = ["$rootScope", "$http", "authService", "AUTHENTICATION_CO
 function adminFactory($rootScope: ng.IRootScopeService,
                         $http: ng.IHttpService,
                         authService: AuthService,
-                        AUTHENTICATION_CONSTANTS: IAuthenticationConstants,
-                        ADMIN_ROUTE_CONSTANTS: IHttpAdminRoutes,
-                        AUTH_EVENT_CONSTANTS: IAuthEventConstants): AdminService {
+                        AUTHENTICATION_CONSTANTS: AuthenticationConstants,
+                        ADMIN_ROUTE_CONSTANTS: AdminRoutes,
+                        AUTH_EVENT_CONSTANTS: AuthEventConstants): AdminService {
     "use strict";
     return new AdminService($rootScope, $http, authService, AUTHENTICATION_CONSTANTS, ADMIN_ROUTE_CONSTANTS, AUTH_EVENT_CONSTANTS);
 }
