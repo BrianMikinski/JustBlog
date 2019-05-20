@@ -6,7 +6,7 @@ import { PostQueryFilter } from "Blog/Post/PostQueryFilter";
 import { Category } from "Blog/Category/Category";
 import { Post } from "Blog/Post/Post";
 import { Tag } from "Blog/Tag/Tag";
-import { AuthService } from "Core/auth.service";
+import { AuthService } from "Core/authorization/auth.service";
 
 /**
  * Class for retrieving, creating and editing blog posts, categories and tags

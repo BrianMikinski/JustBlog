@@ -7,7 +7,7 @@ import { default as blogModule } from "Blog/blog.module";
 import { BlogService } from "Blog/blog.service";
 import { GridQuery } from "Core/Models/GridQuery";
 import {default as coreModule, CoreModule } from "Core/core.module"; // required by blog controller which is a part of the blog.module
-import { ICoreService } from "Core/core.service";
+import { CoreService } from "Core/core.service";
 import {default as notificationModule } from "Notification/notification.module"; // required by blog controller which is a part of the blog.module
 import * as angular from "angular";
 
@@ -23,11 +23,6 @@ describe(`Module "${blogModule}: Blog Controller Mockup, dependencies to "${noti
     beforeEach(angular.mock.module("app.notification"));
     beforeEach(angular.mock.module('ui.router'));
 
-    beforeEach(angular.mock.module("app.core", ($provide: ng.auto.IProvideService) => {
-        // mock out auth route constants. All jasmine constants must be mocked using the $provide services
-        $provide.constant("AUTH_ROUTE_CONSTANTS", CoreModule.HttpAuthServiceRoutes());
-    }));
-
     beforeEach(angular.mock.module("app.blog"));
 
     // setup controller and promise mocks
@@ -39,13 +34,13 @@ describe(`Module "${blogModule}: Blog Controller Mockup, dependencies to "${noti
     let BlogController: BlogController;
     let RetrievePost: Post = new Post();
     let _blogService: BlogService;
-    let _coreService: ICoreService;
+    let _coreService: CoreService;
 
     // mock blog controller
     beforeEach(inject(($controller: ng.IControllerService,
         _$rootScope_: ng.IRootScopeService,
         _$q_: ng.IQService,
-        coreService: ICoreService,
+        coreService: CoreService,
         blogService: BlogService,
         _$timeout_: ng.ITimeoutService) => {
 

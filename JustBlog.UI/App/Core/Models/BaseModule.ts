@@ -1,6 +1,5 @@
-﻿import {IActions} from "Core/Interfaces/IActions";
-import {IResources} from "Core/Interfaces/IResources";
-import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
+﻿import { IActions } from "Core/Interfaces/IActions";
+import { IResources } from "Core/Interfaces/IResources";
 
 /**
  * An abstract base class for creating modules
@@ -9,7 +8,6 @@ export abstract class BaseModule {
     protected app: ng.IModule;
     protected moduleDependencies: Array<string> = [];
     protected moduleName: string = "";
-    protected readonly authRouteConstants: string = "AUTH_ROUTE_CONSTANTS";
     protected readonly adminRouteConstants: string = "ADMIN_ROUTE_CONSTANTS";
     protected readonly authEventConstants: string = "AUTH_EVENT_CONSTANTS";
 
@@ -105,17 +103,6 @@ export abstract class BaseModule {
         return {
             App: "app",
             Admin: "admin"
-        };
-    }
-
-    /**
-     * Constants used for authentication
-     */
-    protected AuthenticationConstants(): IAuthenticationConstants {
-        return {
-            AuthToken: "JustBlogToken",
-            AuthTokenValue: "JustBlog_Authenticated",
-            UserName: ""
         };
     }
 }

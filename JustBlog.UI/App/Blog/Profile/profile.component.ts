@@ -1,6 +1,6 @@
 ﻿import { MetaData } from "Blog/MetaData/MetaData";
 import { ComponentBase } from "Core/component.base";
-import { ICoreService } from "Core/core.service";
+import { CoreService } from "Core/core.service";
 import { BaseController } from "Core/Models/BaseController";
 
 export const ProfileComponentName: string = "profile";
@@ -19,7 +19,7 @@ class ProfileComponentController extends BaseController implements IProfileCompo
     private MetaData: MetaData;
 
     inject = ["coreService","$sce"]
-    constructor(private coreService: ICoreService, public $sce: ng.ISCEService) {
+    constructor(private coreService: CoreService, public $sce: ng.ISCEService) {
         super($sce);
 
         let OnErrorCallback = (reason: any) => {
