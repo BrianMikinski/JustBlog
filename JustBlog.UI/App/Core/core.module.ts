@@ -39,10 +39,10 @@ export class CoreModule extends BaseModule {
         this.app.constant("AUTHENTICATION_CONSTANTS", authConstants)
 
         let errorRoutes: ErrorRoutes = {
-            BadRequest400: "api/BadRequestTest",
-            Unauthorized401: "api/UnauthorizedTest",
-            NotFound404: "api/NotFoundTest",
-            InternalServerError500: "api/InternalServerErrorTest",
+            BadRequest400: "api/Error/BadRequestTest",
+            Unauthorized401: "api/Error/UnauthorizedTest",
+            NotFound404: "api/Error/NotFoundTest",
+            InternalServerError500: "api/Error/InternalServerErrorTest",
         }
 
         this.app.constant("ERROR_ROUTES", errorRoutes)

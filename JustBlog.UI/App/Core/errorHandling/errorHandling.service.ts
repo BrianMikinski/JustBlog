@@ -30,7 +30,7 @@ export class ErrorHandlingService extends BaseService {
      * */
     unauthorizedErrorTest(): ng.IPromise<void> {
         return this.$http.get(this.ERROR_ROUTES.Unauthorized401)
-            .then(this.onRequestCallback, this.OnErrorCallback);
+            .then(this.onRequestCallback, );
     }
 
     /**
