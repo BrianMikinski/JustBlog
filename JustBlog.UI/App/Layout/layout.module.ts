@@ -2,7 +2,6 @@
 import { NavBarComponent, NavBarComponentName } from "Layout/NavBar/navbar.component";
 import { ShellComponent, ShellComponentName } from "Layout/Shell/shell.component";
 import { NavigationController } from "Layout/navigation.controller";
-import { ShellController } from "Layout/shell.controller";
 import * as angular from "angular";
 import * as uirouter from "@uirouter/angularjs"
 
@@ -38,7 +37,6 @@ export class LayoutModule extends BaseModule {
 let layoutModule = new LayoutModule();
 
 layoutModule.AddController('Navigation', NavigationController as ng.Injectable<angular.IControllerConstructor>);
-layoutModule.AddController("Shell", ShellController as ng.Injectable<angular.IControllerConstructor>);
 
 layoutModule.AddComponent(NavBarComponentName, new NavBarComponent());
 layoutModule.AddComponent(ShellComponentName, new ShellComponent());

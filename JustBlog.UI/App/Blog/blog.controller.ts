@@ -1,16 +1,14 @@
-﻿import { AuthService } from "Core/auth.service";
-import { BaseController } from "Core/Models/BaseController";
-import { BlogService } from "Blog/blog.service";
+﻿import { BlogService } from "Blog/blog.service";
 import { Category } from "Blog/Category/Category";
-import { GridQuery } from "Core/Models/GridQuery";
 import { IBlogRouteParams } from "Blog/Interfaces/IBlogRouteParams";
-import { ICoreService } from "Core/core.service";
-import { ITagPosts } from "Blog/Tag/ITagPosts";
 import { MetaData } from "Blog/MetaData/MetaData";
-import { NotificationFactory } from "Notification/notification.factory";
 import { Post } from "Blog/Post/Post";
-import { PostQueryFilter } from "Blog/Post/PostQueryFilter";
+import { ITagPosts } from "Blog/Tag/ITagPosts";
 import { Tag } from "Blog/Tag/Tag";
+import { AuthService } from "Core/authorization/auth.service";
+import { CoreService } from "Core/core.service";
+import { BaseController } from "Core/Models/BaseController";
+import { NotificationFactory } from "Notification/notification.factory";
 
 /**
  * Controller for reading and writing blog posts
@@ -24,7 +22,7 @@ export class BlogController extends BaseController {
 
     static $inject = ["coreService", "blogService", "$route", "$routeParams", "$location", "$sce", "$window",
         "notificationFactory", "authService"];
-    constructor(private coreService: ICoreService,
+    constructor(private coreService: CoreService,
         private _blogService: BlogService,
         private $route: ng.route.IRouteService,
         private $routeParams: IBlogRouteParams,

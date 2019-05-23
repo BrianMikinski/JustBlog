@@ -1,26 +1,22 @@
-﻿import { BaseService } from "Core/Models/BaseService";
-import { Claim } from "Core/Models/Claim";
-import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
-import { IHttpAuthRoutes } from "Core/Interfaces/IHttpAuthRoutes";
-import { JwtPayload } from "Core/Models/JWTPayload";
-import { RouteAuthorizationError } from "Core/Models/RouteAuthorizationError";
+﻿import { AuthenticationConstants } from "Core/authorization/AuthenticationConstants";
+import { BaseService } from "Core/Models/BaseService";
+import { Claim } from "Core/authorization/Claim";
+import { JwtPayload } from "Core/authorization/JWTPayload";
+import { RouteAuthorizationError } from "Core/authorization/RouteAuthorizationError";
 
 /**
  * Class for authorizing and authenticating the current logged in user.
  */
 export class AuthService extends BaseService {
 
-    private httpHeaderMethodDefaultsError: string =
-    "Authorization Service - Error: $http: ng.IHttpService default headers are not available.";
+    private httpHeaderMethodDefaultsError: string = "Authorization Service - Error: $http: ng.IHttpService default headers are not available.";
 
-    private jwtClaimsKey: string = "AppClaim";
     private jwtDataKey: string = "AppData";
 
-    $inject = ["$http", "$q", "AUTHENTICATION_CONSTANTS", "AUTH_ROUTE_CONSTANTS"];
+    $inject = ["$http", "$q", "AUTHENTICATION_CONSTANTS"];
     constructor(private $http: ng.IHttpService,
         private $q: ng.IQService,
-        private AUTHENTICATION_CONSTANTS: IAuthenticationConstants,
-        private AUTH_ROUTE_CONSTANTS: IHttpAuthRoutes) {
+        private AUTHENTICATION_CONSTANTS: AuthenticationConstants) {
         super();
     }
 

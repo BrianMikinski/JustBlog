@@ -1,4 +1,4 @@
-﻿export interface IRouteBlog extends ng.route.IRoute {
+﻿export interface BlogRoute extends ng.route.IRoute {
     action?: string;
     authorizationResolver?: any;
     authorize: boolean;
