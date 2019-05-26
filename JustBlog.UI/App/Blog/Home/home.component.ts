@@ -1,6 +1,6 @@
 ﻿import { BaseController } from "Core/Models/BaseController";
 import { ComponentBase } from "Core/component.base";
-import { GridQuery } from "Core/Models/GridQuery";
+import { GridQuery } from "Core/grid/GridQuery";
 import { CoreService } from "Core/core.service";
 import { Post } from "Blog/Post/Post";
 import { PostQueryFilter } from "Blog/Post/PostQueryFilter";

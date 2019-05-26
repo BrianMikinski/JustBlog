@@ -1,7 +1,7 @@
 ﻿import { BaseService } from "Core/Models/BaseService";
-import { GridQuery } from "Core/Models/GridQuery";
+import { GridQuery } from "Core/grid/GridQuery";
 import { ITagPosts } from "Blog/Tag/ITagPosts";
-import { PagingProperties } from "Core/Models/PagingProperties";
+import { PagingProperties } from "Core/grid/PagingProperties";
 import { PostQueryFilter } from "Blog/Post/PostQueryFilter";
 import { Category } from "Blog/Category/Category";
 import { Post } from "Blog/Post/Post";

@@ -1,7 +1,7 @@
 ﻿import { BaseController } from "Core/Models/BaseController";
 import { BlogService } from "Blog/blog.service";
 import { ComponentBase } from "Core/component.base";
-import { GridQuery } from "Core/Models/GridQuery";
+import { GridQuery } from "Core/grid/GridQuery";
 import { IBlogRouteParams } from "Blog/Interfaces/IBlogRouteParams";
 import { Tag } from "Blog/Tag/Tag";
 

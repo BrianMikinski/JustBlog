@@ -3,7 +3,7 @@ import { BaseController } from "Core/Models/BaseController";
 import { BlogService } from "Blog/blog.service";
 import { ComponentBase } from "Core/component.base";
 import { CreatePostControllerBase } from "Blog/Post/CreatePostControllerBase";
-import { GridQuery } from "Core/Models/GridQuery";
+import { GridQuery } from "Core/grid/GridQuery";
 import { IBlogRouteParams } from "Blog/Interfaces/IBlogRouteParams";
 import { NotificationFactory } from "Notification/notification.factory";
 import { Post } from "Blog/Post/Post";

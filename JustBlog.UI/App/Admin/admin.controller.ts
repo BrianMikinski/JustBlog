@@ -7,7 +7,7 @@ import { Post } from "Blog/Post/Post";
 import { AuthService } from "Core/authorization/auth.service";
 import { CoreService } from "Core/core.service";
 import { BaseController } from "Core/Models/BaseController";
-import { GridQuery } from "Core/Models/GridQuery";
+import { GridQuery } from "Core/grid/GridQuery";
 import { NotificationFactory } from "Notification/notification.factory";
 
 /**

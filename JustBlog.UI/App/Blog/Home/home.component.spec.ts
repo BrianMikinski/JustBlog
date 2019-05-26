@@ -5,7 +5,7 @@ import { HomeComponentName } from "Blog/Home/home.component";
 import { MetaData } from "Blog/MetaData/MetaData";
 import { Post } from "Blog/Post/Post";
 import { CoreService } from "Core/core.service";
-import { GridQuery } from "Core/Models/GridQuery";
+import { GridQuery } from "Core/grid/GridQuery";
 
 describe(` ${blogModule}: Home Component Tests - `, function () {
 
