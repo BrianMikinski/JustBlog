@@ -1,4 +1,4 @@
-﻿export interface IActions {
+﻿export interface IAction {
     Create: string;
     Read: string;
     Update: string;

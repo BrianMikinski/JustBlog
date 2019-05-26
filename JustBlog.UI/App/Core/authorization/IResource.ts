@@ -1,4 +1,4 @@
-﻿export interface IResources {
+﻿export interface IResource {
     App: string;
     Admin: string;
 }

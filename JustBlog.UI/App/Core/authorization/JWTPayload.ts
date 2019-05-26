@@ -1,14 +1,16 @@
-﻿import { Claim } from "Core/Models/Claim";
+﻿import { Claim } from "Core/authorization/Claim";
 
 /**
  * Authentication model for JWT tokens
  */
 export class JwtPayload {
+
     Issuer: string;
     Audience: string;
     NotBefore: number;
     Expiration: number;
     Claims: Array<Claim>;
+
     IsValid(): boolean {
 
         let now: number = Date.now();

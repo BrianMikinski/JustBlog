@@ -1,14 +1,14 @@
 ﻿import { User } from "admin/account/User";
 import { AdminService } from "admin/admin.service";
 import { LoginUpdate } from "admin/login/LoginUpdate";
-import { ChangePasswordViewModel } from "admin/password/ChangePasswordViewModel";
+import { ChangePasswordModel } from "admin/password/ChangePasswordModel";
 import { ResetPasswordModel } from "admin/password/ResetPasswordModel";
 import { Post } from "Blog/Post/Post";
-import { AuthService } from "Core/auth.service";
-import { ICoreService } from "Core/core.service";
+import { AuthService } from "Core/authorization/auth.service";
+import { CoreService } from "Core/core.service";
 import { BaseController } from "Core/Models/BaseController";
-import { GridQuery } from "Core/Models/GridQuery";
-import { NotificationFactory } from "Notification/notification.factory";
+import { GridQuery } from "Core/grid/GridQuery";
+import { NotificationFactory } from "notification/notification.factory";
 
 /**
  * admin controller used for controlling and defining all admin portions of the application
@@ -19,7 +19,7 @@ export class AdminController extends BaseController {
     IsLoggedIn: boolean;
     LoginUpdate: LoginUpdate;
 
-    UpdatePasswordModel: ChangePasswordViewModel = new ChangePasswordViewModel();
+    UpdatePasswordModel: ChangePasswordModel = new ChangePasswordModel();
 
     // forgotten Password
     ResetPasswordUser: ResetPasswordModel = new ResetPasswordModel();
@@ -30,7 +30,7 @@ export class AdminController extends BaseController {
     BirthDateFormat: string = this.BirthDateFormatOptions[0];
 
     static $inject = ["coreService", "authService", "adminService", "notificationFactory", "$location", "$sce", "$window"];
-    constructor(private coreService: ICoreService,
+    constructor(private coreService: CoreService,
         private _authService: AuthService,
         private _adminService: AdminService,
         private _notificationService: NotificationFactory,

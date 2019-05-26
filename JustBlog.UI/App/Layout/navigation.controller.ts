@@ -1,4 +1,4 @@
-﻿import {ICoreService} from "Core/core.service";
+﻿import {CoreService} from "Core/core.service";
 
 /**
  * Public class for handling high level navigation and layouts
@@ -9,6 +9,6 @@ export class NavigationController {
     IsLoggedIn: boolean;
 
     static $inject = ['coreService', '$route']
-    constructor(private coreService: ICoreService, private $route: ng.route.IRouteService) {
+    constructor(private coreService: CoreService, private $route: ng.route.IRouteService) {
     }
 }

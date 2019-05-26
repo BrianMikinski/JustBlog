@@ -1,5 +1,5 @@
 ﻿export interface User {
-    BirthDate: Date;
+    Birthdate: string | Date;
     FirstName: string;
     LastName: string;
     Email: string;

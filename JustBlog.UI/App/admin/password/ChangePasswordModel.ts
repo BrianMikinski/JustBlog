@@ -1,7 +1,7 @@
 ﻿/**
  * Model for changing a password
  */
-export class ChangePasswordViewModel {
+export class ChangePasswordModel {
     OldPassword: string;
     NewPassword: string;
     ConfirmPassword: string;

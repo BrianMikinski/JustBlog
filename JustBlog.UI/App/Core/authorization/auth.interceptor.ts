@@ -1,15 +1,16 @@
 ﻿console.log("entered auth interceptor");
 import { IHttpResponse, IPromise, IRequestConfig } from "angular";
-import { IAuthenticationConstants } from "./Interfaces/IAuthenticationConstants";
+import { IAuthenticationConstants } from "Core/authorization/IAuthenticationConstants";
+import { StateService} from "@uirouter/angularjs";
 
 /**
  * Class for intercepting routing requests. Primarily used for authentication
  */
 export class AuthInterceptor implements ng.IHttpInterceptor {
 
-    static $inject = ["$rootScope", "$q", "AUTHENTICATION_CONSTANTS"];
-    constructor(private $rootScope: ng.IRootScopeService,
-        private $q: ng.IQService,
+    static $inject = ["$q", "$state", "AUTHENTICATION_CONSTANTS"];
+    constructor(private $q: ng.IQService,
+        private $state: StateService,
         private AUTHENTICATION_CONSTANTS: IAuthenticationConstants) {
 
         this.request = this.requestFunction;
@@ -44,15 +45,26 @@ export class AuthInterceptor implements ng.IHttpInterceptor {
     private responseErrorFunction: any = <T>(rejection: any): IPromise<IHttpResponse<T>> | IHttpResponse<T> => {
 
         if (rejection.status === 400) {
-            this.$rootScope.$broadcast("unauthorized");
+            
+            this.$state.go("errorHandling", {
+                error: 400
+            });
+
         }
 
         if (rejection.status === 403) {
-            this.$rootScope.$broadcast("forbidden");
+            
+            this.$state.go("errorHandling", {
+                error: 403
+            });
+
         }
 
         if (rejection.status === 500) {
-            this.$rootScope.$broadcast("serverError");
+            
+            this.$state.go("errorHandling", {
+                error: 500
+            });
         }
 
         return this.$q.reject(rejection);

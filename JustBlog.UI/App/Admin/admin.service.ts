@@ -1,15 +1,15 @@
 ﻿import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
 import { User } from "admin/account/User";
-import { IAuthEventConstants } from "admin/interfaces/IAuthEventConstants";
-import { IHttpAdminRoutes } from "admin/interfaces/IHttpAdminRoutes";
+import { AuthEventConstants } from "admin/interfaces/IAuthEventConstants";
+import { AdminRoutes } from "admin/interfaces/IHttpAdminRoutes";
 import { LoginModel } from "admin/login/LoginModel";
 import { LoginUpdate } from "admin/login/LoginUpdate";
 import { RegistrationAttempt } from "admin/register/RegistrationAttempt";
 import { RegistrationUser } from "admin/register/RegistrationUser";
-import { AuthService } from "Core/auth.service";
-import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
+import { AuthService } from "Core/authorization/auth.service";
+import { IAuthenticationConstants } from "Core/authorization/IAuthenticationConstants";
 import { BaseService } from "Core/Models/BaseService";
-import { ChangePasswordViewModel } from "./password/ChangePasswordViewModel";
+import { ChangePasswordModel } from "./password/ChangePasswordModel";
 
 //Admin service class that allows users to perform common account management actions
 export class AdminService extends BaseService {
@@ -32,8 +32,8 @@ export class AdminService extends BaseService {
         private $http: ng.IHttpService,
         private authService: AuthService,
         private AUTHENTICATION_CONSTANTS: IAuthenticationConstants,
-        private AUTH_ROUTE_CONSTANTS: IHttpAdminRoutes,
-        private AUTH_EVENT_CONSTANTS: IAuthEventConstants) {
+        private AUTH_ROUTE_CONSTANTS: AdminRoutes,
+        private AUTH_EVENT_CONSTANTS: AuthEventConstants) {
         super();
 
         this.SetErrorMessage("An error was encountered in the admin service");
@@ -118,7 +118,7 @@ export class AdminService extends BaseService {
      * @param user
      * @param antiForgeryToken
      */
-    updatePassword(updatePasswordModel: ChangePasswordViewModel, antiForgeryToken: string): ng.IPromise<void | boolean> {
+    updatePassword(updatePasswordModel: ChangePasswordModel, antiForgeryToken: string): ng.IPromise<void | boolean> {
         //Add headers for anti forgery token
         let config: ng.IRequestShortcutConfig = this.ConfigAntiForgery(antiForgeryToken);
 

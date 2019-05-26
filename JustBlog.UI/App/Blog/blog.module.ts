@@ -9,11 +9,11 @@ import { ProfileComponent, ProfileComponentName } from "Blog/Profile/profile.com
 import { TagsGridComponent, TagsGridComponentName } from "Blog/Tag/tagsGrid.component";
 import { BlogController } from "Blog/blog.controller";
 import { BlogService } from "Blog/blog.service";
-import { IActions } from "Core/Interfaces/IActions";
-import { IResources } from "Core/Interfaces/IResources";
-import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
+import { IAction } from "Core/authorization/IAction";
+import { IResource } from "Core/authorization/IResource";
+import { IBlogRoute } from "Core/authorization/IBlogRoute";
 import { BaseModule } from "Core/Models/BaseModule";
-import { AuthService } from "Core/auth.service";
+import { AuthService } from "Core/authorization/auth.service";
 import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";
@@ -110,10 +110,10 @@ export class BlogModule extends BaseModule {
      * Configure all routes for this model
      * @param $routeProvider
      */
-    private routeConfig($routeProvider: ng.route.IRouteProvider, RESOURCES: IResources, ACTIONS: IActions): void {
+    private routeConfig($routeProvider: ng.route.IRouteProvider, RESOURCES: IResource, ACTIONS: IAction): void {
         try {
 
-            let createPostRoute: IRouteBlog = {
+            let createPostRoute: IBlogRoute = {
                 templateUrl: "blog/post/create.html",
                 caseInsensitiveMatch: true,
                 controller: BlogController,
@@ -124,7 +124,7 @@ export class BlogModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let editPostRoute: IRouteBlog = {
+            let editPostRoute: IBlogRoute = {
                 templateUrl: "blog/post/create.html",
                 caseInsensitiveMatch: true,
                 controller: BlogController,
@@ -135,7 +135,7 @@ export class BlogModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let editCategoryRoute: IRouteBlog = {
+            let editCategoryRoute: IBlogRoute = {
                 templateUrl: "blog/category/create.html",
                 caseInsensitiveMatch: true,
                 controller: BlogController,
@@ -146,7 +146,7 @@ export class BlogModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let editTagRoute: IRouteBlog = {
+            let editTagRoute: IBlogRoute = {
                 templateUrl: "blog/tag/create.html",
                 caseInsensitiveMatch: true,
                 controller: BlogController,
