@@ -1,4 +1,4 @@
-﻿import { AuthenticationConstants } from "Core/authorization/AuthenticationConstants";
+﻿import { IAuthenticationConstants } from "Core/authorization/IAuthenticationConstants";
 import { BaseService } from "Core/Models/BaseService";
 import { Claim } from "Core/authorization/Claim";
 import { JwtPayload } from "Core/authorization/JWTPayload";
@@ -16,7 +16,7 @@ export class AuthService extends BaseService {
     $inject = ["$http", "$q", "AUTHENTICATION_CONSTANTS"];
     constructor(private $http: ng.IHttpService,
         private $q: ng.IQService,
-        private AUTHENTICATION_CONSTANTS: AuthenticationConstants) {
+        private AUTHENTICATION_CONSTANTS: IAuthenticationConstants) {
         super();
     }
 

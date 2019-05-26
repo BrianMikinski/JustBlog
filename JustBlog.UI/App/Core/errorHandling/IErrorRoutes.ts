@@ -1,5 +1,5 @@
 ﻿// admin api routes
-export interface ErrorRoutes {
+export interface IErrorRoutes {
     BadRequest400: string,
     Unauthorized401: string
     NotFound404: string,

@@ -64,4 +64,7 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App\Core\grid\" />
+  </ItemGroup>
 </Project>

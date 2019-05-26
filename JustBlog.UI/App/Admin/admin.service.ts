@@ -7,7 +7,7 @@ import { LoginUpdate } from "admin/login/LoginUpdate";
 import { RegistrationAttempt } from "admin/register/RegistrationAttempt";
 import { RegistrationUser } from "admin/register/RegistrationUser";
 import { AuthService } from "Core/authorization/auth.service";
-import { AuthenticationConstants } from "Core/authorization/AuthenticationConstants";
+import { IAuthenticationConstants } from "Core/authorization/IAuthenticationConstants";
 import { BaseService } from "Core/Models/BaseService";
 import { ChangePasswordModel } from "./password/ChangePasswordModel";
 
@@ -31,7 +31,7 @@ export class AdminService extends BaseService {
     constructor(private $rootScope: ng.IRootScopeService,
         private $http: ng.IHttpService,
         private authService: AuthService,
-        private AUTHENTICATION_CONSTANTS: AuthenticationConstants,
+        private AUTHENTICATION_CONSTANTS: IAuthenticationConstants,
         private AUTH_ROUTE_CONSTANTS: AdminRoutes,
         private AUTH_EVENT_CONSTANTS: AuthEventConstants) {
         super();

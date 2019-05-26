@@ -9,15 +9,15 @@ import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";
 import { AuthService } from "Core/authorization/auth.service";
-import { Action } from "Core/authorization/Action";
-import { Resource } from "Core/authorization/Resource";
-import { BlogRoute } from "Core/authorization/BlogRoute";
+import { IAction } from "Core/authorization/IAction";
+import { IResource } from "Core/authorization/IResource";
+import { IBlogRoute } from "Core/authorization/IBlogRoute";
 import { BaseModule } from "Core/Models/BaseModule";
 import { MyAccountComponent, MyAccountComponentName } from "./account/myAcccount.component";
 import { AdminHeaderComponent, AdminHeaderComponentName } from "./adminHeader.component";
 import { LogoffComponent, LogoffComponentName } from "./Login/logoff.component";
 import { ConfirmEmailComponent, ConfirmEmailComponentName } from "./register/confirmEmail.component";
-import { AuthenticationConstants } from "Core/authorization/AuthenticationConstants";
+import { IAuthenticationConstants } from "Core/authorization/IAuthenticationConstants";
 
 /**
  * Angular ui bootstrap does not define a default export so typescript elides the
@@ -53,7 +53,7 @@ export class AdminModule extends BaseModule {
      * @param $stateProvider
      * @param $urlRouterProvider
      */
-    private uiRouteConfig($stateProvider: ng.ui.IStateProvider, RESOURCES: Resource, ACTIONS: Action): void {
+    private uiRouteConfig($stateProvider: ng.ui.IStateProvider, RESOURCES: IResource, ACTIONS: IAction): void {
 
         let loginState: ng.ui.IState = {
             name: "login",
@@ -125,11 +125,11 @@ export class AdminModule extends BaseModule {
      * Configure all routes for this model
      * @param $routeProvider
      */
-    private routeConfig($routeProvider: ng.route.IRouteProvider, RESOURCES: Resource, ACTIONS: Action):void {
+    private routeConfig($routeProvider: ng.route.IRouteProvider, RESOURCES: IResource, ACTIONS: IAction):void {
 
         try {
 
-            let accountsRoute: BlogRoute = {
+            let accountsRoute: IBlogRoute = {
                 templateUrl: require("admin/account/accounts.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
@@ -140,7 +140,7 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let passwordUpdateRoute: BlogRoute = {
+            let passwordUpdateRoute: IBlogRoute = {
                 templateUrl: require("Admin/password/passwordUpdate.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
@@ -151,7 +151,7 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let confirmPasswordUpdateRoute: BlogRoute = {
+            let confirmPasswordUpdateRoute: IBlogRoute = {
                 templateUrl: require("admin/password/passwordUpdateConfirmation.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
@@ -162,7 +162,7 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let passwordResetRoute: BlogRoute = {
+            let passwordResetRoute: IBlogRoute = {
                 templateUrl: require("admin/password/passwordReset.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
@@ -173,7 +173,7 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let passwordResetConfirmationRoute: BlogRoute = {
+            let passwordResetConfirmationRoute: IBlogRoute = {
                 templateUrl: require("admin/password/passwordResetConfirmation.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
@@ -184,7 +184,7 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let loginUpdateRoute: BlogRoute = {
+            let loginUpdateRoute: IBlogRoute = {
                 templateUrl: require("admin/login/loginUpdate.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
@@ -195,7 +195,7 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let loginUpdateConfirmationRoute: BlogRoute = {
+            let loginUpdateConfirmationRoute: IBlogRoute = {
                 templateUrl: require("admin/login/loginUpdateConfirmation.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
@@ -278,7 +278,7 @@ adminFactory.$inject = ["$rootScope", "$http", "authService", "AUTHENTICATION_CO
 function adminFactory($rootScope: ng.IRootScopeService,
                         $http: ng.IHttpService,
                         authService: AuthService,
-                        AUTHENTICATION_CONSTANTS: AuthenticationConstants,
+                        AUTHENTICATION_CONSTANTS: IAuthenticationConstants,
                         ADMIN_ROUTE_CONSTANTS: AdminRoutes,
                         AUTH_EVENT_CONSTANTS: AuthEventConstants): AdminService {
     "use strict";

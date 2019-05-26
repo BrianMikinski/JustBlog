@@ -1,5 +1,5 @@
 ﻿import { BaseService } from "Core/Models/BaseService";
-import { ErrorRoutes } from "./ErrorRoutes";
+import { IErrorRoutes } from "./IErrorRoutes";
 
 /**
  * Calss for handling error creation
@@ -9,7 +9,7 @@ export class ErrorHandlingService extends BaseService {
     private onRequestCallback: (response: ng.IHttpResponse<any>) => void;
 
     static $inject = ["$http", "ERROR_ROUTES"];
-    constructor(private $http: ng.IHttpService, private ERROR_ROUTES: ErrorRoutes) {
+    constructor(private $http: ng.IHttpService, private ERROR_ROUTES: IErrorRoutes) {
         super();
 
         this.onRequestCallback = (response: ng.IHttpResponse<any>) => {

@@ -8,9 +8,9 @@ import { AuthService } from "Core/authorization/auth.service";
 import { RouteAuthorizationError } from "Core/authorization/RouteAuthorizationError";
 import { CoreService } from "Core/core.service";
 import { BaseModule } from "Core/Models/BaseModule";
-import { AuthenticationConstants } from "./authorization/AuthenticationConstants";
+import { IAuthenticationConstants } from "./authorization/IAuthenticationConstants";
 import { ErrorHandlingComponent, ErrorHandlingComponentName } from "./errorHandling/errorHandling.component";
-import { ErrorRoutes } from "./errorHandling/ErrorRoutes";
+import { IErrorRoutes } from "./errorHandling/IErrorRoutes";
 import { ErrorHandlingService } from "./errorHandling/errorHandling.service";
 
 const moduleName: string = "app.core";
@@ -30,7 +30,7 @@ export class CoreModule extends BaseModule {
         this.app.constant("RESOURCES", this.ResourceConstants());
         this.app.constant("ACTIONS", this.ActionConstants());
 
-        let authConstants: AuthenticationConstants = {
+        let authConstants: IAuthenticationConstants = {
             AuthToken: "JustBlogToken",
             AuthTokenValue: "JustBlog_Authenticated",
             UserName: ""
@@ -38,7 +38,7 @@ export class CoreModule extends BaseModule {
 
         this.app.constant("AUTHENTICATION_CONSTANTS", authConstants)
 
-        let errorRoutes: ErrorRoutes = {
+        let errorRoutes: IErrorRoutes = {
             BadRequest400: "api/Error/BadRequestTest",
             Unauthorized401: "api/Error/UnauthorizedTest",
             NotFound404: "api/Error/NotFoundTest",
@@ -162,20 +162,20 @@ function coreService($http: ng.IHttpService): CoreService {
 Core.AddFactory("authService", authService);
 
 authService.$inject = ["$http", "$q", "AUTHENTICATION_CONSTANTS"];
-function authService($http: ng.IHttpService, $q: ng.IQService, AUTHENTICATION_CONSTANTS: AuthenticationConstants): AuthService {
+function authService($http: ng.IHttpService, $q: ng.IQService, AUTHENTICATION_CONSTANTS: IAuthenticationConstants): AuthService {
     return new AuthService($http, $q, AUTHENTICATION_CONSTANTS);
 }
 
 Core.AddService("authInterceptor", authInterceptor);
 
 authInterceptor.$inject = ["$q", "$state", "AUTHENTICATION_CONSTANTS"];
-function authInterceptor($q: ng.IQService, $state: StateService,  AUTHENTICATION_CONSTANTS: AuthenticationConstants): AuthInterceptor {
+function authInterceptor($q: ng.IQService, $state: StateService,  AUTHENTICATION_CONSTANTS: IAuthenticationConstants): AuthInterceptor {
     return new AuthInterceptor($q, $state, AUTHENTICATION_CONSTANTS);
 }
 
 Core.AddService("errorHandlingService", errorHandlingService);
 
-function errorHandlingService($http: ng.IHttpService, ERROR_ROUTES: ErrorRoutes): ErrorHandlingService {
+function errorHandlingService($http: ng.IHttpService, ERROR_ROUTES: IErrorRoutes): ErrorHandlingService {
     return new ErrorHandlingService($http, ERROR_ROUTES);
 }
 
