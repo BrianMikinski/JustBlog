@@ -8,7 +8,7 @@ import * as angular from 'angular';
 import { MetaData } from "Blog/MetaData/MetaData";
 import { AuthService } from "Core/authorization/auth.service";
 import { default as coreModule } from "Core/core.module";
-import { default as notificationModule } from "Notification/notification.module";
+import { default as notificationModule } from "notification/notification.module";
 require('angular-mocks');
 
 describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${notificationModule}", and "${coreModule}"`, function () {
@@ -89,7 +89,7 @@ describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${not
         applicationUsers = new Array<User>();
 
         let userA: User = {
-            BirthDate: new Date(1990, 5, 5),
+            Birthdate: new Date(1990, 5, 5),
             Email: "johnTestEmail@gmail.com",
             EmailConfirmed: true,
             FirstName: "John",
@@ -108,7 +108,7 @@ describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${not
         };
 
         let userB: User = {
-            BirthDate: new Date(1992, 5, 5),
+            Birthdate: new Date(1992, 5, 5),
             Email: "janeTestEmail@gmail.com",
             EmailConfirmed: true,
             FirstName: "John",

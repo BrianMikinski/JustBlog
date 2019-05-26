@@ -8,7 +8,7 @@ import { RegistrationUser } from "admin/register/RegistrationUser";
 import { AuthService } from "Core/authorization/auth.service";
 import { ComponentBase } from "Core/component.base";
 import { BaseController } from "Core/Models/BaseController";
-import { NotificationFactory } from "Notification/notification.factory";
+import { NotificationFactory } from "notification/notification.factory";
 
 export const RegisterUserComponentName: string = "registerusercomponent";
 

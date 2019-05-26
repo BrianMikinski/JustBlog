@@ -52,7 +52,8 @@ namespace JustBlog.IdentityManagement.Account
         [JsonProperty]
         public string LastName { get; private set; }
 
-        public DateTime? Birthdate { get; set; }
+        [JsonProperty]
+        public DateTime? Birthdate { get; private set; }
 
         [JsonProperty]
         public string Email { get; private set; }

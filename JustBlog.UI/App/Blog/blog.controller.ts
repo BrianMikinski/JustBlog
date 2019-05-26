@@ -8,7 +8,7 @@ import { Tag } from "Blog/Tag/Tag";
 import { AuthService } from "Core/authorization/auth.service";
 import { CoreService } from "Core/core.service";
 import { BaseController } from "Core/Models/BaseController";
-import { NotificationFactory } from "Notification/notification.factory";
+import { NotificationFactory } from "notification/notification.factory";
 
 /**
  * Controller for reading and writing blog posts

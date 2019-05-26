@@ -1,7 +1,7 @@
 ﻿import { BaseModule } from "Core/Models/BaseModule";
-import { NavBarComponent, NavBarComponentName } from "Layout/navBar/navbar.component";
-import { ShellComponent, ShellComponentName } from "Layout/shell/shell.component";
-import { NavigationController } from "Layout/navigation.controller";
+import { NavBarComponent, NavBarComponentName } from "layout/navBar/navbar.component";
+import { ShellComponent, ShellComponentName } from "layout/shell/shell.component";
+import { NavigationController } from "layout/navigation.controller";
 import * as angular from "angular";
 import * as uirouter from "@uirouter/angularjs"
 

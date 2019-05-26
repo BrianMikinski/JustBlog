@@ -4,7 +4,7 @@ import { AdminService } from "admin/admin.service";
 import { AuthService } from "Core/authorization/auth.service";
 import { default as coreModule } from "Core/core.module";
 import { CoreService } from "Core/core.service";
-import { default as notificationModule } from "Notification/notification.module";
+import { default as notificationModule } from "notification/notification.module";
 import * as angular from "angular";
 import 'angular-mocks';
 

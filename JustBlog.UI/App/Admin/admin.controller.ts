@@ -8,7 +8,7 @@ import { AuthService } from "Core/authorization/auth.service";
 import { CoreService } from "Core/core.service";
 import { BaseController } from "Core/Models/BaseController";
 import { GridQuery } from "Core/grid/GridQuery";
-import { NotificationFactory } from "Notification/notification.factory";
+import { NotificationFactory } from "notification/notification.factory";
 
 /**
  * admin controller used for controlling and defining all admin portions of the application
