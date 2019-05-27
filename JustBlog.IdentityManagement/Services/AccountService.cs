@@ -245,6 +245,9 @@ namespace JustBlog.IdentityManagement.Services
             applicationUser.Country = user.Country;
             _identityContext.Entry(applicationUser).Property(p => p.Country).IsModified = true;
 
+            applicationUser.CountryCode = user.CountryCode;
+            _identityContext.Entry(applicationUser).Property(p => p.CountryCode).IsModified = true;
+
             await _identityContext.SaveChangesAsync();
 
             return new UserViewModel(applicationUser);

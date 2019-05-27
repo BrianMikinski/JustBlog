@@ -58,8 +58,8 @@ class MyAccountComponentController extends BaseController implements IMyAccountC
     $onInit?() {
 
         this.datePickerOptions.maxDate = new Date(Date.now());
-        this.account.Birthdate = new Date(this.account.Birthdate as unknown as string);
-
+        
+        this.accountBirthdayToObject();
         angular.copy(this.account, this.accountCopy);
     }
 
@@ -113,6 +113,14 @@ class MyAccountComponentController extends BaseController implements IMyAccountC
     }
 
     /**
+     * Fix the account birthday string that is passed back to the user
+     * @param birthday
+     */
+    private accountBirthdayToObject() {
+        this.account.Birthdate = new Date(this.account.Birthdate as unknown as string);
+    }
+
+    /**
      * Update the currently logged in user
      */
     updateAccount(): void {
@@ -124,13 +132,13 @@ class MyAccountComponentController extends BaseController implements IMyAccountC
                 this.notificationFactory.Success("Account details successfully updated.");
                 this.account = updatedUser;
                 this.editEnabled = false;
+
+                this.accountBirthdayToObject();
                 angular.copy(this.account, this.accountCopy);
             } else {
                 this.notificationFactory.Error("Account details could not be updated.");
             }
         };
-
-        //this.updatedAccount.BirthDate = (<Date>this.userBirthDate).toLocaleDateString();
 
         this.adminService
             .updateAccount(this.account)
