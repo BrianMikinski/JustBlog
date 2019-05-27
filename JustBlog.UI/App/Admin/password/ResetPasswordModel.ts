@@ -1,9 +1,8 @@
 ﻿/**
  * Class for resetting a password
  */
-export class ResetPasswordModel {
+export class IResetPasswordModel {
     Email: string;
-    PhoneNumber: string;
     Password: string;
     ConfirmPassword: string;
     Code: string;

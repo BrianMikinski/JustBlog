@@ -1,8 +1,8 @@
 ﻿import { AdminService } from "admin/admin.service";
-import { AuthService } from "Core/auth.service";
+import { AuthService } from "Core/authorization/auth.service";
 import { ComponentBase } from "Core/component.base";
 import { BaseController } from "Core/Models/BaseController";
-import { NotificationFactory } from "Notification/notification.factory";
+import { NotificationFactory } from "notification/notification.factory";
 import { User } from "./User";
 import * as angular from "angular";
 
@@ -32,13 +32,15 @@ class MyAccountComponentController extends BaseController implements IMyAccountC
         opened: false
     };
 
-    datePickerOptions: any = {
+    datePickerOptions: ng.ui.bootstrap.IDatepickerConfig = {
         dateDisabled: this.dateDisabled,
         formatYear: "yy",
         maxDate: Date.now(),
         minDate: new Date(1900, 0, 0),
         startingDay: 1
     };
+
+    testDate: Date = new Date(1900, 0, 0);
 
     birthDateFormat: string = "MM/dd/yyyy";
     altInputFormats: Array<string> = ["M!/d!/yyyy"];
@@ -54,6 +56,10 @@ class MyAccountComponentController extends BaseController implements IMyAccountC
     }
 
     $onInit?() {
+
+        this.datePickerOptions.maxDate = new Date(Date.now());
+        
+        this.accountBirthdayToObject();
         angular.copy(this.account, this.accountCopy);
     }
 
@@ -106,8 +112,12 @@ class MyAccountComponentController extends BaseController implements IMyAccountC
         console.log("Phone confirmation clicked.");
     }
 
-    toggleEdit(): void {
-
+    /**
+     * Fix the account birthday string that is passed back to the user
+     * @param birthday
+     */
+    private accountBirthdayToObject() {
+        this.account.Birthdate = new Date(this.account.Birthdate as unknown as string);
     }
 
     /**
@@ -122,13 +132,13 @@ class MyAccountComponentController extends BaseController implements IMyAccountC
                 this.notificationFactory.Success("Account details successfully updated.");
                 this.account = updatedUser;
                 this.editEnabled = false;
+
+                this.accountBirthdayToObject();
                 angular.copy(this.account, this.accountCopy);
             } else {
                 this.notificationFactory.Error("Account details could not be updated.");
             }
         };
-
-        //this.updatedAccount.BirthDate = (<Date>this.userBirthDate).toLocaleDateString();
 
         this.adminService
             .updateAccount(this.account)

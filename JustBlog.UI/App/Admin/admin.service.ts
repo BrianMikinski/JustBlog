@@ -1,15 +1,14 @@
 ﻿import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
 import { User } from "admin/account/User";
+import { IAdminRoutes } from "admin/interfaces/IAdminRoutes";
 import { IAuthEventConstants } from "admin/interfaces/IAuthEventConstants";
-import { IHttpAdminRoutes } from "admin/interfaces/IHttpAdminRoutes";
 import { LoginModel } from "admin/login/LoginModel";
 import { LoginUpdate } from "admin/login/LoginUpdate";
 import { RegistrationAttempt } from "admin/register/RegistrationAttempt";
 import { RegistrationUser } from "admin/register/RegistrationUser";
-import { AuthService } from "Core/auth.service";
-import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
+import { AuthService } from "Core/authorization/auth.service";
 import { BaseService } from "Core/Models/BaseService";
-import { ChangePasswordViewModel } from "./password/ChangePasswordViewModel";
+import { IChangePasswordModel } from "./password/ChangePasswordModel";
 
 //Admin service class that allows users to perform common account management actions
 export class AdminService extends BaseService {
@@ -27,12 +26,11 @@ export class AdminService extends BaseService {
      * Setup error handling
      * @param $http
      */
-    $inject = ["$rootScope", "$http", "authService", "AUTHENTICATION_CONSTANTS", "ADMIN_ROUTE_CONSTANTS", "AUTH_EVENT_CONSTANTS"];
+    $inject = ["$rootScope", "$http", "authService", "ADMIN_ROUTE_CONSTANTS", "AUTH_EVENT_CONSTANTS"];
     constructor(private $rootScope: ng.IRootScopeService,
         private $http: ng.IHttpService,
         private authService: AuthService,
-        private AUTHENTICATION_CONSTANTS: IAuthenticationConstants,
-        private AUTH_ROUTE_CONSTANTS: IHttpAdminRoutes,
+        private AUTH_ROUTE_CONSTANTS: IAdminRoutes,
         private AUTH_EVENT_CONSTANTS: IAuthEventConstants) {
         super();
 
@@ -45,8 +43,8 @@ export class AdminService extends BaseService {
     users(): ng.IPromise<void | Array<User>> {
 
         // defining callback within function
-        let onDataReturned: (response: ng.IHttpPromiseCallbackArg<Array<User>>) => Array<User>;
-        onDataReturned = (response: ng.IHttpPromiseCallbackArg<Array<User>>) => {
+        let onDataReturned: (response: ng.IHttpResponse<Array<User>>) => Array<User>;
+        onDataReturned = (response: ng.IHttpResponse<Array<User>>) => {
             return <Array<User>>JSON.parse(<any>response.data);
         };
 
@@ -65,8 +63,8 @@ export class AdminService extends BaseService {
             returnUrl: ""
         };
 
-        let onRegistrationCallback: (response: ng.IHttpPromiseCallbackArg<RegistrationAttempt>) => RegistrationAttempt;
-        onRegistrationCallback = (response: ng.IHttpPromiseCallbackArg<RegistrationAttempt>) => {
+        let onRegistrationCallback: (response: ng.IHttpResponse<RegistrationAttempt>) => RegistrationAttempt;
+        onRegistrationCallback = (response: ng.IHttpResponse<RegistrationAttempt>) => {
             return <RegistrationAttempt>response.data;
         };
 
@@ -80,8 +78,8 @@ export class AdminService extends BaseService {
      * */
     initiateEmailConfirmation(): ng.IPromise<void> {
 
-        let onInitiateEmailConfirmationCallback: (response: ng.IHttpPromiseCallbackArg<{}>) => void;
-        onInitiateEmailConfirmationCallback = (response: ng.IHttpPromiseCallbackArg<{}>) => {
+        let onInitiateEmailConfirmationCallback: (response: ng.IHttpResponse<{}>) => void;
+        onInitiateEmailConfirmationCallback = (response: ng.IHttpResponse<{}>) => {
             
         };
 
@@ -96,8 +94,8 @@ export class AdminService extends BaseService {
      */
     confirmUserEmail(userId: string, userCode: string): ng.IPromise<void> {
 
-        let onConfirmEmailCallback: (response: ng.IHttpPromiseCallbackArg<any>) => any;
-        onConfirmEmailCallback = (response: ng.IHttpPromiseCallbackArg<any>) => {
+        let onConfirmEmailCallback: (response: ng.IHttpResponse<any>) => any;
+        onConfirmEmailCallback = (response: ng.IHttpResponse<any>) => {
             return response.data;
         };
 
@@ -118,12 +116,12 @@ export class AdminService extends BaseService {
      * @param user
      * @param antiForgeryToken
      */
-    updatePassword(updatePasswordModel: ChangePasswordViewModel, antiForgeryToken: string): ng.IPromise<void | boolean> {
+    updatePassword(updatePasswordModel: IChangePasswordModel, antiForgeryToken: string): ng.IPromise<void | boolean> {
         //Add headers for anti forgery token
         let config: ng.IRequestShortcutConfig = this.ConfigAntiForgery(antiForgeryToken);
 
-        let onUpdatePasswordCallback: (response: ng.IHttpPromiseCallbackArg<boolean>) => boolean;
-        onUpdatePasswordCallback = (response: ng.IHttpPromiseCallbackArg<boolean>) => {
+        let onUpdatePasswordCallback: (response: ng.IHttpResponse<boolean>) => boolean;
+        onUpdatePasswordCallback = (response: ng.IHttpResponse<boolean>) => {
             return <boolean>response.data;
         };
 
@@ -135,17 +133,17 @@ export class AdminService extends BaseService {
      * @param emailAddress
      * @param antiForgeryToken
      */
-    forgotPassword(emailAddress: string, antiForgeryToken: string): ng.IPromise<void | boolean> {
+    forgotPassword(emailAddress: string): ng.IPromise<void | boolean> {
 
         //Add headers for anti forgery token
-        let config: ng.IRequestShortcutConfig = this.ConfigAntiForgery(antiForgeryToken);
 
-        let onSendPasswordResetCode: (response: ng.IHttpPromiseCallbackArg<boolean>) => boolean;
-        onSendPasswordResetCode = (response: ng.IHttpPromiseCallbackArg<boolean>) => {
+        let onSendPasswordResetCode: (response: ng.IHttpResponse<boolean>) => boolean;
+        onSendPasswordResetCode = (response: ng.IHttpResponse<boolean>) => {
             return <boolean>response.data;
         };
 
-        return this.$http.post("/Submit/Login", emailAddress, config).then(onSendPasswordResetCode, this.onError);
+        return this.$http.post("/Submit/Login", emailAddress, {})
+            .then(onSendPasswordResetCode, this.onError);
     }
 
     /**
@@ -163,8 +161,8 @@ export class AdminService extends BaseService {
      */
     login(loginModel: LoginModel): ng.IPromise<void | ITokenAuthResponse> {
 
-        let onLoginCallback: (response: ng.IHttpPromiseCallbackArg<ITokenAuthResponse>) => ITokenAuthResponse;
-        onLoginCallback = (response: ng.IHttpPromiseCallbackArg<ITokenAuthResponse>) => {
+        let onLoginCallback: (response: ng.IHttpResponse<ITokenAuthResponse>) => ITokenAuthResponse;
+        onLoginCallback = (response: ng.IHttpResponse<ITokenAuthResponse>) => {
 
             if (response.status === 200) {
 
@@ -209,9 +207,9 @@ export class AdminService extends BaseService {
      */
     myAccount(): ng.IPromise<void | User> {
 
-        let onMyAccountCallback: (response: ng.IHttpPromiseCallbackArg<User>) => User;
+        let onMyAccountCallback: (response: ng.IHttpResponse<User>) => User;
 
-        onMyAccountCallback = (response: ng.IHttpPromiseCallbackArg<User>) => {
+        onMyAccountCallback = (response: ng.IHttpResponse<User>) => {
             return response.data;
         };
 
@@ -229,8 +227,8 @@ export class AdminService extends BaseService {
             user: user
         };
 
-        let onAccountUpdatedReturned: (response: ng.IHttpPromiseCallbackArg<User>) => User;
-        onAccountUpdatedReturned = (response: ng.IHttpPromiseCallbackArg<User>) => {
+        let onAccountUpdatedReturned: (response: ng.IHttpResponse<User>) => User;
+        onAccountUpdatedReturned = (response: ng.IHttpResponse<User>) => {
             return response.data;
         };
 
@@ -243,8 +241,8 @@ export class AdminService extends BaseService {
      */
     readApplicationUsers(): ng.IPromise<any | Array<User>> {
 
-        let onReadApplicationUsersCompleted: (response: ng.IHttpPromiseCallbackArg<Array<User>>) => Array<User> =
-            (response: ng.IHttpPromiseCallbackArg<Array<User>>) => {
+        let onReadApplicationUsersCompleted: (response: ng.IHttpResponse<Array<User>>) => Array<User> =
+            (response: ng.IHttpResponse<Array<User>>) => {
                 return <Array<User>>response.data;
             };
 
@@ -262,8 +260,8 @@ export class AdminService extends BaseService {
 
         let config: any = this.ConfigAntiForgery(antiForgeryToken);
 
-        let onAccountUpdatedReturned: (response: ng.IHttpPromiseCallbackArg<boolean>) => boolean;
-        onAccountUpdatedReturned = (response: ng.IHttpPromiseCallbackArg<boolean>) => {
+        let onAccountUpdatedReturned: (response: ng.IHttpResponse<boolean>) => boolean;
+        onAccountUpdatedReturned = (response: ng.IHttpResponse<boolean>) => {
             return <boolean>response.data;
         }
 

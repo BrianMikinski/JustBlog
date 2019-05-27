@@ -1,8 +1,5 @@
-﻿import { BaseController } from "Core/Models/BaseController";
-import { ComponentBase } from "Core/component.base";
-import { ICoreService } from "Core/core.service";
-import { Post } from "Blog/Post/Post";
-import { MetaData } from "Blog/MetaData/MetaData";
+﻿import { ComponentBase } from "Core/component.base";
+import { BaseController } from "Core/Models/BaseController";
 
 export const ShellComponentName: string = "shell";
 
@@ -32,7 +29,7 @@ export class ShellComponent extends ComponentBase {
         this.controllerAs = "$shellCtrl"
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes):string => {
-            return require("Layout/Shell/shell.html");
+            return require("layout/Shell/shell.html");
         }];
     }
 }

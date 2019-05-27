@@ -1,11 +1,11 @@
-﻿import {IRouteAuthorizationError} from "Core/Interfaces/IRouteAuthorizationError";
-
-/**
+﻿/**
  * custom error type
  */
-export class RouteAuthorizationError implements IRouteAuthorizationError {
+export class RouteAuthorizationError{
 
-    constructor(private isAccessDenied: boolean, private message: string, private description: string) { }
+    constructor(private isAccessDenied: boolean, private message: string, private description: string) {
+
+    }
 
     Error(): string {
 

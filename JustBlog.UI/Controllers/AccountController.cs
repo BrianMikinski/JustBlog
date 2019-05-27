@@ -134,41 +134,41 @@ namespace JustBlog.UI.Controllers
             return BadRequest("Could not confirm code.");
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ForgotPassword()
-        {
-            return View();
-        }
-
+        /// <summary>
+        /// Reset password
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
-        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(model.Email);
-
-                if (user == null || !await _userManager.IsEmailConfirmedAsync(user))
+                try
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return BadRequest();
+                    var user = await _userManager.FindByEmailAsync(model.Email);
+
+                    if (user == null || !await _userManager.IsEmailConfirmedAsync(user))
+                    {
+                        // Don't reveal that the user does not exist or is not confirmed
+                        return BadRequest("Invalid model. Could not send password rest email.");
+                    }
+
+                    var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    var callbackUrl = _emailSender.PasswordResetConfirmationLink(user.Id, code, _baseUrlOptions.BaseUrl, "https");
+
+                    await _emailSender.SendPasswordResetAsync(model.Email, callbackUrl);
+
+                    return Ok();
                 }
-
-                // For more information on how to enable account confirmation and password reset please
-                // visit https://go.microsoft.com/fwlink/?LinkID=532713
-                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-
-                var callbackUrl = "";
-
-                await _emailSender.SendEmailAsync("", model.Email, "Reset Password",
-                   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
-                return Ok();
+                catch(Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
             }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            return BadRequest("Invalid model. Could not send password rest email.");
         }
 
         /// <summary>
