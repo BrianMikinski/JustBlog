@@ -2,7 +2,7 @@
 import { User } from "admin/account/User";
 import { AdminModule, default as adminModule } from "admin/admin.module";
 import { AdminService } from "admin/admin.service";
-import { AdminRoutes } from "admin/interfaces/IHttpAdminRoutes";
+import { IAdminRoutes } from "admin/interfaces/IAdminRoutes";
 import { LoginModel } from "admin/login/LoginModel";
 import * as angular from 'angular';
 import { MetaData } from "Blog/MetaData/MetaData";
@@ -19,7 +19,7 @@ describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${not
     let $provide: ng.auto.IProvideService;
     let adminService: AdminService;
     let authService: AuthService;
-    let AUTH_ROUTE_CONSTANTS: AdminRoutes;
+    let AUTH_ROUTE_CONSTANTS: IAdminRoutes;
 
     let metadata: MetaData = {
         AdminEmail: "admin@justblog.com",
@@ -63,7 +63,7 @@ describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${not
     beforeEach(inject((_$httpBackend_: ng.IHttpBackendService,
         _adminService_: AdminService,
         _authService_: AuthService,
-        _AUTH_ROUTE_CONSTANTS_: AdminRoutes) => {
+        _AUTH_ROUTE_CONSTANTS_: IAdminRoutes) => {
 
         adminService = _adminService_;
         $httpBackend = _$httpBackend_;

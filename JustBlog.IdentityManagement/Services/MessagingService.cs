@@ -49,6 +49,12 @@ namespace JustBlog.IdentityManagement.Services
             return await client.SendEmailAsync(msg);
         }
 
+        /// <summary>
+        /// Send an email confirmation link
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="link"></param>
+        /// <returns></returns>
         public async Task<Response> SendEmailConfirmationAsync(string email, string link)
         {
             var message = new SendGridMessage()
@@ -65,7 +71,27 @@ namespace JustBlog.IdentityManagement.Services
         }
 
         /// <summary>
-        /// Send a send grid email
+        /// Send a password reset email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="link"></param>
+        /// <returns></returns>
+        public async Task<Response> SendPasswordResetAsync(string email, string link)
+        {
+            var message = new SendGridMessage()
+            {
+                From = new EmailAddress(email, "JustBlog Team"),
+                Subject = "Just Blog Password Reset",
+                HtmlContent = $"<strong>Hello {email},</strong> Please click the following link to <a href=\"{link}\">reset your account password</a>.",
+            };
+
+            message.AddTo(new EmailAddress(email, email));
+
+            return await SendEmail(message);
+        }
+
+        /// <summary>
+        /// Send a SendGrid email
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
@@ -86,6 +112,21 @@ namespace JustBlog.IdentityManagement.Services
         /// <param name="scheme"></param>
         /// <returns></returns>
         public string EmailConfirmationLink(string userId, string code, string baseUrl, string scheme)
+        {
+            var codeAsByteArray = System.Text.Encoding.UTF8.GetBytes(code);
+            var codeAsBase64 = Convert.ToBase64String(codeAsByteArray);
+
+            return $"{scheme}://{baseUrl}/confirmEmail?userId={userId}&code={codeAsBase64}";
+        }
+
+        /// <summary>
+        /// Generate a password reset email link
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="code"></param>
+        /// <param name="scheme"></param>
+        /// <returns></returns>
+        public string PasswordResetConfirmationLink(string userId, string code, string baseUrl, string scheme)
         {
             var codeAsByteArray = System.Text.Encoding.UTF8.GetBytes(code);
             var codeAsBase64 = Convert.ToBase64String(codeAsByteArray);

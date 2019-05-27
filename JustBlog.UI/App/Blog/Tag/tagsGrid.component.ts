@@ -1,9 +1,8 @@
-﻿import { BaseController } from "Core/Models/BaseController";
-import { BlogService } from "Blog/blog.service";
+﻿import { BlogService } from "Blog/blog.service";
+import { Tag } from "Blog/Tag/Tag";
 import { ComponentBase } from "Core/component.base";
 import { GridQuery } from "Core/grid/GridQuery";
-import { IBlogRouteParams } from "Blog/Interfaces/IBlogRouteParams";
-import { Tag } from "Blog/Tag/Tag";
+import { BaseController } from "Core/Models/BaseController";
 
 export const TagsGridComponentName: string = "tagsgrid";
 

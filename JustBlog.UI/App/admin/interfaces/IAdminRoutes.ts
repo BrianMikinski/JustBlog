@@ -1,5 +1,5 @@
 ﻿// admin api routes
-export interface AdminRoutes {
+export interface IAdminRoutes {
     ContentManagement: string;
     DeleteUser: string;
     ForgotPassword: string;

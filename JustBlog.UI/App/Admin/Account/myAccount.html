@@ -74,26 +74,24 @@
                     <label class="control-label">
                         Birthday
                     </label>
-                    <!--<div class="input-group">-->
-                        <div class="input-group">
-                            <input type="text"
-                                   name="BirthDate"
-                                   class="form-control"
-                                   uib-datepicker-popup="{{$ctrl.birthDateFormat}}"
-                                   ng-model="$ctrl.account.Birthdate"
-                                   is-open="$ctrl.datePickerPopup.opened"
-                                   datepicker-options="$ctrl.datePickerOptions"
-                                   ng-required="true"
-                                   close-text="Close"
-                                   alt-input-formats="$ctrl.altInputFormats"
-                                   readonly />
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" ng-click="$ctrl.openBirthdayDatePicker()" ng-disabled="!$ctrl.editEnabled">
-                                    <i class="glyphicon glyphicon-calendar"></i>
-                                </button>
-                            </span>
-                        </div>
-                    <!--</div>-->
+                    <div class="input-group">
+                        <input type="text"
+                               name="BirthDate"
+                               class="form-control"
+                               uib-datepicker-popup="{{$ctrl.birthDateFormat}}"
+                               ng-model="$ctrl.account.Birthdate"
+                               is-open="$ctrl.datePickerPopup.opened"
+                               datepicker-options="$ctrl.datePickerOptions"
+                               ng-required="true"
+                               close-text="Close"
+                               alt-input-formats="$ctrl.altInputFormats"
+                               readonly />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="$ctrl.openBirthdayDatePicker()" ng-disabled="!$ctrl.editEnabled">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="row profile-border" style="margin-top: 10px;">
