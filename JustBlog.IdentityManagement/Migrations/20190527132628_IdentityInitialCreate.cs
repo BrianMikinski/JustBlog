@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace JustBlog.IdentityManagement.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class IdentityInitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,7 +48,8 @@ namespace JustBlog.IdentityManagement.Migrations
                     City = table.Column<string>(maxLength: 100, nullable: true),
                     State = table.Column<string>(maxLength: 100, nullable: true),
                     PostalCode = table.Column<string>(maxLength: 100, nullable: true),
-                    Country = table.Column<string>(maxLength: 100, nullable: true)
+                    Country = table.Column<string>(maxLength: 100, nullable: true),
+                    CountryCode = table.Column<string>(maxLength: 15, nullable: true)
                 },
                 constraints: table =>
                 {

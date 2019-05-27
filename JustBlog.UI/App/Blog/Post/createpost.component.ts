@@ -3,9 +3,9 @@ import { Category } from "Blog/Category/Category";
 import { CreatePostControllerBase } from "Blog/Post/CreatePostControllerBase";
 import { Post } from "Blog/Post/Post";
 import { Tag } from "Blog/Tag/Tag";
-import { AuthService } from "Core/auth.service";
+import { AuthService } from "Core/authorization/auth.service";
 import { ComponentBase } from "Core/component.base";
-import { NotificationFactory } from "Notification/notification.factory";
+import { NotificationFactory } from "notification/notification.factory";
 
 export const CreatePostComponentName: string = "createpost";
 

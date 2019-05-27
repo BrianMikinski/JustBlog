@@ -9,8 +9,12 @@ namespace JustBlog.IdentityManagement.Services
 
         Task<Response> SendEmailConfirmationAsync(string email, string link);
 
+        Task<Response> SendPasswordResetAsync(string email, string link);
+
         Task<Response> MultipleRecipientsExample();
 
         string EmailConfirmationLink(string userId, string code, string baseUrl, string scheme);
+
+        string PasswordResetLink(string userId, string code, string baseUrl, string scheme);
     }
 }

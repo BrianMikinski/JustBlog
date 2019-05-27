@@ -1,4 +1,4 @@
-﻿import {IQueryFilter} from "Core/Interfaces/IQueryFilter";
+﻿import {IQueryFilter} from "Core/grid/IQueryFilter";
 
 /**
  * Query filter for post grid view queries

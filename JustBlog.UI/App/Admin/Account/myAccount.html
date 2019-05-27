@@ -32,8 +32,8 @@
                         <input class="form-control" type="email" ng-model="$ctrl.account.Email" disabled readonly />
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-3 col-xs-3 pull-right">
-                    <button class="btn btn-default" type="button" style="margin-top: 24px;" ng-click="$ctrl.emailConfirmation()">
+                <div class="col-lg-4 col-md-3 col-xs-3 pull-right">
+                    <button class="btn btn-default" type="button" style="margin-top: 24px;" ng-click="$ctrl.emailConfirmation()" ng-if="!$ctrl.account.EmailConfirmed">
                         Confirm
                     </button>
                     <div class="form-group" style="margin-top: 35px;" uib-tooltip="Email Address Confirmed" ng-if="$ctrl.account.EmailConfirmed">
@@ -45,25 +45,27 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8  col-md-9 col-xs-9">
+            </div>
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-xs-5">
+                    <div class="form-group">
+                        <label class="control-label">
+                            Country Code
+                        </label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                +
+                            </div>
+                            <input class="form-control" type="text" ng-model="$ctrl.account.CountryCode" ng-readonly="!$ctrl.editEnabled" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7  col-md-7 col-xs-7">
                     <div class="form-group">
                         <label class="control-label">
                             Phone Number
                         </label>
                         <input class="form-control" type="text" ng-model="$ctrl.account.PhoneNumber" ng-readonly="!$ctrl.editEnabled" />
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3 col-xs-3 pull-right">
-                    <button class="btn btn-default" type="button" style="margin-top: 24px;" ng-click="$ctrl.phoneConfirmation()">
-                        Confirm
-                    </button>
-                    <div class="form-group" style="margin-top: 35px;" uib-tooltip="Email Address Confirmed" ng-if="$ctrl.account.phoneNumberConfirmed">
-                        <div style="display:block; max-width: 120px;">
-                            <span class="text-center" uib-toolip="Phone Number Confirmed" style="margin-top:9px;">
-                                <i class="fa fa-check contact-confirmed">
-                                </i>
-                            </span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -73,24 +75,22 @@
                         Birthday
                     </label>
                     <div class="input-group">
-                        <div class="input-group">
-                            <input type="text"
-                                   name="BirthDate"
-                                   class="form-control"
-                                   uib-datepicker-popup="{{$ctrl.birthDateFormat}}"
-                                   ng-model="$ctrl.account.Birthdate"
-                                   is-open="$ctrl.datePickerPopup.opened"
-                                   datepicker-options="$ctrl.datePickerOptions"
-                                   ng-required="true"
-                                   close-text="Close"
-                                   alt-input-formats="$registerUserCtrl.AltInputFormats"
-                                   readonly />
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" ng-click="$ctrl.openBirthdayDatePicker()" ng-disabled="!$ctrl.editEnabled">
-                                    <i class="glyphicon glyphicon-calendar"></i>
-                                </button>
-                            </span>
-                        </div>
+                        <input type="text"
+                               name="BirthDate"
+                               class="form-control"
+                               uib-datepicker-popup="{{$ctrl.birthDateFormat}}"
+                               ng-model="$ctrl.account.Birthdate"
+                               is-open="$ctrl.datePickerPopup.opened"
+                               datepicker-options="$ctrl.datePickerOptions"
+                               ng-required="true"
+                               close-text="Close"
+                               alt-input-formats="$ctrl.altInputFormats"
+                               readonly />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="$ctrl.openBirthdayDatePicker()" ng-disabled="!$ctrl.editEnabled">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -161,7 +161,7 @@
                             <span>
                                 <i class="fa fa-toggle-on"
                                    ng-class="$ctrl.editEnabled ? 'toggle-active' : 'fa-rotate-180 toggle-inactive'"
-                                   ng-click="$ctrl.editEnabled = !$ctrl.editEnabled; $ctrl.toggleEdit()">
+                                   ng-click="$ctrl.editEnabled = !$ctrl.editEnabled;">
                                 </i>
                             </span>
                         </div>
