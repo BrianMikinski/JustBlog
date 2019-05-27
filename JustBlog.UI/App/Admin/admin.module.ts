@@ -16,8 +16,9 @@ import { BaseModule } from "Core/Models/BaseModule";
 import { MyAccountComponent, MyAccountComponentName } from "./account/myAcccount.component";
 import { AdminHeaderComponent, AdminHeaderComponentName } from "./adminHeader.component";
 import { LogoffComponent, LogoffComponentName } from "./Login/logoff.component";
+import { ForgotPasswordComponent, ForgotPasswordComponentName } from "./password/forgotPassword.component";
+import { ResetPasswordComponent, ResetPasswordComponentName } from "./password/resetpassword.component";
 import { ConfirmEmailComponent, ConfirmEmailComponentName } from "./register/confirmEmail.component";
-import { ResetPasswordComponentName, ResetPasswordComponent } from "./password/resetPassword.component";
 
 /**
  * Angular ui bootstrap does not define a default export so typescript elides the
@@ -110,10 +111,16 @@ export class AdminModule extends BaseModule {
             protected: true
         };
 
+        let forgotPasswordState: ng.ui.IState = {
+            name: "forgotPassword",
+            url: "/forgotPassword",
+            component: ForgotPasswordComponentName
+        };
+
         let resetPasswordState: ng.ui.IState = {
             name: "resetPassword",
             url: "/resetPassword",
-            component: ResetPasswordComponentName
+            component: ForgotPasswordComponentName
         };
 
         $stateProvider.state(loginState);
@@ -122,6 +129,7 @@ export class AdminModule extends BaseModule {
         $stateProvider.state(logoffState);
         $stateProvider.state(confirmEmailState);
         $stateProvider.state(myAccountState);
+        $stateProvider.state(forgotPasswordState);
         $stateProvider.state(resetPasswordState);
     }
 
@@ -227,7 +235,8 @@ export class AdminModule extends BaseModule {
         const resources: IAdminRoutes = {
             ContentManagement: "",
             DeleteUser: "",
-            ForgotPassword: "/Submit/Login",
+            ResetPassword: "api/Account/ResetPassword",
+            RequestPasswordReset: "api/Account/RequestPasswordReset",
             ForgotPasswordUpdateAccount: "",
             Logoff: "/Authentication/Logout",
             MyAccount: "api/Account/MyAccount",
@@ -283,4 +292,5 @@ Admin.AddComponent(RegisterUserComponentName, new RegisterUserComponent())
 Admin.AddComponent(AdminHeaderComponentName, new AdminHeaderComponent());
 Admin.AddComponent(ConfirmEmailComponentName, new ConfirmEmailComponent());
 Admin.AddComponent(MyAccountComponentName, new MyAccountComponent());
+Admin.AddComponent(ForgotPasswordComponentName, new ForgotPasswordComponent());
 Admin.AddComponent(ResetPasswordComponentName, new ResetPasswordComponent());

@@ -3,6 +3,7 @@ import { AuthService } from "Core/authorization/auth.service";
 import { ComponentBase } from "Core/component.base";
 import { BaseController } from "Core/Models/BaseController";
 import { NotificationFactory } from "notification/notification.factory";
+import { IResetPasswordModel } from "./IResetPasswordModel";
 
 export const ResetPasswordComponentName: string = "resetPassword";
 
@@ -12,16 +13,28 @@ export const ResetPasswordComponentName: string = "resetPassword";
 class ResetPasswordComponentController extends BaseController implements ng.IController {
 
     userEmail: string;
-    resetPasswordEmailSent: boolean = false;
-    submitReset: boolean = false;
+    code: string;
+    resetSubmitted: boolean = false;
+    passwordResetSuccess: boolean = false;
+
+    resetPasswordModel: IResetPasswordModel;
 
     inject = ["authService", "adminService", "notificationFactory", "$sce", "$state"]
-    constructor(public authService: AuthService,
-        public adminService: AdminService,
+    constructor(public adminService: AdminService,
         public notificationFactory: NotificationFactory,
         public $sce: ng.ISCEService,
         public $state: ng.ui.IStateService) {
         super($sce);
+    }
+
+    $onInit?= () => {
+
+        this.resetPasswordModel = {
+            email: this.$state.params.email,
+            code: this.$state.params.code,
+            password: "",
+            confirmPassword: ""
+        };
     }
 
     /**
@@ -29,22 +42,24 @@ class ResetPasswordComponentController extends BaseController implements ng.ICon
      */
     resetPassword(): void {
 
-        let onPasswordResetSubmitted: (response: boolean) => void;
-        onPasswordResetSubmitted = (response: boolean) => {
-            this.notificationFactory.Success("Please check your email to reset your password.");
+        let onPasswordResetSubmitted: () => void;
+        onPasswordResetSubmitted = () => {
+            this.notificationFactory.Success("Password successfully reset!.");
+            this.passwordResetSuccess = true;
         };
 
-        this.submitReset = true;
+        this.resetSubmitted = true;
 
-        this.adminService.forgotPassword(this.userEmail)
+        this.adminService.resetPassword(this.resetPasswordModel)
             .then(onPasswordResetSubmitted, this.OnErrorCallback)
-            .finally(()=> {
-                this.submitReset = false;
-        });
+            .finally(() => {
+                this.resetSubmitted = false;
+            });
     }
 
     OnErrorCallback = (error: any) => {
         this.notificationFactory.Error("Error creating reset password workflow.");
+        this.passwordResetSuccess = false;
     };
 }
 

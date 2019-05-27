@@ -126,12 +126,12 @@ namespace JustBlog.IdentityManagement.Services
         /// <param name="code"></param>
         /// <param name="scheme"></param>
         /// <returns></returns>
-        public string PasswordResetConfirmationLink(string userId, string code, string baseUrl, string scheme)
+        public string PasswordResetLink(string userId, string code, string baseUrl, string scheme)
         {
             var codeAsByteArray = System.Text.Encoding.UTF8.GetBytes(code);
             var codeAsBase64 = Convert.ToBase64String(codeAsByteArray);
 
-            return $"{scheme}://{baseUrl}/confirmEmail?userId={userId}&code={codeAsBase64}";
+            return $"{scheme}://{baseUrl}/resetPassword?userId={userId}&code={codeAsBase64}";
         }
     }
 }

@@ -1,11 +1,9 @@
 ﻿<div class="row">
     <div class="col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4">
         <form name="userForm" class="col-login" ng-submit="$registerUserCtrl.Register()" method="post" role="form">
-
-            <!--Email-->
             <div class="form-group" ng-class="{ 'has-error' : userForm.Email.$invalid && !userForm.Email.$pristine }">
                 <label class="control-label">
-                Email
+                    Email
                 </label>
                 <input class="form-control"
                        name="Email"
@@ -19,9 +17,6 @@
                     Your email is required.
                 </p>
             </div>
-
-
-            <!--Password-->
             <div class="form-group" ng-class="{ 'has-error' : userForm.Password.$invalid && !userForm.Password.$pristine }">
                 <label class="control-label">
                     Password
@@ -53,10 +48,7 @@
                     You must confirm your password and the password and confirm password must match.
                 </p>
             </div>
-
-            <!--Submit Button-->
             <div class="form-group">
-
                 <button type="submit" class="form-control btn btn-primary" value="Register">
                     Submit Registration
                 </button>

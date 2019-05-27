@@ -8,7 +8,8 @@ import { RegistrationAttempt } from "admin/register/RegistrationAttempt";
 import { RegistrationUser } from "admin/register/RegistrationUser";
 import { AuthService } from "Core/authorization/auth.service";
 import { BaseService } from "Core/Models/BaseService";
-import { IChangePasswordModel } from "./password/ChangePasswordModel";
+import { IChangePasswordModel } from "./password/IChangePasswordModel";
+import { IResetPasswordModel } from "./password/IResetPasswordModel";
 
 //Admin service class that allows users to perform common account management actions
 export class AdminService extends BaseService {
@@ -133,25 +134,36 @@ export class AdminService extends BaseService {
      * @param emailAddress
      * @param antiForgeryToken
      */
-    forgotPassword(emailAddress: string): ng.IPromise<void | boolean> {
+    requestPasswordReset(emailAddress: string): ng.IPromise<void> {
 
         //Add headers for anti forgery token
-
-        let onSendPasswordResetCode: (response: ng.IHttpResponse<boolean>) => boolean;
-        onSendPasswordResetCode = (response: ng.IHttpResponse<boolean>) => {
-            return <boolean>response.data;
+        let onRequestPasswordReset: (response: ng.IHttpResponse<any>) => void;
+        onRequestPasswordReset = (response: ng.IHttpResponse<any>) => {
+            
         };
 
-        return this.$http.post("/Submit/Login", emailAddress, {})
-            .then(onSendPasswordResetCode, this.onError);
+        let userForgottenEmail = {
+            Email: emailAddress
+        };
+
+        return this.$http.post(this.AUTH_ROUTE_CONSTANTS.RequestPasswordReset, userForgottenEmail)
+            .then(onRequestPasswordReset, this.onError);
     }
 
     /**
      * Service for updating a forgotten password
-     * @param ForgottenPasswordModel
+     * @param resetPasswordModel
      */
-    forgotPasswordUpdateAccount(ForgottenPasswordModel: any): void {
-        throw new Error("Not Implemented");
+    resetPassword(resetPasswordModel: IResetPasswordModel): ng.IPromise<void> {
+
+        //Add headers for anti forgery token
+        let onRequestPasswordReset: (response: ng.IHttpResponse<any>) => void;
+        onRequestPasswordReset = (response: ng.IHttpResponse<any>) => {
+            
+        };
+
+        return this.$http.post(this.AUTH_ROUTE_CONSTANTS.ResetPassword, resetPasswordModel)
+            .then(onRequestPasswordReset, this.onError);
     }
 
     /**

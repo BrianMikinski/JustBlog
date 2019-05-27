@@ -2,7 +2,8 @@
 export interface IAdminRoutes {
     ContentManagement: string;
     DeleteUser: string;
-    ForgotPassword: string;
+    RequestPasswordReset: string;
+    ResetPassword: string;
     ForgotPasswordUpdateAccount: string;
     Logoff: string;
     MyAccount: string;

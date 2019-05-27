@@ -1,8 +1,8 @@
 ﻿import { User } from "admin/account/User";
 import { AdminService } from "admin/admin.service";
 import { LoginUpdate } from "admin/login/LoginUpdate";
-import { IChangePasswordModel } from "admin/password/ChangePasswordModel";
-import { IResetPasswordModel } from "admin/password/ResetPasswordModel";
+import { IChangePasswordModel } from "admin/password/IChangePasswordModel";
+import { IResetPasswordModel } from "admin/password/IResetPasswordModel";
 import { Post } from "Blog/Post/Post";
 import { AuthService } from "Core/authorization/auth.service";
 import { CoreService } from "Core/core.service";
