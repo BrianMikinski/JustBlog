@@ -12,6 +12,7 @@
                        placeholder="Required"
                        ng-model="$registerUserCtrl.NewUser.Email"
                        value=""
+                       autofocus
                        required />
                 <p ng-show="userForm.Email.$invalid && !userForm.Email.$pristine" class="help-block">
                     Your email is required.
@@ -46,6 +47,28 @@
                        required>
                 <p ng-show="userForm.ConfirmPassword.$invalid && !userForm.ConfirmPassword.$pristine" class="help-block">
                     You must confirm your password and the password and confirm password must match.
+                </p>
+            </div>
+            <div class="form-group" ng-if="!$ctrl.passwordResetSuccess">
+                <p>
+                    <b>Requirements:</b>
+                    <ul>
+                        <li>
+                            6 characters
+                        </li>
+                        <li>
+                            One lowercase ('a'-'z')
+                        </li>
+                        <li>
+                            One uppercase ('A'-'Z')
+                        </li>
+                        <li>
+                            One digit ('0'-'9')
+                        </li>
+                        <li>
+                            One non alphanumeric character
+                        </li>
+                    </ul>
                 </p>
             </div>
             <div class="form-group">

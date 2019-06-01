@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JustBlog.UI.Controllers
@@ -121,8 +120,7 @@ namespace JustBlog.UI.Controllers
                 return BadRequest($"Unable to load user with ID '{userId}'.");
             }
 
-            byte[] data = Convert.FromBase64String(code);
-            string decodedString = Encoding.UTF8.GetString(data);
+            string decodedString = _messagingService.FromBase64(code);
 
             var result = await _userManager.ConfirmEmailAsync(user, decodedString);
 
@@ -156,7 +154,7 @@ namespace JustBlog.UI.Controllers
                     }
 
                     var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                    var callbackUrl = _emailSender.PasswordResetLink(user.Id, code, _baseUrlOptions.BaseUrl, "https");
+                    var callbackUrl = _emailSender.PasswordResetLink(user.Email, code, _baseUrlOptions.BaseUrl, "https");
 
                     await _emailSender.SendPasswordResetAsync(model.Email, callbackUrl);
 
@@ -195,7 +193,9 @@ namespace JustBlog.UI.Controllers
                     return BadRequest("User could not be found.");
                 }
 
-                var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+                string decodedString = _messagingService.FromBase64(model.Code);
+
+                var result = await _userManager.ResetPasswordAsync(user, decodedString, model.Password);
 
                 if (result.Succeeded)
                 {

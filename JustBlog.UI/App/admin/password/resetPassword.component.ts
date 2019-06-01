@@ -1,9 +1,9 @@
 ﻿import { AdminService } from "admin/admin.service";
-import { AuthService } from "Core/authorization/auth.service";
 import { ComponentBase } from "Core/component.base";
 import { BaseController } from "Core/Models/BaseController";
 import { NotificationFactory } from "notification/notification.factory";
 import { IResetPasswordModel } from "./IResetPasswordModel";
+import { IValidPassword } from "./IValidPassword";
 
 export const ResetPasswordComponentName: string = "resetPassword";
 
@@ -18,23 +18,34 @@ class ResetPasswordComponentController extends BaseController implements ng.ICon
     passwordResetSuccess: boolean = false;
 
     resetPasswordModel: IResetPasswordModel;
+    passwordValidator: IValidPassword = {
+        has6Characters: false,
+        hasLowerCase: false,
+        hasNonAlphaNumeric: false,
+        hasNumeric: false,
+        hasUpperCase: false,
+        isValidPassword: false
+    };
 
-    inject = ["authService", "adminService", "notificationFactory", "$sce", "$state"]
+    inject = ["authService", "adminService", "notificationFactory", "$sce", "$state", "$timeout"]
     constructor(public adminService: AdminService,
         public notificationFactory: NotificationFactory,
         public $sce: ng.ISCEService,
-        public $state: ng.ui.IStateService) {
+        public $state: ng.ui.IStateService,
+        public $timeout: ng.ITimeoutService) {
         super($sce);
     }
 
     $onInit?= () => {
 
         this.resetPasswordModel = {
-            email: this.$state.params.email,
+            email: window.atob(this.$state.params.email),
             code: this.$state.params.code,
             password: "",
             confirmPassword: ""
         };
+
+        this.isValidPassword();
     }
 
     /**
@@ -55,6 +66,19 @@ class ResetPasswordComponentController extends BaseController implements ng.ICon
             .finally(() => {
                 this.resetSubmitted = false;
             });
+    }
+
+    getPasswordValidor(): IValidPassword {
+        return this.adminService.passwordValidation(this.resetPasswordModel.password);
+    }
+
+    /**
+     * Check if the password is valid
+     * */
+    isValidPassword(): boolean {
+
+        this.passwordValidator = this.adminService.passwordValidation(this.resetPasswordModel.password);
+        return this.passwordValidator.isValidPassword;
     }
 
     OnErrorCallback = (error: any) => {

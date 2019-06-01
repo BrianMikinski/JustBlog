@@ -2,6 +2,7 @@
 using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace JustBlog.IdentityManagement.Services
@@ -113,8 +114,7 @@ namespace JustBlog.IdentityManagement.Services
         /// <returns></returns>
         public string EmailConfirmationLink(string userId, string code, string baseUrl, string scheme)
         {
-            var codeAsByteArray = System.Text.Encoding.UTF8.GetBytes(code);
-            var codeAsBase64 = Convert.ToBase64String(codeAsByteArray);
+            var codeAsBase64 = ToBase64(code);
 
             return $"{scheme}://{baseUrl}/confirmEmail?userId={userId}&code={codeAsBase64}";
         }
@@ -122,16 +122,30 @@ namespace JustBlog.IdentityManagement.Services
         /// <summary>
         /// Generate a password reset email link
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="emailAddress"></param>
         /// <param name="code"></param>
         /// <param name="scheme"></param>
         /// <returns></returns>
-        public string PasswordResetLink(string userId, string code, string baseUrl, string scheme)
+        public string PasswordResetLink(string emailAddress, string code, string baseUrl, string scheme)
         {
-            var codeAsByteArray = System.Text.Encoding.UTF8.GetBytes(code);
-            var codeAsBase64 = Convert.ToBase64String(codeAsByteArray);
+            var codeAsBase64 = ToBase64(code);
+            var emailAddressBase64 = ToBase64(emailAddress);
 
-            return $"{scheme}://{baseUrl}/resetPassword?userId={userId}&code={codeAsBase64}";
+            return $"{scheme}://{baseUrl}/resetPassword?email={emailAddressBase64}&code={codeAsBase64}";
+        }
+
+        public string ToBase64(string message)
+        {
+            var codeAsByteArray = Encoding.UTF8.GetBytes(message);
+            return Convert.ToBase64String(codeAsByteArray); 
+        }
+
+        public string FromBase64(string message)
+        {
+            byte[] data = Convert.FromBase64String(message);
+            string decodedString = Encoding.UTF8.GetString(data);
+
+            return decodedString;
         }
     }
 }

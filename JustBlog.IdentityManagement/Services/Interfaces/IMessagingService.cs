@@ -15,6 +15,10 @@ namespace JustBlog.IdentityManagement.Services
 
         string EmailConfirmationLink(string userId, string code, string baseUrl, string scheme);
 
-        string PasswordResetLink(string userId, string code, string baseUrl, string scheme);
+        string PasswordResetLink(string emailAddress, string code, string baseUrl, string scheme);
+
+        string ToBase64(string text);
+
+        string FromBase64(string text);
     }
 }

@@ -10,6 +10,7 @@ import { AuthService } from "Core/authorization/auth.service";
 import { BaseService } from "Core/Models/BaseService";
 import { IChangePasswordModel } from "./password/IChangePasswordModel";
 import { IResetPasswordModel } from "./password/IResetPasswordModel";
+import { IValidPassword } from "./password/IValidPassword";
 
 //Admin service class that allows users to perform common account management actions
 export class AdminService extends BaseService {
@@ -163,7 +164,7 @@ export class AdminService extends BaseService {
         };
 
         return this.$http.post(this.AUTH_ROUTE_CONSTANTS.ResetPassword, resetPasswordModel)
-            .then(onRequestPasswordReset, this.onError);
+            .then(onRequestPasswordReset);
     }
 
     /**
@@ -279,6 +280,58 @@ export class AdminService extends BaseService {
 
         return this.$http.post("/Manage/UpdateLogin", params, config)
             .then(onAccountUpdatedReturned, this.onError);
+    }
+
+    passwordValidation(password: string): IValidPassword {
+
+        let validPassword: IValidPassword = {
+            has6Characters: false,
+            hasLowerCase: false,
+            hasNonAlphaNumeric: false,
+            hasUpperCase: false,
+            hasNumeric: false,
+            isValidPassword: false
+        };
+
+        var hasNonAlphaNumericRegex = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
+        var hasNumericRegex = /\d/;
+
+        if (password !== undefined && password.length > 0) {
+
+            validPassword.has6Characters = password.length >= 6;
+            validPassword.hasLowerCase = password.toUpperCase() != password;
+            validPassword.hasUpperCase = password.toLowerCase() != password;
+            validPassword.hasNonAlphaNumeric = hasNonAlphaNumericRegex.test(password);
+            validPassword.hasNumeric = hasNumericRegex.test(password);
+        }
+
+        let validPasswordChecks: number = 0;
+
+        if (validPassword.has6Characters === true) {
+            validPasswordChecks++;
+        }
+
+        if (validPassword.hasLowerCase === true) {
+            validPasswordChecks++;
+        }
+
+        if (validPassword.hasUpperCase === true) {
+            validPasswordChecks++;
+        }
+
+        if (validPassword.hasNonAlphaNumeric === true) {
+            validPasswordChecks++
+        }
+
+        if (validPassword.hasNumeric === true) {
+            validPasswordChecks++
+        }
+
+        if (validPasswordChecks > 3) {
+            validPassword.isValidPassword = true;
+        }
+
+        return validPassword;
     }
 
     // error handling callbacks

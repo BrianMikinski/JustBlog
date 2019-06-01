@@ -119,8 +119,16 @@ export class AdminModule extends BaseModule {
 
         let resetPasswordState: ng.ui.IState = {
             name: "resetPassword",
-            url: "/resetPassword",
-            component: ForgotPasswordComponentName
+            url: "/resetPassword?email&code",
+            component: ResetPasswordComponentName,
+            resolve: {
+                email: ["$state", ($state: ng.ui.IStateService) => {
+                    return $state.params.email;
+                }],
+                code: ["$state", ($state: ng.ui.IStateService) => {
+                    return $state.params.code;
+                }]
+            }
         };
 
         $stateProvider.state(loginState);
