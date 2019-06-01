@@ -1,11 +1,11 @@
 ﻿import { BaseController } from "Core/Models/BaseController";
 import { BlogService } from "Blog/blog.service";
 import { Category } from "Blog/Category/Category";
-import { NotificationFactory } from "Notification/notification.factory";
+import { NotificationFactory } from "notification/notification.factory";
 import { Post } from "Blog/Post/Post";
 import { Tag } from "Blog/Tag/Tag";
 import { PostQueryFilter } from "Blog/Post/PostQueryFilter";
-import { GridQuery } from "Core/Models/GridQuery";
+import { GridQuery } from "Core/grid/GridQuery";
 
 export class CreatePostControllerBase extends BaseController {
 

@@ -1,19 +1,20 @@
 ﻿export interface User {
-    BirthDate: Date;
+    Birthdate?: string | Date;
     FirstName: string;
     LastName: string;
     Email: string;
     EmailConfirmed: boolean;
-    PhoneNumber: string;
+    PhoneNumber?: string;
     PhoneNumberConfirmed: boolean;
     TwoFactorEnabled: boolean;
     UserName: string;
-    AddressLine1: string;
-    AddressLine2: string;
-    City: string;
-    State: string;
-    PostalCode: string;
-    Country: string;
+    AddressLine1?: string;
+    AddressLine2?: string;
+    City?: string;
+    State?: string;
+    PostalCode?: string;
+    Country?: string;
+    CountryCode?: string;
     // GUID
     Id: string;
 }

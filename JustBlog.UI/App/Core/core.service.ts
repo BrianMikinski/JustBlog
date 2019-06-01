@@ -1,12 +1,7 @@
 ﻿import { BaseService} from "Core/Models/BaseService";
 import { MetaData } from "Blog/MetaData/MetaData";
 
-export interface ICoreService {
-    GetMetaData(): ng.IPromise<any>;
-    metaData: MetaData;
-}
-
-export class CoreService extends BaseService implements ICoreService {
+export class CoreService extends BaseService {
 
     metaData: MetaData = new MetaData();
 

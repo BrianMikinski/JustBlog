@@ -1,14 +1,14 @@
 ﻿import { User } from "admin/account/User";
 import { AdminService } from "admin/admin.service";
 import { LoginUpdate } from "admin/login/LoginUpdate";
-import { ChangePasswordViewModel } from "admin/password/ChangePasswordViewModel";
-import { ResetPasswordModel } from "admin/password/ResetPasswordModel";
+import { IChangePasswordModel } from "admin/password/IChangePasswordModel";
+import { IResetPasswordModel } from "admin/password/IResetPasswordModel";
 import { Post } from "Blog/Post/Post";
-import { AuthService } from "Core/auth.service";
-import { ICoreService } from "Core/core.service";
+import { AuthService } from "Core/authorization/auth.service";
+import { CoreService } from "Core/core.service";
+import { GridQuery } from "Core/grid/GridQuery";
 import { BaseController } from "Core/Models/BaseController";
-import { GridQuery } from "Core/Models/GridQuery";
-import { NotificationFactory } from "Notification/notification.factory";
+import { NotificationFactory } from "notification/notification.factory";
 
 /**
  * admin controller used for controlling and defining all admin portions of the application
@@ -19,10 +19,10 @@ export class AdminController extends BaseController {
     IsLoggedIn: boolean;
     LoginUpdate: LoginUpdate;
 
-    UpdatePasswordModel: ChangePasswordViewModel = new ChangePasswordViewModel();
+    UpdatePasswordModel: IChangePasswordModel = new IChangePasswordModel();
 
     // forgotten Password
-    ResetPasswordUser: ResetPasswordModel = new ResetPasswordModel();
+    ResetPasswordUser: IResetPasswordModel = new IResetPasswordModel();
     ForgottenPasswordEmail: string;
     Posts: GridQuery<Post>;
 
@@ -30,7 +30,7 @@ export class AdminController extends BaseController {
     BirthDateFormat: string = this.BirthDateFormatOptions[0];
 
     static $inject = ["coreService", "authService", "adminService", "notificationFactory", "$location", "$sce", "$window"];
-    constructor(private coreService: ICoreService,
+    constructor(private coreService: CoreService,
         private _authService: AuthService,
         private _adminService: AdminService,
         private _notificationService: NotificationFactory,
@@ -44,29 +44,6 @@ export class AdminController extends BaseController {
         if ($location.path() === "/accounts") {
             this.ReadUserAccounts();
         }
-    }
-
-    /**
-     * Submit an email address to send a reset password email
-     */
-    public ResetPassword(): void {
-
-        let onPasswordResetSubmitted: (response: boolean) => void;
-        onPasswordResetSubmitted = (response: boolean) => {
-            let loginAttempt: boolean = <boolean>response;
-            if (loginAttempt) {
-
-                this._notificationService.Success("An email has been sent to reset your password.");
-
-                // reroute to the management screen now that we have logged in
-                this.$location.path("/manageContent");
-            } else {
-                // notify that we did 
-                this._notificationService.Success("Email could not be sent.");
-            }
-        };
-
-        this._adminService.forgotPassword(this.ForgottenPasswordEmail, this.AntiForgeryToken).then(onPasswordResetSubmitted, this.OnErrorCallback);
     }
 
     /**

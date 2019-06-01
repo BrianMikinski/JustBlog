@@ -1,22 +1,23 @@
 ﻿import * as uirouter from "@uirouter/angularjs";
 import { AdminController } from "admin/admin.controller";
 import { AdminService } from "admin/admin.service";
+import { IAdminRoutes } from "admin/interfaces/IAdminRoutes";
 import { IAuthEventConstants } from "admin/interfaces/IAuthEventConstants";
-import { IHttpAdminRoutes } from "admin/interfaces/IHttpAdminRoutes";
 import { LoginComponent, LoginComponentName } from "admin/login/login.component";
 import { RegisterUserComponent, RegisterUserComponentName } from "admin/register/registerUser.component";
 import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";
-import { AuthService } from "Core/auth.service";
-import { IActions } from "Core/Interfaces/IActions";
-import { IAuthenticationConstants } from "Core/Interfaces/IAuthenticationConstants";
-import { IResources } from "Core/Interfaces/IResources";
-import { IRouteBlog } from "Core/Interfaces/IRouteBlog";
+import { AuthService } from "Core/authorization/auth.service";
+import { IAction } from "Core/authorization/IAction";
+import { IBlogRoute } from "Core/authorization/IBlogRoute";
+import { IResource } from "Core/authorization/IResource";
 import { BaseModule } from "Core/Models/BaseModule";
 import { MyAccountComponent, MyAccountComponentName } from "./account/myAcccount.component";
 import { AdminHeaderComponent, AdminHeaderComponentName } from "./adminHeader.component";
 import { LogoffComponent, LogoffComponentName } from "./Login/logoff.component";
+import { ForgotPasswordComponent, ForgotPasswordComponentName } from "./password/forgotPassword.component";
+import { ResetPasswordComponent, ResetPasswordComponentName } from "./password/resetpassword.component";
 import { ConfirmEmailComponent, ConfirmEmailComponentName } from "./register/confirmEmail.component";
 
 /**
@@ -41,6 +42,7 @@ export class AdminModule extends BaseModule {
         this.moduleDependencies = [ngAnimate, ngSantize, uirouter.default, angularUIBootstrapModule];
 
         this.app = angular.module(this.moduleName, this.moduleDependencies);
+
         this.app.constant(this.adminRouteConstants, AdminModule.HttpAdminServiceRoutes());
         this.app.constant(this.authEventConstants, AdminModule.AuthEventConstants());
 
@@ -53,7 +55,7 @@ export class AdminModule extends BaseModule {
      * @param $stateProvider
      * @param $urlRouterProvider
      */
-    private uiRouteConfig($stateProvider: ng.ui.IStateProvider, RESOURCES: IResources, ACTIONS: IActions): void {
+    private uiRouteConfig($stateProvider: ng.ui.IStateProvider, RESOURCES: IResource, ACTIONS: IAction): void {
 
         let loginState: ng.ui.IState = {
             name: "login",
@@ -99,18 +101,34 @@ export class AdminModule extends BaseModule {
             templateUrl: require("admin/manageContent.html"),
             controller: AdminController,
             controllerAs: "vm",
-            protected: true,
-            action: ACTIONS.Read,
-            resource: RESOURCES.Admin,
+            protected: true
         };
 
         let logoffState: ng.ui.IState = {
             name: "logoff",
             url: "/logoff",
             component: LogoffComponentName,
-            protected: true,
-            action: ACTIONS.Read,
-            resource: RESOURCES.Admin,
+            protected: true
+        };
+
+        let forgotPasswordState: ng.ui.IState = {
+            name: "forgotPassword",
+            url: "/forgotPassword",
+            component: ForgotPasswordComponentName
+        };
+
+        let resetPasswordState: ng.ui.IState = {
+            name: "resetPassword",
+            url: "/resetPassword?email&code",
+            component: ResetPasswordComponentName,
+            resolve: {
+                email: ["$state", ($state: ng.ui.IStateService) => {
+                    return $state.params.email;
+                }],
+                code: ["$state", ($state: ng.ui.IStateService) => {
+                    return $state.params.code;
+                }]
+            }
         };
 
         $stateProvider.state(loginState);
@@ -119,17 +137,19 @@ export class AdminModule extends BaseModule {
         $stateProvider.state(logoffState);
         $stateProvider.state(confirmEmailState);
         $stateProvider.state(myAccountState);
+        $stateProvider.state(forgotPasswordState);
+        $stateProvider.state(resetPasswordState);
     }
 
     /**
      * Configure all routes for this model
      * @param $routeProvider
      */
-    private routeConfig($routeProvider: ng.route.IRouteProvider, RESOURCES: IResources, ACTIONS: IActions):void {
+    private routeConfig($routeProvider: ng.route.IRouteProvider, RESOURCES: IResource, ACTIONS: IAction):void {
 
         try {
 
-            let accountsRoute: IRouteBlog = {
+            let accountsRoute: IBlogRoute = {
                 templateUrl: require("admin/account/accounts.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
@@ -140,7 +160,7 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let passwordUpdateRoute: IRouteBlog = {
+            let passwordUpdateRoute: IBlogRoute = {
                 templateUrl: require("Admin/password/passwordUpdate.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
@@ -151,7 +171,7 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let confirmPasswordUpdateRoute: IRouteBlog = {
+            let confirmPasswordUpdateRoute: IBlogRoute = {
                 templateUrl: require("admin/password/passwordUpdateConfirmation.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
@@ -162,18 +182,7 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let passwordResetRoute: IRouteBlog = {
-                templateUrl: require("admin/password/passwordReset.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let passwordResetConfirmationRoute: IRouteBlog = {
+            let passwordResetConfirmationRoute: IBlogRoute = {
                 templateUrl: require("admin/password/passwordResetConfirmation.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
@@ -184,7 +193,7 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let loginUpdateRoute: IRouteBlog = {
+            let loginUpdateRoute: IBlogRoute = {
                 templateUrl: require("admin/login/loginUpdate.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
@@ -195,7 +204,7 @@ export class AdminModule extends BaseModule {
                 authorizationResolver: null
             };
 
-            let loginUpdateConfirmationRoute: IRouteBlog = {
+            let loginUpdateConfirmationRoute: IBlogRoute = {
                 templateUrl: require("admin/login/loginUpdateConfirmation.html"),
                 caseInsensitiveMatch: true,
                 controller: AdminController,
@@ -208,7 +217,6 @@ export class AdminModule extends BaseModule {
 
             $routeProvider
                 .when("/accounts", accountsRoute)
-                .when("/passwordReset", passwordResetRoute)
                 .when("/passwordUpdate", passwordUpdateRoute)
                 .when("/passwordResetConfirmation", confirmPasswordUpdateRoute)
                 .when("/loginUpdate", loginUpdateRoute)
@@ -230,12 +238,13 @@ export class AdminModule extends BaseModule {
     /**
      * Set auth service routes
      */
-    public static HttpAdminServiceRoutes(): IHttpAdminRoutes {
+    public static HttpAdminServiceRoutes(): IAdminRoutes {
 
-        const resources: IHttpAdminRoutes = {
+        const resources: IAdminRoutes = {
             ContentManagement: "",
             DeleteUser: "",
-            ForgotPassword: "/Submit/Login",
+            ResetPassword: "api/Account/ResetPassword",
+            RequestPasswordReset: "api/Account/RequestPasswordReset",
             ForgotPasswordUpdateAccount: "",
             Logoff: "/Authentication/Logout",
             MyAccount: "api/Account/MyAccount",
@@ -269,20 +278,19 @@ export class AdminModule extends BaseModule {
     }
 }
 
+
 // create the module
 let Admin:AdminModule = new AdminModule();
 
 Admin.AddFactory("adminService", adminFactory);
 
-adminFactory.$inject = ["$rootScope", "$http", "authService", "AUTHENTICATION_CONSTANTS", "ADMIN_ROUTE_CONSTANTS", "AUTH_EVENT_CONSTANTS"];
+adminFactory.$inject = ["$rootScope", "$http", "authService", "ADMIN_ROUTE_CONSTANTS", "AUTH_EVENT_CONSTANTS"];
 function adminFactory($rootScope: ng.IRootScopeService,
                         $http: ng.IHttpService,
                         authService: AuthService,
-                        AUTHENTICATION_CONSTANTS: IAuthenticationConstants,
-                        ADMIN_ROUTE_CONSTANTS: IHttpAdminRoutes,
+                        ADMIN_ROUTE_CONSTANTS: IAdminRoutes,
                         AUTH_EVENT_CONSTANTS: IAuthEventConstants): AdminService {
-    "use strict";
-    return new AdminService($rootScope, $http, authService, AUTHENTICATION_CONSTANTS, ADMIN_ROUTE_CONSTANTS, AUTH_EVENT_CONSTANTS);
+    return new AdminService($rootScope, $http, authService, ADMIN_ROUTE_CONSTANTS, AUTH_EVENT_CONSTANTS);
 }
 
 Admin.AddController("Admin", AdminController as ng.Injectable<angular.IControllerConstructor>);
@@ -292,3 +300,5 @@ Admin.AddComponent(RegisterUserComponentName, new RegisterUserComponent())
 Admin.AddComponent(AdminHeaderComponentName, new AdminHeaderComponent());
 Admin.AddComponent(ConfirmEmailComponentName, new ConfirmEmailComponent());
 Admin.AddComponent(MyAccountComponentName, new MyAccountComponent());
+Admin.AddComponent(ForgotPasswordComponentName, new ForgotPasswordComponent());
+Admin.AddComponent(ResetPasswordComponentName, new ResetPasswordComponent());

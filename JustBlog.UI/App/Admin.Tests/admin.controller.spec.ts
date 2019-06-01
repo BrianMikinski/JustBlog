@@ -1,10 +1,10 @@
 ﻿import { AdminController } from "admin/admin.controller";
 import { default as adminModule } from "admin/admin.module";
 import { AdminService } from "admin/admin.service";
-import { AuthService } from "Core/auth.service";
+import { AuthService } from "Core/authorization/auth.service";
 import { default as coreModule } from "Core/core.module";
-import { ICoreService } from "Core/core.service";
-import { default as notificationModule } from "Notification/notification.module";
+import { CoreService } from "Core/core.service";
+import { default as notificationModule } from "notification/notification.module";
 import * as angular from "angular";
 import 'angular-mocks';
 
@@ -28,7 +28,7 @@ describe(`Module "${adminModule}: Admin Controller Mockup, dependencies to "${no
 
     // create the mock blog controller
     let AdminController: AdminController;
-    let _coreService: ICoreService;
+    let _coreService: CoreService;
     let _adminService: AdminService;
     let _authService: AuthService;
 
@@ -36,7 +36,7 @@ describe(`Module "${adminModule}: Admin Controller Mockup, dependencies to "${no
     beforeEach(inject(($controller: ng.IControllerService,
         _$rootScope_: ng.IRootScopeService,
         _$q_: ng.IQService,
-        coreService: ICoreService,
+        coreService: CoreService,
         adminService: AdminService,
         $timeout: ng.ITimeoutService) => {
 

@@ -1,5 +1,5 @@
 ﻿import { BaseModule } from "Core/Models/BaseModule";
-import { NotificationFactory } from "Notification/notification.factory";
+import { NotificationFactory } from "notification/notification.factory";
 import * as angular from "angular";
 
 const moduleName: string = 'app.notification';

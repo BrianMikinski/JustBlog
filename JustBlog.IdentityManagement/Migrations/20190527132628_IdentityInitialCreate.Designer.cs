@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JustBlog.IdentityManagement.Migrations
 {
     [DbContext(typeof(IdentityDbContext))]
-    [Migration("20190422001539_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190527132628_IdentityInitialCreate")]
+    partial class IdentityInitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,6 +41,9 @@ namespace JustBlog.IdentityManagement.Migrations
 
                     b.Property<string>("Country")
                         .HasMaxLength(100);
+
+                    b.Property<string>("CountryCode")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);

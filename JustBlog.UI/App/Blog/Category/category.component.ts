@@ -2,7 +2,7 @@
 import { Category } from "Blog/Category/Category";
 import { Post } from "Blog/Post/Post";
 import { ComponentBase } from "Core/component.base";
-import { ICoreService } from "Core/core.service";
+import { CoreService } from "Core/core.service";
 import { BaseController } from "Core/Models/BaseController";
 
 export const CategoryComponentName: string = "category";
@@ -22,7 +22,7 @@ class CategoryComponentController extends BaseController implements ICategoryCom
     CategoryPosts: Array<Post>;
 
     inject = ["coreService", "blogService", "$sce"]
-    constructor(private coreService: ICoreService, private blogService: BlogService, public $sce: ng.ISCEService) {
+    constructor(private coreService: CoreService, private blogService: BlogService, public $sce: ng.ISCEService) {
         super($sce);
     }
 
