@@ -38,7 +38,7 @@ export class NavBarComponent extends ComponentBase {
         this.controllerAs = "$navBarCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Layout/NavBar/navbar.html");
+            return require("layout/navBar/navbar.html");
         }];
     }
 }

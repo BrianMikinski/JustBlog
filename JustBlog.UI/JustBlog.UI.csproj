@@ -29,8 +29,12 @@
     <None Remove="App\admin\account\myAcccount.component.ts" />
     <None Remove="App\admin\adminHeader.component.ts" />
     <None Remove="App\admin\app.unitTest.ts" />
+    <None Remove="App\admin\password\forgotPassword.component.ts" />
+    <None Remove="App\admin\password\IValidPassword.ts" />
+    <None Remove="App\admin\password\resetpassword.component.ts" />
     <None Remove="App\admin\register\IdentityError.ts" />
     <None Remove="App\admin\register\registerUser.component.spec.ts" />
+    <None Remove="App\Core\errorHandling\errorHandling.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.6.1" />
@@ -54,10 +58,14 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="App\admin\account\myAcccount.component.ts" />
+    <TypeScriptCompile Include="App\admin\password\forgotPassword.component.ts" />
+    <TypeScriptCompile Include="App\admin\password\IValidPassword.ts" />
+    <TypeScriptCompile Include="App\admin\password\resetPassword.component.ts" />
     <TypeScriptCompile Include="App\admin\register\confirmEmail.component.ts" />
     <TypeScriptCompile Include="App\admin\adminHeader.component.ts" />
     <TypeScriptCompile Include="App\admin\register\IdentityError.ts" />
     <TypeScriptCompile Include="App\admin\register\registerUser.component.spec.ts" />
+    <TypeScriptCompile Include="App\Core\errorHandling\errorHandling.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />

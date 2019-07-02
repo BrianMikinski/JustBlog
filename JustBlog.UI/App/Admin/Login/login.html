@@ -17,8 +17,9 @@
                            type="text" 
                            value="" 
                            placeholder="youremail@domain.com"
-                           ng-enabled="!$ctrl.submitLogin"
-                           ng-model="$ctrl.LoginUser.Email">
+                           ng-disabled="$ctrl.submitLogin"
+                           ng-model="$ctrl.LoginUser.Email"
+                           autofocus>
                 </div>
             </div>
             <div class="form-group" style="margin-bottom: 10px;">
@@ -26,20 +27,20 @@
                     <div class="input-group-addon">
                         <i class="fa fa-key"></i>
                     </div>
-                    <input class="form-control" name="Password" type="password" placeholder="your password" ng-enabled="!$ctrl.submitLogin" ng-model="$ctrl.LoginUser.Password" >
+                    <input class="form-control" name="Password" type="password" placeholder="your password" ng-disabled="$ctrl.submitLogin" ng-model="$ctrl.LoginUser.Password"  tabindex="1">
                 </div>
             </div>
 
-            <a ui-sref="forgotPassword" class="text-center" style="display:block; margin-bottom: 10px;">
+            <a ui-sref="forgotPassword" class="text-center" style="display:block; margin-bottom: 10px;"  tabindex="4"> 
                 Forgot Password?
             </a>
 
-            <button class="btn btn-primary login-btn" type="submit" ng-enabled="!$ctrl.submitLogin">
+            <button class="btn btn-primary login-btn" type="submit" ng-disabled="$ctrl.submitLogin"  tabindex="2">
                 Log In
             </button>
 
             <a ui-sref="register">
-                <button class="btn btn-primary login-btn" type="button">
+                <button class="btn btn-primary login-btn" type="button"  tabindex="3">
                     Register
                 </button>
             </a>

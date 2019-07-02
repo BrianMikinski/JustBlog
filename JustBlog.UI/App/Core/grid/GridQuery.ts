@@ -1,5 +1,5 @@
-﻿import {IQueryFilter} from "Core/Interfaces/IQueryFilter";
-import {PagingProperties} from "Core/Models/PagingProperties";
+﻿import {IQueryFilter} from "Core/grid/IQueryFilter";
+import {PagingProperties} from "Core/grid/PagingProperties";
 
 /**
  * Generic object to hold table queries

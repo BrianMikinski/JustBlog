@@ -25,6 +25,10 @@
     margin-top: 50%;
 }
 
+.login-valid {
+    color:#5cb85c;
+}
+
 .login-btn {
     width: 100%;
     height: 35px;

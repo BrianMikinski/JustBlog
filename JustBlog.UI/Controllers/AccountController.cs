@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JustBlog.UI.Controllers
@@ -121,8 +120,7 @@ namespace JustBlog.UI.Controllers
                 return BadRequest($"Unable to load user with ID '{userId}'.");
             }
 
-            byte[] data = Convert.FromBase64String(code);
-            string decodedString = Encoding.UTF8.GetString(data);
+            string decodedString = _messagingService.FromBase64(code);
 
             var result = await _userManager.ConfirmEmailAsync(user, decodedString);
 
@@ -134,41 +132,82 @@ namespace JustBlog.UI.Controllers
             return BadRequest("Could not confirm code.");
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ForgotPassword()
-        {
-            return View();
-        }
-
+        /// <summary>
+        /// Reset password
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
-        [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        public async Task<IActionResult> RequestPasswordReset([FromBody]ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(model.Email);
-
-                if (user == null || !await _userManager.IsEmailConfirmedAsync(user))
+                try
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return BadRequest();
+                    var user = await _userManager.FindByEmailAsync(model.Email);
+
+                    if (user == null || !await _userManager.IsEmailConfirmedAsync(user))
+                    {
+                        // Don't reveal that the user does not exist or is not confirmed
+                        return BadRequest("Invalid model. Could not send password rest email.");
+                    }
+
+                    var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    var callbackUrl = _emailSender.PasswordResetLink(user.Email, code, _baseUrlOptions.BaseUrl, "https");
+
+                    await _emailSender.SendPasswordResetAsync(model.Email, callbackUrl);
+
+                    return Ok();
                 }
-
-                // For more information on how to enable account confirmation and password reset please
-                // visit https://go.microsoft.com/fwlink/?LinkID=532713
-                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-
-                var callbackUrl = "";
-
-                await _emailSender.SendEmailAsync("", model.Email, "Reset Password",
-                   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
-                return Ok();
+                catch(Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
             }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            return BadRequest("Invalid model. Could not send password rest email.");
+        }
+
+        /// <summary>
+        /// Reset account password
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword([FromBody]ResetPasswordViewModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid password reset model model.");
+                }
+
+                var user = await _userManager.FindByEmailAsync(model.Email);
+
+                if (user == null)
+                {
+                    // Don't reveal that the user does not exist
+                    return BadRequest("User could not be found.");
+                }
+
+                string decodedString = _messagingService.FromBase64(model.Code);
+
+                var result = await _userManager.ResetPasswordAsync(user, decodedString, model.Password);
+
+                if (result.Succeeded)
+                {
+                    return Ok();
+                }
+
+                return BadRequest("Account could not be reset.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -194,32 +233,6 @@ namespace JustBlog.UI.Controllers
             var modifiedUser = await _accountService.UpdateUser(user);
 
             return Ok(modifiedUser);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("Invalid password reset model model.");
-            }
-
-            var user = await _userManager.FindByEmailAsync(model.Email);
-
-            if (user == null)
-            {
-                // Don't reveal that the user does not exist
-                return BadRequest("User could not be found.");
-            }
-
-            var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
-
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
-
-            return BadRequest("Account could not be reset.");
         }
     }
 }

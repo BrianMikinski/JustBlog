@@ -42,12 +42,15 @@ describe(` ${adminModule}: Register New User Component Tests - `, function () {
     beforeEach(angular.mock.module("componentTemplates"))
     beforeEach(angular.mock.module("app.notification"));
     beforeEach(angular.mock.module('ui.router'));
-    beforeEach(angular.mock.module("app.core", (_$provide_: ng.auto.IProvideService) => {
-        // mock out auth route constants. All jasmine constants must be mocked using the $provide services
-        _$provide_.constant("AUTH_ROUTE_CONSTANTS", CoreModule.HttpAuthServiceRoutes());
 
-        $provide = _$provide_;
-    }));
+    // Good example of mocking constants
+    // Leaving in here for now
+    //beforeEach(angular.mock.module("app.core", (_$provide_: ng.auto.IProvideService) => {
+    //    // mock out auth route constants. All jasmine constants must be mocked using the $provide services
+    //    _$provide_.constant("AUTH_ROUTE_CONSTANTS", CoreModule.HttpAuthServiceRoutes());
+
+    //    $provide = _$provide_;
+    //}));
 
     beforeEach(angular.mock.module("app.admin"));
 

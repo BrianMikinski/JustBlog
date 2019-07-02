@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JustBlog.IdentityManagement.Migrations
 {
     [DbContext(typeof(IdentityDbContext))]
-    partial class AppIdentityDbContextModelSnapshot : ModelSnapshot
+    partial class IdentityDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -39,6 +39,9 @@ namespace JustBlog.IdentityManagement.Migrations
 
                     b.Property<string>("Country")
                         .HasMaxLength(100);
+
+                    b.Property<string>("CountryCode")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);

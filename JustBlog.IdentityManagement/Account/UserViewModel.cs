@@ -34,6 +34,7 @@ namespace JustBlog.IdentityManagement.Account
             AddressLine2 = user.AddressLine2;
             City = user.City;
             Country = user.Country;
+            CountryCode = user.CountryCode;
             PostalCode = user.PostalCode;
 
             State = user.State;
@@ -52,7 +53,8 @@ namespace JustBlog.IdentityManagement.Account
         [JsonProperty]
         public string LastName { get; private set; }
 
-        public DateTime? Birthdate { get; set; }
+        [JsonProperty]
+        public DateTime? Birthdate { get; private set; }
 
         [JsonProperty]
         public string Email { get; private set; }
@@ -86,6 +88,9 @@ namespace JustBlog.IdentityManagement.Account
 
         [JsonProperty]
         public string Country { get; private set; }
+
+        [JsonProperty]
+        public string CountryCode { get; private set; }
 
         [JsonProperty]
         public string PostalCode { get; private set; }
