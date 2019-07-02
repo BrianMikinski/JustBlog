@@ -2,10 +2,10 @@
 import { CategoryComponent, CategoryComponentName } from "Blog/Category/category.component";
 import { CategoriesGridComponent, CategoriesGridComponentName } from "Blog/Category/categoryGrid.component";
 import { HomeComponent, HomeComponentName } from "Blog/Home/home.component";
-import { CreatePostComponent, CreatePostComponentName } from "Blog/Post/createpost.component";
-import { PostComponent, PostComponentName } from "Blog/Post/post.component";
-import { PostsGridComponent, PostsGridComponentName } from "Blog/Post/postgrid.component";
-import { ProfileComponent, ProfileComponentName } from "Blog/Profile/profile.component";
+import { CreatePostComponent, CreatePostComponentName } from "Blog/post/createpost.component";
+import { PostComponent, PostComponentName } from "Blog/post/post.component";
+import { PostsGridComponent, PostsGridComponentName } from "Blog/post/postgrid.component";
+import { ProfileComponent, ProfileComponentName } from "Blog/profile/profile.component";
 import { TagsGridComponent, TagsGridComponentName } from "Blog/Tag/tagsGrid.component";
 import { BlogController } from "Blog/blog.controller";
 import { BlogService } from "Blog/blog.service";
@@ -79,9 +79,9 @@ export class BlogModule extends BaseModule {
         };
 
         const addPostState: ng.ui.IState = {
-            name: "addPost",
+            name: "newpost",
             component: CreatePostComponentName,
-            url: "/post/add"
+            url: "/post/new"
         }
 
         const editPostState: ng.ui.IState = {
@@ -184,7 +184,7 @@ export class BlogModule extends BaseModule {
                 .when("/post/create/:postId", createPostRoute)
                 .when("/post/edit/:postId", editPostRoute)
                 .when("/post/retrieve/:postId", {
-                    templateUrl: require("Blog/Post/post.html"),
+                    templateUrl: require("Blog/post/post.html"),
                     caseInsensitiveMatch: true,
                     controller: BlogController,
                     controllerAs: "vm"

@@ -2,8 +2,8 @@
 import { ComponentBase } from "Core/component.base";
 import { GridQuery } from "Core/grid/GridQuery";
 import { CoreService } from "Core/core.service";
-import { Post } from "Blog/Post/Post";
-import { PostQueryFilter } from "Blog/Post/PostQueryFilter";
+import { Post } from "Blog/post/Post";
+import { PostQueryFilter } from "Blog/post/PostQueryFilter";
 import { BlogService } from "Blog/blog.service";
 import { MetaData } from "Blog/MetaData/MetaData";
 

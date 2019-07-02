@@ -18,7 +18,7 @@ class ProfileComponentController extends BaseController implements IProfileCompo
 
     private MetaData: MetaData;
 
-    inject = ["coreService","$sce"]
+    inject = ["coreService", "$sce"]
     constructor(private coreService: CoreService, public $sce: ng.ISCEService) {
         super($sce);
 
@@ -43,18 +43,18 @@ class ProfileComponentController extends BaseController implements IProfileCompo
 /**
  * MyComponent Panel
  */
-export class ProfileComponent extends ComponentBase { //implements ng.IComponentOptions {
+export class ProfileComponent extends ComponentBase {
 
     constructor(/* inject services used by component here*/) {
         super();
 
-        this.bindings = { }
+        this.bindings = {}
 
         this.controller = ProfileComponentController;
         this.controllerAs = "$profileCtrl"
 
-        this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes):string => {
-            return require("Blog/Profile/profile.html");
+        this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
+            return require("Blog/profile/profile.html");
         }];
     }
 }

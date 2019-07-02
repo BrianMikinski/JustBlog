@@ -1,6 +1,6 @@
 ﻿import { BlogService } from "Blog/blog.service";
 import { Category } from "Blog/Category/Category";
-import { Post } from "Blog/Post/Post";
+import { Post } from "Blog/post/Post";
 import { ComponentBase } from "Core/component.base";
 import { CoreService } from "Core/core.service";
 import { BaseController } from "Core/Models/BaseController";

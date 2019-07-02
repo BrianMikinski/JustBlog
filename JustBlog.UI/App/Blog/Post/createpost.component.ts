@@ -1,13 +1,13 @@
 ﻿import { BlogService } from "Blog/blog.service";
 import { Category } from "Blog/Category/Category";
-import { CreatePostControllerBase } from "Blog/Post/CreatePostControllerBase";
-import { Post } from "Blog/Post/Post";
+import { CreatePostControllerBase } from "Blog/post/CreatePostControllerBase";
+import { Post } from "Blog/post/Post";
 import { Tag } from "Blog/Tag/Tag";
 import { AuthService } from "Core/authorization/auth.service";
 import { ComponentBase } from "Core/component.base";
 import { NotificationFactory } from "notification/notification.factory";
 
-export const CreatePostComponentName: string = "createpost";
+export const CreatePostComponentName: string = "newpost";
 
 interface ICreatePostControllerBindings {
     postId: number;
@@ -162,7 +162,7 @@ export class CreatePostComponent extends ComponentBase {
         this.controllerAs = "$createPostCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Blog/Post/post.html");
+            return require("Blog/post/createPost.html");
         }];
     }
 }

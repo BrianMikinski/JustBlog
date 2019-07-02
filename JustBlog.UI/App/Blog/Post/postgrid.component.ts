@@ -1,13 +1,11 @@
-﻿import { AuthService } from "Core/authorization/auth.service";
-import { BaseController } from "Core/Models/BaseController";
-import { BlogService } from "Blog/blog.service";
-import { ComponentBase } from "Core/component.base";
-import { CreatePostControllerBase } from "Blog/Post/CreatePostControllerBase";
-import { GridQuery } from "Core/grid/GridQuery";
-import { IBlogRouteParams } from "Blog/Interfaces/IBlogRouteParams";
-import { NotificationFactory } from "notification/notification.factory";
+﻿import { BlogService } from "Blog/blog.service";
+import { CreatePostControllerBase } from "Blog/post/CreatePostControllerBase";
 import { Post } from "Blog/Post/Post";
 import { PostQueryFilter } from "Blog/Post/PostQueryFilter";
+import { AuthService } from "Core/authorization/auth.service";
+import { ComponentBase } from "Core/component.base";
+import { GridQuery } from "Core/grid/GridQuery";
+import { NotificationFactory } from "notification/notification.factory";
 
 export const PostsGridComponentName: string = "postsgrid";
 
@@ -99,7 +97,7 @@ export class PostsGridComponent extends ComponentBase {
         this.controllerAs = "$postsGridCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Blog/Post/postsGrid.html");
+            return require("Blog/post/postsGrid.html");
         }];
     }
 }

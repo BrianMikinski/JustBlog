@@ -1,4 +1,4 @@
-﻿import { Post } from "Blog/Post/Post";
+﻿import { Post } from "Blog/post/Post";
 import { Tag } from "Blog/Tag/Tag";
 
 //Class for holding view of tags and their post data

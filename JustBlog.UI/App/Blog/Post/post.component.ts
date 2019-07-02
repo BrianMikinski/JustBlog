@@ -1,8 +1,7 @@
-﻿import { BaseController } from "Core/Models/BaseController";
+﻿import { BlogService } from "Blog/blog.service";
+import { Post } from "Blog/post/Post";
 import { ComponentBase } from "Core/component.base";
-import { IBlogRouteParams } from "Blog/Interfaces/IBlogRouteParams";
-import { Post } from "Blog/Post/Post";
-import { BlogService } from "Blog/blog.service";
+import { BaseController } from "Core/Models/BaseController";
 
 export const PostComponentName: string = "post";
 
@@ -73,7 +72,7 @@ export class PostComponent extends ComponentBase {
         this.controllerAs = "$postCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Blog/Post/post.html");
+            return require("Blog/post/post.html");
         }];
     }
 }
