@@ -1,7 +1,7 @@
 ﻿import { BlogService } from "Blog/blog.service";
 import { CreatePostControllerBase } from "Blog/post/CreatePostControllerBase";
 import { Post } from "Blog/Post/Post";
-import { PostQueryFilter } from "Blog/Post/PostQueryFilter";
+import { PostQueryFilter } from "Blog/post/PostQueryFilter";
 import { AuthService } from "Core/authorization/auth.service";
 import { ComponentBase } from "Core/component.base";
 import { GridQuery } from "Core/grid/GridQuery";
@@ -18,11 +18,8 @@ class PostsGridComponentController extends CreatePostControllerBase implements n
   
     static inject = ["blogService", "$window", "$sce", "$stateParams", "notificationFactory", "authService"]
     constructor(private blogService: BlogService,
-        private $window: ng.IWindowService,
         public $sce: ng.ISCEService,
-        private $stateParams: ng.ui.IStateParamsService,
-        private notificationFactory: NotificationFactory,
-        private authService: AuthService) {
+        private notificationFactory: NotificationFactory) {
         super(blogService, $sce, notificationFactory);
     }
 
