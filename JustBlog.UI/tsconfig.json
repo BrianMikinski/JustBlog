@@ -53,7 +53,7 @@
   },
   "compileOnSave": true,
   "filesGlob": [
-    "App/**/*",
+    "app/**/*",
     "!typings/**", // if we have to use the old typings library
     "!node_modules/**/" // definitely want to ignore node_modules
   ]

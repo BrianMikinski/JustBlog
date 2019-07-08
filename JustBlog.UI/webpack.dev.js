@@ -11,7 +11,7 @@ module.exports = {
     mode: "development",
     devtool: "inline-source-map",
     entry: {
-        app: "./App/app.module.ts",
+        app: "./app/app.module.ts",
         vendors: ["jquery",
             "bootstrap",
             "toastr",

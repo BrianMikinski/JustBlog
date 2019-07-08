@@ -2,7 +2,7 @@
 
 module.exports = function (config) {
     const configuration = {
-        basePath: "../App/", // this is the default path where you are able to find all spec files
+        basePath: "../app/", // this is the default path where you are able to find all spec files
         logLevel: "DEBUG",
         browserNoActivityTimeout: 10000,
 
@@ -31,7 +31,7 @@ module.exports = function (config) {
 
         reporters: [
           "progress",
-          "junit",
+          "junit"
         ],
 
         junitReporter: {
@@ -42,7 +42,7 @@ module.exports = function (config) {
 
         // required for js test coverage
         preprocessors: {
-            '../App/**/*.spec.ts': ['webpack'],
+            '../app/**/*.spec.ts': ['webpack'],
             '../wwwrootTest/**/*.html': ['ng-html2js']
         },
 
@@ -57,7 +57,7 @@ module.exports = function (config) {
             stripPrefix: "wwwrootTest",
             moduleName: 'componentTemplates'
         },
-        singleRun: false,
+        singleRun: false
     };
 
     config.set(configuration);
