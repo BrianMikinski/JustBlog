@@ -1,5 +1,5 @@
 ﻿import { BaseService} from "core/models/BaseService";
-import { MetaData } from "Blog/metadata/MetaData";
+import { MetaData } from "blog/metadata/MetaData";
 
 export class CoreService extends BaseService {
 

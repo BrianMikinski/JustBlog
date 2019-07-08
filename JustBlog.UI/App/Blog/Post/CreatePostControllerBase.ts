@@ -1,5 +1,5 @@
-﻿import { BlogService } from "Blog/blog.service";
-import { Post } from "Blog/post/Post";
+﻿import { BlogService } from "blog/blog.service";
+import { Post } from "blog/post/Post";
 import { BaseController } from "core/models/BaseController";
 import { NotificationFactory } from "notification/notification.factory";
 

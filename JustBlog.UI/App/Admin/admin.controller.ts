@@ -3,7 +3,7 @@ import { AdminService } from "admin/admin.service";
 import { LoginUpdate } from "admin/login/LoginUpdate";
 import { IChangePasswordModel } from "admin/password/IChangePasswordModel";
 import { IResetPasswordModel } from "admin/password/IResetPasswordModel";
-import { Post } from "Blog/post/Post";
+import { Post } from "blog/post/Post";
 import { AuthService } from "core/authorization/auth.service";
 import { CoreService } from "core/core.service";
 import { GridQuery } from "core/grid/GridQuery";

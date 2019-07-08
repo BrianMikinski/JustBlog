@@ -2,10 +2,10 @@
 import { ComponentBase } from "core/component.base";
 import { GridQuery } from "core/grid/GridQuery";
 import { CoreService } from "core/core.service";
-import { Post } from "Blog/post/Post";
-import { PostQueryFilter } from "Blog/post/PostQueryFilter";
-import { BlogService } from "Blog/blog.service";
-import { MetaData } from "Blog/metadata/MetaData";
+import { Post } from "blog/post/Post";
+import { PostQueryFilter } from "blog/post/PostQueryFilter";
+import { BlogService } from "blog/blog.service";
+import { MetaData } from "blog/metadata/MetaData";
 
 export const HomeComponentName: string = "home";
 
@@ -111,7 +111,7 @@ export class HomeComponent extends ComponentBase { //implements ng.IComponentOpt
         this.controllerAs = "homeCtrl"
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Blog/home/home.html");
+            return require("blog/home/home.html");
         }];
     }
 }

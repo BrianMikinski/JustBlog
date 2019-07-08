@@ -1,7 +1,7 @@
-﻿import { BlogService } from "Blog/blog.service";
-import { CreatePostControllerBase } from "Blog/post/CreatePostControllerBase";
-import { Post } from "Blog/Post/Post";
-import { PostQueryFilter } from "Blog/post/PostQueryFilter";
+﻿import { BlogService } from "blog/blog.service";
+import { CreatePostControllerBase } from "blog/post/CreatePostControllerBase";
+import { Post } from "blog/Post/Post";
+import { PostQueryFilter } from "blog/post/PostQueryFilter";
 import { AuthService } from "core/authorization/auth.service";
 import { ComponentBase } from "core/component.base";
 import { GridQuery } from "core/grid/GridQuery";
@@ -94,7 +94,7 @@ export class PostsGridComponent extends ComponentBase {
         this.controllerAs = "$postsGridCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Blog/post/postsGrid.html");
+            return require("blog/post/postsGrid.html");
         }];
     }
 }

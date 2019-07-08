@@ -1,8 +1,8 @@
-﻿import { BlogService } from "Blog/blog.service";
-import { Category } from "Blog/category/Category";
-import { CreatePostControllerBase } from "Blog/post/CreatePostControllerBase";
-import { Post } from "Blog/post/Post";
-import { Tag } from "Blog/tag/Tag";
+﻿import { BlogService } from "blog/blog.service";
+import { Category } from "blog/category/Category";
+import { CreatePostControllerBase } from "blog/post/CreatePostControllerBase";
+import { Post } from "blog/post/Post";
+import { Tag } from "blog/tag/Tag";
 import { AuthService } from "core/authorization/auth.service";
 import { ComponentBase } from "core/component.base";
 import { NotificationFactory } from "notification/notification.factory";
@@ -162,7 +162,7 @@ export class CreatePostComponent extends ComponentBase {
         this.controllerAs = "$createPostCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Blog/post/createPost.html");
+            return require("blog/post/createPost.html");
         }];
     }
 }

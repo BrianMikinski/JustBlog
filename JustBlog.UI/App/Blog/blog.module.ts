@@ -1,14 +1,14 @@
 ﻿import * as uirouter from "@uirouter/angularjs";
-import { CategoryComponent, CategoryComponentName } from "Blog/category/category.component";
-import { CategoriesGridComponent, CategoriesGridComponentName } from "Blog/category/categoryGrid.component";
-import { HomeComponent, HomeComponentName } from "Blog/home/home.component";
-import { CreatePostComponent, CreatePostComponentName } from "Blog/post/createpost.component";
-import { PostComponent, PostComponentName } from "Blog/post/post.component";
-import { PostsGridComponent, PostsGridComponentName } from "Blog/post/postgrid.component";
-import { ProfileComponent, ProfileComponentName } from "Blog/profile/profile.component";
-import { TagsGridComponent, TagsGridComponentName } from "Blog/tag/tagsGrid.component";
-import { BlogController } from "Blog/blog.controller";
-import { BlogService } from "Blog/blog.service";
+import { CategoryComponent, CategoryComponentName } from "blog/category/category.component";
+import { CategoriesGridComponent, CategoriesGridComponentName } from "blog/category/categoryGrid.component";
+import { HomeComponent, HomeComponentName } from "blog/home/home.component";
+import { CreatePostComponent, CreatePostComponentName } from "blog/post/createpost.component";
+import { PostComponent, PostComponentName } from "blog/post/post.component";
+import { PostsGridComponent, PostsGridComponentName } from "blog/post/postgrid.component";
+import { ProfileComponent, ProfileComponentName } from "blog/profile/profile.component";
+import { TagsGridComponent, TagsGridComponentName } from "blog/tag/tagsGrid.component";
+import { BlogController } from "blog/blog.controller";
+import { BlogService } from "blog/blog.service";
 import { IAction } from "core/authorization/IAction";
 import { IResource } from "core/authorization/IResource";
 import { IBlogRoute } from "core/authorization/IBlogRoute";
@@ -184,7 +184,7 @@ export class BlogModule extends BaseModule {
                 .when("/post/create/:postId", createPostRoute)
                 .when("/post/edit/:postId", editPostRoute)
                 .when("/post/retrieve/:postId", {
-                    templateUrl: require("Blog/post/post.html"),
+                    templateUrl: require("blog/post/post.html"),
                     caseInsensitiveMatch: true,
                     controller: BlogController,
                     controllerAs: "vm"

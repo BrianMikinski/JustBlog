@@ -3,7 +3,7 @@ import { AuthService } from "core/authorization/auth.service";
 import { ComponentBase } from "core/component.base";
 import { BaseController } from "core/models/BaseController";
 import { NotificationFactory } from "notification/notification.factory";
-import { HomeComponentName } from "Blog/home/home.component";
+import { HomeComponentName } from "blog/home/home.component";
 
 export const LogoffComponentName: string = "logoff";
 

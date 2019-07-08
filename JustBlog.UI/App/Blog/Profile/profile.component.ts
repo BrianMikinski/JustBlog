@@ -1,4 +1,4 @@
-﻿import { MetaData } from "Blog/metadata/MetaData";
+﻿import { MetaData } from "blog/metadata/MetaData";
 import { ComponentBase } from "core/component.base";
 import { CoreService } from "core/core.service";
 import { BaseController } from "core/models/BaseController";
@@ -54,7 +54,7 @@ export class ProfileComponent extends ComponentBase {
         this.controllerAs = "$profileCtrl"
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Blog/profile/profile.html");
+            return require("blog/profile/profile.html");
         }];
     }
 }

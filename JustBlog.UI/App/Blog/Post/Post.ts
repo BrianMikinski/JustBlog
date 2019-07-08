@@ -1,5 +1,5 @@
-﻿import { Category } from "Blog/category/Category";
-import { Tag } from "Blog/tag/Tag";
+﻿import { Category } from "blog/category/Category";
+import { Tag } from "blog/tag/Tag";
 
 /**
  * Model for handling blog posts

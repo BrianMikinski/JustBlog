@@ -1,4 +1,4 @@
-﻿import { Post } from "Blog/post/Post";
+﻿import { Post } from "blog/post/Post";
 
 /**
  * Container for global blog meta data

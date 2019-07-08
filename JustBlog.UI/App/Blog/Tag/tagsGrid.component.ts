@@ -1,5 +1,5 @@
-﻿import { BlogService } from "Blog/blog.service";
-import { Tag } from "Blog/tag/Tag";
+﻿import { BlogService } from "blog/blog.service";
+import { Tag } from "blog/tag/Tag";
 import { ComponentBase } from "core/component.base";
 import { GridQuery } from "core/grid/GridQuery";
 import { BaseController } from "core/models/BaseController";
@@ -58,7 +58,7 @@ export class TagsGridComponent extends ComponentBase {
         this.controllerAs = "$tagsGridCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Blog/tag/tagsGrid.html");
+            return require("blog/tag/tagsGrid.html");
         }];
     }
 }
