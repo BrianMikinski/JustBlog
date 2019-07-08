@@ -1,12 +1,12 @@
 ﻿import * as uirouter from "@uirouter/angularjs";
-import { CategoryComponent, CategoryComponentName } from "Blog/Category/category.component";
-import { CategoriesGridComponent, CategoriesGridComponentName } from "Blog/Category/categoryGrid.component";
-import { HomeComponent, HomeComponentName } from "Blog/Home/home.component";
+import { CategoryComponent, CategoryComponentName } from "Blog/category/category.component";
+import { CategoriesGridComponent, CategoriesGridComponentName } from "Blog/category/categoryGrid.component";
+import { HomeComponent, HomeComponentName } from "Blog/home/home.component";
 import { CreatePostComponent, CreatePostComponentName } from "Blog/post/createpost.component";
 import { PostComponent, PostComponentName } from "Blog/post/post.component";
 import { PostsGridComponent, PostsGridComponentName } from "Blog/post/postgrid.component";
 import { ProfileComponent, ProfileComponentName } from "Blog/profile/profile.component";
-import { TagsGridComponent, TagsGridComponentName } from "Blog/Tag/tagsGrid.component";
+import { TagsGridComponent, TagsGridComponentName } from "Blog/tag/tagsGrid.component";
 import { BlogController } from "Blog/blog.controller";
 import { BlogService } from "Blog/blog.service";
 import { IAction } from "Core/authorization/IAction";

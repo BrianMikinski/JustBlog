@@ -1,4 +1,4 @@
-﻿import { MetaData } from "Blog/MetaData/MetaData";
+﻿import { MetaData } from "Blog/metadata/MetaData";
 import { ComponentBase } from "Core/component.base";
 import { CoreService } from "Core/core.service";
 import { BaseController } from "Core/Models/BaseController";

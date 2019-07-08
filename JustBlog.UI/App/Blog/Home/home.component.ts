@@ -5,7 +5,7 @@ import { CoreService } from "Core/core.service";
 import { Post } from "Blog/post/Post";
 import { PostQueryFilter } from "Blog/post/PostQueryFilter";
 import { BlogService } from "Blog/blog.service";
-import { MetaData } from "Blog/MetaData/MetaData";
+import { MetaData } from "Blog/metadata/MetaData";
 
 export const HomeComponentName: string = "home";
 
@@ -111,7 +111,7 @@ export class HomeComponent extends ComponentBase { //implements ng.IComponentOpt
         this.controllerAs = "homeCtrl"
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Blog/Home/home.html");
+            return require("Blog/home/home.html");
         }];
     }
 }

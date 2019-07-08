@@ -1,5 +1,5 @@
 ﻿import { BlogService } from "Blog/blog.service";
-import { Tag } from "Blog/Tag/Tag";
+import { Tag } from "Blog/tag/Tag";
 import { ComponentBase } from "Core/component.base";
 import { GridQuery } from "Core/grid/GridQuery";
 import { BaseController } from "Core/Models/BaseController";

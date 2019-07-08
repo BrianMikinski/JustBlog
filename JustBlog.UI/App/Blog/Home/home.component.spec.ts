@@ -1,8 +1,8 @@
 ﻿import * as angular from "angular";
 import { default as blogModule } from "Blog/blog.module";
 import { BlogService } from "Blog/blog.service";
-import { HomeComponentName } from "Blog/Home/home.component";
-import { MetaData } from "Blog/MetaData/MetaData";
+import { HomeComponentName } from "Blog/home/home.component";
+import { MetaData } from "Blog/metadata/MetaData";
 import { Post } from "Blog/post/Post";
 import { CoreService } from "Core/core.service";
 import { GridQuery } from "Core/grid/GridQuery";

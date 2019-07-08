@@ -1,8 +1,8 @@
 ﻿import { BlogService } from "Blog/blog.service";
-import { Category } from "Blog/Category/Category";
+import { Category } from "Blog/category/Category";
 import { CreatePostControllerBase } from "Blog/post/CreatePostControllerBase";
 import { Post } from "Blog/post/Post";
-import { Tag } from "Blog/Tag/Tag";
+import { Tag } from "Blog/tag/Tag";
 import { AuthService } from "Core/authorization/auth.service";
 import { ComponentBase } from "Core/component.base";
 import { NotificationFactory } from "notification/notification.factory";

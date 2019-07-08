@@ -1,7 +1,7 @@
-﻿import { Category } from "Blog/Category/Category";
-import { MetaData } from "Blog/MetaData/MetaData";
+﻿import { Category } from "Blog/category/Category";
+import { MetaData } from "Blog/metadata/MetaData";
 import { Post } from "Blog/Post/Post";
-import { Tag } from "Blog/Tag/Tag";
+import { Tag } from "Blog/tag/Tag";
 import { BlogController } from "Blog/blog.controller";
 import { default as blogModule } from "Blog/blog.module";
 import { BlogService } from "Blog/blog.service";

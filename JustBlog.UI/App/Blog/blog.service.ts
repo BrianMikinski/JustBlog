@@ -1,11 +1,11 @@
 ﻿import { BaseService } from "Core/Models/BaseService";
 import { GridQuery } from "Core/grid/GridQuery";
-import { ITagPosts } from "Blog/Tag/ITagPosts";
+import { ITagPosts } from "Blog/tag/ITagPosts";
 import { PagingProperties } from "Core/grid/PagingProperties";
 import { PostQueryFilter } from "Blog/post/PostQueryFilter";
-import { Category } from "Blog/Category/Category";
+import { Category } from "Blog/category/Category";
 import { Post } from "Blog/Post/Post";
-import { Tag } from "Blog/Tag/Tag";
+import { Tag } from "Blog/tag/Tag";
 import { AuthService } from "Core/authorization/auth.service";
 
 /**

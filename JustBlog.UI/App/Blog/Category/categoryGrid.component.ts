@@ -1,9 +1,8 @@
-﻿import { BaseController } from "Core/Models/BaseController";
-import { BlogService } from "Blog/blog.service";
+﻿import { BlogService } from "Blog/blog.service";
+import { Category } from "Blog/category/Category";
 import { ComponentBase } from "Core/component.base";
 import { GridQuery } from "Core/grid/GridQuery";
-import { IBlogRouteParams } from "Blog/Interfaces/IBlogRouteParams";
-import { Category } from "Blog/Category/Category";
+import { BaseController } from "Core/Models/BaseController";
 
 export const CategoriesGridComponentName: string = "categoriesgrid";
 
@@ -62,7 +61,7 @@ export class CategoriesGridComponent extends ComponentBase {
         this.controllerAs = "$categoriesGridCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Blog/Category/categoriesGrid.html");
+            return require("Blog/category/categoriesGrid.html");
         }];
     }
 }

@@ -1,5 +1,5 @@
 ﻿import { BlogService } from "Blog/blog.service";
-import { Category } from "Blog/Category/Category";
+import { Category } from "Blog/category/Category";
 import { Post } from "Blog/post/Post";
 import { ComponentBase } from "Core/component.base";
 import { CoreService } from "Core/core.service";
@@ -73,7 +73,7 @@ export class CategoryComponent extends ComponentBase {
         this.controllerAs = "$categoryCtrl"
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Blog/Category/categories.html");
+            return require("Blog/category/categories.html");
         }];
     }
 }

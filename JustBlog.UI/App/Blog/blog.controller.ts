@@ -1,10 +1,10 @@
 ﻿import { BlogService } from "Blog/blog.service";
-import { Category } from "Blog/Category/Category";
+import { Category } from "Blog/category/Category";
 import { IBlogRouteParams } from "Blog/Interfaces/IBlogRouteParams";
-import { MetaData } from "Blog/MetaData/MetaData";
+import { MetaData } from "Blog/metadata/MetaData";
 import { Post } from "Blog/Post/Post";
-import { ITagPosts } from "Blog/Tag/ITagPosts";
-import { Tag } from "Blog/Tag/Tag";
+import { ITagPosts } from "Blog/tag/ITagPosts";
+import { Tag } from "Blog/tag/Tag";
 import { AuthService } from "Core/authorization/auth.service";
 import { CoreService } from "Core/core.service";
 import { BaseController } from "Core/Models/BaseController";
