@@ -26,7 +26,7 @@ export class ConfirmEmailController extends BaseController implements ng.IContro
     emailConfirmed: boolean = false;
     confirmationMessage: string = "Email Confirmation";
 
-    static inject = ["$sce", "adminService", "$state"]
+    static $inject = ["$sce", "adminService", "$state"]
     constructor(public $sce: ng.ISCEService,
         private adminService: AdminService,
         private $state: ui.IStateService) {

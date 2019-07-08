@@ -20,7 +20,7 @@ export class RegisterUserController extends BaseController implements ng.IContro
     CurrentUser: ApplicationUser = new ApplicationUser();
     NewUser: RegistrationUser = new RegistrationUser();
 
-    static inject = ["$sce", "notificationFactory", "adminService", "authService", "$state"]
+    static $inject = ["$sce", "notificationFactory", "adminService", "authService", "$state"]
     constructor(public $sce: ng.ISCEService,
         private notificationFactory: NotificationFactory,
         private adminService: AdminService,

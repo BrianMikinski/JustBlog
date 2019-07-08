@@ -5,7 +5,7 @@ import { CoreService } from "core/core.service";
 import { Post } from "blog/post/Post";
 import { PostQueryFilter } from "blog/post/PostQueryFilter";
 import { BlogService } from "blog/blog.service";
-import { MetaData } from "blog/metadata/MetaData";
+import { Metadata } from "blog/metadata/MetaData";
 
 export const HomeComponentName: string = "home";
 
@@ -21,7 +21,7 @@ interface IHomeComponentController extends IHomeControllerBindings { }
 export class HomeComponentController extends BaseController implements IHomeComponentController, ng.IController {
 
     private Posts: GridQuery<Post>;
-    private MetaData: MetaData;
+    private MetaData: Metadata;
 
     inject = ["coreService", "blogService", "$sce"]
     constructor(private coreService: CoreService, private blogService: BlogService, public $sce: ng.ISCEService) {
@@ -36,8 +36,8 @@ export class HomeComponentController extends BaseController implements IHomeComp
      */
     private RetrieveMetaData(): void {
 
-        let metaDataCallBack: (data: MetaData) => void;
-        metaDataCallBack = (data: MetaData) => {
+        let metaDataCallBack: (data: Metadata) => void;
+        metaDataCallBack = (data: Metadata) => {
             this.MetaData = data;
         };
 

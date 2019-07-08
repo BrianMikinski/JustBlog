@@ -49,7 +49,7 @@ class CreatePostComponentController extends CreatePostControllerBase implements 
 
     private tinymceContent: string;
 
-    static inject = ["blogService", "$window", "$sce", "$stateParams", "notificationFactory", "authService"]
+    static $inject = ["blogService", "$window", "$sce", "$stateParams", "notificationFactory", "authService"]
     constructor(private blogService: BlogService,
         private $window: ng.IWindowService,
         public $sce: ng.ISCEService,

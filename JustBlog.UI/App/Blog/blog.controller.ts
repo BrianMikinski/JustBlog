@@ -1,7 +1,7 @@
 ﻿import { BlogService } from "blog/blog.service";
 import { Category } from "blog/category/Category";
 import { IBlogRouteParams } from "blog/Interfaces/IBlogRouteParams";
-import { MetaData } from "blog/metadata/MetaData";
+import { Metadata } from "blog/metadata/MetaData";
 import { Post } from "blog/Post/Post";
 import { ITagPosts } from "blog/tag/ITagPosts";
 import { Tag } from "blog/tag/Tag";
@@ -17,7 +17,7 @@ export class BlogController extends BaseController {
 
     CurrentTag: ITagPosts;
     Category: Category;
-    MetaData: MetaData;
+    MetaData: Metadata;
     Tag: Tag;
 
     static $inject = ["coreService", "blogService", "$route", "$routeParams", "$location", "$sce", "$window",

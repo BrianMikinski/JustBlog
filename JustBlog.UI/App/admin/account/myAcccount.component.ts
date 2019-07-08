@@ -46,7 +46,7 @@ class MyAccountComponentController extends BaseController implements IMyAccountC
     altInputFormats: Array<string> = ["M!/d!/yyyy"];
     userBirthDate: Date;
 
-    inject = ["authService", "adminService", "notificationFactory", "$sce", "$state"]
+    static $inject = ["authService", "adminService", "notificationFactory", "$sce", "$state"]
     constructor(public authService: AuthService,
         public adminService: AdminService,
         public notificationFactory: NotificationFactory,

@@ -1,5 +1,5 @@
 ﻿import { Category } from "blog/category/Category";
-import { MetaData } from "blog/metadata/MetaData";
+import { Metadata } from "blog/metadata/MetaData";
 import { Post } from "blog/Post/Post";
 import { Tag } from "blog/tag/Tag";
 import { BlogController } from "blog/blog.controller";
@@ -68,7 +68,7 @@ describe(`Module "${blogModule}: Blog Controller Mockup, dependencies to "${noti
          * Using spys we can see when dependency methods are called and act on them. This method is called in the constructor
          * of the BlogController. Poorly designed but at least we can test it.
          */
-        let metaDataPromise: ng.IDeferred<MetaData>;
+        let metaDataPromise: ng.IDeferred<Metadata>;
         metaDataPromise = _$q_.defer();
         spyOn(coreService, "GetMetaData").and.returnValue(metaDataPromise.promise); // Allows method to be called but changes the return value
         let mockService = jasmine.createSpy('blogService'); //Creates a fake and circumvents the original calling of the method

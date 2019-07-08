@@ -5,7 +5,7 @@ export const AdminHeaderComponentName: string = "adminHeader";
 
 export class AdminHeaderController extends BaseController implements ng.IController {
 
-    static inject = ["$sce"]
+    static $inject = ["$sce"]
     constructor(public $sce: ng.ISCEService) {
         super($sce);
     }

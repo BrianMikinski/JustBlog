@@ -1,9 +1,9 @@
 ﻿import { BaseService} from "core/models/BaseService";
-import { MetaData } from "blog/metadata/MetaData";
+import { Metadata } from "blog/metadata/MetaData";
 
 export class CoreService extends BaseService {
 
-    metaData: MetaData = new MetaData();
+    metaData: Metadata = new Metadata();
 
     private blogEndPoint: string = "../blog";
 
@@ -14,13 +14,13 @@ export class CoreService extends BaseService {
         this.GetMetaData();
     }
 
-    GetMetaData(): ng.IPromise<MetaData> {
+    GetMetaData(): ng.IPromise<Metadata> {
 
-        let onHttpRequestReturned: (response: ng.IHttpPromiseCallbackArg<MetaData>) => any;
-        onHttpRequestReturned = (response: ng.IHttpPromiseCallbackArg<MetaData>) => {
+        let onHttpRequestReturned: (response: ng.IHttpPromiseCallbackArg<Metadata>) => any;
+        onHttpRequestReturned = (response: ng.IHttpPromiseCallbackArg<Metadata>) => {
 
-            this.metaData = <MetaData>response.data;
-            return <MetaData>response.data;
+            this.metaData = <Metadata>response.data;
+            return <Metadata>response.data;
         };
 
         return this.$http.get(`${this.blogEndPoint}/metadata`).then(onHttpRequestReturned, this.OnErrorCallback);

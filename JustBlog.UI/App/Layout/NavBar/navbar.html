@@ -10,16 +10,20 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a type="button" class="navbar-toggle nav-link visible-xs visible-sm" href="https://github.com/BrianMikinski">
+            <a type="button" class="navbar-toggle nav-link visible-xs visible-sm" href="{{$ctrl.metadata.Github}}">
                 <i class="fa fa-github"></i>
             </a>
-            <a type="button" class="navbar-toggle nav-link visible-xs visible-sm" href="https://twitter.com/briandecai">
+            <a type="button" class="navbar-toggle nav-link visible-xs visible-sm" href="https://twitter.com/{{$ctrl.metadata.Twitter}}">
                 <i class="fa fa-twitter"></i>
             </a>
+            <a class="navbar-toggle nav-link visible-xs visible-sm" href="{{$ctrl.metadata.XMLFeed}}">
+                <i class="fa fa-rss"></i>
+            </a>
+
             <a class="navbar-brand" href="/">
                 <img src="../../content/images/profile.jpg" class="img-circle pull-left" style="max-height:25px; max-width: 25px; margin-right:10px">
                 <span>
-                    brianmikinski.net
+                    {{$ctrl.metadata.URL}}
                 </span>
             </a>
         </div>
@@ -31,14 +35,39 @@
                     </a>
                 </li>
                 <li>
-                    <a href="Categories">
+                    <a href="categories">
                         Categories
+                    </a>
+                </li>
+                <li>
+                    <a href="aboutme">
+                        About Me
+                    </a>
+                </li>
+                <li>
+                    <a href="Categories">
+                        Top of Page
+                    </a>
+                </li>
+                <li is-authorized resource="admin" action="read">
+                    <a href="manageContent">
+                        Manage Content
+                    </a>
+                </li>
+                <li is-authorized only-show-unauthorized="true">
+                    <a href="login">
+                        Login
+                    </a>
+                </li>
+                <li is-authorized resource="admin" action="read">
+                    <a href="logoff">
+                        Sign Out
                     </a>
                 </li>
             </ul>
         </div>
     </nav>
-    <div class="btn-group hidden-xs hidden-sm pull-right" uib-dropdown is-open="$navBarCtrl.isOpen" style="margin-top: 20px; float: right; z-index: 5000; margin-right: 30px;">
+    <div class="btn-group hidden-xs hidden-sm pull-right" uib-dropdown is-open="$ctrl.isOpen" style="margin-top: 20px; float: right; z-index: 5000; margin-right: 30px;">
         <button type="button" class="btn btn-default" id="dropdownMenu" uib-dropdown-toggle>
             <i class="fa fa-bars"></i>
         </button>

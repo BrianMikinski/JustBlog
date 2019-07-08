@@ -5,26 +5,26 @@
                 <img src="../../content/images/profile.jpg" class="img-circle profile-picture" />
             </a>
             <h3 class="title text-center">
-                <a href="/">{{$profileCtrl.MetaData.URL}}</a>
+                <a href="/">{{$ctrl.metadata.URL}}</a>
             </h3>
         </header>
         <div id="bio" class="text-center">
-            {{$profileCtrl.MetaData.Motto}}
+            {{$ctrl.metadata.Motto}}
         </div>
         <div id="contact-list" class="text-center">
             <ul class="list-unstyled list-inline">
                 <li>
-                    <a class="btn btn-default btn-sm" href="{{$profileCtrl.MetaData.Github}}">
+                    <a class="btn btn-default btn-sm" href="{{$ctrl.metadata.Github}}">
                         <i class="fa fa-github-alt fa-lg"></i>
                     </a>
                 </li>
                 <li>
-                    <a class="btn btn-default btn-sm" href="https://twitter.com/share?text={{$profileCtrl.metaData.URL}}">
+                    <a class="btn btn-default btn-sm" href="https://twitter.com/share?text={{$ctrl.metadata.URL}}">
                         <i class="fa fa-twitter fa-lg"></i>
                     </a>
                 </li>
                 <li>
-                    <a class="btn btn-default btn-sm" href="{{$profileCtrl.MetaData.XMLFeed}}">
+                    <a class="btn btn-default btn-sm" href="{{$ctrl.metadata.XMLFeed}}">
                         <i class="fa fa-rss fa-lg"></i>
                     </a>
                 </li>
@@ -46,9 +46,9 @@
                 </nav>
                 <h5>Recent Posts</h5>
                 <ul class="list-unstyled">
-                    <li ng-repeat="post in $profileCtrl.MetaData.Posts">
-                        <span title="{{$profileCtrl.ConvertDateTime(post.PostedOn)}}">
-                            {{$profileCtrl.ConvertDateTime(post.PostedOn)}}
+                    <li ng-repeat="post in $ctrl.metadata.Posts">
+                        <span title="{{$ctrl.ConvertDateTime(post.PostedOn)}}">
+                            {{$ctrl.ConvertDateTime(post.PostedOn)}}
                         </span> »
                         <a href="post/{{post.UrlSlug}}">
                             {{post.Title}}

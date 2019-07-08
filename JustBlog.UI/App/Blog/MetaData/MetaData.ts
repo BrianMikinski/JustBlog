@@ -3,7 +3,7 @@
 /**
  * Container for global blog meta data
  */
-export class MetaData {
+export class Metadata {
     Author: string;
     AdminEmail: string;
     Description: string;
