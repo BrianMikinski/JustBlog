@@ -1,6 +1,6 @@
 ﻿import * as uirouter from "@uirouter/angularjs";
 import { AdminController } from "admin/admin.controller";
-import { AdminService } from "admin/admin.service";
+import { AdminService, AdminServiceName } from "admin/admin.service";
 import { IAdminRoutes } from "admin/interfaces/IAdminRoutes";
 import { IAuthEventConstants } from "admin/interfaces/IAuthEventConstants";
 import { LoginComponent, LoginComponentName } from "admin/login/login.component";
@@ -8,7 +8,6 @@ import { RegisterUserComponent, RegisterUserComponentName } from "admin/register
 import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";
-import { AuthService } from "core/authorization/auth.service";
 import { IAction } from "core/authorization/IAction";
 import { IBlogRoute } from "core/authorization/IBlogRoute";
 import { IResource } from "core/authorization/IResource";
@@ -278,20 +277,10 @@ export class AdminModule extends BaseModule {
     }
 }
 
-
 // create the module
 let Admin:AdminModule = new AdminModule();
 
-Admin.AddFactory("adminService", adminFactory);
-
-adminFactory.$inject = ["$rootScope", "$http", "authService", "ADMIN_ROUTE_CONSTANTS", "AUTH_EVENT_CONSTANTS"];
-function adminFactory($rootScope: ng.IRootScopeService,
-                        $http: ng.IHttpService,
-                        authService: AuthService,
-                        ADMIN_ROUTE_CONSTANTS: IAdminRoutes,
-                        AUTH_EVENT_CONSTANTS: IAuthEventConstants): AdminService {
-    return new AdminService($rootScope, $http, authService, ADMIN_ROUTE_CONSTANTS, AUTH_EVENT_CONSTANTS);
-}
+Admin.AddService(AdminServiceName, AdminService);
 
 Admin.AddController("Admin", AdminController as ng.Injectable<angular.IControllerConstructor>);
 Admin.AddComponent(LoginComponentName, new LoginComponent())

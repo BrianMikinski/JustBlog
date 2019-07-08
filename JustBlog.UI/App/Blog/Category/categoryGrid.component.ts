@@ -13,7 +13,7 @@ class CategoriesGridComponentController extends BaseController implements ng.ICo
 
     private Categories: GridQuery<Category>;
 
-    inject = ["blogService", "$sce"]
+    static $inject = ["blogService", "$sce"]
     constructor(private blogService: BlogService,
         public $sce: ng.ISCEService) {
         super($sce);

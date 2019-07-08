@@ -23,7 +23,7 @@ export class HomeComponentController extends BaseController implements IHomeComp
     private Posts: GridQuery<Post>;
     private MetaData: Metadata;
 
-    inject = ["coreService", "blogService", "$sce"]
+    static $inject = ["coreService", "blogService", "$sce"]
     constructor(private coreService: CoreService, private blogService: BlogService, public $sce: ng.ISCEService) {
         super($sce);
 

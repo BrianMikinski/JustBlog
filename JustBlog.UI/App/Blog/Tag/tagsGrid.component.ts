@@ -13,7 +13,7 @@ class TagsGridComponentController extends BaseController implements ng.IControll
 
     private Tags: GridQuery<Tag> = new GridQuery<Tag>(); 
 
-    inject = ["blogService", "$sce"]
+    static $inject = ["blogService", "$sce"]
     constructor(private blogService: BlogService,
         public $sce: ng.ISCEService) {
         super($sce);

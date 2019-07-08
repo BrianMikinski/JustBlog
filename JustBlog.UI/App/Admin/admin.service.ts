@@ -12,6 +12,8 @@ import { IChangePasswordModel } from "./password/IChangePasswordModel";
 import { IResetPasswordModel } from "./password/IResetPasswordModel";
 import { IValidPassword } from "./password/IValidPassword";
 
+export const AdminServiceName: string = "adminService";
+
 //Admin service class that allows users to perform common account management actions
 export class AdminService extends BaseService {
 
@@ -28,7 +30,7 @@ export class AdminService extends BaseService {
      * Setup error handling
      * @param $http
      */
-    $inject = ["$rootScope", "$http", "authService", "ADMIN_ROUTE_CONSTANTS", "AUTH_EVENT_CONSTANTS"];
+    static $inject = ["$rootScope", "$http", "authService", "ADMIN_ROUTE_CONSTANTS", "AUTH_EVENT_CONSTANTS"];
     constructor(private $rootScope: ng.IRootScopeService,
         private $http: ng.IHttpService,
         private authService: AuthService,

@@ -3,6 +3,8 @@ import { IHttpResponse, IPromise, IRequestConfig } from "angular";
 import { IAuthenticationConstants } from "core/authorization/IAuthenticationConstants";
 import { StateService} from "@uirouter/angularjs";
 
+export const AuthInterceptorName: string = "authInterceptor";
+
 /**
  * Class for intercepting routing requests. Primarily used for authentication
  */

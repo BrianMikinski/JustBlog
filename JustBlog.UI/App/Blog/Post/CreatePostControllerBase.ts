@@ -7,7 +7,7 @@ export class CreatePostControllerBase extends BaseController {
 
     Post: Post;
 
-    inject = ["blogService", "$sce", "notificationFactory"]
+    static $inject = ["blogService", "$sce", "notificationFactory"]
     constructor(private _blogService: BlogService,
         _$sce: ng.ISCEService,
         private _notificationFactory: NotificationFactory) {

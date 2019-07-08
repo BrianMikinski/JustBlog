@@ -12,7 +12,7 @@ export const LogoffComponentName: string = "logoff";
  */
 class LogoffComponentController extends BaseController implements ng.IController {
 
-    inject = ["authService", "adminService", "notificationFactory", "$sce", "$location"]
+    static $inject = ["authService", "adminService", "notificationFactory", "$sce", "$location"]
     constructor(public authService: AuthService,
         public adminService: AdminService,
         public notificationFactory: NotificationFactory,

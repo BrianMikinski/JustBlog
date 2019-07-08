@@ -44,7 +44,7 @@ class ErrorHandlingController extends BaseController implements IErrorHandlingCo
     private onRequestCallback: () => void;
 
 
-    inject = ["$sce", "errorHandlingService"]
+    static $inject = ["$sce", "errorHandlingService"]
     constructor($sce: ng.ISCEService, private errorHandlingService: ErrorHandlingService) {
         super($sce);
 

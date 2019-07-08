@@ -1,6 +1,8 @@
 ﻿import { BaseService} from "core/models/BaseService";
 import { Metadata } from "blog/metadata/MetaData";
 
+export const CoreServiceName: string = "coreService";
+
 export class CoreService extends BaseService {
 
     metaData: Metadata = new Metadata();

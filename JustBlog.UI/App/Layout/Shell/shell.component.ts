@@ -7,8 +7,9 @@ export const ShellComponentName: string = "shell";
  * Controller for the Navigation Bar
  */
 class ShellComponentController extends BaseController implements ng.IController {
-   
-    constructor(public $sce: ng.ISCEService) {
+
+    static $inject = ['$sce']
+    constructor($sce: ng.ISCEService) {
         super($sce);
     }
 

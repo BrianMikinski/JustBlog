@@ -18,7 +18,7 @@ class ProfileComponentController extends BaseController implements IProfileCompo
 
     private metadata: Metadata;
 
-    inject = ["coreService", "$sce"]
+    static $inject = ["coreService", "$sce"]
     constructor(private coreService: CoreService, public $sce: ng.ISCEService) {
         super($sce);
 

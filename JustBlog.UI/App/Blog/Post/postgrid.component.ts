@@ -16,7 +16,7 @@ class PostsGridComponentController extends CreatePostControllerBase implements n
 
     private Posts: GridQuery<Post>;
   
-    static inject = ["blogService", "$window", "$sce", "$stateParams", "notificationFactory", "authService"]
+    static $inject = ["blogService", "$window", "$sce", "$stateParams", "notificationFactory", "authService"]
     constructor(private blogService: BlogService,
         public $sce: ng.ISCEService,
         private notificationFactory: NotificationFactory) {

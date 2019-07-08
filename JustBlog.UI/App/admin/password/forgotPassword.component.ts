@@ -15,7 +15,7 @@ class ForgotPasswordComponentController extends BaseController implements ng.ICo
     resetPasswordEmailSent: boolean = false;
     submitResetRequest: boolean = false;
 
-    inject = ["authService", "adminService", "notificationFactory", "$sce", "$state"]
+    static $inject = ["authService", "adminService", "notificationFactory", "$sce", "$state"]
     constructor(public authService: AuthService,
         public adminService: AdminService,
         public notificationFactory: NotificationFactory,

@@ -21,7 +21,7 @@ class CategoryComponentController extends BaseController implements ICategoryCom
     AllCategories: Array<Category>;
     CategoryPosts: Array<Post>;
 
-    inject = ["coreService", "blogService", "$sce"]
+    static $inject = ["coreService", "blogService", "$sce"]
     constructor(private coreService: CoreService, private blogService: BlogService, public $sce: ng.ISCEService) {
         super($sce);
     }

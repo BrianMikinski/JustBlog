@@ -18,7 +18,7 @@ class PostComponentController extends BaseController implements IPostComponentCo
     private Post: Post;
     urlSlug: string;
 
-    inject = ["blogService", "$window", "$sce", "$stateParams"]
+    static $inject = ["blogService", "$window", "$sce", "$stateParams"]
     constructor(private blogService: BlogService,
         private $window: ng.IWindowService,
         public $sce: ng.ISCEService,

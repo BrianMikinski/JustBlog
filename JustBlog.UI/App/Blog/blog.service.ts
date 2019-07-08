@@ -17,6 +17,7 @@ export class BlogService extends BaseService {
     private postEndPoint: string = "../post";
     private tagEndPoint: string = "../tag";
 
+    static $inject = ['$http', 'authService']
     constructor(private $http: ng.IHttpService, private authService: AuthService) {
         super();
     }

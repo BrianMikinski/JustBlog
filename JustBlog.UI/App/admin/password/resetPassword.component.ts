@@ -27,7 +27,7 @@ class ResetPasswordComponentController extends BaseController implements ng.ICon
         isValidPassword: false
     };
 
-    inject = ["authService", "adminService", "notificationFactory", "$sce", "$state", "$timeout"]
+    static $inject = ["authService", "adminService", "notificationFactory", "$sce", "$state", "$timeout"]
     constructor(public adminService: AdminService,
         public notificationFactory: NotificationFactory,
         public $sce: ng.ISCEService,
