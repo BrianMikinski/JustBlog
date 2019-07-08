@@ -4,10 +4,10 @@ import { LoginUpdate } from "admin/login/LoginUpdate";
 import { IChangePasswordModel } from "admin/password/IChangePasswordModel";
 import { IResetPasswordModel } from "admin/password/IResetPasswordModel";
 import { Post } from "Blog/post/Post";
-import { AuthService } from "Core/authorization/auth.service";
-import { CoreService } from "Core/core.service";
-import { GridQuery } from "Core/grid/GridQuery";
-import { BaseController } from "Core/Models/BaseController";
+import { AuthService } from "core/authorization/auth.service";
+import { CoreService } from "core/core.service";
+import { GridQuery } from "core/grid/GridQuery";
+import { BaseController } from "core/models/BaseController";
 import { NotificationFactory } from "notification/notification.factory";
 
 /**

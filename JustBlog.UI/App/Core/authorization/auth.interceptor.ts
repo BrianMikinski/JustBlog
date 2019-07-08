@@ -1,6 +1,6 @@
 ﻿console.log("entered auth interceptor");
 import { IHttpResponse, IPromise, IRequestConfig } from "angular";
-import { IAuthenticationConstants } from "Core/authorization/IAuthenticationConstants";
+import { IAuthenticationConstants } from "core/authorization/IAuthenticationConstants";
 import { StateService} from "@uirouter/angularjs";
 
 /**

@@ -1,12 +1,12 @@
-﻿import { BaseService } from "Core/Models/BaseService";
-import { GridQuery } from "Core/grid/GridQuery";
+﻿import { BaseService } from "core/models/BaseService";
+import { GridQuery } from "core/grid/GridQuery";
 import { ITagPosts } from "Blog/tag/ITagPosts";
-import { PagingProperties } from "Core/grid/PagingProperties";
+import { PagingProperties } from "core/grid/PagingProperties";
 import { PostQueryFilter } from "Blog/post/PostQueryFilter";
 import { Category } from "Blog/category/Category";
 import { Post } from "Blog/Post/Post";
 import { Tag } from "Blog/tag/Tag";
-import { AuthService } from "Core/authorization/auth.service";
+import { AuthService } from "core/authorization/auth.service";
 
 /**
  * Class for retrieving, creating and editing blog posts, categories and tags

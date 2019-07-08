@@ -1,7 +1,7 @@
 ﻿import { AdminService } from "admin/admin.service";
 import { ui } from "angular";
-import { ComponentBase } from "Core/component.base";
-import { BaseController } from "Core/Models/BaseController";
+import { ComponentBase } from "core/component.base";
+import { BaseController } from "core/models/BaseController";
 
 export const ConfirmEmailComponentName: string = "confirmEmail";
 

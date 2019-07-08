@@ -1,5 +1,5 @@
-﻿import { BaseController } from "Core/Models/BaseController";
-import { ComponentBase } from "Core/component.base";
+﻿import { BaseController } from "core/models/BaseController";
+import { ComponentBase } from "core/component.base";
 
 export const NavBarComponentName: string = "navbar";
 

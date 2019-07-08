@@ -1,7 +1,7 @@
 ﻿import { BlogService } from "Blog/blog.service";
 import { Post } from "Blog/post/Post";
-import { ComponentBase } from "Core/component.base";
-import { BaseController } from "Core/Models/BaseController";
+import { ComponentBase } from "core/component.base";
+import { BaseController } from "core/models/BaseController";
 
 export const PostComponentName: string = "post";
 

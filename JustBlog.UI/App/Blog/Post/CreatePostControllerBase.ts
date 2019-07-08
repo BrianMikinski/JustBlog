@@ -1,6 +1,6 @@
 ﻿import { BlogService } from "Blog/blog.service";
 import { Post } from "Blog/post/Post";
-import { BaseController } from "Core/Models/BaseController";
+import { BaseController } from "core/models/BaseController";
 import { NotificationFactory } from "notification/notification.factory";
 
 export class CreatePostControllerBase extends BaseController {

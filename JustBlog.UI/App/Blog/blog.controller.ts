@@ -5,9 +5,9 @@ import { MetaData } from "Blog/metadata/MetaData";
 import { Post } from "Blog/Post/Post";
 import { ITagPosts } from "Blog/tag/ITagPosts";
 import { Tag } from "Blog/tag/Tag";
-import { AuthService } from "Core/authorization/auth.service";
-import { CoreService } from "Core/core.service";
-import { BaseController } from "Core/Models/BaseController";
+import { AuthService } from "core/authorization/auth.service";
+import { CoreService } from "core/core.service";
+import { BaseController } from "core/models/BaseController";
 import { NotificationFactory } from "notification/notification.factory";
 
 /**

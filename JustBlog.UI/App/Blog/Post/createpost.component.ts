@@ -3,8 +3,8 @@ import { Category } from "Blog/category/Category";
 import { CreatePostControllerBase } from "Blog/post/CreatePostControllerBase";
 import { Post } from "Blog/post/Post";
 import { Tag } from "Blog/tag/Tag";
-import { AuthService } from "Core/authorization/auth.service";
-import { ComponentBase } from "Core/component.base";
+import { AuthService } from "core/authorization/auth.service";
+import { ComponentBase } from "core/component.base";
 import { NotificationFactory } from "notification/notification.factory";
 
 export const CreatePostComponentName: string = "newpost";

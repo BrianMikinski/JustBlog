@@ -1,5 +1,5 @@
-﻿import { ComponentBase } from "Core/component.base";
-import { BaseController } from "Core/Models/BaseController";
+﻿import { ComponentBase } from "core/component.base";
+import { BaseController } from "core/models/BaseController";
 import { ErrorHandlingService } from "./errorHandling.service";
 
 export const ErrorHandlingComponentName: string = "errorHandling";
@@ -19,7 +19,7 @@ export class ErrorHandlingComponent extends ComponentBase {
         this.controller = ErrorHandlingController;
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Core/errorHandling/httpError.html");
+            return require("core/errorHandling/httpError.html");
         }];
     }
 }

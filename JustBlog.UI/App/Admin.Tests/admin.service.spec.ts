@@ -6,8 +6,8 @@ import { IAdminRoutes } from "admin/interfaces/IAdminRoutes";
 import { LoginModel } from "admin/login/LoginModel";
 import * as angular from 'angular';
 import { MetaData } from "Blog/metadata/MetaData";
-import { AuthService } from "Core/authorization/auth.service";
-import { default as coreModule } from "Core/core.module";
+import { AuthService } from "core/authorization/auth.service";
+import { default as coreModule } from "core/core.module";
 import { default as notificationModule } from "notification/notification.module";
 require('angular-mocks');
 

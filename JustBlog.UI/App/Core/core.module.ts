@@ -2,12 +2,12 @@
 import { HookMatchCriteria, HookResult, StateService, Transition, TransitionHookFn, TransitionService } from "@uirouter/angularjs";
 import { LoginComponentName } from "admin/login/login.component";
 import * as angular from "angular";
-import { AuthorizationDirective } from "Core/authorization/auth.directive";
-import { AuthInterceptor } from "Core/authorization/auth.interceptor";
-import { AuthService } from "Core/authorization/auth.service";
-import { RouteAuthorizationError } from "Core/authorization/RouteAuthorizationError";
-import { CoreService } from "Core/core.service";
-import { BaseModule } from "Core/Models/BaseModule";
+import { AuthorizationDirective } from "core/authorization/auth.directive";
+import { AuthInterceptor } from "core/authorization/auth.interceptor";
+import { AuthService } from "core/authorization/auth.service";
+import { RouteAuthorizationError } from "core/authorization/RouteAuthorizationError";
+import { CoreService } from "core/core.service";
+import { BaseModule } from "core/models/BaseModule";
 import { IAuthenticationConstants } from "./authorization/IAuthenticationConstants";
 import { ErrorHandlingComponent, ErrorHandlingComponentName } from "./errorHandling/errorHandling.component";
 import { IErrorRoutes } from "./errorHandling/IErrorRoutes";

@@ -1,4 +1,4 @@
-﻿import { BaseModule } from "Core/Models/BaseModule";
+﻿import { BaseModule } from "core/models/BaseModule";
 import { NavBarComponent, NavBarComponentName } from "layout/navBar/navbar.component";
 import { ShellComponent, ShellComponentName } from "layout/shell/shell.component";
 import * as angular from "angular";

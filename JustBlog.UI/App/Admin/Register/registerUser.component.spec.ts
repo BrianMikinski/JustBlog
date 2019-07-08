@@ -1,5 +1,5 @@
 ﻿import { default as adminModule } from "admin/admin.module";
-import { CoreModule } from "Core/core.module";
+import { CoreModule } from "core/core.module";
 import { RegistrationUser } from "admin/register/RegistrationUser";
 import { AdminService } from "admin/admin.service";
 import { RegistrationAttempt } from "admin/register/RegistrationAttempt";

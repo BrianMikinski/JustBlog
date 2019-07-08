@@ -1,4 +1,4 @@
-﻿import { BaseModule } from "Core/Models/BaseModule";
+﻿import { BaseModule } from "core/models/BaseModule";
 import { NotificationFactory } from "notification/notification.factory";
 import * as angular from "angular";
 

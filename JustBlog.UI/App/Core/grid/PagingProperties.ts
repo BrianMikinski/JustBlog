@@ -1,4 +1,4 @@
-﻿import {SortField} from "Core/grid/SortField";
+﻿import {SortField} from "core/grid/SortField";
 
 /**
  * Properties to define a paging object

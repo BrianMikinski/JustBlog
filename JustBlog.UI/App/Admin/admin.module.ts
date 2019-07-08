@@ -8,11 +8,11 @@ import { RegisterUserComponent, RegisterUserComponentName } from "admin/register
 import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";
-import { AuthService } from "Core/authorization/auth.service";
-import { IAction } from "Core/authorization/IAction";
-import { IBlogRoute } from "Core/authorization/IBlogRoute";
-import { IResource } from "Core/authorization/IResource";
-import { BaseModule } from "Core/Models/BaseModule";
+import { AuthService } from "core/authorization/auth.service";
+import { IAction } from "core/authorization/IAction";
+import { IBlogRoute } from "core/authorization/IBlogRoute";
+import { IResource } from "core/authorization/IResource";
+import { BaseModule } from "core/models/BaseModule";
 import { MyAccountComponent, MyAccountComponentName } from "./account/myAcccount.component";
 import { AdminHeaderComponent, AdminHeaderComponentName } from "./adminHeader.component";
 import { LogoffComponent, LogoffComponentName } from "./Login/logoff.component";

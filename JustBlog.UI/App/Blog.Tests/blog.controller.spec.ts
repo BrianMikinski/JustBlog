@@ -5,9 +5,9 @@ import { Tag } from "Blog/tag/Tag";
 import { BlogController } from "Blog/blog.controller";
 import { default as blogModule } from "Blog/blog.module";
 import { BlogService } from "Blog/blog.service";
-import { GridQuery } from "Core/grid/GridQuery";
-import {default as coreModule, CoreModule } from "Core/core.module"; // required by blog controller which is a part of the blog.module
-import { CoreService } from "Core/core.service";
+import { GridQuery } from "core/grid/GridQuery";
+import {default as coreModule, CoreModule } from "core/core.module"; // required by blog controller which is a part of the blog.module
+import { CoreService } from "core/core.service";
 import {default as notificationModule } from "notification/notification.module"; // required by blog controller which is a part of the blog.module
 import * as angular from "angular";
 

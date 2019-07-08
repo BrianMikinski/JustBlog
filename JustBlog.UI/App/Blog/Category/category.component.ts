@@ -1,9 +1,9 @@
 ﻿import { BlogService } from "Blog/blog.service";
 import { Category } from "Blog/category/Category";
 import { Post } from "Blog/post/Post";
-import { ComponentBase } from "Core/component.base";
-import { CoreService } from "Core/core.service";
-import { BaseController } from "Core/Models/BaseController";
+import { ComponentBase } from "core/component.base";
+import { CoreService } from "core/core.service";
+import { BaseController } from "core/models/BaseController";
 
 export const CategoryComponentName: string = "category";
 

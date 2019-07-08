@@ -9,11 +9,11 @@ import { ProfileComponent, ProfileComponentName } from "Blog/profile/profile.com
 import { TagsGridComponent, TagsGridComponentName } from "Blog/tag/tagsGrid.component";
 import { BlogController } from "Blog/blog.controller";
 import { BlogService } from "Blog/blog.service";
-import { IAction } from "Core/authorization/IAction";
-import { IResource } from "Core/authorization/IResource";
-import { IBlogRoute } from "Core/authorization/IBlogRoute";
-import { BaseModule } from "Core/Models/BaseModule";
-import { AuthService } from "Core/authorization/auth.service";
+import { IAction } from "core/authorization/IAction";
+import { IResource } from "core/authorization/IResource";
+import { IBlogRoute } from "core/authorization/IBlogRoute";
+import { BaseModule } from "core/models/BaseModule";
+import { AuthService } from "core/authorization/auth.service";
 import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";
