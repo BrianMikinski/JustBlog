@@ -8,12 +8,11 @@ import { PostsGridComponent, PostsGridComponentName } from "blog/post/postgrid.c
 import { ProfileComponent, ProfileComponentName } from "blog/profile/profile.component";
 import { TagsGridComponent, TagsGridComponentName } from "blog/tag/tagsGrid.component";
 import { BlogController } from "blog/blog.controller";
-import { BlogService } from "blog/blog.service";
+import { BlogService, BlogServiceName } from "blog/blog.service";
 import { IAction } from "core/authorization/IAction";
 import { IResource } from "core/authorization/IResource";
 import { IBlogRoute } from "core/authorization/IBlogRoute";
 import { BaseModule } from "core/models/BaseModule";
-import { AuthService } from "core/authorization/auth.service";
 import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";
@@ -227,13 +226,7 @@ export class BlogModule extends BaseModule {
 // adding to an angular mock. This is necessary to use required
 let Blog: BlogModule = new BlogModule();
 
-Blog.AddFactory("blogService", blogFactory);
-
-blogFactory.$inject = ["$http", "authService"];
-function blogFactory($http: ng.IHttpService, authService: AuthService): BlogService {
-
-    return new BlogService($http, authService);
-}
+Blog.AddService(BlogServiceName, BlogService);
 
 Blog.AddController("Blog", BlogController as ng.Injectable<angular.IControllerConstructor>);
 
