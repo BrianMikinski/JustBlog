@@ -38,8 +38,13 @@ class NavBarComponentController extends BaseController implements ng.IController
             var modalInstance = this.$uibModal.open({
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: "modal-body",
-                component: "login",
-                size: "sm"
+                component: "identityModal",
+                size: "sm",
+                resolve: {
+                    currentView: function () {
+                        return "login";
+                    }
+                }
             });
 
             var reEnableModal: () => void = () => {

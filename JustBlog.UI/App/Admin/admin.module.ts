@@ -14,6 +14,7 @@ import { IResource } from "core/authorization/IResource";
 import { BaseModule } from "core/models/BaseModule";
 import { MyAccountComponent, MyAccountComponentName } from "./account/myAcccount.component";
 import { AdminHeaderComponent, AdminHeaderComponentName } from "./adminHeader.component";
+import { IdentityModalComponent, IdentityModalComponentName } from "./login/identityModal.component";
 import { LogoffComponent, LogoffComponentName } from "./Login/logoff.component";
 import { ForgotPasswordComponent, ForgotPasswordComponentName } from "./password/forgotPassword.component";
 import { ResetPasswordComponent, ResetPasswordComponentName } from "./password/resetpassword.component";
@@ -284,6 +285,7 @@ Admin.AddService(AdminServiceName, AdminService);
 
 Admin.AddController("Admin", AdminController as ng.Injectable<angular.IControllerConstructor>);
 Admin.AddComponent(LoginComponentName, new LoginComponent())
+Admin.AddComponent(IdentityModalComponentName, new IdentityModalComponent())
 Admin.AddComponent(LogoffComponentName, new LogoffComponent());
 Admin.AddComponent(RegisterUserComponentName, new RegisterUserComponent())
 Admin.AddComponent(AdminHeaderComponentName, new AdminHeaderComponent());

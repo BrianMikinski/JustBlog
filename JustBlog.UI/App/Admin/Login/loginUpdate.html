@@ -2,7 +2,9 @@
 
 <div class="row">
     <div class="col-md-12">
-        <h4 class="text-center">Update Login</h4>
+        <h4 class="text-center">
+            Update Login
+        </h4>
         <br />
     </div>
     <div class="col-md-6">
@@ -25,7 +27,7 @@
                 </div>
             </div>
 
-            <!--New Login--> <!----> 
+            <!--New Login--> <!---->
             <div class="form-group" ng-class="{ 'has-error' : updateLoginForm.newEmail.$invalid && !updateLoginForm.newEmail.$pristine }">
                 <label class="col-md-4 control-label">New Login</label>
                 <div class="col-md-8">
@@ -52,7 +54,7 @@
                            type="email"
                            required
                            placeholder="Required"
-                           value=""/>
+                           value="" />
                     <p ng-show="(updateLoginForm.confirmNewEmail.$invalid && !updateLoginForm.confirmNewEmail.$pristine)
                                 && (updateLoginForm.newEmail == updateLoginForm.confirmNewEmail)" class="help-block">
                         New login and confirmation login must match.

@@ -1,0 +1,100 @@
+﻿<form ng-submit="$ctrl.identityModalAction()" method="post" role="form">
+    <div class="modal-header">
+        <div style="display:block;" class="text-center">
+            <img src="../../content/images/profile.jpg" class="img-circle profile-picture-sm" />
+        </div>
+        <h2 class="text-center" style="margin-bottom: 20px;">
+            brianmikinski.net
+        </h2>
+    </div>
+    <div class="modal-body">
+
+        <!--login-->
+        <div class="row" ng-if="$ctrl.isLoginView()">
+            <div class="col-md-12 col-lg-12">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-envelope"></i>
+                        </div>
+                        <input class="form-control"
+                               name="UserName"
+                               type="text"
+                               value=""
+                               placeholder="youremail@domain.com"
+                               ng-disabled="$ctrl.submitLogin"
+                               ng-model="$ctrl.LoginUser.Email"
+                               autofocus>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-key"></i>
+                        </div>
+                        <input class="form-control" name="Password" type="password" placeholder="your password" ng-disabled="$ctrl.submitLogin" ng-model="$ctrl.LoginUser.Password" tabindex="1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--forgot password-->
+        <div class="row" ng-if="$ctrl.isForgotPasswordView()">
+            <div class="col-md-12 col-lg-12">
+                <div class="form-group" ng-if="!$ctrl.resetPasswordEmailSent">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-envelope"></i>
+                        </div>
+                        <input class="form-control"
+                               name="email"
+                               type="email"
+                               value=""
+                               placeholder="youremail@domain.com"
+                               ng-enabled="$ctrl.submitResetRequest === false"
+                               ng-model="$ctrl.userEmail"
+                               autofocus
+                               required>
+                    </div>
+                </div>
+                <p  ng-if="$ctrl.resetPasswordEmailSent">
+                    Password reset meail sent. Please check your email.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+
+        <!--login-->
+        <a class="text-center" style="display:block; margin-bottom: 10px;" tabindex="4" href="#" ng-click="$ctrl.showForgotPasswordView()" ng-if="$ctrl.isLoginView()">
+            Forgot Password?
+        </a>
+        <button class="btn btn-primary login-btn" type="submit" ng-disabled="$ctrl.submitLogin" tabindex="2" ng-if="$ctrl.isLoginView()">
+            Log In
+        </button>
+        <a href="#" ng-if="$ctrl.isLoginView()">
+            <button class="btn btn-primary login-btn" type="button" tabindex="3" ng-click="$ctrl.showRegisterUserView()">
+                Register
+            </button>
+        </a>
+
+        <!--forgot password-->
+        <a class="text-center" style="display:block; margin-bottom: 10px;" tabindex="4" href="#" ng-click="$ctrl.showLoginView()" ng-if="$ctrl.isForgotPasswordView()">
+            Return to Login
+        </a>
+
+        <button class="btn btn-primary login-btn" type="submit" tabindex="1"
+                ng-disabled="$ctrl.submitResetRequest === true || resetPassword.email.$invalid"
+                ng-if="!$ctrl.resetPasswordEmailSent && $ctrl.isForgotPasswordView()">
+            Reset Password
+        </button>
+
+        <!--all screens-->
+        <a href="#" ng-if="false">
+            <button class="btn btn-primary login-btn" type="button" tabindex="3" ng-click="$ctrl.cancel()">
+                Cancel
+            </button>
+        </a>
+    </div>
+
+</form>
