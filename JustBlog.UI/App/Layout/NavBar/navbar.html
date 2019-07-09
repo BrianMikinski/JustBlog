@@ -2,15 +2,54 @@
     <nav class="navbar navbar-default visible-xs visible-sm" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle visible-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">
-                    Toggle navigation
-                </span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a type="button" class="navbar-toggle nav-link visible-xs visible-sm" href="{{$ctrl.metadata.Github}}">
+            <div class="btn-group pull-right" uib-dropdown is-open="$ctrl.isOpen">
+                <button type="button" class="navbar-toggle" id="dropdownMenuMobile" uib-dropdown-toggle>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <ul uib-dropdown-menu role="menu" aria-labelledby="dropdownMenuMobile">
+                    <li role="menuitem">
+                        <a href="home">
+                            <i class="fa fa-home">
+                            </i>Home
+                        </a>
+                    </li>
+                    <li role="menuitem">
+                        <a href="categories">
+                            <i class="fa fa-folder">
+                            </i>Categories
+                        </a>
+                    </li>
+                    <li role="menuitem">
+                        <a href="aboutme">
+                            <i class="fa fa-info-circle"></i> About Me
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li role="menuitem">
+                        <a href="#">
+                            <i class="fa fa-arrow-up"></i> Top of Page
+                        </a>
+                    </li>
+                    <li role="menuitem" is-authorized resource="admin" action="read">
+                        <a href="manageContent">
+                            <i class="fa fa-pencil-square-o"></i> Manage Content
+                        </a>
+                    </li>
+                    <li role="menuitem" is-authorized only-show-unauthorized="true">
+                        <a href="login">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i> Login
+                        </a>
+                    </li>
+                    <li role="menuitem" is-authorized resource="admin" action="read">
+                        <a href="logoff">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <a type="button" class="navbar-toggle nav-link visible-xs visible-sm" href="https://github.com/{{$ctrl.metadata.Github}}">
                 <i class="fa fa-github"></i>
             </a>
             <a type="button" class="navbar-toggle nav-link visible-xs visible-sm" href="https://twitter.com/{{$ctrl.metadata.Twitter}}">
@@ -19,69 +58,27 @@
             <a class="navbar-toggle nav-link visible-xs visible-sm" href="{{$ctrl.metadata.XMLFeed}}">
                 <i class="fa fa-rss"></i>
             </a>
-
             <a class="navbar-brand" href="/">
-                <img src="../../content/images/profile.jpg" class="img-circle pull-left" style="max-height:25px; max-width: 25px; margin-right:10px">
+                <img src="../../content/images/profile.jpg" class="img-circle pull-left profile-picture-mobile">
                 <span>
                     {{$ctrl.metadata.URL}}
                 </span>
             </a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav visible-xs visible-sm">
-                <li class="active">
-                    <a href="home">
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a href="categories">
-                        Categories
-                    </a>
-                </li>
-                <li>
-                    <a href="aboutme">
-                        About Me
-                    </a>
-                </li>
-                <li>
-                    <a href="Categories">
-                        Top of Page
-                    </a>
-                </li>
-                <li is-authorized resource="admin" action="read">
-                    <a href="manageContent">
-                        Manage Content
-                    </a>
-                </li>
-                <li is-authorized only-show-unauthorized="true">
-                    <a href="login">
-                        Login
-                    </a>
-                </li>
-                <li is-authorized resource="admin" action="read">
-                    <a href="logoff">
-                        Sign Out
-                    </a>
-                </li>
-            </ul>
         </div>
     </nav>
     <div class="btn-group hidden-xs hidden-sm pull-right" uib-dropdown is-open="$ctrl.isOpen" style="margin-top: 20px; float: right; z-index: 5000; margin-right: 30px;">
         <button type="button" class="btn btn-default" id="dropdownMenu" uib-dropdown-toggle>
             <i class="fa fa-bars"></i>
         </button>
-        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="dropdownMenu">
+        <ul uib-dropdown-menu role="menu" aria-labelledby="dropdownMenu">
             <li role="menuitem">
                 <a href="home">
-                    <i class="fa fa-home">
-                    </i>Home
+                    <i class="fa fa-home"> </i>Home
                 </a>
             </li>
             <li role="menuitem">
                 <a href="categories">
-                    <i class="fa fa-folder">
-                    </i>Categories
+                    <i class="fa fa-folder"> </i>Categories
                 </a>
             </li>
             <li role="menuitem">
