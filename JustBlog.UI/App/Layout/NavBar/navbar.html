@@ -102,6 +102,11 @@
                     <i class="fa fa-sign-in" aria-hidden="true"></i> Login
                 </a>
             </li>
+            <li role="menuitem" is-authorized only-show-unauthorized="true">
+                <a href="#" ng-click="$ctrl.showLogin()">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i> Embedded Login
+                </a>
+            </li>
             <li role="menuitem" is-authorized resource="admin" action="read">
                 <a href="logoff">
                     <i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out

@@ -5,19 +5,6 @@ import { BaseController } from "core/models/BaseController";
 
 export const ConfirmEmailComponentName: string = "confirmEmail";
 
-export class ConfirmEmailComponent extends ComponentBase {
-    constructor() {
-        super();
-
-        this.bindings = {}
-        this.controller = ConfirmEmailController;
-
-        this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("admin/register/confirmEmail.html");
-        }];
-    }
-}
-
 /**
  * Component for displaying posts
  */
@@ -63,3 +50,15 @@ export class ConfirmEmailController extends BaseController implements ng.IContro
     }
 }
 
+export class ConfirmEmailComponent extends ComponentBase {
+    constructor() {
+        super();
+
+        this.bindings = {}
+        this.controller = ConfirmEmailController;
+
+        this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
+            return require("admin/register/confirmEmail.html");
+        }];
+    }
+}

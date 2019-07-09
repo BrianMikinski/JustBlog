@@ -13,8 +13,8 @@ class NavBarComponentController extends BaseController implements ng.IController
     isOpen: boolean = false;
     metadata: Metadata;
 
-    static $inject = ["$sce", "coreService"];
-    constructor($sce: ng.ISCEService, private coreService: CoreService) {
+    static $inject = ["$sce", "$uibModal", "coreService"];
+    constructor($sce: ng.ISCEService, private $uibModal: ng.ui.bootstrap.IModalService,  private coreService: CoreService) {
         super($sce);
     }
 
@@ -27,10 +27,37 @@ class NavBarComponentController extends BaseController implements ng.IController
         this.coreService.GetMetaData().then(metadataCallBack, this.OnErrorCallback);
     }
 
+    isLoginModalShown: boolean = false;
+    isLogoutModalShown: boolean = false;
+
+    showLogin() {
+        if (!this.isLoginModalShown) {
+
+            this.isLoginModalShown = true;
+
+            var modalInstance = this.$uibModal.open({
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: "modal-body",
+                component: "login",
+                size: "sm"
+            });
+
+            var reEnableModal: () => void = () => {
+                this.isLoginModalShown = false;
+            };
+
+            modalInstance.closed.finally(reEnableModal);
+            modalInstance.result.finally(reEnableModal);
+        }
+    }
+
+    showLogout() {
+        throw new Error("Not Implemented");
+    }
+
     toggle() {
         this.isOpen = !this.isOpen;
     }
-
 }
 
 /**

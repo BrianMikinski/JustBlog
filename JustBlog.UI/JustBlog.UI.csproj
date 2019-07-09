@@ -29,6 +29,7 @@
     <None Remove="app\admin\account\myAcccount.component.ts" />
     <None Remove="app\admin\adminHeader.component.ts" />
     <None Remove="app\admin\app.unitTest.ts" />
+    <None Remove="app\admin\login\loginModal.component.ts" />
     <None Remove="app\admin\password\forgotPassword.component.ts" />
     <None Remove="app\admin\password\IValidPassword.ts" />
     <None Remove="app\admin\password\resetpassword.component.ts" />
@@ -58,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app\admin\account\myAcccount.component.ts" />
+    <TypeScriptCompile Include="app\admin\login\loginModal.component.ts" />
     <TypeScriptCompile Include="app\admin\password\forgotPassword.component.ts" />
     <TypeScriptCompile Include="app\admin\password\IValidPassword.ts" />
     <TypeScriptCompile Include="app\admin\password\resetPassword.component.ts" />
