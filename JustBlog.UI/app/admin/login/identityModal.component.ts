@@ -5,6 +5,10 @@ import { AuthService } from "core/authorization/auth.service";
 import { ComponentBase } from "core/component.base";
 import { BaseController } from "core/models/BaseController";
 import { NotificationFactory } from "notification/notification.factory";
+import { RegistrationAttempt } from "admin/register/RegistrationAttempt";
+import { ApplicationUser } from "admin/account/ApplicationUser";
+import { RegistrationUser } from "admin/register/RegistrationUser";
+import { IdentityError } from "admin/register/IdentityError";
 
 export const IdentityModalComponentName: string = "identityModal";
 
@@ -25,6 +29,12 @@ class IdentityModalComponentController extends BaseController implements ng.ICon
 
     modalInstance: any;
     resolve: any;
+
+    /**
+     * Register user 
+     */
+    currentUser: ApplicationUser = new ApplicationUser();
+    newUser: RegistrationUser = new RegistrationUser();
 
     /**
      * login 
@@ -64,6 +74,8 @@ class IdentityModalComponentController extends BaseController implements ng.ICon
             case "forgotPassword":
                 this.requestPasswordReset();
                 break;
+            case "registerUser":
+                this.registerNewUser();
             default:
                 break;
         }
@@ -73,12 +85,66 @@ class IdentityModalComponentController extends BaseController implements ng.ICon
      * Register a new user
      * */
 
-    showRegisterUser() {
+    showRegisterUserView() {
         this.currentView = "registerUser";
     }
 
+    /**
+     * 
+     * */
     isRegisterUserView() {
         return this.currentView === "registerUser";
+    }
+
+    /**
+     * Register a new user
+     */
+    registerNewUser(): void {
+
+        let onLoginSuccessCallback: (response: ITokenAuthResponse) => void = (response: ITokenAuthResponse) => {
+
+            let authBearerTokenPresent: string | null = this.authService.GetLocalToken()
+
+            if (authBearerTokenPresent !== null) {
+                this.notificationFactory.Success(`Login for user ${this.currentUser.Email}was successful`);
+
+                // reroute to the management screen now that we are authenticated and registered
+                this.$state.go("manageContent");
+            }
+            else {
+                this.notificationFactory.Error(`Error: Could not log user ${this.currentUser.Email} into the system.`);
+            }
+        };
+
+        let onRegistrationCallback: (response: RegistrationAttempt) => void;
+        onRegistrationCallback = (response: RegistrationAttempt) => {
+
+            if (response != null && response.Succeeded) {
+
+                this.currentUser = response.User;
+
+                this.notificationFactory.Success(`Registration was successful. Welcome to the blog ${this.currentUser.Email}!`);
+
+                let userLogin: LoginModel = {
+                    Email: this.newUser.Email,
+                    Password: this.newUser.Password,
+                    RememberMe: false
+                };
+
+                this.adminService.login(userLogin)
+                    .then(onLoginSuccessCallback, this.OnErrorCallback);
+
+            } else {
+
+                for (var i in response.Errors) {
+                    let error: IdentityError = response.Errors[i];
+
+                    this.notificationFactory.Error(`Error Code: ${error.Code} - ${error.Description}`);
+                }
+            }
+        };
+
+        this.adminService.registerUser(this.newUser).then(onRegistrationCallback, this.OnErrorCallback);
     }
 
     /**
@@ -93,9 +159,6 @@ class IdentityModalComponentController extends BaseController implements ng.ICon
         return this.currentView === "login";
     }
 
-    /**
-     * Log a user into the admin section of the application
-     */
     login(): void {
 
         this.submitLogin = true;

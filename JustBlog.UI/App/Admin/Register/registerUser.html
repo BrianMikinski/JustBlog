@@ -1,6 +1,6 @@
 ﻿<div class="row">
     <div class="col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4">
-        <form name="userForm" class="col-login" ng-submit="$registerUserCtrl.Register()" method="post" role="form">
+        <form name="userForm" class="col-login" ng-submit="$ctrl.Register()" method="post" role="form">
             <div class="form-group" ng-class="{ 'has-error' : userForm.Email.$invalid && !userForm.Email.$pristine }">
                 <label class="control-label">
                     Email
@@ -10,7 +10,7 @@
                        type="email"
                        ng-maxlength="128"
                        placeholder="Required"
-                       ng-model="$registerUserCtrl.NewUser.Email"
+                       ng-model="$ctrl.NewUser.Email"
                        value=""
                        autofocus
                        required />
@@ -26,7 +26,7 @@
                        name="Password"
                        ng-maxlength="16"
                        ng-minlength="8"
-                       ng-model="$registerUserCtrl.NewUser.Password"
+                       ng-model="$ctrl.NewUser.Password"
                        type="password"
                        required>
                 <p ng-show="userForm.Password.$invalid && !userForm.Password.$pristine" class="help-block">
@@ -42,14 +42,14 @@
                        name="ConfirmPassword"
                        ng-maxlength="16"
                        ng-minlength="8"
-                       ng-model="$registerUserCtrl.NewUser.ConfirmPassword"
+                       ng-model="$ctrl.NewUser.ConfirmPassword"
                        type="password"
                        required>
                 <p ng-show="userForm.ConfirmPassword.$invalid && !userForm.ConfirmPassword.$pristine" class="help-block">
                     You must confirm your password and the password and confirm password must match.
                 </p>
             </div>
-            <div class="form-group" ng-if="!$ctrl.passwordResetSuccess">
+            <div class="form-group">
                 <p>
                     <b>Requirements:</b>
                     <ul>

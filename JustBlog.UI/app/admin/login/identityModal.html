@@ -9,6 +9,82 @@
     </div>
     <div class="modal-body">
 
+        <!--register user-->
+        <div class="row" ng-if="$ctrl.isRegisterUserView()">
+            <div class="col-md-12 col-lg-12">
+                <div class="form-group" ng-class="{ 'has-error' : userForm.Email.$invalid && !userForm.Email.$pristine }">
+                    <label class="control-label">
+                        Email
+                    </label>
+                    <input class="form-control"
+                           name="Email"
+                           type="email"
+                           ng-maxlength="128"
+                           placeholder="Required"
+                           ng-model="$ctrl.newUser.Email"
+                           value=""
+                           autofocus
+                           required />
+                    <p ng-show="userForm.Email.$invalid && !userForm.Email.$pristine" class="help-block">
+                        Your email is required.
+                    </p>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : userForm.Password.$invalid && !userForm.Password.$pristine }">
+                    <label class="control-label">
+                        Password
+                    </label>
+                    <input class="form-control"
+                           name="Password"
+                           ng-maxlength="16"
+                           ng-minlength="8"
+                           ng-model="$ctrl.newUser.Password"
+                           type="password"
+                           required>
+                    <p ng-show="userForm.Password.$invalid && !userForm.Password.$pristine" class="help-block">
+                        You must enter a password.
+                    </p>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error' : userForm.ConfirmPassword.$invalid && !userForm.ConfirmPassword.$pristine }">
+                    <label class="control-label">
+                        Confirm password
+                    </label>
+                    <input class="form-control"
+                           name="ConfirmPassword"
+                           ng-maxlength="16"
+                           ng-minlength="8"
+                           ng-model="$ctrl.newUser.ConfirmPassword"
+                           type="password"
+                           required>
+                    <p ng-show="userForm.ConfirmPassword.$invalid && !userForm.ConfirmPassword.$pristine" class="help-block">
+                        You must confirm your password and the password and confirm password must match.
+                    </p>
+                </div>
+                <div class="form-group" ng-if="!$ctrl.passwordResetSuccess">
+                    <p>
+                        <b>Requirements:</b>
+                        <ul>
+                            <li>
+                                6 characters
+                            </li>
+                            <li>
+                                One lowercase ('a'-'z')
+                            </li>
+                            <li>
+                                One uppercase ('A'-'Z')
+                            </li>
+                            <li>
+                                One digit ('0'-'9')
+                            </li>
+                            <li>
+                                One non alphanumeric character
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <!--login-->
         <div class="row" ng-if="$ctrl.isLoginView()">
             <div class="col-md-12 col-lg-12">
@@ -57,13 +133,25 @@
                                required>
                     </div>
                 </div>
-                <p  ng-if="$ctrl.resetPasswordEmailSent">
+                <p ng-if="$ctrl.resetPasswordEmailSent">
                     Password reset meail sent. Please check your email.
                 </p>
             </div>
         </div>
+
+
     </div>
     <div class="modal-footer">
+
+        <!--all screens-->
+        <a class="text-center" style="display:block; margin-bottom: 10px;" tabindex="4" href="#" ng-click="$ctrl.showLoginView()" ng-if="$ctrl.isForgotPasswordView() || $ctrl.isRegisterUserView()">
+            Return to Login
+        </a>
+
+        <!--register-->
+        <button type="submit" class="btn btn-primary login-btn" ng-if="$ctrl.isRegisterUserView()" ng-disabled="$ctrl.submitRegistration">
+            Submit Registration
+        </button>
 
         <!--login-->
         <a class="text-center" style="display:block; margin-bottom: 10px;" tabindex="4" href="#" ng-click="$ctrl.showForgotPasswordView()" ng-if="$ctrl.isLoginView()">
@@ -79,10 +167,6 @@
         </a>
 
         <!--forgot password-->
-        <a class="text-center" style="display:block; margin-bottom: 10px;" tabindex="4" href="#" ng-click="$ctrl.showLoginView()" ng-if="$ctrl.isForgotPasswordView()">
-            Return to Login
-        </a>
-
         <button class="btn btn-primary login-btn" type="submit" tabindex="1"
                 ng-disabled="$ctrl.submitResetRequest === true || resetPassword.email.$invalid"
                 ng-if="!$ctrl.resetPasswordEmailSent && $ctrl.isForgotPasswordView()">

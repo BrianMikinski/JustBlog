@@ -87,7 +87,6 @@ export class RegisterUserComponent extends ComponentBase {
 
         this.bindings = {}
         this.controller = RegisterUserController;
-        this.controllerAs = "$registerUserCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
             return require("admin/register/registerUser.html");
