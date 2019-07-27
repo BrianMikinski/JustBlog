@@ -139,12 +139,27 @@
             </div>
         </div>
 
+        <!--logoff -->
+        <div class="row" ng-if="$ctrl.isLogoffView()">
+            <div class="col-md-12 col-lg-12">
+                <h4 class="text-center">
+                    End Session
+                </h4>
+                <br />
+                <div class="form-group">
+                    <p class="text-center">
+                        Are you sure you want to sign out?
+                    </p>
+                    <br />
+                </div>
+            </div>
+        </div>
 
     </div>
     <div class="modal-footer">
 
         <!--all screens-->
-        <a class="text-center" style="display:block; margin-bottom: 10px;" tabindex="4" href="#" ng-click="$ctrl.showLoginView()" ng-if="$ctrl.isForgotPasswordView() || $ctrl.isRegisterUserView()">
+        <a class="text-center" style="display:block; margin-bottom: 10px;" href="#" ng-click="$ctrl.showLoginView()" ng-if="$ctrl.isForgotPasswordView() || $ctrl.isRegisterUserView()">
             Return to Login
         </a>
 
@@ -154,29 +169,34 @@
         </button>
 
         <!--login-->
-        <a class="text-center" style="display:block; margin-bottom: 10px;" tabindex="4" href="#" ng-click="$ctrl.showForgotPasswordView()" ng-if="$ctrl.isLoginView()">
+        <a class="text-center" style="display:block; margin-bottom: 10px;"  href="#" ng-click="$ctrl.showForgotPasswordView()" ng-if="$ctrl.isLoginView()">
             Forgot Password?
         </a>
-        <button class="btn btn-primary login-btn" type="submit" ng-disabled="$ctrl.submitLogin" tabindex="2" ng-if="$ctrl.isLoginView()">
+        <button class="btn btn-primary login-btn" type="submit" ng-disabled="$ctrl.submitLogin" ng-if="$ctrl.isLoginView()">
             Log In
         </button>
         <a href="#" ng-if="$ctrl.isLoginView()">
-            <button class="btn btn-primary login-btn" type="button" tabindex="3" ng-click="$ctrl.showRegisterUserView()">
+            <button class="btn btn-primary login-btn" type="button" ng-click="$ctrl.showRegisterUserView()">
                 Register
             </button>
         </a>
 
         <!--forgot password-->
-        <button class="btn btn-primary login-btn" type="submit" tabindex="1"
+        <button class="btn btn-primary login-btn" type="submit"
                 ng-disabled="$ctrl.submitResetRequest === true || resetPassword.email.$invalid"
                 ng-if="!$ctrl.resetPasswordEmailSent && $ctrl.isForgotPasswordView()">
             Reset Password
         </button>
 
+        <!--logoff-->
+        <button class="btn btn-primary login-btn" type="button" ng-click="$ctrl.logoff()" ng-if="$ctrl.isLogoffView()">
+            Logoff
+        </button>
+
         <!--all screens-->
-        <a href="#" ng-if="false">
-            <button class="btn btn-primary login-btn" type="button" tabindex="3" ng-click="$ctrl.cancel()">
-                Cancel
+        <a href="#">
+            <button class="btn btn-default login-btn" type="button" ng-click="$ctrl.cancel()">
+                Close
             </button>
         </a>
     </div>

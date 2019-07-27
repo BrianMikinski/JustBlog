@@ -1,14 +1,15 @@
-﻿import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
+﻿import { ApplicationUser } from "admin/account/ApplicationUser";
+import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
 import { AdminService } from "admin/admin.service";
 import { LoginModel } from "admin/login/LoginModel";
+import { IdentityError } from "admin/register/IdentityError";
+import { RegistrationAttempt } from "admin/register/RegistrationAttempt";
+import { RegistrationUser } from "admin/register/RegistrationUser";
+import { HomeComponentName } from "blog/home/home.component";
 import { AuthService } from "core/authorization/auth.service";
 import { ComponentBase } from "core/component.base";
 import { BaseController } from "core/models/BaseController";
 import { NotificationFactory } from "notification/notification.factory";
-import { RegistrationAttempt } from "admin/register/RegistrationAttempt";
-import { ApplicationUser } from "admin/account/ApplicationUser";
-import { RegistrationUser } from "admin/register/RegistrationUser";
-import { IdentityError } from "admin/register/IdentityError";
 
 export const IdentityModalComponentName: string = "identityModal";
 
@@ -76,6 +77,8 @@ class IdentityModalComponentController extends BaseController implements ng.ICon
                 break;
             case "registerUser":
                 this.registerNewUser();
+            case "logoff":
+                this.logoff();
             default:
                 break;
         }
@@ -172,7 +175,6 @@ class IdentityModalComponentController extends BaseController implements ng.ICon
 
             if (authBearerTokenPresent !== null) {
                 this.notificationFactory.Success("Login successful.");
-                this.$state.go('manageContent');
                 this.modalInstance.close();
 
             } else {
@@ -189,9 +191,26 @@ class IdentityModalComponentController extends BaseController implements ng.ICon
     /**
      * Logoff
      * */
-
     showLogoffView() {
         this.currentView = "logoff";
+    }
+
+    isLogoffView(): boolean {
+        return this.currentView === "logoff";
+    }
+
+    logoff(): void {
+
+        let onLogOffCallback: () => void = () => {
+
+            this.notificationFactory.Success("Logoff was successful.");
+
+            // reroute to the management screen now that we have logged in
+            this.$state.go(HomeComponentName);
+            this.modalInstance.close();
+        };
+
+        this.adminService.logOff().then(onLogOffCallback, this.OnErrorCallback);
     }
 
     /**
@@ -208,7 +227,7 @@ class IdentityModalComponentController extends BaseController implements ng.ICon
     }
 
     /**
-     * log a user into the admin section of the application
+     * Request password reset
      */
     requestPasswordReset(): void {
 

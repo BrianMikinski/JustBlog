@@ -2,7 +2,6 @@
 import { ComponentBase } from "core/component.base";
 import { CoreService } from "core/core.service";
 import { Metadata } from "blog/metaData/MetaData";
-import { rename } from "fs";
 
 export const NavBarComponentName: string = "navbar";
 
@@ -32,8 +31,15 @@ class NavBarComponentController extends BaseController implements ng.IController
     isLogoutModalShown: boolean = false;
 
     showLogin() {
+        this.showModal("login");
+    }
 
-        this.isOpen = !this.isOpen;
+    showSignOut() {
+        this.showModal("logoff");
+    }
+
+    private showModal(indentityModalView: "login" | "logoff") {
+        this.toggle();
 
         if (!this.isLoginModalShown) {
 
@@ -43,10 +49,11 @@ class NavBarComponentController extends BaseController implements ng.IController
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: "modal-body",
                 component: "identityModal",
+                backdrop: "static",
                 size: "sm",
                 resolve: {
                     currentView: function () {
-                        return "login";
+                        return indentityModalView;
                     }
                 }
             });
@@ -60,13 +67,9 @@ class NavBarComponentController extends BaseController implements ng.IController
             }, (error) => { }).finally(reEnableModal);
 
             modalInstance.result.then((result) => {
-                
+
             }, (error) => { }).finally(reEnableModal);
         }
-    }
-
-    showLogout() {
-        throw new Error("Not Implemented");
     }
 
     toggle() {

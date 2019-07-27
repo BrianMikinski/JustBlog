@@ -97,18 +97,23 @@
                     <i class="fa fa-pencil-square-o"></i> Manage Content
                 </a>
             </li>
-            <li role="menuitem" is-authorized only-show-unauthorized="true" ng-click="$ctrl.toggle()">
+            <!--<li role="menuitem" is-authorized only-show-unauthorized="true" ng-click="$ctrl.toggle()">
                 <a ui-sref="login">
                     <i class="fa fa-sign-in" aria-hidden="true"></i> Login Page
                 </a>
-            </li>
+            </li>-->
             <li role="menuitem" is-authorized only-show-unauthorized="true" ng-click="$ctrl.showLogin()">
                 <a href="#">
-                    <i class="fa fa-sign-in" aria-hidden="true"></i>Login Embedded
+                    <i class="fa fa-sign-in" aria-hidden="true"></i> Login
                 </a>
             </li>
-            <li role="menuitem" is-authorized resource="admin" action="read" ng-click="$ctrl.toggle()">
+            <!--<li role="menuitem" is-authorized resource="admin" action="read" ng-click="$ctrl.showSignOut()">
                 <a href="logoff">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out
+                </a>
+            </li>-->
+            <li role="menuitem" is-authorized resource="admin" action="read" ng-click="$ctrl.showSignOut()">
+                <a href="#">
                     <i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out
                 </a>
             </li>
