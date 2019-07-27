@@ -51,6 +51,5 @@ bower_components
 /JustBlog.UI/wwwrootTest
 /JustBlog.Models.Tests/JustBlog.Models.Tests.csproj.user
 /JustBlog.UI/testResults
-/JustBlog.UI/package-lock.json
 /JustBlog.UI/npm-debug.log
 *.sqlite

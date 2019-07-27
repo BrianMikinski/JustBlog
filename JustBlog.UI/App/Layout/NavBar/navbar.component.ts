@@ -2,6 +2,7 @@
 import { ComponentBase } from "core/component.base";
 import { CoreService } from "core/core.service";
 import { Metadata } from "blog/metaData/MetaData";
+import { rename } from "fs";
 
 export const NavBarComponentName: string = "navbar";
 
@@ -31,11 +32,14 @@ class NavBarComponentController extends BaseController implements ng.IController
     isLogoutModalShown: boolean = false;
 
     showLogin() {
+
+        this.isOpen = !this.isOpen;
+
         if (!this.isLoginModalShown) {
 
             this.isLoginModalShown = true;
 
-            var modalInstance = this.$uibModal.open({
+            let modalInstance = this.$uibModal.open({
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: "modal-body",
                 component: "identityModal",
@@ -47,12 +51,17 @@ class NavBarComponentController extends BaseController implements ng.IController
                 }
             });
 
-            var reEnableModal: () => void = () => {
+            let reEnableModal: () => void = () => {
                 this.isLoginModalShown = false;
             };
 
-            modalInstance.closed.finally(reEnableModal);
-            modalInstance.result.finally(reEnableModal);
+            modalInstance.closed.then((result) => {
+
+            }, (error) => { }).finally(reEnableModal);
+
+            modalInstance.result.then((result) => {
+                
+            }, (error) => { }).finally(reEnableModal);
         }
     }
 
