@@ -4,7 +4,6 @@ const path = require("path");
 const webpack = require('webpack');
 const { CleanWebpackPlugin }= require("clean-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 const outputDirectory = "./wwwroot";
 
@@ -84,7 +83,7 @@ module.exports = {
                 ]
             },
             {
-                test: /tinymce[\\/]themes[\\/]//*/tinymce\/(themes|plugins)\//*/,
+                test: /tinymce[\\/]themes[\\/]/,
                 use: [
                     'imports-loader?this=>window'
                 ]
@@ -103,8 +102,10 @@ module.exports = {
         ]
     },
     plugins: [
-        //new webpack.ProgressPlugin(),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new webpack.ProvidePlugin({
+            jQuery: 'jquery'
+        })
         //new webpack.PrefetchPlugin([context], request)
     ],
     output: {
@@ -113,20 +114,6 @@ module.exports = {
         filename: '[name].chunkhash.bundle.js',
         chunkFilename: '[name].chunkhash.bundle.js',
         publicPath: '/'
-    },
-
-    optimization: {
-        splitChunks: {
-            cacheGroups: {
-                vendor: {
-                    chunks: 'initial',
-                    name: 'vendors',
-                    test: 'vendors',
-                    enforce: true
-                }
-            }
-        },
-        runtimeChunk: true
     }
 };
 

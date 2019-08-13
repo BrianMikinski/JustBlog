@@ -1,4 +1,4 @@
-﻿import * as uirouter from "@uirouter/angularjs";
+﻿import {default as uirouter } from "@uirouter/angularjs";
 import { CategoryComponent, CategoryComponentName } from "blog/category/category.component";
 import { CategoriesGridComponent, CategoriesGridComponentName } from "blog/category/categoryGrid.component";
 import { HomeComponent, HomeComponentName } from "blog/home/home.component";
@@ -116,7 +116,7 @@ export class BlogModule extends BaseModule {
         super();
 
         this.moduleName = moduleName;
-        this.moduleDependencies = [ngAnimate, ngSantize, uirouter.default, angularUIBootstrapModuleName, tinyMCEModuleName ];
+        this.moduleDependencies = [ngAnimate, ngSantize, uirouter, angularUIBootstrapModuleName, tinyMCEModuleName ];
 
         this.app = angular.module(this.moduleName, this.moduleDependencies);
         this.app.config(this.uiStateConfig);

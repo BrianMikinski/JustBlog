@@ -1,4 +1,4 @@
-﻿import * as uirouter from "@uirouter/angularjs";
+﻿import {default as uirouter} from "@uirouter/angularjs";
 //import * as uirouter from "angular-ui-router";
 //import {UIRouter } from "@uirouter/angularjs";
 import { module } from 'angular';
@@ -38,7 +38,7 @@ declare module 'angular' {
 
 let App: ng.IModule = module('app', [
 
-    uirouter.default,
+    uirouter,
     coreModule,
     layoutModule,
     notificationModule,

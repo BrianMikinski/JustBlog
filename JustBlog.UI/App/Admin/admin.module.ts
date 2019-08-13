@@ -1,4 +1,4 @@
-﻿import * as uirouter from "@uirouter/angularjs";
+﻿import {default as uirouter } from "@uirouter/angularjs";
 import { AdminController } from "admin/admin.controller";
 import { AdminService, AdminServiceName } from "admin/admin.service";
 import { IAdminRoutes } from "admin/interfaces/IAdminRoutes";
@@ -38,7 +38,7 @@ export class AdminModule extends BaseModule {
         super();
 
         this.moduleName = moduleName;
-        this.moduleDependencies = [ngAnimate, ngSantize, uirouter.default, angularUIBootstrapModule];
+        this.moduleDependencies = [ngAnimate, ngSantize, uirouter, angularUIBootstrapModule];
 
         this.app = angular.module(this.moduleName, this.moduleDependencies);
 

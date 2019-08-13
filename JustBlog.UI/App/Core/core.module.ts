@@ -1,4 +1,4 @@
-﻿import * as uirouter from "@uirouter/angularjs";
+﻿import {default as uirouter } from "@uirouter/angularjs";
 //import * as uirouter from "angular-ui-router";
 //import { HookMatchCriteria } from "angular-ui-router";
 import { HookMatchCriteria, HookResult, Transition, TransitionHookFn, TransitionService } from "@uirouter/angularjs";
@@ -25,7 +25,7 @@ export class CoreModule extends BaseModule {
         super();
 
         this.moduleName = moduleName;
-        this.moduleDependencies = [uirouter.default];
+        this.moduleDependencies = [uirouter];
 
         // must set our constants before passing them to the config controller
         this.app = angular.module(this.moduleName, this.moduleDependencies);
