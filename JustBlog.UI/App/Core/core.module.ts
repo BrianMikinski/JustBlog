@@ -1,4 +1,6 @@
 ﻿import * as uirouter from "@uirouter/angularjs";
+//import * as uirouter from "angular-ui-router";
+//import { HookMatchCriteria } from "angular-ui-router";
 import { HookMatchCriteria, HookResult, Transition, TransitionHookFn, TransitionService } from "@uirouter/angularjs";
 import { LoginComponentName } from "admin/login/login.component";
 import * as angular from "angular";
@@ -12,6 +14,7 @@ import { IAuthenticationConstants } from "./authorization/IAuthenticationConstan
 import { ErrorHandlingComponent, ErrorHandlingComponentName } from "./errorHandling/errorHandling.component";
 import { ErrorHandlingService, ErrorHandlingServiceName } from "./errorHandling/errorHandling.service";
 import { IErrorRoutes } from "./errorHandling/IErrorRoutes";
+//import { TransitionService, HookMatchCriteria, TransitionHookFn, Transition, HookResult } from "@uirouter/core";
 
 const moduleName: string = "app.core";
 export default moduleName;

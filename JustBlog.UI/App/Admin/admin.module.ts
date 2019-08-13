@@ -9,7 +9,6 @@ import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";
 import { IAction } from "core/authorization/IAction";
-import { IBlogRoute } from "core/authorization/IBlogRoute";
 import { IResource } from "core/authorization/IResource";
 import { BaseModule } from "core/models/BaseModule";
 import { MyAccountComponent, MyAccountComponentName } from "./account/myAcccount.component";
@@ -140,92 +139,6 @@ export class AdminModule extends BaseModule {
         $stateProvider.state(forgotPasswordState);
         $stateProvider.state(resetPasswordState);
     }
-
-    /**
-     * Configure all routes for this model
-     * @param $routeProvider
-     */
-    private routeConfig($routeProvider: ng.route.IRouteProvider, RESOURCES: IResource, ACTIONS: IAction):void {
-
-        try {
-
-            let accountsRoute: IBlogRoute = {
-                templateUrl: require("admin/account/accounts.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let passwordUpdateRoute: IBlogRoute = {
-                templateUrl: require("Admin/password/passwordUpdate.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let confirmPasswordUpdateRoute: IBlogRoute = {
-                templateUrl: require("admin/password/passwordUpdateConfirmation.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let passwordResetConfirmationRoute: IBlogRoute = {
-                templateUrl: require("admin/password/passwordResetConfirmation.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let loginUpdateRoute: IBlogRoute = {
-                templateUrl: require("admin/login/loginUpdate.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let loginUpdateConfirmationRoute: IBlogRoute = {
-                templateUrl: require("admin/login/loginUpdateConfirmation.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            $routeProvider
-                .when("/accounts", accountsRoute)
-                .when("/passwordUpdate", passwordUpdateRoute)
-                .when("/passwordResetConfirmation", confirmPasswordUpdateRoute)
-                .when("/loginUpdate", loginUpdateRoute)
-                .when("/loginUpdateConfirmation", loginUpdateConfirmationRoute);
-
-        } catch (error) {
-            console.log(error.message);
-        }
-    };
 
     /**
      * Configure the location provider to be in html5 mode

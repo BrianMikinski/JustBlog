@@ -9,14 +9,91 @@ import { ProfileComponent, ProfileComponentName } from "blog/profile/profile.com
 import { TagsGridComponent, TagsGridComponentName } from "blog/tag/tagsGrid.component";
 import { BlogController } from "blog/blog.controller";
 import { BlogService, BlogServiceName } from "blog/blog.service";
-import { IAction } from "core/authorization/IAction";
-import { IResource } from "core/authorization/IResource";
-import { IBlogRoute } from "core/authorization/IBlogRoute";
 import { BaseModule } from "core/models/BaseModule";
 import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";
-import * as tinyMCE from "tinymce";
+//import * as tinyMCE from "tinymce";
+
+// tiny mce
+//import * as tinyMCE from "tinymce";
+//import tinymce from 'tinymce/tinymce';
+
+//require.context(
+//    'file-loader?name=[path][name].[ext]&context=node_modules/tinymce!tinymce/skins',
+//    true,
+//    /.*/
+//);
+
+//import 'tinymce/themes/oxide';
+
+//import 'tinymce/skins/content/default/content.css';
+//import 'tinymce/skins/content/document/content.css';
+//import 'tinymce/skins/content/writer/content.css';
+//import 'tinymce/skins/ui/oxide-dark/content.css';
+
+// Plugins
+//import 'tinymce/plugins/paste/plugin'
+//import 'tinymce/plugins/link/plugin'
+//import 'tinymce/plugins/autoresize/plugin'
+
+//import 'tinymce/themes/silver';
+
+//import 'tinymce/plugins/advlist';
+//import 'tinymce/plugins/autolink';
+//import 'tinymce/plugins/link';
+//import 'tinymce/plugins/image';
+//import 'tinymce/plugins/lists';
+//import 'tinymce/plugins/charmap';
+//import 'tinymce/plugins/print';
+//import 'tinymce/plugins/preview';
+//import 'tinymce/plugins/hr';
+//import 'tinymce/plugins/anchor';
+//import 'tinymce/plugins/pagebreak';
+//import 'tinymce/plugins/spellchecker';
+//import 'tinymce/plugins/searchreplace';
+//import 'tinymce/plugins/wordcount';
+//import 'tinymce/plugins/visualblocks';
+//import 'tinymce/plugins/visualchars';
+//import 'tinymce/plugins/code';
+//import 'tinymce/plugins/fullscreen';
+//import 'tinymce/plugins/insertdatetime';
+//import 'tinymce/plugins/media';
+//import 'tinymce/plugins/nonbreaking';
+//import 'tinymce/plugins/save';
+//import 'tinymce/plugins/table';
+//import 'tinymce/plugins/directionality';
+//import 'tinymce/plugins/emoticons';
+//import 'tinymce/plugins/template';
+//import 'tinymce/plugins/paste';
+//import 'tinymce/plugins/importcss';
+
+//require('tinymce/skins/ui/oxide/content.min.css');
+
+//import '!style-loader!css-loader!tinymce/skins/ui/oxide/skin.min.css';
+//import contentStyle from 'tinymce/skins/ui/oxide/content.min.css';
+
+//exports.TinyMce.getDefaultTinyMceConfig = function (base_path, file_browser_url) {
+//    return {
+//        selector: 'textarea.tinymce',
+//        width: 'auto',
+//        height: '300',
+//        theme: 'silver',
+//        skin: false,
+//        // content_style: false,
+//        content_style: contentStyle.toString(),
+//        ...
+//            };
+//};
+
+// Initialize
+//tinyMCE.init({
+//    //selector: '#testTest',
+//    //selector: 'textarea.tinymce',
+//    //skin: false,
+//    plugins: ['paste', 'link', 'autoresize'],
+//    theme: 'modern'
+//});
 
 /**
  * Angular ui bootstrap and angular tiny mce doesn't have a a default export so we have to require it manually
@@ -105,108 +182,6 @@ export class BlogModule extends BaseModule {
         $stateProvider.state(postState);
     }
 
-    /**
-     * Configure all routes for this model
-     * @param $routeProvider
-     */
-    private routeConfig($routeProvider: ng.route.IRouteProvider, RESOURCES: IResource, ACTIONS: IAction): void {
-        try {
-
-            let createPostRoute: IBlogRoute = {
-                templateUrl: "blog/post/create.html",
-                caseInsensitiveMatch: true,
-                controller: BlogController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let editPostRoute: IBlogRoute = {
-                templateUrl: "blog/post/create.html",
-                caseInsensitiveMatch: true,
-                controller: BlogController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let editCategoryRoute: IBlogRoute = {
-                templateUrl: "blog/category/create.html",
-                caseInsensitiveMatch: true,
-                controller: BlogController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let editTagRoute: IBlogRoute = {
-                templateUrl: "blog/tag/create.html",
-                caseInsensitiveMatch: true,
-                controller: BlogController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            $routeProvider
-                .when("/aboutme", {
-                    templateUrl: "blog/aboutme/aboutme.html",
-                    caseInsensitiveMatch: true,
-                    controller: BlogController,
-                    controllerAs: "vm"
-                })
-                // category Routes
-                .when("/categories", {
-                    templateUrl: "blog/category/categories.html",
-                    caseInsensitiveMatch: true,
-                    controller: BlogController,
-                    controllerAs: "vm"
-                })
-                .when("/category/add", editCategoryRoute)
-                .when("/category/edit/:categoryId", editCategoryRoute)
-                .when("/category/:categoryUrl", {
-                    templateUrl: "blog/category/category.html",
-                    caseInsensitiveMatch: true,
-                    controller: BlogController,
-                    controllerAs: "vm"
-                })
-
-                // post Routes
-                .when("/post/create/:postId", createPostRoute)
-                .when("/post/edit/:postId", editPostRoute)
-                .when("/post/retrieve/:postId", {
-                    templateUrl: require("blog/post/post.html"),
-                    caseInsensitiveMatch: true,
-                    controller: BlogController,
-                    controllerAs: "vm"
-                })
-
-                // tag Routes
-                .when("/tag/add", editTagRoute)
-                .when("/tag/edit/:tagId", editTagRoute)
-                .when("/tag/:tagUrlSlug", {
-                    templateUrl: "blog/tag/tag.html",
-                    caseInsensitiveMatch: true,
-                    controller: BlogController,
-                    controllerAs: "vm"
-                })
-
-                .when("/404/", {
-                    templateUrl: "core/errorpages/httpError.html",
-                    caseInsensitiveMatch: true
-                })
-        } catch (error) {
-            console.log(error.message);
-        }
-    };
 
     /**
      * Configure the location provider to be in html5 mode

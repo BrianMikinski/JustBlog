@@ -4,7 +4,6 @@ import { ShellComponent, ShellComponentName } from "layout/shell/shell.component
 import * as angular from "angular";
 import * as uirouter from "@uirouter/angularjs"
 
-
 const moduleName: string = 'app.layout';
 export default moduleName;
 

@@ -1,7 +1,8 @@
 ﻿'use strict';
 
 const path = require("path");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const webpack = require('webpack');
+const { CleanWebpackPlugin }= require("clean-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
@@ -74,13 +75,26 @@ module.exports = {
             {
                 test: /\.(woff2?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
                 loader: "file-loader?name=fonts/[name].[ext]"
+            },
+            {
+                test: require.resolve('tinymce/tinymce'),
+                use: [
+                    'imports-loader?this=>window',
+                    'exports-loader?window.tinymce'
+                ]
+            },
+            {
+                test: /tinymce[\\/]themes[\\/]//*/tinymce\/(themes|plugins)\//*/,
+                use: [
+                    'imports-loader?this=>window'
+                ]
             }
         ]
     },
     resolve: {
         extensions: ["tsx", ".ts", ".js"],
+        // different from main plugins
         plugins: [
-            new CleanWebpackPlugin([outputDirectory]),
             new TsconfigPathsPlugin(
                 {
                     baseUrl: "App",
@@ -88,6 +102,11 @@ module.exports = {
                 })
         ]
     },
+    plugins: [
+        //new webpack.ProgressPlugin(),
+        new CleanWebpackPlugin()
+        //new webpack.PrefetchPlugin([context], request)
+    ],
     output: {
         sourceMapFilename: "bundle.map",
         path: path.resolve(__dirname, outputDirectory),
@@ -95,6 +114,7 @@ module.exports = {
         chunkFilename: '[name].chunkhash.bundle.js',
         publicPath: '/'
     },
+
     optimization: {
         splitChunks: {
             cacheGroups: {

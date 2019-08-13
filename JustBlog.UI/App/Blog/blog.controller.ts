@@ -1,6 +1,5 @@
 ﻿import { BlogService } from "blog/blog.service";
 import { Category } from "blog/category/Category";
-import { IBlogRouteParams } from "blog/Interfaces/IBlogRouteParams";
 import { Metadata } from "blog/metadata/MetaData";
 import { Post } from "blog/Post/Post";
 import { ITagPosts } from "blog/tag/ITagPosts";
@@ -20,12 +19,10 @@ export class BlogController extends BaseController {
     MetaData: Metadata;
     Tag: Tag;
 
-    static $inject = ["coreService", "blogService", "$route", "$routeParams", "$location", "$sce", "$window",
+    static $inject = ["coreService", "blogService", "$location", "$sce", "$window",
         "notificationFactory", "authService"];
     constructor(private coreService: CoreService,
         private _blogService: BlogService,
-        private $route: ng.route.IRouteService,
-        private $routeParams: IBlogRouteParams,
         private _location: ng.ILocationService,
         public $sce: ng.ISCEService,
         private $window: ng.IWindowService,
@@ -73,8 +70,6 @@ export class BlogController extends BaseController {
      * @param postId
      */
     RetrievePost(postId: number): void {
-
-       
         this._blogService.RetrievePost(postId).then(function (data:Post) {
             console.log("Post returned");
         }, this.OnErrorCallback);
@@ -166,24 +161,6 @@ export class BlogController extends BaseController {
      */
     private initTags(): void {
 
-        // get categories and tags as needed
-       if (this._location.path().toLowerCase().indexOf("/tag/add") > -1 // retrieve an individual category
-            || this._location.path().toLowerCase().indexOf("/tag/edit") > -1) {
-
-            let onTagReturned: (category: Tag) => void = (category: Tag): void => {
-                this.Tag = category;
-
-                if (this.Tag == null) {
-                    this._notificationService.Error(`A tag with Id: ${this.$routeParams.tagId} could not be returned`);
-                } else {
-                    this._notificationService.Success(`The tag with Id: ${this.$routeParams.tagId} was found.`);
-                }
-            };
-
-            this._blogService.RetrieveTag(this.$routeParams.tagId).then(onTagReturned, function(){
-                console.log("Error retrieving tags");
-            });
-        }
     }
 
     /**
@@ -191,24 +168,6 @@ export class BlogController extends BaseController {
      */
     private initCategories(): void {
 
-        if (this._location.path().toLowerCase().indexOf("/category/edit") > -1) {  // Retrieve an individual category
-
-            let onCategoryReturned: (category: Category) => void = (category: Category): void => {
-                this.Category = category;
-
-                if (this.Category == null) {
-                    this._notificationService.Error(`A category with Id: ${this.$routeParams.categoryId} could not be returned`);
-                } else {
-                    this._notificationService.Success(`The category with Id: ${this.$routeParams.categoryId} was found.`);
-                }
-            };
-
-            this._blogService.RetrieveCategory(this.$routeParams.categoryId).then(onCategoryReturned, function () {
-                console.log("error retrieving categories");
-            });
-        } else if (this._location.path().toLowerCase().indexOf("/category/add") > -1) { // New-Up a new category if we only have an add
-            this.Category = new Category();
-        }
     }
 
     /**
@@ -217,20 +176,6 @@ export class BlogController extends BaseController {
      * @param $location
      */
     private initRouteParams(): void {
-        // get route params
-        let currentPath:string = this._location.path();
 
-        if (this.$route) {
-
-            // post with a post Id
-            if (this.$routeParams.postId) {
-                this.RetrievePost(this.$routeParams.postId);
-            }
-
-            // tag URL Slug
-            if (this.$routeParams.tagUrlSlug) {
-                this.RetrieveTagUrlSlug(this.$routeParams.tagUrlSlug);
-            }
-        }
     }
 }
