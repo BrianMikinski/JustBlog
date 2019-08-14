@@ -11,18 +11,7 @@ module.exports = {
     mode: "development",
     devtool: "inline-source-map",
     entry: {
-        app: "./app/app.module.ts",
-        vendors: ["jquery",
-            "bootstrap",
-            "toastr",
-            "tinymce",
-            "angular",
-            "@uirouter/angularjs/release/angular-ui-router",
-            "angular-animate",
-            "angular-sanitize",
-            "@uirouter/visualizer",
-            "angular-ui-bootstrap",
-            "angular-ui-tinymce"]
+        app: "./app/app.module.ts"
     },
     module: {
         rules: [
@@ -114,6 +103,20 @@ module.exports = {
         filename: '[name].chunkhash.bundle.js',
         chunkFilename: '[name].chunkhash.bundle.js',
         publicPath: '/'
+    },
+    optimization: {
+        splitChunks: {
+            chunks: "initial",
+            cacheGroups: {
+                vendors: {
+                    name: 'vendor',
+                    test: /[\\/]node_modules[\\/]/,
+                    enforce: true,
+                    priority: 10
+                }
+            }
+        },
+        runtimeChunk: true
     }
 };
 

@@ -8,21 +8,10 @@ const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const outputDirectory = "./wwwroot";
 
 module.exports = {
-    mode: "development",
-    devtool: "inline-source-map",
+    mode: "production",
+    devtool: "production",
     entry: {
-        app: "./app/app.module.ts",
-        vendors: ["jquery",
-            "bootstrap",
-            "toastr",
-            "tinymce",
-            "angular",
-            "@uirouter/angularjs/release/angular-ui-router",
-            "angular-animate",
-            "angular-sanitize",
-            "@uirouter/visualizer",
-            "angular-ui-bootstrap",
-            "angular-ui-tinymce"]
+        app: "./app/app.module.ts"
     },
     module: {
         rules: [
@@ -116,12 +105,13 @@ module.exports = {
     },
     optimization: {
         splitChunks: {
+            chunks: "initial",
             cacheGroups: {
-                vendor: {
-                    chunks: 'initial',
-                    name: 'vendors',
-                    test: 'vendors',
-                    enforce: true
+                vendors: {
+                    name: 'vendor',
+                    test: /[\\/]node_modules[\\/]/,
+                    enforce: true,
+                    priority: 10
                 }
             }
         },
