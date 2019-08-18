@@ -12,11 +12,17 @@
   "scripts": {
     "build": "webpack --config=webpack.config.js --env dev --progress --profile --colors --display verbose",
     "build:prod": "webpack --config=webpack.config.js --env prod --progress --profile --colors",
+
     "build:test": "webpack --config=webpack.config.js --env test --progress --profile --colors",
     "test": "karma start .\\conf\\karma.conf.js",
+
+    "analyzeBundle": "npm run buildStats && npm run cleanStatsfile && npm run startBundleAnalyzer",
+
     "buildStats": "webpack --config=webpack.config.js --env dev --profile --json > stats.json",
+    "buildStatsProd": "webpack --config=webpack.config.js --env prod --profile --json > stats.json",
     "buildStatsWin": "webpack --profile --json | Out-file 'dist/stats.json' -Encoding OEM (only works when run from powershell!)",
-    "analyzeBundle": "webpack-bundle-analyzer stats.json"
+    "cleanStatsfile": "@powershell ./cleanWebpackStats.ps1 -ExecutionPolicy Unrestricted -NoProfile ",
+    "startBundleAnalyzer": "webpack-bundle-analyzer stats.json"
   },
   "dependencies": {
     "@uirouter/angularjs": "1.0.22",
@@ -82,8 +88,8 @@
     "webpack": "4.39.2",
     "webpack-bundle-analyzer": "3.4.1",
     "webpack-cli": "3.3.6",
-    "webpack-hot-middleware": "2.25.0",
     "webpack-dev-middleware": "3.7.0",
+    "webpack-hot-middleware": "2.25.0",
     "yargs": "14.0.0"
   }
 }

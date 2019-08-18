@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="package-lock.json" />
+    <Content Remove="stats.json" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="app\admin\account\confirmEmail.component.ts" />

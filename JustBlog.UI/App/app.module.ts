@@ -1,8 +1,5 @@
 ﻿import {default as uirouter} from "@uirouter/angularjs";
-//import * as uirouter from "angular-ui-router";
-//import {UIRouter } from "@uirouter/angularjs";
 import { module } from 'angular';
-//import { default as uirouter } from "@uirouter/angularjs";
 import { default as adminModule } from './admin/admin.module';
 import { default as blogModule } from './blog/blog.module';
 import { default as coreModule } from './core/core.module';
