@@ -1,5 +1,7 @@
-﻿import { BaseService } from "Core/Models/BaseService";
+﻿import { BaseService } from "core/models/BaseService";
 import { IErrorRoutes } from "./IErrorRoutes";
+
+export const ErrorHandlingServiceName: string = "errorHandlingService";
 
 /**
  * Calss for handling error creation

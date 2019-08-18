@@ -1,11 +1,11 @@
-﻿import { BaseController } from "Core/Models/BaseController";
-import { ComponentBase } from "Core/component.base";
-import { GridQuery } from "Core/grid/GridQuery";
-import { CoreService } from "Core/core.service";
-import { Post } from "Blog/Post/Post";
-import { PostQueryFilter } from "Blog/Post/PostQueryFilter";
-import { BlogService } from "Blog/blog.service";
-import { MetaData } from "Blog/MetaData/MetaData";
+﻿import { BaseController } from "core/models/BaseController";
+import { ComponentBase } from "core/component.base";
+import { GridQuery } from "core/grid/GridQuery";
+import { CoreService } from "core/core.service";
+import { Post } from "blog/post/Post";
+import { PostQueryFilter } from "blog/post/PostQueryFilter";
+import { BlogService } from "blog/blog.service";
+import { Metadata } from "blog/metadata/MetaData";
 
 export const HomeComponentName: string = "home";
 
@@ -21,9 +21,9 @@ interface IHomeComponentController extends IHomeControllerBindings { }
 export class HomeComponentController extends BaseController implements IHomeComponentController, ng.IController {
 
     private Posts: GridQuery<Post>;
-    private MetaData: MetaData;
+    private MetaData: Metadata;
 
-    inject = ["coreService", "blogService", "$sce"]
+    static $inject = ["coreService", "blogService", "$sce"]
     constructor(private coreService: CoreService, private blogService: BlogService, public $sce: ng.ISCEService) {
         super($sce);
 
@@ -36,8 +36,8 @@ export class HomeComponentController extends BaseController implements IHomeComp
      */
     private RetrieveMetaData(): void {
 
-        let metaDataCallBack: (data: MetaData) => void;
-        metaDataCallBack = (data: MetaData) => {
+        let metaDataCallBack: (data: Metadata) => void;
+        metaDataCallBack = (data: Metadata) => {
             this.MetaData = data;
         };
 
@@ -111,7 +111,7 @@ export class HomeComponent extends ComponentBase { //implements ng.IComponentOpt
         this.controllerAs = "homeCtrl"
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Blog/Home/home.html");
+            return require("blog/home/home.html");
         }];
     }
 }

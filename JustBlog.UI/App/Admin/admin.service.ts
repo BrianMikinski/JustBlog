@@ -6,11 +6,13 @@ import { LoginModel } from "admin/login/LoginModel";
 import { LoginUpdate } from "admin/login/LoginUpdate";
 import { RegistrationAttempt } from "admin/register/RegistrationAttempt";
 import { RegistrationUser } from "admin/register/RegistrationUser";
-import { AuthService } from "Core/authorization/auth.service";
-import { BaseService } from "Core/Models/BaseService";
+import { AuthService } from "core/authorization/auth.service";
+import { BaseService } from "core/models/BaseService";
 import { IChangePasswordModel } from "./password/IChangePasswordModel";
 import { IResetPasswordModel } from "./password/IResetPasswordModel";
 import { IValidPassword } from "./password/IValidPassword";
+
+export const AdminServiceName: string = "adminService";
 
 //Admin service class that allows users to perform common account management actions
 export class AdminService extends BaseService {
@@ -28,7 +30,7 @@ export class AdminService extends BaseService {
      * Setup error handling
      * @param $http
      */
-    $inject = ["$rootScope", "$http", "authService", "ADMIN_ROUTE_CONSTANTS", "AUTH_EVENT_CONSTANTS"];
+    static $inject = ["$rootScope", "$http", "authService", "ADMIN_ROUTE_CONSTANTS", "AUTH_EVENT_CONSTANTS"];
     constructor(private $rootScope: ng.IRootScopeService,
         private $http: ng.IHttpService,
         private authService: AuthService,

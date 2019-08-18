@@ -1,7 +1,7 @@
 ﻿import { AdminService } from "admin/admin.service";
-import { AuthService } from "Core/authorization/auth.service";
-import { ComponentBase } from "Core/component.base";
-import { BaseController } from "Core/Models/BaseController";
+import { AuthService } from "core/authorization/auth.service";
+import { ComponentBase } from "core/component.base";
+import { BaseController } from "core/models/BaseController";
 import { NotificationFactory } from "notification/notification.factory";
 import { User } from "./User";
 import * as angular from "angular";
@@ -46,7 +46,7 @@ class MyAccountComponentController extends BaseController implements IMyAccountC
     altInputFormats: Array<string> = ["M!/d!/yyyy"];
     userBirthDate: Date;
 
-    inject = ["authService", "adminService", "notificationFactory", "$sce", "$state"]
+    static $inject = ["authService", "adminService", "notificationFactory", "$sce", "$state"]
     constructor(public authService: AuthService,
         public adminService: AdminService,
         public notificationFactory: NotificationFactory,

@@ -5,9 +5,9 @@ import { LoginModel } from "admin/login/LoginModel";
 import { IdentityError } from "admin/register/IdentityError";
 import { RegistrationAttempt } from "admin/register/RegistrationAttempt";
 import { RegistrationUser } from "admin/register/RegistrationUser";
-import { AuthService } from "Core/authorization/auth.service";
-import { ComponentBase } from "Core/component.base";
-import { BaseController } from "Core/Models/BaseController";
+import { AuthService } from "core/authorization/auth.service";
+import { ComponentBase } from "core/component.base";
+import { BaseController } from "core/models/BaseController";
 import { NotificationFactory } from "notification/notification.factory";
 
 export const RegisterUserComponentName: string = "registerusercomponent";
@@ -20,7 +20,7 @@ export class RegisterUserController extends BaseController implements ng.IContro
     CurrentUser: ApplicationUser = new ApplicationUser();
     NewUser: RegistrationUser = new RegistrationUser();
 
-    static inject = ["$sce", "notificationFactory", "adminService", "authService", "$state"]
+    static $inject = ["$sce", "notificationFactory", "adminService", "authService", "$state"]
     constructor(public $sce: ng.ISCEService,
         private notificationFactory: NotificationFactory,
         private adminService: AdminService,
@@ -87,7 +87,6 @@ export class RegisterUserComponent extends ComponentBase {
 
         this.bindings = {}
         this.controller = RegisterUserController;
-        this.controllerAs = "$registerUserCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
             return require("admin/register/registerUser.html");

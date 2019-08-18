@@ -1,7 +1,7 @@
-﻿import { MetaData } from "Blog/MetaData/MetaData";
-import { ComponentBase } from "Core/component.base";
-import { CoreService } from "Core/core.service";
-import { BaseController } from "Core/Models/BaseController";
+﻿import { Metadata } from "blog/metadata/MetaData";
+import { ComponentBase } from "core/component.base";
+import { CoreService } from "core/core.service";
+import { BaseController } from "core/models/BaseController";
 
 export const ProfileComponentName: string = "profile";
 
@@ -16,13 +16,13 @@ interface IProfileComponentController extends IProfileControllerBindings { }
  */
 class ProfileComponentController extends BaseController implements IProfileComponentController, ng.IController {
 
-    private MetaData: MetaData;
+    private metadata: Metadata;
 
-    inject = ["coreService","$sce"]
+    static $inject = ["coreService", "$sce"]
     constructor(private coreService: CoreService, public $sce: ng.ISCEService) {
         super($sce);
 
-        let OnErrorCallback = (reason: any) => {
+        this.OnErrorCallback = (reason: any) => {
             console.log(`Error encountedered profile controller`)
         };
     }
@@ -32,8 +32,8 @@ class ProfileComponentController extends BaseController implements IProfileCompo
      */
     $onInit?(): void {
 
-        let metaDataCallBack: (data: MetaData) => void = (data: MetaData) => {
-            this.MetaData = data;
+        let metaDataCallBack: (data: Metadata) => void = (data: Metadata) => {
+            this.metadata = data;
         };
 
         this.coreService.GetMetaData().then(metaDataCallBack, this.OnErrorCallback);
@@ -43,18 +43,17 @@ class ProfileComponentController extends BaseController implements IProfileCompo
 /**
  * MyComponent Panel
  */
-export class ProfileComponent extends ComponentBase { //implements ng.IComponentOptions {
+export class ProfileComponent extends ComponentBase {
 
     constructor(/* inject services used by component here*/) {
         super();
 
-        this.bindings = { }
+        this.bindings = {}
 
         this.controller = ProfileComponentController;
-        this.controllerAs = "$profileCtrl"
 
-        this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes):string => {
-            return require("Blog/Profile/profile.html");
+        this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
+            return require("blog/profile/profile.html");
         }];
     }
 }

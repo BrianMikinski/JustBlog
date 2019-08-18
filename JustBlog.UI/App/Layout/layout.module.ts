@@ -1,9 +1,8 @@
-﻿import { BaseModule } from "Core/Models/BaseModule";
+﻿import { BaseModule } from "core/models/BaseModule";
 import { NavBarComponent, NavBarComponentName } from "layout/navBar/navbar.component";
 import { ShellComponent, ShellComponentName } from "layout/shell/shell.component";
 import * as angular from "angular";
-import * as uirouter from "@uirouter/angularjs"
-
+import {default as uirouter}  from "@uirouter/angularjs"
 
 const moduleName: string = 'app.layout';
 export default moduleName;
@@ -17,7 +16,7 @@ export class LayoutModule extends BaseModule {
         super();
 
         this.moduleName = moduleName;
-        this.moduleDependencies = [uirouter.default, 'app.core'];
+        this.moduleDependencies = [uirouter, 'app.core'];
 
         this.app = angular.module(this.moduleName, this.moduleDependencies);
 

@@ -1,9 +1,8 @@
-﻿import { BaseController } from "Core/Models/BaseController";
-import { BlogService } from "Blog/blog.service";
-import { ComponentBase } from "Core/component.base";
-import { GridQuery } from "Core/grid/GridQuery";
-import { IBlogRouteParams } from "Blog/Interfaces/IBlogRouteParams";
-import { Category } from "Blog/Category/Category";
+﻿import { BlogService } from "blog/blog.service";
+import { Category } from "blog/category/Category";
+import { ComponentBase } from "core/component.base";
+import { GridQuery } from "core/grid/GridQuery";
+import { BaseController } from "core/models/BaseController";
 
 export const CategoriesGridComponentName: string = "categoriesgrid";
 
@@ -14,7 +13,7 @@ class CategoriesGridComponentController extends BaseController implements ng.ICo
 
     private Categories: GridQuery<Category>;
 
-    inject = ["blogService", "$sce"]
+    static $inject = ["blogService", "$sce"]
     constructor(private blogService: BlogService,
         public $sce: ng.ISCEService) {
         super($sce);
@@ -62,7 +61,7 @@ export class CategoriesGridComponent extends ComponentBase {
         this.controllerAs = "$categoriesGridCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Blog/Category/categoriesGrid.html");
+            return require("blog/category/categoriesGrid.html");
         }];
     }
 }

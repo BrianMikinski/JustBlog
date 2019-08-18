@@ -3,11 +3,11 @@ import { AdminService } from "admin/admin.service";
 import { LoginUpdate } from "admin/login/LoginUpdate";
 import { IChangePasswordModel } from "admin/password/IChangePasswordModel";
 import { IResetPasswordModel } from "admin/password/IResetPasswordModel";
-import { Post } from "Blog/Post/Post";
-import { AuthService } from "Core/authorization/auth.service";
-import { CoreService } from "Core/core.service";
-import { GridQuery } from "Core/grid/GridQuery";
-import { BaseController } from "Core/Models/BaseController";
+import { Post } from "blog/post/Post";
+import { AuthService } from "core/authorization/auth.service";
+import { CoreService } from "core/core.service";
+import { GridQuery } from "core/grid/GridQuery";
+import { BaseController } from "core/models/BaseController";
 import { NotificationFactory } from "notification/notification.factory";
 
 /**

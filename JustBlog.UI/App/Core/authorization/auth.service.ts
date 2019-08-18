@@ -1,8 +1,10 @@
-﻿import { IAuthenticationConstants } from "Core/authorization/IAuthenticationConstants";
-import { BaseService } from "Core/Models/BaseService";
-import { Claim } from "Core/authorization/Claim";
-import { JwtPayload } from "Core/authorization/JWTPayload";
-import { RouteAuthorizationError } from "Core/authorization/RouteAuthorizationError";
+﻿import { IAuthenticationConstants } from "core/authorization/IAuthenticationConstants";
+import { BaseService } from "core/models/BaseService";
+import { Claim } from "core/authorization/Claim";
+import { JwtPayload } from "core/authorization/JWTPayload";
+import { RouteAuthorizationError } from "core/authorization/RouteAuthorizationError";
+
+export const AuthServiceName: string = "authService";
 
 /**
  * Class for authorizing and authenticating the current logged in user.
@@ -13,7 +15,7 @@ export class AuthService extends BaseService {
 
     private jwtDataKey: string = "AppData";
 
-    $inject = ["$http", "$q", "AUTHENTICATION_CONSTANTS"];
+    static $inject = ["$http", "$q", "AUTHENTICATION_CONSTANTS"];
     constructor(private $http: ng.IHttpService,
         private $q: ng.IQService,
         private AUTHENTICATION_CONSTANTS: IAuthenticationConstants) {

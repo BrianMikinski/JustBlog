@@ -5,9 +5,9 @@ import { AdminService } from "admin/admin.service";
 import { IAdminRoutes } from "admin/interfaces/IAdminRoutes";
 import { LoginModel } from "admin/login/LoginModel";
 import * as angular from 'angular';
-import { MetaData } from "Blog/MetaData/MetaData";
-import { AuthService } from "Core/authorization/auth.service";
-import { default as coreModule } from "Core/core.module";
+import { Metadata } from "blog/metadata/MetaData";
+import { AuthService } from "core/authorization/auth.service";
+import { default as coreModule } from "core/core.module";
 import { default as notificationModule } from "notification/notification.module";
 require('angular-mocks');
 
@@ -21,7 +21,7 @@ describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${not
     let authService: AuthService;
     let AUTH_ROUTE_CONSTANTS: IAdminRoutes;
 
-    let metadata: MetaData = {
+    let metadata: Metadata = {
         AdminEmail: "admin@justblog.com",
         Author: "John Doe",
         Description: "A blog about .Net development",

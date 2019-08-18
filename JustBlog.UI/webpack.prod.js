@@ -1,28 +1,17 @@
 ﻿'use strict';
 
 const path = require("path");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const webpack = require('webpack');
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 const outputDirectory = "./wwwroot";
 
 module.exports = {
     mode: "production",
-    devtool: "inline-source-map",
+    devtool: "production",
     entry: {
-        app: "./App/app.module.ts",
-        vendors: [ "jquery",
-            "bootstrap",
-            "toastr",
-            "tinymce",
-            "angular",
-            "@uirouter/angularjs/release/angular-ui-router",
-            "angular-animate",
-            "angular-sanitize",
-            "@uirouter/visualizer",
-            "angular-ui-bootstrap",
-            "angular-ui-tinymce"]
+        app: "./app/app.module.ts"
     },
     module: {
         rules: [
@@ -70,13 +59,30 @@ module.exports = {
                     outputPath: "img/",
                     publicPath: "img/"
                 }
+            },
+            {
+                test: /\.(woff2?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "file-loader?name=fonts/[name].[ext]"
+            },
+            {
+                test: require.resolve('tinymce/tinymce'),
+                use: [
+                    'imports-loader?this=>window',
+                    'exports-loader?window.tinymce'
+                ]
+            },
+            {
+                test: /tinymce[\\/]themes[\\/]/,
+                use: [
+                    'imports-loader?this=>window'
+                ]
             }
         ]
     },
     resolve: {
         extensions: ["tsx", ".ts", ".js"],
+        // different from main plugins
         plugins: [
-            new CleanWebpackPlugin([outputDirectory]),
             new TsconfigPathsPlugin(
                 {
                     baseUrl: "App",
@@ -84,26 +90,33 @@ module.exports = {
                 })
         ]
     },
+    plugins: [
+        new CleanWebpackPlugin(),
+        new webpack.ProvidePlugin({
+            jQuery: 'jquery'
+        })
+    ],
     output: {
         sourceMapFilename: "bundle.map",
         path: path.resolve(__dirname, outputDirectory),
         filename: '[name].chunkhash.bundle.js',
         chunkFilename: '[name].chunkhash.bundle.js',
-        publicPath: '/',
+        publicPath: '/'
     },
     optimization: {
         splitChunks: {
+            chunks: "initial",
             cacheGroups: {
-                vendor: {
-                    chunks: 'initial',
-                    name: 'vendors',
-                    test: 'vendors',
-                    enforce: true
-                },
+                vendors: {
+                    name: 'vendor',
+                    test: /[\\/]node_modules[\\/]/,
+                    enforce: true,
+                    priority: 10
+                }
             }
         },
         runtimeChunk: true
     }
-}
+};
 
 console.log(__dirname);

@@ -1,6 +1,6 @@
-﻿import * as uirouter from "@uirouter/angularjs";
+﻿import {default as uirouter } from "@uirouter/angularjs";
 import { AdminController } from "admin/admin.controller";
-import { AdminService } from "admin/admin.service";
+import { AdminService, AdminServiceName } from "admin/admin.service";
 import { IAdminRoutes } from "admin/interfaces/IAdminRoutes";
 import { IAuthEventConstants } from "admin/interfaces/IAuthEventConstants";
 import { LoginComponent, LoginComponentName } from "admin/login/login.component";
@@ -8,13 +8,12 @@ import { RegisterUserComponent, RegisterUserComponentName } from "admin/register
 import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";
-import { AuthService } from "Core/authorization/auth.service";
-import { IAction } from "Core/authorization/IAction";
-import { IBlogRoute } from "Core/authorization/IBlogRoute";
-import { IResource } from "Core/authorization/IResource";
-import { BaseModule } from "Core/Models/BaseModule";
+import { IAction } from "core/authorization/IAction";
+import { IResource } from "core/authorization/IResource";
+import { BaseModule } from "core/models/BaseModule";
 import { MyAccountComponent, MyAccountComponentName } from "./account/myAcccount.component";
 import { AdminHeaderComponent, AdminHeaderComponentName } from "./adminHeader.component";
+import { IdentityModalComponent, IdentityModalComponentName } from "./login/identityModal.component";
 import { LogoffComponent, LogoffComponentName } from "./Login/logoff.component";
 import { ForgotPasswordComponent, ForgotPasswordComponentName } from "./password/forgotPassword.component";
 import { ResetPasswordComponent, ResetPasswordComponentName } from "./password/resetpassword.component";
@@ -39,7 +38,7 @@ export class AdminModule extends BaseModule {
         super();
 
         this.moduleName = moduleName;
-        this.moduleDependencies = [ngAnimate, ngSantize, uirouter.default, angularUIBootstrapModule];
+        this.moduleDependencies = [ngAnimate, ngSantize, uirouter, angularUIBootstrapModule];
 
         this.app = angular.module(this.moduleName, this.moduleDependencies);
 
@@ -142,92 +141,6 @@ export class AdminModule extends BaseModule {
     }
 
     /**
-     * Configure all routes for this model
-     * @param $routeProvider
-     */
-    private routeConfig($routeProvider: ng.route.IRouteProvider, RESOURCES: IResource, ACTIONS: IAction):void {
-
-        try {
-
-            let accountsRoute: IBlogRoute = {
-                templateUrl: require("admin/account/accounts.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let passwordUpdateRoute: IBlogRoute = {
-                templateUrl: require("Admin/password/passwordUpdate.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let confirmPasswordUpdateRoute: IBlogRoute = {
-                templateUrl: require("admin/password/passwordUpdateConfirmation.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let passwordResetConfirmationRoute: IBlogRoute = {
-                templateUrl: require("admin/password/passwordResetConfirmation.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let loginUpdateRoute: IBlogRoute = {
-                templateUrl: require("admin/login/loginUpdate.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let loginUpdateConfirmationRoute: IBlogRoute = {
-                templateUrl: require("admin/login/loginUpdateConfirmation.html"),
-                caseInsensitiveMatch: true,
-                controller: AdminController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            $routeProvider
-                .when("/accounts", accountsRoute)
-                .when("/passwordUpdate", passwordUpdateRoute)
-                .when("/passwordResetConfirmation", confirmPasswordUpdateRoute)
-                .when("/loginUpdate", loginUpdateRoute)
-                .when("/loginUpdateConfirmation", loginUpdateConfirmationRoute);
-
-        } catch (error) {
-            console.log(error.message);
-        }
-    };
-
-    /**
      * Configure the location provider to be in html5 mode
      * @param $locationProvider
      */
@@ -278,23 +191,14 @@ export class AdminModule extends BaseModule {
     }
 }
 
-
 // create the module
 let Admin:AdminModule = new AdminModule();
 
-Admin.AddFactory("adminService", adminFactory);
-
-adminFactory.$inject = ["$rootScope", "$http", "authService", "ADMIN_ROUTE_CONSTANTS", "AUTH_EVENT_CONSTANTS"];
-function adminFactory($rootScope: ng.IRootScopeService,
-                        $http: ng.IHttpService,
-                        authService: AuthService,
-                        ADMIN_ROUTE_CONSTANTS: IAdminRoutes,
-                        AUTH_EVENT_CONSTANTS: IAuthEventConstants): AdminService {
-    return new AdminService($rootScope, $http, authService, ADMIN_ROUTE_CONSTANTS, AUTH_EVENT_CONSTANTS);
-}
+Admin.AddService(AdminServiceName, AdminService);
 
 Admin.AddController("Admin", AdminController as ng.Injectable<angular.IControllerConstructor>);
 Admin.AddComponent(LoginComponentName, new LoginComponent())
+Admin.AddComponent(IdentityModalComponentName, new IdentityModalComponent())
 Admin.AddComponent(LogoffComponentName, new LogoffComponent());
 Admin.AddComponent(RegisterUserComponentName, new RegisterUserComponent())
 Admin.AddComponent(AdminHeaderComponentName, new AdminHeaderComponent());

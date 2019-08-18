@@ -1,17 +1,13 @@
-﻿import { BaseController } from "Core/Models/BaseController";
-import { BlogService } from "Blog/blog.service";
-import { Category } from "Blog/Category/Category";
+﻿import { BlogService } from "blog/blog.service";
+import { Post } from "blog/post/Post";
+import { BaseController } from "core/models/BaseController";
 import { NotificationFactory } from "notification/notification.factory";
-import { Post } from "Blog/Post/Post";
-import { Tag } from "Blog/Tag/Tag";
-import { PostQueryFilter } from "Blog/Post/PostQueryFilter";
-import { GridQuery } from "Core/grid/GridQuery";
 
 export class CreatePostControllerBase extends BaseController {
 
     Post: Post;
 
-    inject = ["blogService", "$sce", "notificationFactory"]
+    static $inject = ["blogService", "$sce", "notificationFactory"]
     constructor(private _blogService: BlogService,
         _$sce: ng.ISCEService,
         private _notificationFactory: NotificationFactory) {

@@ -1,13 +1,13 @@
-﻿import { BlogService } from "Blog/blog.service";
-import { Category } from "Blog/Category/Category";
-import { CreatePostControllerBase } from "Blog/Post/CreatePostControllerBase";
-import { Post } from "Blog/Post/Post";
-import { Tag } from "Blog/Tag/Tag";
-import { AuthService } from "Core/authorization/auth.service";
-import { ComponentBase } from "Core/component.base";
+﻿import { BlogService } from "blog/blog.service";
+import { Category } from "blog/category/Category";
+import { CreatePostControllerBase } from "blog/post/CreatePostControllerBase";
+import { Post } from "blog/post/Post";
+import { Tag } from "blog/tag/Tag";
+import { AuthService } from "core/authorization/auth.service";
+import { ComponentBase } from "core/component.base";
 import { NotificationFactory } from "notification/notification.factory";
 
-export const CreatePostComponentName: string = "createpost";
+export const CreatePostComponentName: string = "newpost";
 
 interface ICreatePostControllerBindings {
     postId: number;
@@ -28,18 +28,19 @@ class CreatePostComponentController extends CreatePostControllerBase implements 
     // set the tiny mce editor options
     private tinymceOptions: any = {
         selector: "textarea",
-        theme: "modern",
+        theme: "silver",
         height: 500,
-        plugins: ["advlist autolink lists link image charmap print preview hr anchor pagebreak",
-            "searchreplace wordcount visualblocks visualchars code fullscreen",
-            "insertdatetime media nonbreaking save table contextmenu directionality",
-            "emoticons template paste textcolor colorpicker textpattern imagetools codesample toc"],
+        //plugins: ["print"],
+        //plugins: ["advlist autolink lists link image charmap print preview hr anchor pagebreak",
+        //    "searchreplace wordcount visualblocks visualchars code fullscreen",
+        //    "insertdatetime media nonbreaking save table contextmenu directionality",
+        //    "emoticons template paste textcolor colorpicker textpattern imagetools codesample toc"],
         toolbar1: "undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-        toolbar2: "print preview media | forecolor backcolor emoticons | codesample",
+        //toolbar2: "print preview media | forecolor backcolor emoticons | codesample",
         image_advtab: true,
         templates: [
             { title: "Test template 1", content: "Test 1" },
-            { title: "Test template 2", content: "Test 2" }
+            //{ title: "Test template 2", content: "Test 2" }
         ],
         content_css: [
             "//fonts.googleapis.com/css?family=Lato:300,300i,400,400i",
@@ -49,7 +50,7 @@ class CreatePostComponentController extends CreatePostControllerBase implements 
 
     private tinymceContent: string;
 
-    static inject = ["blogService", "$window", "$sce", "$stateParams", "notificationFactory", "authService"]
+    static $inject = ["blogService", "$window", "$sce", "$stateParams", "notificationFactory", "authService"]
     constructor(private blogService: BlogService,
         private $window: ng.IWindowService,
         public $sce: ng.ISCEService,
@@ -162,7 +163,7 @@ export class CreatePostComponent extends ComponentBase {
         this.controllerAs = "$createPostCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Blog/Post/post.html");
+            return require("blog/post/createPost.html");
         }];
     }
 }
