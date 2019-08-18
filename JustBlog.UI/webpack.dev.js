@@ -4,6 +4,7 @@ const path = require("path");
 const webpack = require('webpack');
 const { CleanWebpackPlugin }= require("clean-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 const outputDirectory = "./wwwroot";
 
@@ -94,8 +95,8 @@ module.exports = {
         new CleanWebpackPlugin(),
         new webpack.ProvidePlugin({
             jQuery: 'jquery'
-        })
-        //new webpack.PrefetchPlugin([context], request)
+        }),
+        new HardSourceWebpackPlugin()
     ],
     output: {
         sourceMapFilename: "bundle.map",

@@ -12,12 +12,9 @@
   "scripts": {
     "build": "webpack --config=webpack.config.js --env dev --progress --profile --colors --display verbose",
     "build:prod": "webpack --config=webpack.config.js --env prod --progress --profile --colors",
-
     "build:test": "webpack --config=webpack.config.js --env test --progress --profile --colors",
     "test": "karma start .\\conf\\karma.conf.js",
-
     "analyzeBundle": "npm run buildStats && npm run cleanStatsfile && npm run startBundleAnalyzer",
-
     "buildStats": "webpack --config=webpack.config.js --env dev --profile --json > stats.json",
     "buildStatsProd": "webpack --config=webpack.config.js --env prod --profile --json > stats.json",
     "buildStatsWin": "webpack --profile --json | Out-file 'dist/stats.json' -Encoding OEM (only works when run from powershell!)",
@@ -61,6 +58,7 @@
     "exports-loader": "0.7.0",
     "extract-loader": "3.1.0",
     "file-loader": "4.2.0",
+    "hard-source-webpack-plugin": "^0.13.1",
     "html-loader": "0.5.5",
     "imports-loader": "0.8.0",
     "jasmine": "^2.8.0",
