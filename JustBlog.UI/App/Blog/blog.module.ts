@@ -1,23 +1,99 @@
-﻿import * as uirouter from "@uirouter/angularjs";
-import { CategoryComponent, CategoryComponentName } from "Blog/Category/category.component";
-import { CategoriesGridComponent, CategoriesGridComponentName } from "Blog/Category/categoryGrid.component";
-import { HomeComponent, HomeComponentName } from "Blog/Home/home.component";
-import { CreatePostComponent, CreatePostComponentName } from "Blog/Post/createpost.component";
-import { PostComponent, PostComponentName } from "Blog/Post/post.component";
-import { PostsGridComponent, PostsGridComponentName } from "Blog/Post/postgrid.component";
-import { ProfileComponent, ProfileComponentName } from "Blog/Profile/profile.component";
-import { TagsGridComponent, TagsGridComponentName } from "Blog/Tag/tagsGrid.component";
-import { BlogController } from "Blog/blog.controller";
-import { BlogService } from "Blog/blog.service";
-import { IAction } from "Core/authorization/IAction";
-import { IResource } from "Core/authorization/IResource";
-import { IBlogRoute } from "Core/authorization/IBlogRoute";
-import { BaseModule } from "Core/Models/BaseModule";
-import { AuthService } from "Core/authorization/auth.service";
+﻿import {default as uirouter } from "@uirouter/angularjs";
+import { CategoryComponent, CategoryComponentName } from "blog/category/category.component";
+import { CategoriesGridComponent, CategoriesGridComponentName } from "blog/category/categoryGrid.component";
+import { HomeComponent, HomeComponentName } from "blog/home/home.component";
+import { CreatePostComponent, CreatePostComponentName } from "blog/post/createpost.component";
+import { PostComponent, PostComponentName } from "blog/post/post.component";
+import { PostsGridComponent, PostsGridComponentName } from "blog/post/postgrid.component";
+import { ProfileComponent, ProfileComponentName } from "blog/profile/profile.component";
+import { TagsGridComponent, TagsGridComponentName } from "blog/tag/tagsGrid.component";
+import { BlogController } from "blog/blog.controller";
+import { BlogService, BlogServiceName } from "blog/blog.service";
+import { BaseModule } from "core/models/BaseModule";
 import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";
-import * as tinyMCE from "tinymce";
+//import * as tinyMCE from "tinymce";
+
+// tiny mce
+//import * as tinyMCE from "tinymce";
+//import tinymce from 'tinymce/tinymce';
+
+//require.context(
+//    'file-loader?name=[path][name].[ext]&context=node_modules/tinymce!tinymce/skins',
+//    true,
+//    /.*/
+//);
+
+//import 'tinymce/themes/oxide';
+
+//import 'tinymce/skins/content/default/content.css';
+//import 'tinymce/skins/content/document/content.css';
+//import 'tinymce/skins/content/writer/content.css';
+//import 'tinymce/skins/ui/oxide-dark/content.css';
+
+// Plugins
+//import 'tinymce/plugins/paste/plugin'
+//import 'tinymce/plugins/link/plugin'
+//import 'tinymce/plugins/autoresize/plugin'
+
+//import 'tinymce/themes/silver';
+
+//import 'tinymce/plugins/advlist';
+//import 'tinymce/plugins/autolink';
+//import 'tinymce/plugins/link';
+//import 'tinymce/plugins/image';
+//import 'tinymce/plugins/lists';
+//import 'tinymce/plugins/charmap';
+//import 'tinymce/plugins/print';
+//import 'tinymce/plugins/preview';
+//import 'tinymce/plugins/hr';
+//import 'tinymce/plugins/anchor';
+//import 'tinymce/plugins/pagebreak';
+//import 'tinymce/plugins/spellchecker';
+//import 'tinymce/plugins/searchreplace';
+//import 'tinymce/plugins/wordcount';
+//import 'tinymce/plugins/visualblocks';
+//import 'tinymce/plugins/visualchars';
+//import 'tinymce/plugins/code';
+//import 'tinymce/plugins/fullscreen';
+//import 'tinymce/plugins/insertdatetime';
+//import 'tinymce/plugins/media';
+//import 'tinymce/plugins/nonbreaking';
+//import 'tinymce/plugins/save';
+//import 'tinymce/plugins/table';
+//import 'tinymce/plugins/directionality';
+//import 'tinymce/plugins/emoticons';
+//import 'tinymce/plugins/template';
+//import 'tinymce/plugins/paste';
+//import 'tinymce/plugins/importcss';
+
+//require('tinymce/skins/ui/oxide/content.min.css');
+
+//import '!style-loader!css-loader!tinymce/skins/ui/oxide/skin.min.css';
+//import contentStyle from 'tinymce/skins/ui/oxide/content.min.css';
+
+//exports.TinyMce.getDefaultTinyMceConfig = function (base_path, file_browser_url) {
+//    return {
+//        selector: 'textarea.tinymce',
+//        width: 'auto',
+//        height: '300',
+//        theme: 'silver',
+//        skin: false,
+//        // content_style: false,
+//        content_style: contentStyle.toString(),
+//        ...
+//            };
+//};
+
+// Initialize
+//tinyMCE.init({
+//    //selector: '#testTest',
+//    //selector: 'textarea.tinymce',
+//    //skin: false,
+//    plugins: ['paste', 'link', 'autoresize'],
+//    theme: 'modern'
+//});
 
 /**
  * Angular ui bootstrap and angular tiny mce doesn't have a a default export so we have to require it manually
@@ -40,7 +116,7 @@ export class BlogModule extends BaseModule {
         super();
 
         this.moduleName = moduleName;
-        this.moduleDependencies = [ngAnimate, ngSantize, uirouter.default, angularUIBootstrapModuleName, tinyMCEModuleName ];
+        this.moduleDependencies = [ngAnimate, ngSantize, uirouter, angularUIBootstrapModuleName, tinyMCEModuleName ];
 
         this.app = angular.module(this.moduleName, this.moduleDependencies);
         this.app.config(this.uiStateConfig);
@@ -79,9 +155,9 @@ export class BlogModule extends BaseModule {
         };
 
         const addPostState: ng.ui.IState = {
-            name: "addPost",
+            name: "newpost",
             component: CreatePostComponentName,
-            url: "/post/add"
+            url: "/post/new"
         }
 
         const editPostState: ng.ui.IState = {
@@ -106,108 +182,6 @@ export class BlogModule extends BaseModule {
         $stateProvider.state(postState);
     }
 
-    /**
-     * Configure all routes for this model
-     * @param $routeProvider
-     */
-    private routeConfig($routeProvider: ng.route.IRouteProvider, RESOURCES: IResource, ACTIONS: IAction): void {
-        try {
-
-            let createPostRoute: IBlogRoute = {
-                templateUrl: "blog/post/create.html",
-                caseInsensitiveMatch: true,
-                controller: BlogController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let editPostRoute: IBlogRoute = {
-                templateUrl: "blog/post/create.html",
-                caseInsensitiveMatch: true,
-                controller: BlogController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let editCategoryRoute: IBlogRoute = {
-                templateUrl: "blog/category/create.html",
-                caseInsensitiveMatch: true,
-                controller: BlogController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            let editTagRoute: IBlogRoute = {
-                templateUrl: "blog/tag/create.html",
-                caseInsensitiveMatch: true,
-                controller: BlogController,
-                controllerAs: "vm",
-                authorize: true,
-                action: ACTIONS.Read,
-                resource: RESOURCES.Admin,
-                authorizationResolver: null
-            };
-
-            $routeProvider
-                .when("/aboutme", {
-                    templateUrl: "blog/aboutme/aboutme.html",
-                    caseInsensitiveMatch: true,
-                    controller: BlogController,
-                    controllerAs: "vm"
-                })
-                // category Routes
-                .when("/categories", {
-                    templateUrl: "blog/category/categories.html",
-                    caseInsensitiveMatch: true,
-                    controller: BlogController,
-                    controllerAs: "vm"
-                })
-                .when("/category/add", editCategoryRoute)
-                .when("/category/edit/:categoryId", editCategoryRoute)
-                .when("/category/:categoryUrl", {
-                    templateUrl: "blog/category/category.html",
-                    caseInsensitiveMatch: true,
-                    controller: BlogController,
-                    controllerAs: "vm"
-                })
-
-                // post Routes
-                .when("/post/create/:postId", createPostRoute)
-                .when("/post/edit/:postId", editPostRoute)
-                .when("/post/retrieve/:postId", {
-                    templateUrl: require("Blog/Post/post.html"),
-                    caseInsensitiveMatch: true,
-                    controller: BlogController,
-                    controllerAs: "vm"
-                })
-
-                // tag Routes
-                .when("/tag/add", editTagRoute)
-                .when("/tag/edit/:tagId", editTagRoute)
-                .when("/tag/:tagUrlSlug", {
-                    templateUrl: "blog/tag/tag.html",
-                    caseInsensitiveMatch: true,
-                    controller: BlogController,
-                    controllerAs: "vm"
-                })
-
-                .when("/404/", {
-                    templateUrl: "core/errorpages/httpError.html",
-                    caseInsensitiveMatch: true
-                })
-        } catch (error) {
-            console.log(error.message);
-        }
-    };
 
     /**
      * Configure the location provider to be in html5 mode
@@ -227,13 +201,7 @@ export class BlogModule extends BaseModule {
 // adding to an angular mock. This is necessary to use required
 let Blog: BlogModule = new BlogModule();
 
-Blog.AddFactory("blogService", blogFactory);
-
-blogFactory.$inject = ["$http", "authService"];
-function blogFactory($http: ng.IHttpService, authService: AuthService): BlogService {
-
-    return new BlogService($http, authService);
-}
+Blog.AddService(BlogServiceName, BlogService);
 
 Blog.AddController("Blog", BlogController as ng.Injectable<angular.IControllerConstructor>);
 

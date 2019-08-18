@@ -1,8 +1,7 @@
-﻿import { BaseController } from "Core/Models/BaseController";
-import { ComponentBase } from "Core/component.base";
-import { IBlogRouteParams } from "Blog/Interfaces/IBlogRouteParams";
-import { Post } from "Blog/Post/Post";
-import { BlogService } from "Blog/blog.service";
+﻿import { BlogService } from "blog/blog.service";
+import { Post } from "blog/post/Post";
+import { ComponentBase } from "core/component.base";
+import { BaseController } from "core/models/BaseController";
 
 export const PostComponentName: string = "post";
 
@@ -19,7 +18,7 @@ class PostComponentController extends BaseController implements IPostComponentCo
     private Post: Post;
     urlSlug: string;
 
-    inject = ["blogService", "$window", "$sce", "$stateParams"]
+    static $inject = ["blogService", "$window", "$sce", "$stateParams"]
     constructor(private blogService: BlogService,
         private $window: ng.IWindowService,
         public $sce: ng.ISCEService,
@@ -73,7 +72,7 @@ export class PostComponent extends ComponentBase {
         this.controllerAs = "$postCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Blog/Post/post.html");
+            return require("blog/post/post.html");
         }];
     }
 }

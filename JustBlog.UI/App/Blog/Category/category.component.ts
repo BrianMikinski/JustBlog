@@ -1,9 +1,9 @@
-﻿import { BlogService } from "Blog/blog.service";
-import { Category } from "Blog/Category/Category";
-import { Post } from "Blog/Post/Post";
-import { ComponentBase } from "Core/component.base";
-import { CoreService } from "Core/core.service";
-import { BaseController } from "Core/Models/BaseController";
+﻿import { BlogService } from "blog/blog.service";
+import { Category } from "blog/category/Category";
+import { Post } from "blog/post/Post";
+import { ComponentBase } from "core/component.base";
+import { CoreService } from "core/core.service";
+import { BaseController } from "core/models/BaseController";
 
 export const CategoryComponentName: string = "category";
 
@@ -21,7 +21,7 @@ class CategoryComponentController extends BaseController implements ICategoryCom
     AllCategories: Array<Category>;
     CategoryPosts: Array<Post>;
 
-    inject = ["coreService", "blogService", "$sce"]
+    static $inject = ["coreService", "blogService", "$sce"]
     constructor(private coreService: CoreService, private blogService: BlogService, public $sce: ng.ISCEService) {
         super($sce);
     }
@@ -73,7 +73,7 @@ export class CategoryComponent extends ComponentBase {
         this.controllerAs = "$categoryCtrl"
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Blog/Category/categories.html");
+            return require("blog/category/categories.html");
         }];
     }
 }

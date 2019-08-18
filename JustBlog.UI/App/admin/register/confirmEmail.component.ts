@@ -1,22 +1,9 @@
 ﻿import { AdminService } from "admin/admin.service";
 import { ui } from "angular";
-import { ComponentBase } from "Core/component.base";
-import { BaseController } from "Core/Models/BaseController";
+import { ComponentBase } from "core/component.base";
+import { BaseController } from "core/models/BaseController";
 
 export const ConfirmEmailComponentName: string = "confirmEmail";
-
-export class ConfirmEmailComponent extends ComponentBase {
-    constructor() {
-        super();
-
-        this.bindings = {}
-        this.controller = ConfirmEmailController;
-
-        this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("admin/register/confirmEmail.html");
-        }];
-    }
-}
 
 /**
  * Component for displaying posts
@@ -26,7 +13,7 @@ export class ConfirmEmailController extends BaseController implements ng.IContro
     emailConfirmed: boolean = false;
     confirmationMessage: string = "Email Confirmation";
 
-    static inject = ["$sce", "adminService", "$state"]
+    static $inject = ["$sce", "adminService", "$state"]
     constructor(public $sce: ng.ISCEService,
         private adminService: AdminService,
         private $state: ui.IStateService) {
@@ -63,3 +50,15 @@ export class ConfirmEmailController extends BaseController implements ng.IContro
     }
 }
 
+export class ConfirmEmailComponent extends ComponentBase {
+    constructor() {
+        super();
+
+        this.bindings = {}
+        this.controller = ConfirmEmailController;
+
+        this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
+            return require("admin/register/confirmEmail.html");
+        }];
+    }
+}

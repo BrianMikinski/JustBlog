@@ -1,13 +1,11 @@
-﻿import { AuthService } from "Core/authorization/auth.service";
-import { BaseController } from "Core/Models/BaseController";
-import { BlogService } from "Blog/blog.service";
-import { ComponentBase } from "Core/component.base";
-import { CreatePostControllerBase } from "Blog/Post/CreatePostControllerBase";
-import { GridQuery } from "Core/grid/GridQuery";
-import { IBlogRouteParams } from "Blog/Interfaces/IBlogRouteParams";
+﻿import { BlogService } from "blog/blog.service";
+import { CreatePostControllerBase } from "blog/post/CreatePostControllerBase";
+import { Post } from "blog/Post/Post";
+import { PostQueryFilter } from "blog/post/PostQueryFilter";
+import { AuthService } from "core/authorization/auth.service";
+import { ComponentBase } from "core/component.base";
+import { GridQuery } from "core/grid/GridQuery";
 import { NotificationFactory } from "notification/notification.factory";
-import { Post } from "Blog/Post/Post";
-import { PostQueryFilter } from "Blog/Post/PostQueryFilter";
 
 export const PostsGridComponentName: string = "postsgrid";
 
@@ -18,13 +16,10 @@ class PostsGridComponentController extends CreatePostControllerBase implements n
 
     private Posts: GridQuery<Post>;
   
-    static inject = ["blogService", "$window", "$sce", "$stateParams", "notificationFactory", "authService"]
+    static $inject = ["blogService", "$window", "$sce", "$stateParams", "notificationFactory", "authService"]
     constructor(private blogService: BlogService,
-        private $window: ng.IWindowService,
         public $sce: ng.ISCEService,
-        private $stateParams: ng.ui.IStateParamsService,
-        private notificationFactory: NotificationFactory,
-        private authService: AuthService) {
+        private notificationFactory: NotificationFactory) {
         super(blogService, $sce, notificationFactory);
     }
 
@@ -99,7 +94,7 @@ export class PostsGridComponent extends ComponentBase {
         this.controllerAs = "$postsGridCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Blog/Post/postsGrid.html");
+            return require("blog/post/postsGrid.html");
         }];
     }
 }

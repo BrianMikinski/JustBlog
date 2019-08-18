@@ -1,6 +1,6 @@
 ﻿import { AdminService } from "admin/admin.service";
-import { ComponentBase } from "Core/component.base";
-import { BaseController } from "Core/Models/BaseController";
+import { ComponentBase } from "core/component.base";
+import { BaseController } from "core/models/BaseController";
 import { NotificationFactory } from "notification/notification.factory";
 import { IResetPasswordModel } from "./IResetPasswordModel";
 import { IValidPassword } from "./IValidPassword";
@@ -27,7 +27,7 @@ class ResetPasswordComponentController extends BaseController implements ng.ICon
         isValidPassword: false
     };
 
-    inject = ["authService", "adminService", "notificationFactory", "$sce", "$state", "$timeout"]
+    static $inject = ["authService", "adminService", "notificationFactory", "$sce", "$state", "$timeout"]
     constructor(public adminService: AdminService,
         public notificationFactory: NotificationFactory,
         public $sce: ng.ISCEService,

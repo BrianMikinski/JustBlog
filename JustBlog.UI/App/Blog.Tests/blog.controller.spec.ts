@@ -1,13 +1,13 @@
-﻿import { Category } from "Blog/Category/Category";
-import { MetaData } from "Blog/MetaData/MetaData";
-import { Post } from "Blog/Post/Post";
-import { Tag } from "Blog/Tag/Tag";
-import { BlogController } from "Blog/blog.controller";
-import { default as blogModule } from "Blog/blog.module";
-import { BlogService } from "Blog/blog.service";
-import { GridQuery } from "Core/grid/GridQuery";
-import {default as coreModule, CoreModule } from "Core/core.module"; // required by blog controller which is a part of the blog.module
-import { CoreService } from "Core/core.service";
+﻿import { Category } from "blog/category/Category";
+import { Metadata } from "blog/metadata/MetaData";
+import { Post } from "blog/Post/Post";
+import { Tag } from "blog/tag/Tag";
+import { BlogController } from "blog/blog.controller";
+import { default as blogModule } from "blog/blog.module";
+import { BlogService } from "blog/blog.service";
+import { GridQuery } from "core/grid/GridQuery";
+import {default as coreModule, CoreModule } from "core/core.module"; // required by blog controller which is a part of the blog.module
+import { CoreService } from "core/core.service";
 import {default as notificationModule } from "notification/notification.module"; // required by blog controller which is a part of the blog.module
 import * as angular from "angular";
 
@@ -68,12 +68,12 @@ describe(`Module "${blogModule}: Blog Controller Mockup, dependencies to "${noti
          * Using spys we can see when dependency methods are called and act on them. This method is called in the constructor
          * of the BlogController. Poorly designed but at least we can test it.
          */
-        let metaDataPromise: ng.IDeferred<MetaData>;
+        let metaDataPromise: ng.IDeferred<Metadata>;
         metaDataPromise = _$q_.defer();
         spyOn(coreService, "GetMetaData").and.returnValue(metaDataPromise.promise); // Allows method to be called but changes the return value
         let mockService = jasmine.createSpy('blogService'); //Creates a fake and circumvents the original calling of the method
 
-        BlogController = <BlogController>$controller("Blog", {
+        BlogController = <BlogController>$controller("blog", {
             coreService: coreService,
             _blogService: blogService,
             _route: {}, // Set these to null if we don't care about testing them
@@ -94,7 +94,7 @@ describe(`Module "${blogModule}: Blog Controller Mockup, dependencies to "${noti
         RetrievePost.Title = "My very first test post!";
     })
 
-    xit("Blog Controller: Retrieve Post Test", () => {
+    xit("blog Controller: Retrieve Post Test", () => {
         // arrange
         let retrievePostByIdPromise: ng.IDeferred<Post> = $q.defer();
         spyOn(_blogService, "RetrievePost").and.returnValue(retrievePostByIdPromise.promise);
@@ -112,7 +112,7 @@ describe(`Module "${blogModule}: Blog Controller Mockup, dependencies to "${noti
         //expect(BlogController.Post.Title).toBe("My very first test post!");
     });
 
-    xit("Blog Controller: PostPageAndSort Test", () => {
+    xit("blog Controller: PostPageAndSort Test", () => {
 
         // arrange
         let retrieveGridQueryPosts: ng.IDeferred<GridQuery<Post>> = $q.defer();
@@ -215,7 +215,7 @@ describe(`Module "${blogModule}: Blog Controller Mockup, dependencies to "${noti
         //}
     });
 
-    xit("Blog Controller: TagsPageAndSort Test", () => {
+    xit("blog Controller: TagsPageAndSort Test", () => {
 
         // arrange
         let retrieveGridQueryTagsPromise: ng.IDeferred<GridQuery<Tag>> = $q.defer();

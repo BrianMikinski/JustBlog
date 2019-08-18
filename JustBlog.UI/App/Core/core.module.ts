@@ -1,17 +1,20 @@
-﻿import * as uirouter from "@uirouter/angularjs";
-import { HookMatchCriteria, HookResult, StateService, Transition, TransitionHookFn, TransitionService } from "@uirouter/angularjs";
+﻿import {default as uirouter } from "@uirouter/angularjs";
+//import * as uirouter from "angular-ui-router";
+//import { HookMatchCriteria } from "angular-ui-router";
+import { HookMatchCriteria, HookResult, Transition, TransitionHookFn, TransitionService } from "@uirouter/angularjs";
 import { LoginComponentName } from "admin/login/login.component";
 import * as angular from "angular";
-import { AuthorizationDirective } from "Core/authorization/auth.directive";
-import { AuthInterceptor } from "Core/authorization/auth.interceptor";
-import { AuthService } from "Core/authorization/auth.service";
-import { RouteAuthorizationError } from "Core/authorization/RouteAuthorizationError";
-import { CoreService } from "Core/core.service";
-import { BaseModule } from "Core/Models/BaseModule";
+import { AuthorizationDirective } from "core/authorization/auth.directive";
+import { AuthInterceptor, AuthInterceptorName } from "core/authorization/auth.interceptor";
+import { AuthService, AuthServiceName } from "core/authorization/auth.service";
+import { RouteAuthorizationError } from "core/authorization/RouteAuthorizationError";
+import { CoreService, CoreServiceName } from "core/core.service";
+import { BaseModule } from "core/models/BaseModule";
 import { IAuthenticationConstants } from "./authorization/IAuthenticationConstants";
 import { ErrorHandlingComponent, ErrorHandlingComponentName } from "./errorHandling/errorHandling.component";
+import { ErrorHandlingService, ErrorHandlingServiceName } from "./errorHandling/errorHandling.service";
 import { IErrorRoutes } from "./errorHandling/IErrorRoutes";
-import { ErrorHandlingService } from "./errorHandling/errorHandling.service";
+//import { TransitionService, HookMatchCriteria, TransitionHookFn, Transition, HookResult } from "@uirouter/core";
 
 const moduleName: string = "app.core";
 export default moduleName;
@@ -22,7 +25,7 @@ export class CoreModule extends BaseModule {
         super();
 
         this.moduleName = moduleName;
-        this.moduleDependencies = [uirouter.default];
+        this.moduleDependencies = [uirouter];
 
         // must set our constants before passing them to the config controller
         this.app = angular.module(this.moduleName, this.moduleDependencies);
@@ -60,7 +63,6 @@ export class CoreModule extends BaseModule {
 
         this.app.config(this.uiRouteConfig);
     }
-
 
     /**
      * Configure routes
@@ -151,32 +153,8 @@ export class CoreModule extends BaseModule {
  */
 let Core: CoreModule = new CoreModule();
 
-Core.AddFactory("coreService", coreService);
-
-coreService.$inject = ["$http"];
-function coreService($http: ng.IHttpService): CoreService {
-    "use strict";
-    return new CoreService($http);
-}
-
-Core.AddFactory("authService", authService);
-
-authService.$inject = ["$http", "$q", "AUTHENTICATION_CONSTANTS"];
-function authService($http: ng.IHttpService, $q: ng.IQService, AUTHENTICATION_CONSTANTS: IAuthenticationConstants): AuthService {
-    return new AuthService($http, $q, AUTHENTICATION_CONSTANTS);
-}
-
-Core.AddService("authInterceptor", authInterceptor);
-
-authInterceptor.$inject = ["$q", "$state", "AUTHENTICATION_CONSTANTS"];
-function authInterceptor($q: ng.IQService, $state: StateService,  AUTHENTICATION_CONSTANTS: IAuthenticationConstants): AuthInterceptor {
-    return new AuthInterceptor($q, $state, AUTHENTICATION_CONSTANTS);
-}
-
-Core.AddService("errorHandlingService", errorHandlingService);
-
-function errorHandlingService($http: ng.IHttpService, ERROR_ROUTES: IErrorRoutes): ErrorHandlingService {
-    return new ErrorHandlingService($http, ERROR_ROUTES);
-}
-
+Core.AddService(CoreServiceName, CoreService);
+Core.AddService(AuthServiceName, AuthService);
+Core.AddService(AuthInterceptorName, AuthInterceptor);
+Core.AddService(ErrorHandlingServiceName, ErrorHandlingService);
 Core.AddComponent(ErrorHandlingComponentName, new ErrorHandlingComponent());

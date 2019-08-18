@@ -1,5 +1,5 @@
-﻿import { IAction } from "Core/authorization/IAction";
-import { IResource } from "Core/authorization/IResource";
+﻿import { IAction } from "core/authorization/IAction";
+import { IResource } from "core/authorization/IResource";
 
 /**
  * An abstract base class for creating modules

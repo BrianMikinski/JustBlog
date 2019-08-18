@@ -1,12 +1,13 @@
-﻿import { BaseService } from "Core/Models/BaseService";
-import { GridQuery } from "Core/grid/GridQuery";
-import { ITagPosts } from "Blog/Tag/ITagPosts";
-import { PagingProperties } from "Core/grid/PagingProperties";
-import { PostQueryFilter } from "Blog/Post/PostQueryFilter";
-import { Category } from "Blog/Category/Category";
-import { Post } from "Blog/Post/Post";
-import { Tag } from "Blog/Tag/Tag";
-import { AuthService } from "Core/authorization/auth.service";
+﻿import { BaseService } from "core/models/BaseService";
+import { GridQuery } from "core/grid/GridQuery";
+import { ITagPosts } from "blog/tag/ITagPosts";
+import { PagingProperties } from "core/grid/PagingProperties";
+import { PostQueryFilter } from "blog/post/PostQueryFilter";
+import { Category } from "blog/category/Category";
+import { Post } from "blog/Post/Post";
+import { Tag } from "blog/tag/Tag";
+
+export const BlogServiceName: string = "blogService";
 
 /**
  * Class for retrieving, creating and editing blog posts, categories and tags
@@ -17,7 +18,8 @@ export class BlogService extends BaseService {
     private postEndPoint: string = "../post";
     private tagEndPoint: string = "../tag";
 
-    constructor(private $http: ng.IHttpService, private authService: AuthService) {
+    static $inject = ['$http']
+    constructor(private $http: ng.IHttpService) {
         super();
     }
 

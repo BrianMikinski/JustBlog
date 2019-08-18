@@ -25,26 +25,27 @@
     <Content Remove="package-lock.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="App\admin\account\confirmEmail.component.ts" />
-    <None Remove="App\admin\account\myAcccount.component.ts" />
-    <None Remove="App\admin\adminHeader.component.ts" />
-    <None Remove="App\admin\app.unitTest.ts" />
-    <None Remove="App\admin\password\forgotPassword.component.ts" />
-    <None Remove="App\admin\password\IValidPassword.ts" />
-    <None Remove="App\admin\password\resetpassword.component.ts" />
-    <None Remove="App\admin\register\IdentityError.ts" />
-    <None Remove="App\admin\register\registerUser.component.spec.ts" />
-    <None Remove="App\Core\errorHandling\errorHandling.component.ts" />
+    <None Remove="app\admin\account\confirmEmail.component.ts" />
+    <None Remove="app\admin\account\myAcccount.component.ts" />
+    <None Remove="app\admin\adminHeader.component.ts" />
+    <None Remove="app\admin\app.unitTest.ts" />
+    <None Remove="app\admin\login\identityModal.component.ts" />
+    <None Remove="app\admin\password\forgotPassword.component.ts" />
+    <None Remove="app\admin\password\IValidPassword.ts" />
+    <None Remove="app\admin\password\resetpassword.component.ts" />
+    <None Remove="app\admin\register\IdentityError.ts" />
+    <None Remove="app\admin\register\registerUser.component.spec.ts" />
+    <None Remove="app\core\errorHandling\errorHandling.component.ts" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.6.1" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.4">
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.7.1" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="Sendgrid" Version="9.11.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
   </ItemGroup>
@@ -57,15 +58,16 @@
     <ProjectReference Include="..\JustBlog.Models\JustBlog.Models.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="App\admin\account\myAcccount.component.ts" />
-    <TypeScriptCompile Include="App\admin\password\forgotPassword.component.ts" />
-    <TypeScriptCompile Include="App\admin\password\IValidPassword.ts" />
-    <TypeScriptCompile Include="App\admin\password\resetPassword.component.ts" />
-    <TypeScriptCompile Include="App\admin\register\confirmEmail.component.ts" />
-    <TypeScriptCompile Include="App\admin\adminHeader.component.ts" />
-    <TypeScriptCompile Include="App\admin\register\IdentityError.ts" />
-    <TypeScriptCompile Include="App\admin\register\registerUser.component.spec.ts" />
-    <TypeScriptCompile Include="App\Core\errorHandling\errorHandling.component.ts" />
+    <TypeScriptCompile Include="app\admin\account\myAcccount.component.ts" />
+    <TypeScriptCompile Include="app\admin\login\identityModal.component.ts" />
+    <TypeScriptCompile Include="app\admin\password\forgotPassword.component.ts" />
+    <TypeScriptCompile Include="app\admin\password\IValidPassword.ts" />
+    <TypeScriptCompile Include="app\admin\password\resetPassword.component.ts" />
+    <TypeScriptCompile Include="app\admin\register\confirmEmail.component.ts" />
+    <TypeScriptCompile Include="app\admin\adminHeader.component.ts" />
+    <TypeScriptCompile Include="app\admin\register\IdentityError.ts" />
+    <TypeScriptCompile Include="app\admin\register\registerUser.component.spec.ts" />
+    <TypeScriptCompile Include="app\core\errorHandling\errorHandling.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />

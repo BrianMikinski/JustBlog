@@ -1,9 +1,9 @@
 ﻿import { AdminController } from "admin/admin.controller";
 import { default as adminModule } from "admin/admin.module";
 import { AdminService } from "admin/admin.service";
-import { AuthService } from "Core/authorization/auth.service";
-import { default as coreModule } from "Core/core.module";
-import { CoreService } from "Core/core.service";
+import { AuthService } from "core/authorization/auth.service";
+import { default as coreModule } from "core/core.module";
+import { CoreService } from "core/core.service";
 import { default as notificationModule } from "notification/notification.module";
 import * as angular from "angular";
 import 'angular-mocks';
@@ -85,7 +85,7 @@ describe(`Module "${adminModule}: Admin Controller Mockup, dependencies to "${no
     //        expect(true).toBe(true);
     //    }
 
-        // assert
+    //     assert
     //    expect(true).toBe(true);
 
     //});

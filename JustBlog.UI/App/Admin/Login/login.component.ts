@@ -1,9 +1,9 @@
 ﻿import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
 import { AdminService } from "admin/admin.service";
 import { LoginModel } from "admin/login/LoginModel";
-import { AuthService } from "Core/authorization/auth.service";
-import { ComponentBase } from "Core/component.base";
-import { BaseController } from "Core/Models/BaseController";
+import { AuthService } from "core/authorization/auth.service";
+import { ComponentBase } from "core/component.base";
+import { BaseController } from "core/models/BaseController";
 import { NotificationFactory } from "notification/notification.factory";
 
 export const LoginComponentName: string = "login";

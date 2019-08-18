@@ -1,9 +1,9 @@
 ﻿import { AdminService } from "admin/admin.service";
-import { AuthService } from "Core/authorization/auth.service";
-import { ComponentBase } from "Core/component.base";
-import { BaseController } from "Core/Models/BaseController";
+import { AuthService } from "core/authorization/auth.service";
+import { ComponentBase } from "core/component.base";
+import { BaseController } from "core/models/BaseController";
 import { NotificationFactory } from "notification/notification.factory";
-import { HomeComponentName } from "Blog/Home/home.component";
+import { HomeComponentName } from "blog/home/home.component";
 
 export const LogoffComponentName: string = "logoff";
 
@@ -12,7 +12,7 @@ export const LogoffComponentName: string = "logoff";
  */
 class LogoffComponentController extends BaseController implements ng.IController {
 
-    inject = ["authService", "adminService", "notificationFactory", "$sce", "$location"]
+    static $inject = ["authService", "adminService", "notificationFactory", "$sce", "$state"]
     constructor(public authService: AuthService,
         public adminService: AdminService,
         public notificationFactory: NotificationFactory,

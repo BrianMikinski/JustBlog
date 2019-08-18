@@ -1,9 +1,9 @@
-﻿import { Post } from "Blog/Post/Post";
+﻿import { Post } from "blog/post/Post";
 
 /**
  * Container for global blog meta data
  */
-export class MetaData {
+export class Metadata {
     Author: string;
     AdminEmail: string;
     Description: string;

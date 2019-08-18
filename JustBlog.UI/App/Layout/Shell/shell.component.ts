@@ -1,5 +1,5 @@
-﻿import { ComponentBase } from "Core/component.base";
-import { BaseController } from "Core/Models/BaseController";
+﻿import { ComponentBase } from "core/component.base";
+import { BaseController } from "core/models/BaseController";
 
 export const ShellComponentName: string = "shell";
 
@@ -7,8 +7,9 @@ export const ShellComponentName: string = "shell";
  * Controller for the Navigation Bar
  */
 class ShellComponentController extends BaseController implements ng.IController {
-   
-    constructor(public $sce: ng.ISCEService) {
+
+    static $inject = ['$sce']
+    constructor($sce: ng.ISCEService) {
         super($sce);
     }
 

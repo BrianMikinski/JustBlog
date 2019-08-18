@@ -24,7 +24,7 @@
   // in the project and look for tests
   "Tests": [
     {
-      "Path": "./App",
+      "Path": "./app",
       "Includes": [ "*.spec.ts" ]
     }
   ],
@@ -42,11 +42,11 @@
   "EnableTracing": true,
   "CodeCoverageExecutionMode": "Never",
   "CodeCoverageExcludes": [
-    //"*\\App\\*\\*.controller.tests*"
+    //"*\\app\\*\\*.controller.tests*"
   ],
 
   "CodeCoverageIncludes": [
-    //"*\\App\\Blog\\blog.controller.js" //,
+    //"*\\app\\blog\\blog.controller.js" //,
     //"*.service.js" //,
     //"./app/*.controller.ts",
     //"./app/*.directive.ts",

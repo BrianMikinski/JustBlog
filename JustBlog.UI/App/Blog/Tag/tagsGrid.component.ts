@@ -1,8 +1,8 @@
-﻿import { BlogService } from "Blog/blog.service";
-import { Tag } from "Blog/Tag/Tag";
-import { ComponentBase } from "Core/component.base";
-import { GridQuery } from "Core/grid/GridQuery";
-import { BaseController } from "Core/Models/BaseController";
+﻿import { BlogService } from "blog/blog.service";
+import { Tag } from "blog/tag/Tag";
+import { ComponentBase } from "core/component.base";
+import { GridQuery } from "core/grid/GridQuery";
+import { BaseController } from "core/models/BaseController";
 
 export const TagsGridComponentName: string = "tagsgrid";
 
@@ -13,7 +13,7 @@ class TagsGridComponentController extends BaseController implements ng.IControll
 
     private Tags: GridQuery<Tag> = new GridQuery<Tag>(); 
 
-    inject = ["blogService", "$sce"]
+    static $inject = ["blogService", "$sce"]
     constructor(private blogService: BlogService,
         public $sce: ng.ISCEService) {
         super($sce);
@@ -58,7 +58,7 @@ export class TagsGridComponent extends ComponentBase {
         this.controllerAs = "$tagsGridCtrl";
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("Blog/tag/tagsGrid.html");
+            return require("blog/tag/tagsGrid.html");
         }];
     }
 }

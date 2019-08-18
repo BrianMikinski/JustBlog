@@ -1,11 +1,11 @@
 ﻿import * as angular from "angular";
-import { default as blogModule } from "Blog/blog.module";
-import { BlogService } from "Blog/blog.service";
-import { HomeComponentName } from "Blog/Home/home.component";
-import { MetaData } from "Blog/MetaData/MetaData";
-import { Post } from "Blog/Post/Post";
-import { CoreService } from "Core/core.service";
-import { GridQuery } from "Core/grid/GridQuery";
+import { default as blogModule } from "blog/blog.module";
+import { BlogService } from "blog/blog.service";
+import { HomeComponentName } from "blog/home/home.component";
+import { Metadata } from "blog/metadata/MetaData";
+import { Post } from "blog/post/Post";
+import { CoreService } from "core/core.service";
+import { GridQuery } from "core/grid/GridQuery";
 
 describe(` ${blogModule}: Home Component Tests - `, function () {
 
@@ -29,7 +29,7 @@ describe(` ${blogModule}: Home Component Tests - `, function () {
 
     beforeEach(angular.mock.module("app.blog"));
 
-    let metaData: MetaData = {
+    let metaData: Metadata = {
         Author: "Robert Graves",
         AdminEmail: "robertgraves@gmail.com",
         Description: "",
@@ -61,7 +61,7 @@ describe(` ${blogModule}: Home Component Tests - `, function () {
         $timeout = _$timeout_;
 
         // meta data promise and http backend calls
-        let metaDataPromise: ng.IDeferred<MetaData> = _$q_.defer();
+        let metaDataPromise: ng.IDeferred<Metadata> = _$q_.defer();
         metaDataPromise.resolve(metaData);
         spyOn(coreService, "GetMetaData").and.returnValue(metaDataPromise.promise);
 

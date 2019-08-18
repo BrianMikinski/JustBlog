@@ -1,11 +1,11 @@
-﻿import { BaseController } from "Core/Models/BaseController";
-import { ComponentBase } from "Core/component.base";
+﻿import { BaseController } from "core/models/BaseController";
+import { ComponentBase } from "core/component.base";
 
 export const AdminHeaderComponentName: string = "adminHeader";
 
 export class AdminHeaderController extends BaseController implements ng.IController {
 
-    static inject = ["$sce"]
+    static $inject = ["$sce"]
     constructor(public $sce: ng.ISCEService) {
         super($sce);
     }
