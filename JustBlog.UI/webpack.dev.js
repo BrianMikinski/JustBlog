@@ -64,19 +64,6 @@ module.exports = {
             {
                 test: /\.(woff2?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
                 loader: "file-loader?name=fonts/[name].[ext]"
-            },
-            {
-                test: require.resolve('tinymce/tinymce'),
-                use: [
-                    'imports-loader?this=>window',
-                    'exports-loader?window.tinymce'
-                ]
-            },
-            {
-                test: /tinymce[\\/]themes[\\/]/,
-                use: [
-                    'imports-loader?this=>window'
-                ]
             }
         ]
     },
@@ -95,8 +82,7 @@ module.exports = {
         new CleanWebpackPlugin(),
         new webpack.ProvidePlugin({
             jQuery: 'jquery'
-        }),
-        new HardSourceWebpackPlugin()
+        })
     ],
     output: {
         sourceMapFilename: "bundle.map",
