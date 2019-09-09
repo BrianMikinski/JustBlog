@@ -33,8 +33,8 @@ export class BlogService extends BaseService {
             postId: Id
         };
 
-        let onPostReturned: (response: ng.IHttpPromiseCallbackArg<Post>) => Post = 
-            (response: ng.IHttpPromiseCallbackArg<Post>) => {
+        let onPostReturned: (response: ng.IHttpResponse<Post>) => Post = 
+            (response: ng.IHttpResponse<Post>) => {
             return <Post>response.data;
         };
 
@@ -47,7 +47,7 @@ export class BlogService extends BaseService {
      */
     RetrievePostUrlSlug(urlSlug: string): ng.IPromise<void | Post> {
 
-        return this.$http.get(`${this.postEndPoint}/retrieve?urlSlug=${urlSlug}`).then((response: ng.IHttpPromiseCallbackArg<Post>): Post => {
+        return this.$http.get(`${this.postEndPoint}/retrieve?urlSlug=${urlSlug}`).then((response: ng.IHttpResponse<Post>): Post => {
             return <Post>response.data;
         }, this.OnErrorCallback);
     }
@@ -62,9 +62,9 @@ export class BlogService extends BaseService {
             categoryId: categoryId
         };
 
-        let onCategoryPostsReturned: (response: ng.IHttpPromiseCallbackArg<Array<Post>>) => Array<Post> | undefined =
+        let onCategoryPostsReturned: (response: ng.IHttpResponse<Array<Post>>) => Array<Post> | undefined =
 
-            (response: ng.IHttpPromiseCallbackArg<Array<Post>>) => {
+            (response: ng.IHttpResponse<Array<Post>>) => {
                 return response.data;
             };
 
@@ -94,8 +94,8 @@ export class BlogService extends BaseService {
             Results: []
         };
 
-        let onPostsReturned: (response: ng.IHttpPromiseCallbackArg<GridQuery<Post>>) => GridQuery<Post> | undefined
-            = (response: ng.IHttpPromiseCallbackArg<GridQuery<Post>>) => {
+        let onPostsReturned: (response: ng.IHttpResponse<GridQuery<Post>>) => GridQuery<Post> | undefined
+            = (response: ng.IHttpResponse<GridQuery<Post>>) => {
                 return response.data;
             };
 
@@ -117,8 +117,8 @@ export class BlogService extends BaseService {
         query.PagingProperties = pagingProperties;
 
         // defining callback within function
-        let onCategoriesReturned: (response: ng.IHttpPromiseCallbackArg<GridQuery<Category>>) => GridQuery<Category> | undefined
-            = (response: ng.IHttpPromiseCallbackArg<GridQuery<Category>>) => {
+        let onCategoriesReturned: (response: ng.IHttpResponse<GridQuery<Category>>) => GridQuery<Category> | undefined
+            = (response: ng.IHttpResponse<GridQuery<Category>>) => {
                 return response.data;
             };
 
@@ -136,8 +136,8 @@ export class BlogService extends BaseService {
         };
 
         // defining callback within function
-        let onCategoriesReturned: (response: ng.IHttpPromiseCallbackArg<Array<Category>>) => Array<Category> | undefined
-            = (response: ng.IHttpPromiseCallbackArg<Array<Category>>) => {
+        let onCategoriesReturned: (response: ng.IHttpResponse<Array<Category>>) => Array<Category> | undefined
+            = (response: ng.IHttpResponse<Array<Category>>) => {
                 return response.data;
             };
 
@@ -156,8 +156,8 @@ export class BlogService extends BaseService {
         };
 
         // defining callback within function
-        let onCategoryReturned: (response: ng.IHttpPromiseCallbackArg<Category>) => Category | undefined
-            = (response: ng.IHttpPromiseCallbackArg<Category>) => {
+        let onCategoryReturned: (response: ng.IHttpResponse<Category>) => Category | undefined
+            = (response: ng.IHttpResponse<Category>) => {
                 return response.data;
             };
 
@@ -170,8 +170,8 @@ export class BlogService extends BaseService {
      */
     RetrieveAllTags(): ng.IPromise<void | Array<Tag>> {
         // defining callback within function
-        let onCategoriesReturned: (response: ng.IHttpPromiseCallbackArg<Array<Tag>>) => Array<Tag> | undefined
-            = (response: ng.IHttpPromiseCallbackArg<Array<Tag>>) => {
+        let onCategoriesReturned: (response: ng.IHttpResponse<Array<Tag>>) => Array<Tag> | undefined
+            = (response: ng.IHttpResponse<Array<Tag>>) => {
                 return response.data;
             };
 
@@ -192,8 +192,8 @@ export class BlogService extends BaseService {
         query.PagingProperties = pagingProperties;
 
         // defining callback within function
-        let onTagsReturned: (response: ng.IHttpPromiseCallbackArg<GridQuery<Tag>>) => GridQuery<Tag> | undefined
-            = (response: ng.IHttpPromiseCallbackArg<GridQuery<Tag>>) => {
+        let onTagsReturned: (response: ng.IHttpResponse<GridQuery<Tag>>) => GridQuery<Tag> | undefined
+            = (response: ng.IHttpResponse<GridQuery<Tag>>) => {
                 return response.data;
             };
 
@@ -218,7 +218,7 @@ export class BlogService extends BaseService {
             publishPost: publishPost
         };
 
-        let onSaveReturned: (response: ng.IHttpPromiseCallbackArg<Post>) => Post = (response: ng.IHttpPromiseCallbackArg<Post>) => {
+        let onSaveReturned: (response: ng.IHttpResponse<Post>) => Post = (response: ng.IHttpResponse<Post>) => {
                 return <Post>response.data;
             };
 
@@ -237,8 +237,8 @@ export class BlogService extends BaseService {
 
 
         // defining callback within function
-        let onPostReturned: (response: ng.IHttpPromiseCallbackArg<Post>) => Post
-            = (response: ng.IHttpPromiseCallbackArg<Post>) => {
+        let onPostReturned: (response: ng.IHttpResponse<Post>) => Post
+            = (response: ng.IHttpResponse<Post>) => {
                 return <Post>response.data;
             };
 
@@ -257,8 +257,8 @@ export class BlogService extends BaseService {
         };
 
         // defining callback within function
-        let onTagsReturned: (response: ng.IHttpPromiseCallbackArg<Post>) => Post
-            = (response: ng.IHttpPromiseCallbackArg<Post>) => {
+        let onTagsReturned: (response: ng.IHttpResponse<Post>) => Post
+            = (response: ng.IHttpResponse<Post>) => {
                 return <Post>response.data;
             };
 
@@ -274,8 +274,8 @@ export class BlogService extends BaseService {
     SaveCategory(category: Category): ng.IPromise<void | Category> {
 
         // defining callback within function
-        let onSaveCategoryReturned: (response: ng.IHttpPromiseCallbackArg<Category>) => Category
-            = (response: ng.IHttpPromiseCallbackArg<Category>) => {
+        let onSaveCategoryReturned: (response: ng.IHttpResponse<Category>) => Category
+            = (response: ng.IHttpResponse<Category>) => {
                 return <Category>response.data;
             };
 
@@ -296,8 +296,8 @@ export class BlogService extends BaseService {
 
         let config:ng.IRequestShortcutConfig = this.ConfigAntiForgery(antiforgeryToken);
 
-        let onSaveCategoryReturned: (response: ng.IHttpPromiseCallbackArg<Tag>) => Tag | undefined
-            = (response: ng.IHttpPromiseCallbackArg<Tag>) => {
+        let onSaveCategoryReturned: (response: ng.IHttpResponse<Tag>) => Tag | undefined
+            = (response: ng.IHttpResponse<Tag>) => {
                 return response.data;
             };
 
@@ -315,8 +315,8 @@ export class BlogService extends BaseService {
         };
 
         // defining callback within function
-        let onRetrieveTagReturned: (response: ng.IHttpPromiseCallbackArg<Tag>) => Tag
-            = (response: ng.IHttpPromiseCallbackArg<Tag>) => {
+        let onRetrieveTagReturned: (response: ng.IHttpResponse<Tag>) => Tag
+            = (response: ng.IHttpResponse<Tag>) => {
                 return <Tag>JSON.parse(<any>response.data);
             };
 

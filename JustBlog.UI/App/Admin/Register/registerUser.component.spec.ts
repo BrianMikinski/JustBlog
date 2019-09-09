@@ -104,19 +104,8 @@ describe(` ${adminModule}: Register New User Component Tests - `, function () {
             token_type: "jwt_token"
         }
 
-        let statusHeaders: IHttpHeadersGetter = null;
-
-        let loginResponse: ng.IHttpPromiseCallbackArg<ITokenAuthResponse> = {
-            data: tokenResponse,
-            status: 200,
-            headers: statusHeaders,
-            config: null,
-            statusText: "",
-            xhrStatus: "complete"
-        }
-
-        let loginUserDeferred: ng.IDeferred<ng.IHttpPromiseCallbackArg<ITokenAuthResponse> > = $q.defer();
-        loginUserDeferred.resolve(loginResponse);
+        let loginUserDeferred: ng.IDeferred<ITokenAuthResponse> = $q.defer();
+        loginUserDeferred.resolve(tokenResponse);
 
         let loginSpy: jasmine.Spy = spyOn(adminService, "login").and.returnValue(loginUserDeferred.promise);
 

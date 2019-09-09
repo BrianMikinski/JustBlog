@@ -18,8 +18,8 @@ export class CoreService extends BaseService {
 
     GetMetaData(): ng.IPromise<Metadata> {
 
-        let onHttpRequestReturned: (response: ng.IHttpPromiseCallbackArg<Metadata>) => any;
-        onHttpRequestReturned = (response: ng.IHttpPromiseCallbackArg<Metadata>) => {
+        let onHttpRequestReturned: (response: ng.IHttpResponse<Metadata>) => any;
+        onHttpRequestReturned = (response: ng.IHttpResponse<Metadata>) => {
 
             this.metaData = <Metadata>response.data;
             return <Metadata>response.data;
