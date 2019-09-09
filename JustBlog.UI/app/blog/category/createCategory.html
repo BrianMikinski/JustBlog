@@ -2,112 +2,129 @@
     <div class="page-header">
         <h1>Create/Edit Category</h1>
     </div>
-    <form name="categoryForm" class="form-horizontal" method="post" role="form">
 
-        <!--Name-->
-        <div class="form-group" ng-class="{ 'has-error' : categoryForm.Name.$invalid && !categoryForm.Name.$pristine }">
-            <label class="col-md-2 control-label">
-                Name
-            </label>
-            <div class="col-md-10">
-                <input class="form-control"
-                       name="Name"
-                       type="text"
-                       required
-                       value=""
-                       ng-model="$ctrl.Category.Name"
-                       ng-maxlength="50"
-                       ng-required="true">
-                <p ng-show="categoryForm.Name.$invalid && !categoryForm.Name.$pristine" class="help-block">A name is required for a category.</p>
-            </div>
-        </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form name="categoryForm" class="form-horizontal" ng-submit="$ctrl.SaveCategory()" role="form">
+                <!--Name-->
+                <div class="form-group" ng-class="{ 'has-error' : categoryForm.Name.$invalid && !categoryForm.Name.$pristine }">
+                    <label class="col-md-2 control-label">
+                        Name
+                    </label>
+                    <div class="col-md-10">
+                        <input class="form-control"
+                               name="Name"
+                               type="text"
+                               required
+                               value=""
+                               ng-model="$ctrl.category.Name"
+                               ng-maxlength="50"
+                               ng-required="true">
+                        <p ng-show="categoryForm.Name.$invalid && !categoryForm.Name.$pristine" class="help-block">
+                            A name is required for a category.
+                        </p>
+                    </div>
+                </div>
 
-        <!--Url slug-->
-        <div class="form-group" ng-class="{ 'has-error' : categoryForm.UrlSlug.$invalid && !categoryForm.UrlSlug.$pristine }">
-            <label class="col-md-2 control-label">
-                Url slug
-            </label>
-            <div class="col-md-10">
-                <input class="form-control"
-                       name="UrlSlug"
-                       type="text"
-                       value=""
-                       required
-                       ng-model="$ctrl.Category.UrlSlug"
-                       ng-maxlength="50"
-                       ng-required="true">
-                <p ng-show="categoryForm.UrlSlug.$invalid && !categoryForm.UrlSlug.$pristine" class="help-block">Url slug is required.</p>
-            </div>
-        </div>
+                <!--Url slug-->
+                <div class="form-group" ng-class="{ 'has-error' : categoryForm.UrlSlug.$invalid && !categoryForm.UrlSlug.$pristine }">
+                    <label class="col-md-2 control-label">
+                        Url slug
+                    </label>
+                    <div class="col-md-10">
+                        <input class="form-control"
+                               name="UrlSlug"
+                               type="text"
+                               value=""
+                               required
+                               ng-model="$ctrl.category.UrlSlug"
+                               ng-maxlength="50"
+                               ng-required="true">
+                        <p ng-show="categoryForm.UrlSlug.$invalid && !categoryForm.UrlSlug.$pristine" class="help-block">
+                            Url slug is required.
+                        </p>
+                    </div>
+                </div>
 
-        <!--Description-->
-        <div class="form-group" ng-class="{ 'has-error' : categoryForm.Description.$invalid && !categoryForm.Description.$pristine }">
-            <label class="col-md-2 control-label">
-                Description
-            </label>
-            <div class="col-md-10">
-                <textarea class="form-control"
-                          rows="8"
-                          name="Description"
-                          type="text"
-                          value=""
-                          placeholder="Description of the Category"
-                          required
-                          ng-maxlength="200"
-                          ng-model="$ctrl.Category.Description"
-                          ng-required="true"></textarea>
-                <p ng-show="categoryForm.Description.$invalid && !categoryForm.Description.$pristine" class="help-block">
-                    Description is required
-                </p>
-            </div>
-        </div>
+                <!--Description-->
+                <div class="form-group" ng-class="{ 'has-error' : categoryForm.Description.$invalid && !categoryForm.Description.$pristine }">
+                    <label class="col-md-2 control-label">
+                        Description
+                    </label>
+                    <div class="col-md-10">
+                        <textarea class="form-control"
+                                  rows="8"
+                                  name="Description"
+                                  type="text"
+                                  value=""
+                                  placeholder="Description of the Category"
+                                  required
+                                  ng-maxlength="200"
+                                  ng-model="$ctrl.category.Description"
+                                  ng-required="true"></textarea>
+                        <p ng-show="categoryForm.Description.$invalid && !categoryForm.Description.$pristine" class="help-block">
+                            Description is required
+                        </p>
+                    </div>
+                </div>
 
-        <!--ID-->
-        <div class="form-group">
-            <label class="col-md-2 control-label">Post Count</label>
-            <div class="col-md-10">
-                <h3>
-                    {{$ctrl.Category.PostCount}}
-                </h3>
-            </div>
-        </div>
+                <!--ID-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label">
+                        Post Count
+                    </label>
+                    <div class="col-md-10">
+                        <h3>
+                            {{$ctrl.category.PostCount}}
+                        </h3>
+                    </div>
+                </div>
 
-        <!--ID-->
-        <div class="form-group">
-            <label class="col-md-2 control-label">ID</label>
-            <div class="col-md-10">
-                <h3>
-                    {{$ctrl.Category.Id}}
-                </h3>
-            </div>
-        </div>
+                <!--ID-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label">
+                        ID
+                    </label>
+                    <div class="col-md-10">
+                        <h3>
+                            {{$ctrl.category.Id}}
+                        </h3>
+                    </div>
+                </div>
 
-        <!--Modified on-->
-        <div class="form-group">
-            <label class="col-md-2 control-label">
-                Modified On
-            </label>
-            <div class="col-md-10">
-                <h3>
-                    <span class="label label-default" name="PostedOn">
-                        {{$ctrl.Category.Modified}}
-                    </span>
-                </h3>
-            </div>
-        </div>
+                <!--Modified on-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label">
+                        Modified On
+                    </label>
+                    <div class="col-md-10">
+                        <h3>
+                            <span class="label label-default" name="PostedOn">
+                                {{$ctrl.category.Modified}}
+                            </span>
+                        </h3>
+                    </div>
+                </div>
 
-        <!--Save Category-->
-        <hr />
-        <div class="form-group">
-            <label class="col-md-2 control-label"></label>
-            <div class="btn-group col-md-10">
-                <button type="button" class="btn btn-default" ng-click="$ctrl.SaveCategory($ctrl.Category)">
-                    Save
-                </button>
-            </div>
+                <!--Save Category-->
+                <hr />
+                <div class="form-group">
+                    <label class="col-md-2 control-label"></label>
+                    <div class="btn-group col-md-10">
+                        <button type="submit" class="btn btn-default">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
-    <div class="col-md-3">
-        <a href="manageContent">Return to Manage Content Page</a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <a href="manageContent">
+                Return to Manage Content Page
+            </a>
+        </div>
     </div>
 </div>

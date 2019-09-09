@@ -92,6 +92,12 @@ export class BlogModule extends BaseModule {
             templateUrl: require("blog/aboutme/aboutme.html")
         }
 
+        const createCategoryState: ng.ui.IState = {
+            name: "createcategory",
+            component: CreateCategoryComponentName,
+            url: "/createCategory"
+        }
+
         // order matters! Routes will not fall through unless specified
         $stateProvider.state(addPostState);
         $stateProvider.state(editPostState);
@@ -100,6 +106,7 @@ export class BlogModule extends BaseModule {
         $stateProvider.state(categoriesState);
         $stateProvider.state(aboutMeState);
         $stateProvider.state(postState);
+        $stateProvider.state(createCategoryState);
     }
 
 
