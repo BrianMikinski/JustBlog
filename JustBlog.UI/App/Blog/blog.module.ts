@@ -13,6 +13,7 @@ import { BaseModule } from "core/models/BaseModule";
 import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";
+import { CreateCategoryComponent, CreateCategoryComponentName } from "./category/createCategory.component";
 
 /**
  * Angular ui bootstrap and angular tiny mce doesn't have a a default export so we have to require it manually
@@ -133,3 +134,4 @@ Blog.AddComponent(PostsGridComponentName, new PostsGridComponent());
 Blog.AddComponent(CategoriesGridComponentName, new CategoriesGridComponent());
 Blog.AddComponent(TagsGridComponentName, new TagsGridComponent());
 Blog.AddComponent(CreatePostComponentName, new CreatePostComponent());
+Blog.AddComponent(CreateCategoryComponentName, new CreateCategoryComponent());

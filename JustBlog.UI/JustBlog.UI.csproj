@@ -37,6 +37,7 @@
     <None Remove="app\admin\password\resetpassword.component.ts" />
     <None Remove="app\admin\register\IdentityError.ts" />
     <None Remove="app\admin\register\registerUser.component.spec.ts" />
+    <None Remove="app\blog\category\createCategory.component.ts" />
     <None Remove="app\core\errorHandling\errorHandling.component.ts" />
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +70,7 @@
     <TypeScriptCompile Include="app\admin\adminHeader.component.ts" />
     <TypeScriptCompile Include="app\admin\register\IdentityError.ts" />
     <TypeScriptCompile Include="app\admin\register\registerUser.component.spec.ts" />
+    <TypeScriptCompile Include="app\blog\category\createCategory.component.ts" />
     <TypeScriptCompile Include="app\core\errorHandling\errorHandling.component.ts" />
   </ItemGroup>
   <ItemGroup>

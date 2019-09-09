@@ -8,30 +8,30 @@
                         <th>
                             #
                         </th>
-                        <th title="Name of the category"  class="table-header-custom" ng-click="$categoriesGridCtrl.CategoriesPageAndSort(null,'Name')">
+                        <th title="Name of the category" class="table-header-custom" ng-click="$ctrl.CategoriesPageAndSort(null,'Name')">
                             Name
                             <span class="glyphicon table-header-icon" title="Sort by Name"
-                                  ng-class="$categoriesGridCtrl.SortFieldIsAscending('Name', $categoriesGridCtrl.Categories.PagingProperties.SortFields, true)"></span>
+                                  ng-class="$ctrl.SortFieldIsAscending('Name', $ctrl.Categories.PagingProperties.SortFields, true)"></span>
                         </th>
-                        <th title="The url slug of the category" class="table-header-custom" ng-click="$categoriesGridCtrl.CategoriesPageAndSort(null,'UrlSlug')">
+                        <th title="The url slug of the category" class="table-header-custom" ng-click="$ctrl.CategoriesPageAndSort(null,'UrlSlug')">
                             Url Slug
                             <span class="glyphicon table-header-icon" title="Sort by url slug"
-                                  ng-class="$categoriesGridCtrl.SortFieldIsAscending('UrlSlug', $categoriesGridCtrl.Categories.PagingProperties.SortFields, true)"></span>
+                                  ng-class="$ctrl.SortFieldIsAscending('UrlSlug', $ctrl.Categories.PagingProperties.SortFields, true)"></span>
                         </th>
-                        <th class="text-center table-header-custom" ng-click="$categoriesGridCtrl.CategoriesPageAndSort(null,'PostCount')">
+                        <th class="text-center table-header-custom" ng-click="$ctrl.CategoriesPageAndSort(null,'PostCount')">
                             Posts
                             <span class="glyphicon table-header-icon" title="Sort by posts"
-                                  ng-class="$categoriesGridCtrl.SortFieldIsAscending('PostCount', $categoriesGridCtrl.Categories.PagingProperties.SortFields, true)"></span>
+                                  ng-class="$ctrl.SortFieldIsAscending('PostCount', $ctrl.Categories.PagingProperties.SortFields, true)"></span>
                         </th>
-                        <th class="text-center table-header-custom" title="ID of the category" ng-click="$categoriesGridCtrl.CategoriesPageAndSort(null,'Id')">
-                            ID 
+                        <th class="text-center table-header-custom" title="ID of the category" ng-click="$ctrl.CategoriesPageAndSort(null,'Id')">
+                            ID
                             <span class="glyphicon table-header-icon" title="Sort by posts"
-                                  ng-class="$categoriesGridCtrl.SortFieldIsAscending('Id', $categoriesGridCtrl.Categories.PagingProperties.SortFields, true)"></span>
+                                  ng-class="$ctrl.SortFieldIsAscending('Id', $ctrl.Categories.PagingProperties.SortFields, true)"></span>
                         </th>
-                        <th class="text-center" title="Last modification date" ng-click="$categoriesGridCtrl.CategoriesPageAndSort(null,'Modified')">
+                        <th class="text-center" title="Last modification date" ng-click="$ctrl.CategoriesPageAndSort(null,'Modified')">
                             Modified
                             <span class="glyphicon table-header-icon" title="Sort by posts"
-                                  ng-class="$categoriesGridCtrl.SortFieldIsAscending('Modified', $categoriesGridCtrl.Categories.PagingProperties.SortFields, true)"></span>
+                                  ng-class="$ctrl.SortFieldIsAscending('Modified', $ctrl.Categories.PagingProperties.SortFields, true)"></span>
                         </th>
                         <th class="text-center">
                             Actions
@@ -39,12 +39,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="category in $categoriesGridCtrl.Categories.Results">
+                    <tr ng-repeat="category in $ctrl.Categories.Results">
                         <td>
                             {{ ($index + 1)}}
                         </td>
                         <td>
-                           <a href="category/{{category.UrlSlug}}">{{category.Name}}</a>
+                            <a href="category/{{category.UrlSlug}}">{{category.Name}}</a>
                         </td>
                         <td>
                             {{category.UrlSlug}}
@@ -72,19 +72,24 @@
         <div class="col-md-12">
             <div class="text-center">
                 <uib-pagination class="pagination-sm"
-                                total-items="$categoriesGridCtrl.Categories.PagingProperties.TotalResults"
+                                total-items="$ctrl.Categories.PagingProperties.TotalResults"
                                 ng-model="index"
-                                max-size="$categoriesGridCtrl.Categories.PagingProperties.TotalPages"
+                                max-size="$ctrl.Categories.PagingProperties.TotalPages"
                                 boundary-links="true"
-                                ng-change="$categoriesGridCtrl.CategoriesPageAndSort(index, null)"
+                                ng-change="$ctrl.CategoriesPageAndSort(index, null)"
                                 rotate="true"></uib-pagination>
             </div>
         </div>
     </div>
     <br />
+
     <div class="row">
-        <div class="col-md-3 pull-right">
-            <a class="add-new-content-link" href="category/add">Add Category</a>
+        <div class="col-md-2 pull-right">
+            <a ui-sref="newcategory" class="text-center">
+                <button class="btn btn-primary text-uppercase" type="button">
+                    New Category
+                </button>
+            </a>
         </div>
     </div>
 </div>
