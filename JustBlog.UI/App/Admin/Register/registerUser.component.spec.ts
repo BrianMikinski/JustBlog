@@ -4,7 +4,7 @@ import { RegistrationUser } from "admin/register/RegistrationUser";
 import { AdminService } from "admin/admin.service";
 import { RegistrationAttempt } from "admin/register/RegistrationAttempt";
 import { RegisterUserComponentName, RegisterUserController, RegisterUserComponent } from "admin/register/registerUser.component";
-import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
+import { TokenAuthResponse } from "admin/account/TokenAuthResponse";
 import { IHttpHeadersGetter } from "angular";
 import * as angular from "angular";
 import 'angular-mocks';
@@ -98,13 +98,13 @@ describe(` ${adminModule}: Register New User Component Tests - `, function () {
         let registerUserSpy: jasmine.Spy = spyOn(adminService, "registerUser").and.returnValue(registerNewUserDeferred.promise);
 
         // mock user login
-        let tokenResponse: ITokenAuthResponse = {
+        let tokenResponse: TokenAuthResponse = {
             auth_token: "token_response_asdfasdf",
             expires_in: 1234,
             token_type: "jwt_token"
         }
 
-        let loginUserDeferred: ng.IDeferred<ITokenAuthResponse> = $q.defer();
+        let loginUserDeferred: ng.IDeferred<TokenAuthResponse> = $q.defer();
         loginUserDeferred.resolve(tokenResponse);
 
         let loginSpy: jasmine.Spy = spyOn(adminService, "login").and.returnValue(loginUserDeferred.promise);

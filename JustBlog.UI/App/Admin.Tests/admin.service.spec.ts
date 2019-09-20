@@ -1,4 +1,4 @@
-﻿import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
+﻿import { TokenAuthResponse } from "admin/account/TokenAuthResponse";
 import { User } from "admin/account/User";
 import { AdminModule, default as adminModule } from "admin/admin.module";
 import { AdminService } from "admin/admin.service";
@@ -161,7 +161,7 @@ describe(`Module "${adminModule}: Blog Controller Mockup, dependencies to "${not
             RememberMe: true
         }
 
-        let authResponse: ITokenAuthResponse = {
+        let authResponse: TokenAuthResponse = {
             auth_token: jwtMockToken,
             expires_in: 500,
             token_type: "bearer"

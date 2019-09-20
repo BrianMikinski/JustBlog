@@ -1,4 +1,4 @@
-﻿import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
+﻿import { TokenAuthResponse } from "admin/account/TokenAuthResponse";
 import { AdminService } from "admin/admin.service";
 import { LoginModel } from "admin/login/LoginModel";
 import { AuthService } from "core/authorization/auth.service";
@@ -32,8 +32,8 @@ class LoginComponentController extends BaseController implements ng.IController 
 
         this.submitLogin = true;
 
-        let onLoginCallback: (response: ITokenAuthResponse) => void;
-        onLoginCallback = (response: ITokenAuthResponse) => {
+        let onLoginCallback: (response: TokenAuthResponse) => void;
+        onLoginCallback = (response: TokenAuthResponse) => {
 
             this.submitLogin = true;
 

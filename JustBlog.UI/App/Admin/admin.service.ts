@@ -1,4 +1,4 @@
-﻿import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
+﻿import { TokenAuthResponse } from "admin/account/TokenAuthResponse";
 import { User } from "admin/account/User";
 import { IAdminRoutes } from "admin/interfaces/IAdminRoutes";
 import { IAuthEventConstants } from "admin/interfaces/IAuthEventConstants";
@@ -174,14 +174,14 @@ export class AdminService extends BaseService {
      * @param loginModel
      * @param antiForgeryToken
      */
-    login(loginModel: LoginModel): ng.IPromise<void | ITokenAuthResponse> {
+    login(loginModel: LoginModel): ng.IPromise<void | TokenAuthResponse> {
 
-        let onLoginCallback: (response: ng.IHttpResponse<ITokenAuthResponse>) => ITokenAuthResponse;
-        onLoginCallback = (response: ng.IHttpResponse<ITokenAuthResponse>) => {
+        let onLoginCallback: (response: ng.IHttpResponse<TokenAuthResponse>) => TokenAuthResponse;
+        onLoginCallback = (response: ng.IHttpResponse<TokenAuthResponse>) => {
 
             if (response.status === 200) {
 
-                let authResponse: ITokenAuthResponse = response.data;
+                let authResponse: TokenAuthResponse = response.data;
                 this.authService.SetUserToken(authResponse.auth_token);
                 this.$rootScope.$broadcast(this.AUTH_EVENT_CONSTANTS.loginSuccess, true);
 
