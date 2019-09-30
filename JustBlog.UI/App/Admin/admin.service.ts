@@ -1,16 +1,16 @@
 ﻿import { TokenAuthResponse } from "admin/account/TokenAuthResponse";
 import { User } from "admin/account/User";
-import { IAdminRoutes } from "admin/interfaces/IAdminRoutes";
-import { IAuthEventConstants } from "admin/interfaces/IAuthEventConstants";
+import { AdminRoutes } from "admin/interfaces/AdminRoutes";
+import { AuthEvent } from "admin/interfaces/AuthEvent";
 import { LoginModel } from "admin/login/LoginModel";
 import { LoginUpdate } from "admin/login/LoginUpdate";
 import { RegistrationAttempt } from "admin/register/RegistrationAttempt";
 import { RegistrationUser } from "admin/register/RegistrationUser";
 import { AuthService } from "core/authorization/auth.service";
 import { BaseService } from "core/models/BaseService";
-import { IChangePasswordModel } from "./password/IChangePasswordModel";
-import { IResetPasswordModel } from "./password/IResetPasswordModel";
-import { IValidPassword } from "./password/IValidPassword";
+import { ChangePasswordModel } from "./password/ChangePasswordModel";
+import { ResetPasswordModel } from "./password/ResetPasswordModel";
+import { ValidPassword } from "./password/ValidPassword";
 
 export const AdminServiceName: string = "adminService";
 
@@ -34,8 +34,8 @@ export class AdminService extends BaseService {
     constructor(private $rootScope: ng.IRootScopeService,
         private $http: ng.IHttpService,
         private authService: AuthService,
-        private AUTH_ROUTE_CONSTANTS: IAdminRoutes,
-        private AUTH_EVENT_CONSTANTS: IAuthEventConstants) {
+        private AUTH_ROUTE_CONSTANTS: AdminRoutes,
+        private AUTH_EVENT_CONSTANTS: AuthEvent) {
         super();
 
         this.SetErrorMessage("An error was encountered in the admin service");
@@ -120,7 +120,7 @@ export class AdminService extends BaseService {
      * @param user
      * @param antiForgeryToken
      */
-    updatePassword(updatePasswordModel: IChangePasswordModel, antiForgeryToken: string): ng.IPromise<void | boolean> {
+    updatePassword(updatePasswordModel: ChangePasswordModel, antiForgeryToken: string): ng.IPromise<void | boolean> {
         //Add headers for anti forgery token
         let config: ng.IRequestShortcutConfig = this.ConfigAntiForgery(antiForgeryToken);
 
@@ -157,7 +157,7 @@ export class AdminService extends BaseService {
      * Service for updating a forgotten password
      * @param resetPasswordModel
      */
-    resetPassword(resetPasswordModel: IResetPasswordModel): ng.IPromise<void> {
+    resetPassword(resetPasswordModel: ResetPasswordModel): ng.IPromise<void> {
 
         //Add headers for anti forgery token
         let onRequestPasswordReset: (response: ng.IHttpResponse<any>) => void;
@@ -284,9 +284,9 @@ export class AdminService extends BaseService {
             .then(onAccountUpdatedReturned, this.onError);
     }
 
-    passwordValidation(password: string): IValidPassword {
+    passwordValidation(password: string): ValidPassword {
 
-        let validPassword: IValidPassword = {
+        let validPassword: ValidPassword = {
             has6Characters: false,
             hasLowerCase: false,
             hasNonAlphaNumeric: false,

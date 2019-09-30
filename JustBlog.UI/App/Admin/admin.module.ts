@@ -1,8 +1,8 @@
 ﻿import {default as uirouter } from "@uirouter/angularjs";
 import { AdminController } from "admin/admin.controller";
 import { AdminService, AdminServiceName } from "admin/admin.service";
-import { IAdminRoutes } from "admin/interfaces/IAdminRoutes";
-import { IAuthEventConstants } from "admin/interfaces/IAuthEventConstants";
+import { AdminRoutes } from "admin/interfaces/AdminRoutes";
+import { AuthEvent } from "admin/interfaces/AuthEvent";
 import { LoginComponent, LoginComponentName } from "admin/login/login.component";
 import { RegisterUserComponent, RegisterUserComponentName } from "admin/register/registerUser.component";
 import * as angular from "angular";
@@ -151,9 +151,9 @@ export class AdminModule extends BaseModule {
     /**
      * Set auth service routes
      */
-    public static HttpAdminServiceRoutes(): IAdminRoutes {
+    public static HttpAdminServiceRoutes(): AdminRoutes {
 
-        const resources: IAdminRoutes = {
+        const resources: AdminRoutes = {
             ContentManagement: "",
             DeleteUser: "",
             ResetPassword: "api/Account/ResetPassword",
@@ -176,9 +176,9 @@ export class AdminModule extends BaseModule {
     /**
      * Add any auth event constants
      */
-    public static AuthEventConstants(): IAuthEventConstants {
+    public static AuthEventConstants(): AuthEvent {
 
-        const resources: IAuthEventConstants = {
+        const resources: AuthEvent = {
             loginSuccess: "auth-login-success",
             loginFailed: "auth-login-failed",
             logoutSuccess: "auth-logout-success",
