@@ -1,8 +1,8 @@
-﻿import {IQueryFilter} from "core/grid/IQueryFilter";
+﻿import {QueryFilter} from "core/grid/QueryFilter";
 
 /**
  * Query filter for post grid view queries
  */
-export class PostQueryFilter implements IQueryFilter {
+export class PostQueryFilter implements QueryFilter {
     IsPublished: boolean;
 }

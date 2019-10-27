@@ -1,6 +1,6 @@
 ﻿import { BaseService } from "core/models/BaseService";
 import { GridQuery } from "core/grid/GridQuery";
-import { ITagPosts } from "blog/tag/ITagPosts";
+import { TagPosts } from "blog/tag/TagPosts";
 import { PagingProperties } from "core/grid/PagingProperties";
 import { PostQueryFilter } from "blog/post/PostQueryFilter";
 import { Category } from "blog/category/Category";
@@ -204,7 +204,7 @@ export class BlogService extends BaseService {
      * Retrieve all posts based on a tag slug
      * @param urlSlug
      */
-    RetrieveTagUrlSlug(urlSlug: string): ng.IPromise<ITagPosts> {
+    RetrieveTagUrlSlug(urlSlug: string): ng.IPromise<TagPosts> {
         throw new Error("Not implemented");
     }
 

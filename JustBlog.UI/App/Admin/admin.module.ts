@@ -8,8 +8,8 @@ import { RegisterUserComponent, RegisterUserComponentName } from "admin/register
 import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";
-import { IAction } from "core/authorization/IAction";
-import { IResource } from "core/authorization/IResource";
+import { Action } from "core/authorization/Action";
+import { Resource } from "core/authorization/Resource";
 import { BaseModule } from "core/models/BaseModule";
 import { MyAccountComponent, MyAccountComponentName } from "./account/myAcccount.component";
 import { AdminHeaderComponent, AdminHeaderComponentName } from "./adminHeader.component";
@@ -54,7 +54,7 @@ export class AdminModule extends BaseModule {
      * @param $stateProvider
      * @param $urlRouterProvider
      */
-    private uiRouteConfig($stateProvider: ng.ui.IStateProvider, RESOURCES: IResource, ACTIONS: IAction): void {
+    private uiRouteConfig($stateProvider: ng.ui.IStateProvider, RESOURCES: Resource, ACTIONS: Action): void {
 
         let loginState: ng.ui.IState = {
             name: "login",

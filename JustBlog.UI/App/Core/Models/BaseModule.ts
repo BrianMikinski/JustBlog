@@ -1,5 +1,5 @@
-﻿import { IAction } from "core/authorization/IAction";
-import { IResource } from "core/authorization/IResource";
+﻿import { Action } from "core/authorization/Action";
+import { Resource } from "core/authorization/Resource";
 
 /**
  * An abstract base class for creating modules
@@ -87,7 +87,7 @@ export abstract class BaseModule {
     /**
      * Add user actions constants to the angular application
      */
-    protected ActionConstants(): IAction {
+    protected ActionConstants(): Action {
         return {
             Create: "create",
             Read: "read",
@@ -99,7 +99,7 @@ export abstract class BaseModule {
     /**
      * Add user resource constants to the angular application
      */
-    protected ResourceConstants(): IResource {
+    protected ResourceConstants(): Resource {
         return {
             App: "app",
             Admin: "admin"

@@ -1,8 +1,8 @@
-﻿import {ITagPosts} from "./ITagPosts";
-import { Post } from "blog/Post/Post";
+﻿import { Post } from "blog/post/Post";
 import { Tag } from "blog/tag/Tag";
 
-export class TagPosts implements ITagPosts {
+//Class for holding view of tags and their post data
+export interface TagPosts {
     Posts: Array<Post>;
     Tag: Tag;
 }

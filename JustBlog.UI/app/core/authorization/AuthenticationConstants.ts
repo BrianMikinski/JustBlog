@@ -1,5 +1,5 @@
 ﻿
-export interface IAuthenticationConstants {
+export interface AuthenticationConstants {
     AuthToken: string;
     AuthTokenValue: string;
     UserName: string;

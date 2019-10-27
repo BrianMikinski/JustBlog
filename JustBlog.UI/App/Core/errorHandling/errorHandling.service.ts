@@ -1,5 +1,5 @@
 ﻿import { BaseService } from "core/models/BaseService";
-import { IErrorRoutes } from "./IErrorRoutes";
+import { ErrorRoutes } from "./ErrorRoutes";
 
 export const ErrorHandlingServiceName: string = "errorHandlingService";
 
@@ -11,7 +11,7 @@ export class ErrorHandlingService extends BaseService {
     private onRequestCallback: (response: ng.IHttpResponse<any>) => void;
 
     static $inject = ["$http", "ERROR_ROUTES"];
-    constructor(private $http: ng.IHttpService, private ERROR_ROUTES: IErrorRoutes) {
+    constructor(private $http: ng.IHttpService, private ERROR_ROUTES: ErrorRoutes) {
         super();
 
         this.onRequestCallback = (response: ng.IHttpResponse<any>) => {

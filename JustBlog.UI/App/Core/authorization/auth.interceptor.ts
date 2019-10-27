@@ -1,6 +1,6 @@
 ﻿console.log("entered auth interceptor");
 import { IHttpResponse, IPromise, IRequestConfig } from "angular";
-import { IAuthenticationConstants } from "core/authorization/IAuthenticationConstants";
+import { AuthenticationConstants } from "core/authorization/AuthenticationConstants";
 import { StateService} from "@uirouter/angularjs";
 
 export const AuthInterceptorName: string = "authInterceptor";
@@ -13,7 +13,7 @@ export class AuthInterceptor implements ng.IHttpInterceptor {
     static $inject = ["$q", "$state", "AUTHENTICATION_CONSTANTS"];
     constructor(private $q: ng.IQService,
         private $state: StateService,
-        private AUTHENTICATION_CONSTANTS: IAuthenticationConstants) {
+        private AUTHENTICATION_CONSTANTS: AuthenticationConstants) {
 
         this.request = this.requestFunction;
         this.responseError = this.responseErrorFunction;

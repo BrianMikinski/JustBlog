@@ -10,10 +10,10 @@ import { AuthService, AuthServiceName } from "core/authorization/auth.service";
 import { RouteAuthorizationError } from "core/authorization/RouteAuthorizationError";
 import { CoreService, CoreServiceName } from "core/core.service";
 import { BaseModule } from "core/models/BaseModule";
-import { IAuthenticationConstants } from "./authorization/IAuthenticationConstants";
+import { AuthenticationConstants } from "./authorization/AuthenticationConstants";
 import { ErrorHandlingComponent, ErrorHandlingComponentName } from "./errorHandling/errorHandling.component";
 import { ErrorHandlingService, ErrorHandlingServiceName } from "./errorHandling/errorHandling.service";
-import { IErrorRoutes } from "./errorHandling/IErrorRoutes";
+import { ErrorRoutes } from "./errorHandling/ErrorRoutes";
 //import { TransitionService, HookMatchCriteria, TransitionHookFn, Transition, HookResult } from "@uirouter/core";
 
 const moduleName: string = "app.core";
@@ -33,7 +33,7 @@ export class CoreModule extends BaseModule {
         this.app.constant("RESOURCES", this.ResourceConstants());
         this.app.constant("ACTIONS", this.ActionConstants());
 
-        let authConstants: IAuthenticationConstants = {
+        let authConstants: AuthenticationConstants = {
             AuthToken: "JustBlogToken",
             AuthTokenValue: "JustBlog_Authenticated",
             UserName: ""
@@ -41,7 +41,7 @@ export class CoreModule extends BaseModule {
 
         this.app.constant("AUTHENTICATION_CONSTANTS", authConstants)
 
-        let errorRoutes: IErrorRoutes = {
+        let errorRoutes: ErrorRoutes = {
             BadRequest400: "api/Error/BadRequestTest",
             Unauthorized401: "api/Error/UnauthorizedTest",
             NotFound404: "api/Error/NotFoundTest",

@@ -2,7 +2,7 @@
 import { Category } from "blog/category/Category";
 import { Metadata } from "blog/metadata/MetaData";
 import { Post } from "blog/Post/Post";
-import { ITagPosts } from "blog/tag/ITagPosts";
+import { TagPosts } from "blog/tag/TagPosts";
 import { Tag } from "blog/tag/Tag";
 import { BaseController } from "core/models/BaseController";
 import { NotificationFactory } from "notification/notification.factory";
@@ -12,7 +12,7 @@ import { NotificationFactory } from "notification/notification.factory";
  */
 export class BlogController extends BaseController {
 
-    CurrentTag: ITagPosts;
+    CurrentTag: TagPosts;
     Category: Category;
     MetaData: Metadata;
     Tag: Tag;
@@ -91,7 +91,7 @@ export class BlogController extends BaseController {
      * @param urlSlug
      */
     RetrieveTagUrlSlug(urlSlug: string): void {
-        let onTagPostReturned: (data: ITagPosts) => void = (data: ITagPosts): void => {
+        let onTagPostReturned: (data: TagPosts) => void = (data: TagPosts): void => {
             throw Error("tag post callback not implemented");
         };
 
