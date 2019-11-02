@@ -1,5 +1,5 @@
 ﻿import { ApplicationUser } from "admin/account/ApplicationUser";
-import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
+import { TokenAuthResponse } from "admin/account/TokenAuthResponse";
 import { AdminService } from "admin/admin.service";
 import { LoginModel } from "admin/login/LoginModel";
 import { IdentityError } from "admin/register/IdentityError";
@@ -104,7 +104,7 @@ class IdentityModalComponentController extends BaseController implements ng.ICon
      */
     registerNewUser(): void {
 
-        let onLoginSuccessCallback: (response: ITokenAuthResponse) => void = (response: ITokenAuthResponse) => {
+        let onLoginSuccessCallback: (response: TokenAuthResponse) => void = (response: TokenAuthResponse) => {
 
             let authBearerTokenPresent: string | null = this.authService.GetLocalToken()
 
@@ -166,8 +166,8 @@ class IdentityModalComponentController extends BaseController implements ng.ICon
 
         this.submitLogin = true;
 
-        let onLoginCallback: (response: ITokenAuthResponse) => void;
-        onLoginCallback = (response: ITokenAuthResponse) => {
+        let onLoginCallback: (response: TokenAuthResponse) => void;
+        onLoginCallback = (response: TokenAuthResponse) => {
 
             this.submitLogin = true;
 

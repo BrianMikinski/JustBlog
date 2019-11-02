@@ -1,15 +1,15 @@
 ﻿import {default as uirouter } from "@uirouter/angularjs";
 import { AdminController } from "admin/admin.controller";
 import { AdminService, AdminServiceName } from "admin/admin.service";
-import { IAdminRoutes } from "admin/interfaces/IAdminRoutes";
-import { IAuthEventConstants } from "admin/interfaces/IAuthEventConstants";
+import { AdminRoutes } from "admin/interfaces/AdminRoutes";
+import { AuthEvent } from "admin/interfaces/AuthEvent";
 import { LoginComponent, LoginComponentName } from "admin/login/login.component";
 import { RegisterUserComponent, RegisterUserComponentName } from "admin/register/registerUser.component";
 import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";
-import { IAction } from "core/authorization/IAction";
-import { IResource } from "core/authorization/IResource";
+import { Action } from "core/authorization/Action";
+import { Resource } from "core/authorization/Resource";
 import { BaseModule } from "core/models/BaseModule";
 import { MyAccountComponent, MyAccountComponentName } from "./account/myAcccount.component";
 import { AdminHeaderComponent, AdminHeaderComponentName } from "./adminHeader.component";
@@ -54,7 +54,7 @@ export class AdminModule extends BaseModule {
      * @param $stateProvider
      * @param $urlRouterProvider
      */
-    private uiRouteConfig($stateProvider: ng.ui.IStateProvider, RESOURCES: IResource, ACTIONS: IAction): void {
+    private uiRouteConfig($stateProvider: ng.ui.IStateProvider, RESOURCES: Resource, ACTIONS: Action): void {
 
         let loginState: ng.ui.IState = {
             name: "login",
@@ -151,9 +151,9 @@ export class AdminModule extends BaseModule {
     /**
      * Set auth service routes
      */
-    public static HttpAdminServiceRoutes(): IAdminRoutes {
+    public static HttpAdminServiceRoutes(): AdminRoutes {
 
-        const resources: IAdminRoutes = {
+        const resources: AdminRoutes = {
             ContentManagement: "",
             DeleteUser: "",
             ResetPassword: "api/Account/ResetPassword",
@@ -176,9 +176,9 @@ export class AdminModule extends BaseModule {
     /**
      * Add any auth event constants
      */
-    public static AuthEventConstants(): IAuthEventConstants {
+    public static AuthEventConstants(): AuthEvent {
 
-        const resources: IAuthEventConstants = {
+        const resources: AuthEvent = {
             loginSuccess: "auth-login-success",
             loginFailed: "auth-login-failed",
             logoutSuccess: "auth-logout-success",

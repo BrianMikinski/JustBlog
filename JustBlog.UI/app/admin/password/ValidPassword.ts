@@ -1,6 +1,6 @@
 ﻿
 
-export interface IValidPassword {
+export interface ValidPassword {
     has6Characters: boolean,
     hasLowerCase: boolean,
     hasUpperCase: boolean,

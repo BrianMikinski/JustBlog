@@ -1,8 +1,8 @@
 ﻿import { User } from "admin/account/User";
 import { AdminService } from "admin/admin.service";
 import { LoginUpdate } from "admin/login/LoginUpdate";
-import { IChangePasswordModel } from "admin/password/IChangePasswordModel";
-import { IResetPasswordModel } from "admin/password/IResetPasswordModel";
+import { ChangePasswordModel } from "admin/password/ChangePasswordModel";
+import { ResetPasswordModel } from "admin/password/ResetPasswordModel";
 import { Post } from "blog/post/Post";
 import { AuthService } from "core/authorization/auth.service";
 import { CoreService } from "core/core.service";
@@ -19,10 +19,10 @@ export class AdminController extends BaseController {
     IsLoggedIn: boolean;
     LoginUpdate: LoginUpdate;
 
-    UpdatePasswordModel: IChangePasswordModel = new IChangePasswordModel();
+    UpdatePasswordModel: ChangePasswordModel = new ChangePasswordModel();
 
     // forgotten Password
-    ResetPasswordUser: IResetPasswordModel = new IResetPasswordModel();
+    ResetPasswordUser: ResetPasswordModel = new ResetPasswordModel();
     ForgottenPasswordEmail: string;
     Posts: GridQuery<Post>;
 

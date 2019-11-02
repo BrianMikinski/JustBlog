@@ -4,6 +4,7 @@ const path = require("path");
 const webpack = require('webpack');
 const { CleanWebpackPlugin }= require("clean-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 const outputDirectory = "./wwwroot";
 
@@ -63,19 +64,6 @@ module.exports = {
             {
                 test: /\.(woff2?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
                 loader: "file-loader?name=fonts/[name].[ext]"
-            },
-            {
-                test: require.resolve('tinymce/tinymce'),
-                use: [
-                    'imports-loader?this=>window',
-                    'exports-loader?window.tinymce'
-                ]
-            },
-            {
-                test: /tinymce[\\/]themes[\\/]/,
-                use: [
-                    'imports-loader?this=>window'
-                ]
             }
         ]
     },
@@ -95,7 +83,6 @@ module.exports = {
         new webpack.ProvidePlugin({
             jQuery: 'jquery'
         })
-        //new webpack.PrefetchPlugin([context], request)
     ],
     output: {
         sourceMapFilename: "bundle.map",

@@ -1,5 +1,5 @@
 ﻿import { ApplicationUser } from "admin/account/ApplicationUser";
-import { ITokenAuthResponse } from "admin/account/ITokenAuthResponse";
+import { TokenAuthResponse } from "admin/account/TokenAuthResponse";
 import { AdminService } from "admin/admin.service";
 import { LoginModel } from "admin/login/LoginModel";
 import { IdentityError } from "admin/register/IdentityError";
@@ -34,7 +34,7 @@ export class RegisterUserController extends BaseController implements ng.IContro
      */
     Register(): void {
         
-        let onLoginSuccessCallback: (response: ITokenAuthResponse) => void = (response: ITokenAuthResponse) => {
+        let onLoginSuccessCallback: (response: TokenAuthResponse) => void = (response: TokenAuthResponse) => {
 
             let authBearerTokenPresent: string | null = this.authService.GetLocalToken()
 

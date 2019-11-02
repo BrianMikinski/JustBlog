@@ -54,14 +54,14 @@
                     Short Description
                 </label>
                 <div class="col-md-10">
-                    <textarea ui-tinymce="$createPostCtrl.tinymceOptions"
-                              name="ShortDescription"
-                              type="text"
-                              value=""
-                              ng-model="$createPostCtrl.Post.ShortDescription"
-                              placeholder="Headline description of the post"
-                              ng-required="true"
-                              required> </textarea>
+                <textarea ui-tinymce="$createPostCtrl.tinymceOptions"
+                          name="ShortDescription"
+                          type="text"
+                          value=""
+                          ng-model="$createPostCtrl.post.ShortDescription"
+                          placeholder="Headline description of the post"
+                          ng-required="true"
+                          required> </textarea>
                     <p ng-show="postForm.ShortDescription.$invalid && !postForm.ShortDescription.$pristine" class="help-block">
                         Short Description is required
                     </p>

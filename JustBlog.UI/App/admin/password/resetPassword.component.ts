@@ -2,8 +2,8 @@
 import { ComponentBase } from "core/component.base";
 import { BaseController } from "core/models/BaseController";
 import { NotificationFactory } from "notification/notification.factory";
-import { IResetPasswordModel } from "./IResetPasswordModel";
-import { IValidPassword } from "./IValidPassword";
+import { ResetPasswordModel } from "./ResetPasswordModel";
+import { ValidPassword } from "./ValidPassword";
 
 export const ResetPasswordComponentName: string = "resetPassword";
 
@@ -17,8 +17,8 @@ class ResetPasswordComponentController extends BaseController implements ng.ICon
     resetSubmitted: boolean = false;
     passwordResetSuccess: boolean = false;
 
-    resetPasswordModel: IResetPasswordModel;
-    passwordValidator: IValidPassword = {
+    resetPasswordModel: ResetPasswordModel;
+    passwordValidator: ValidPassword = {
         has6Characters: false,
         hasLowerCase: false,
         hasNonAlphaNumeric: false,
@@ -68,7 +68,7 @@ class ResetPasswordComponentController extends BaseController implements ng.ICon
             });
     }
 
-    getPasswordValidor(): IValidPassword {
+    getPasswordValidor(): ValidPassword {
         return this.adminService.passwordValidation(this.resetPasswordModel.password);
     }
 
