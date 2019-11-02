@@ -2,10 +2,8 @@
 import { Category } from "blog/category/Category";
 import { Metadata } from "blog/metadata/MetaData";
 import { Post } from "blog/Post/Post";
-import { ITagPosts } from "blog/tag/ITagPosts";
+import { TagPosts } from "blog/tag/TagPosts";
 import { Tag } from "blog/tag/Tag";
-import { AuthService } from "core/authorization/auth.service";
-import { CoreService } from "core/core.service";
 import { BaseController } from "core/models/BaseController";
 import { NotificationFactory } from "notification/notification.factory";
 
@@ -14,26 +12,15 @@ import { NotificationFactory } from "notification/notification.factory";
  */
 export class BlogController extends BaseController {
 
-    CurrentTag: ITagPosts;
+    CurrentTag: TagPosts;
     Category: Category;
     MetaData: Metadata;
     Tag: Tag;
 
-    static $inject = ["coreService", "blogService", "$location", "$sce", "$window",
-        "notificationFactory", "authService"];
-    constructor(private coreService: CoreService,
-        private _blogService: BlogService,
-        private _location: ng.ILocationService,
-        public $sce: ng.ISCEService,
-        private $window: ng.IWindowService,
-        private _notificationService: NotificationFactory,
-        private _authService: AuthService) {
+    static $inject = ["blogService", "$sce", "notificationFactory"];
+    constructor( private _blogService: BlogService, $sce: ng.ISCEService, private _notificationService: NotificationFactory) {
         super($sce);
 
-        // Initialize controller
-        this.initCategories();
-        this.initTags();
-        this.initRouteParams();
     }
 
     /**
@@ -104,7 +91,7 @@ export class BlogController extends BaseController {
      * @param urlSlug
      */
     RetrieveTagUrlSlug(urlSlug: string): void {
-        let onTagPostReturned: (data: ITagPosts) => void = (data: ITagPosts): void => {
+        let onTagPostReturned: (data: TagPosts) => void = (data: TagPosts): void => {
             throw Error("tag post callback not implemented");
         };
 
@@ -120,19 +107,7 @@ export class BlogController extends BaseController {
         throw new Error("Not implemented");
     }
 
-    /**
-     * Save a category
-     * @param category
-     */
-    SaveCategory(category: Category): void {
-        let onCategorySavedReturned: (data: Category) => void;
-        onCategorySavedReturned = (data: Category) => {
-            this.Category = data;
-            this._notificationService.Success(`Post "${category.Name}" was succesfully saved.`);
-        };
 
-        this._blogService.SaveCategory(category).then(onCategorySavedReturned, this.OnErrorCallback);
-    }
 
     /**
      * Save a new or edited tag
@@ -154,28 +129,5 @@ export class BlogController extends BaseController {
      */
     RetrieveTag(tagId: number): void {
         throw new Error("Retrieve tag has not been implemented");
-    }
-
-    /**
-     * Initial tags if we are on the manage content page
-     */
-    private initTags(): void {
-
-    }
-
-    /**
-     * Initial categories if we are on the manage content page
-     */
-    private initCategories(): void {
-
-    }
-
-    /**
-     * Initialize posts, categories and tags
-     * @param $route
-     * @param $location
-     */
-    private initRouteParams(): void {
-
     }
 }

@@ -3,7 +3,6 @@ import { Category } from "blog/category/Category";
 import { CreatePostControllerBase } from "blog/post/CreatePostControllerBase";
 import { Post } from "blog/post/Post";
 import { Tag } from "blog/tag/Tag";
-import { AuthService } from "core/authorization/auth.service";
 import { ComponentBase } from "core/component.base";
 import { NotificationFactory } from "notification/notification.factory";
 
@@ -20,68 +19,75 @@ interface ICreatePostComponentController extends ICreatePostControllerBindings {
  */
 class CreatePostComponentController extends CreatePostControllerBase implements ICreatePostComponentController, ng.IController {
    
-    private NewPostTag: Tag = new Tag();
-    private PostCategories: Array<Category>;
-    private PostTags: Array<Tag>;
+    NewPostTag: Tag = new Tag();
+    PostCategories: Array<Category>;
+    PostTags: Array<Tag>;
     postId: number;
+    post: Post;
 
     // set the tiny mce editor options
-    private tinymceOptions: any = {
+    tinymceOptions: any = {
         selector: "textarea",
-        theme: "silver",
+        //theme: "advanced",
+        skin: false,
+        //content_style: contentStyle.toString(),
         height: 500,
+        //wwwroot\skins\ui\oxide
+        //skin_url:  '/skins/ui/oxide',
         //plugins: ["print"],
         //plugins: ["advlist autolink lists link image charmap print preview hr anchor pagebreak",
         //    "searchreplace wordcount visualblocks visualchars code fullscreen",
         //    "insertdatetime media nonbreaking save table contextmenu directionality",
         //    "emoticons template paste textcolor colorpicker textpattern imagetools codesample toc"],
-        toolbar1: "undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+        //toolbar1: "undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
         //toolbar2: "print preview media | forecolor backcolor emoticons | codesample",
-        image_advtab: true,
-        templates: [
-            { title: "Test template 1", content: "Test 1" },
-            //{ title: "Test template 2", content: "Test 2" }
-        ],
-        content_css: [
-            "//fonts.googleapis.com/css?family=Lato:300,300i,400,400i",
-            "//www.tinymce.com/css/codepen.min.css"
-        ]
+        //image_advtab: true,
+        //templates: [
+        //    { title: "Test template 1", content: "Test 1" },
+        //    //{ title: "Test template 2", content: "Test 2" }
+        //],
+        //content_css: [
+        //    "//fonts.googleapis.com/css?family=Lato:300,300i,400,400i",
+        //    "//www.tinymce.com/css/codepen.min.css"
+        //],
+        plugins: 'link image code',
+        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
     };
 
-    private tinymceContent: string;
+    tinymceContent: string;
 
-    static $inject = ["blogService", "$window", "$sce", "$stateParams", "notificationFactory", "authService"]
+    static $inject = ["blogService", "$sce", "notificationFactory"]
     constructor(private blogService: BlogService,
-        private $window: ng.IWindowService,
         public $sce: ng.ISCEService,
-        private $stateParams: ng.ui.IStateParamsService,
-        private notificationFactory: NotificationFactory,
-        private authService: AuthService) {
+        private notificationFactory: NotificationFactory) {
         super(blogService, $sce, notificationFactory);
     }
 
     $onInit?(): void {
 
-        this.postId = (<ICreatePostControllerBindings>this.$stateParams).postId;
+        //this.postId = (<ICreatePostControllerBindings>this.$stateParams).postId;
 
         // create a new post page
-        if (this.postId === null || this.postId === undefined) {
-            this.Post = new Post();
-        } else {
+        //if (this.postId === null || this.postId === undefined) {
+        //    this.Post = new Post();
+        //} else {
 
-            let onPostReturned: (response: void | Post) => void = (response: void | Post) => {
-                let returnedPost: Post = <Post>response;
+        //    let onPostReturned: (response: void | Post) => void = (response: void | Post) => {
+        //        let returnedPost: Post = <Post>response;
 
-                if (returnedPost) {
-                    this.Post = <Post>response;
-                } else {
-                    console.log("Could not retrieve the spcified post.")
-                    this.Post = new Post();
-                }
-            };
+        //        if (returnedPost) {
+        //            this.Post = <Post>response;
+        //        } else {
+        //            console.log("Could not retrieve the spcified post.")
+        //            this.Post = new Post();
+        //        }
+        //    };
 
-            this.blogService.RetrievePost(this.postId).then(onPostReturned, this.OnErrorCallback);
-        }
+        //    this.blogService.RetrievePost(this.postId).then(onPostReturned, this.OnErrorCallback);
+        //}
+
+        this.post = new Post();
+
 
         // all categories for a post
         let onCategoriesReturned: (response: void | Array<Category>) => void = (response: void | Array<Category>) => {

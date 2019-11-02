@@ -1,11 +1,11 @@
-﻿import {IQueryFilter} from "core/grid/IQueryFilter";
+﻿import {QueryFilter} from "core/grid/QueryFilter";
 import {PagingProperties} from "core/grid/PagingProperties";
 
 /**
  * Generic object to hold table queries
  */
 export class GridQuery<T> {
-    Filter: IQueryFilter;
+    Filter: QueryFilter;
     PagingProperties: PagingProperties;
     Results: Array<T>;
 

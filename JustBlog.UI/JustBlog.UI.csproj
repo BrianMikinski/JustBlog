@@ -1,4 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <ApplicationIcon />
@@ -23,6 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="package-lock.json" />
+    <Content Remove="stats.json" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="app\admin\account\confirmEmail.component.ts" />
@@ -31,10 +33,11 @@
     <None Remove="app\admin\app.unitTest.ts" />
     <None Remove="app\admin\login\identityModal.component.ts" />
     <None Remove="app\admin\password\forgotPassword.component.ts" />
-    <None Remove="app\admin\password\IValidPassword.ts" />
     <None Remove="app\admin\password\resetpassword.component.ts" />
+    <None Remove="app\admin\password\ValidPassword.ts" />
     <None Remove="app\admin\register\IdentityError.ts" />
     <None Remove="app\admin\register\registerUser.component.spec.ts" />
+    <None Remove="app\blog\category\createCategory.component.ts" />
     <None Remove="app\core\errorHandling\errorHandling.component.ts" />
   </ItemGroup>
   <ItemGroup>
@@ -61,12 +64,13 @@
     <TypeScriptCompile Include="app\admin\account\myAcccount.component.ts" />
     <TypeScriptCompile Include="app\admin\login\identityModal.component.ts" />
     <TypeScriptCompile Include="app\admin\password\forgotPassword.component.ts" />
-    <TypeScriptCompile Include="app\admin\password\IValidPassword.ts" />
+    <TypeScriptCompile Include="app\admin\password\ValidPassword.ts" />
     <TypeScriptCompile Include="app\admin\password\resetPassword.component.ts" />
     <TypeScriptCompile Include="app\admin\register\confirmEmail.component.ts" />
     <TypeScriptCompile Include="app\admin\adminHeader.component.ts" />
     <TypeScriptCompile Include="app\admin\register\IdentityError.ts" />
     <TypeScriptCompile Include="app\admin\register\registerUser.component.spec.ts" />
+    <TypeScriptCompile Include="app\blog\category\createCategory.component.ts" />
     <TypeScriptCompile Include="app\core\errorHandling\errorHandling.component.ts" />
   </ItemGroup>
   <ItemGroup>

@@ -13,87 +13,7 @@ import { BaseModule } from "core/models/BaseModule";
 import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";
-//import * as tinyMCE from "tinymce";
-
-// tiny mce
-//import * as tinyMCE from "tinymce";
-//import tinymce from 'tinymce/tinymce';
-
-//require.context(
-//    'file-loader?name=[path][name].[ext]&context=node_modules/tinymce!tinymce/skins',
-//    true,
-//    /.*/
-//);
-
-//import 'tinymce/themes/oxide';
-
-//import 'tinymce/skins/content/default/content.css';
-//import 'tinymce/skins/content/document/content.css';
-//import 'tinymce/skins/content/writer/content.css';
-//import 'tinymce/skins/ui/oxide-dark/content.css';
-
-// Plugins
-//import 'tinymce/plugins/paste/plugin'
-//import 'tinymce/plugins/link/plugin'
-//import 'tinymce/plugins/autoresize/plugin'
-
-//import 'tinymce/themes/silver';
-
-//import 'tinymce/plugins/advlist';
-//import 'tinymce/plugins/autolink';
-//import 'tinymce/plugins/link';
-//import 'tinymce/plugins/image';
-//import 'tinymce/plugins/lists';
-//import 'tinymce/plugins/charmap';
-//import 'tinymce/plugins/print';
-//import 'tinymce/plugins/preview';
-//import 'tinymce/plugins/hr';
-//import 'tinymce/plugins/anchor';
-//import 'tinymce/plugins/pagebreak';
-//import 'tinymce/plugins/spellchecker';
-//import 'tinymce/plugins/searchreplace';
-//import 'tinymce/plugins/wordcount';
-//import 'tinymce/plugins/visualblocks';
-//import 'tinymce/plugins/visualchars';
-//import 'tinymce/plugins/code';
-//import 'tinymce/plugins/fullscreen';
-//import 'tinymce/plugins/insertdatetime';
-//import 'tinymce/plugins/media';
-//import 'tinymce/plugins/nonbreaking';
-//import 'tinymce/plugins/save';
-//import 'tinymce/plugins/table';
-//import 'tinymce/plugins/directionality';
-//import 'tinymce/plugins/emoticons';
-//import 'tinymce/plugins/template';
-//import 'tinymce/plugins/paste';
-//import 'tinymce/plugins/importcss';
-
-//require('tinymce/skins/ui/oxide/content.min.css');
-
-//import '!style-loader!css-loader!tinymce/skins/ui/oxide/skin.min.css';
-//import contentStyle from 'tinymce/skins/ui/oxide/content.min.css';
-
-//exports.TinyMce.getDefaultTinyMceConfig = function (base_path, file_browser_url) {
-//    return {
-//        selector: 'textarea.tinymce',
-//        width: 'auto',
-//        height: '300',
-//        theme: 'silver',
-//        skin: false,
-//        // content_style: false,
-//        content_style: contentStyle.toString(),
-//        ...
-//            };
-//};
-
-// Initialize
-//tinyMCE.init({
-//    //selector: '#testTest',
-//    //selector: 'textarea.tinymce',
-//    //skin: false,
-//    plugins: ['paste', 'link', 'autoresize'],
-//    theme: 'modern'
-//});
+import { CreateCategoryComponent, CreateCategoryComponentName } from "./category/createCategory.component";
 
 /**
  * Angular ui bootstrap and angular tiny mce doesn't have a a default export so we have to require it manually
@@ -172,6 +92,12 @@ export class BlogModule extends BaseModule {
             templateUrl: require("blog/aboutme/aboutme.html")
         }
 
+        const createCategoryState: ng.ui.IState = {
+            name: "createcategory",
+            component: CreateCategoryComponentName,
+            url: "/createCategory"
+        }
+
         // order matters! Routes will not fall through unless specified
         $stateProvider.state(addPostState);
         $stateProvider.state(editPostState);
@@ -180,6 +106,7 @@ export class BlogModule extends BaseModule {
         $stateProvider.state(categoriesState);
         $stateProvider.state(aboutMeState);
         $stateProvider.state(postState);
+        $stateProvider.state(createCategoryState);
     }
 
 
@@ -214,3 +141,4 @@ Blog.AddComponent(PostsGridComponentName, new PostsGridComponent());
 Blog.AddComponent(CategoriesGridComponentName, new CategoriesGridComponent());
 Blog.AddComponent(TagsGridComponentName, new TagsGridComponent());
 Blog.AddComponent(CreatePostComponentName, new CreatePostComponent());
+Blog.AddComponent(CreateCategoryComponentName, new CreateCategoryComponent());
