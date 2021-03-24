@@ -277,7 +277,7 @@ namespace JustBlog.UI.Tests
 
             IdentityDbContext _identityDbContext = new IdentityDbContext(options);
 
-            SignInManager<ApplicationUser> signInManager = new SignInManager<ApplicationUser>(null, null, null, null, null, null);
+            SignInManager<ApplicationUser> signInManager = new SignInManager<ApplicationUser>(null,null,null,null,null,null,null);
             IMessagingService emailSender;
             ILogger<IAccountService> logger;
             IAccountService accountService;

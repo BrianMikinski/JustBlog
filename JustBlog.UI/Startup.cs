@@ -276,16 +276,12 @@ namespace JustBlog.UI
             app.UseAuthentication();
             app.UseRouting();
 
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute(
-            //        name: "default",
-            //        template: "{controller=Home}/{action=Index}/{id?}");
-            //});
+            // must be between routing and authorization
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
+                endpoints.MapControllers();
             });
 
             app.UseSwagger();

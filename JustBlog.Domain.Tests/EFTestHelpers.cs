@@ -42,9 +42,9 @@ namespace JustBlog.Domain.Tests
             //mockDbSet.Setup(x => x.AsNoTracking()).Returns(mockDbSet.Object);
             //mockDbSet.Setup(x => x.Include(It.IsAny<string>())).Returns(mockDbSet.Object);
 
-            mockDbSet.As<IAsyncEnumerable<T>>()
-                  .Setup(m => m.GetEnumerator())
-                  .Returns(new TestDbAsyncEnumerator<T>(queryableData.GetEnumerator()));
+            //mockDbSet.As<IAsyncEnumerable<T>>()
+            //      //.Setup(m => m.GetEnumerator())
+            //      .Returns(new TestDbAsyncEnumerator<T>(queryableData.GetEnumerator()));
 
             mockDbSet.As<IQueryable<T>>()
                 .Setup(m => m.Provider)
