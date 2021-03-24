@@ -20,8 +20,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
-using Swashbuckle.AspNetCore.Swagger;
-//using Swashbuckle.Swagger;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
@@ -143,16 +141,16 @@ namespace JustBlog.UI
                 return blogConnectionString;
             }
 
-            void identityManagementServices(string dbConnectionSTring)
+            void identityManagementServices(string dbConnectionString)
             {
                 // identity management
                 services.AddDbContext<IdentityDbContext>(options =>
                 {
-                    if (string.IsNullOrEmpty(dbConnectionSTring))
+                    if (string.IsNullOrEmpty(dbConnectionString))
                     {
-                        dbConnectionSTring = Configuration.GetValue<string>(JUST_BLOG_CONNECTION_STRING);
+                        dbConnectionString = Configuration.GetValue<string>(JUST_BLOG_CONNECTION_STRING);
                     }
-                    options.UseSqlite(dbConnectionSTring);
+                    options.UseSqlite(dbConnectionString);
                 });
 
                 services.AddIdentity<ApplicationUser, IdentityRole>()
