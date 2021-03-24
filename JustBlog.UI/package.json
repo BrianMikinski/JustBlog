@@ -33,7 +33,7 @@
     "angular-ui-tinymce": "0.0.19",
     "bootstrap": "3.4.1",
     "font-awesome": "^4.7.0",
-    "jquery": "3.4.1",
+    "jquery": "3.5.0",
     "tinymce": "5.1.4",
     "toastr": "^2.1.2"
   },
