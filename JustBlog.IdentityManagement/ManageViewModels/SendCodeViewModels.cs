@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace JustBlog.IdentityManagement.ManageViewModels
 {

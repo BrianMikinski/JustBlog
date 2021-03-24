@@ -21,6 +21,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
+//using Swashbuckle.Swagger;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
@@ -70,14 +71,18 @@ namespace JustBlog.UI
                 options.HeaderName = "X-XRSF-TOKEN";
             });
 
+            services.AddApplicationInsightsTelemetry();
+
             // Asp.NET core switched default json serialization from pascal casing to camel casing,
             // the just blog angular app expects pascal casing so we have to switch this back
             services.AddMvc(options =>
             {
                 // configure anti forgery tokens to be added in X-XSRF-Token areas
                 options.Filters.AddService(typeof(AngularAntiforgeryCookieResultFilterAttribute));
-            })
-            .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+            }).AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            });
 
             services.AddAntiforgery(opts => opts.HeaderName = "X-XSRF-Token");
 
@@ -106,7 +111,7 @@ namespace JustBlog.UI
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
                 {
                     Title = "JustBlog API",
                     Version = "v1"
@@ -131,6 +136,9 @@ namespace JustBlog.UI
                 {
                     options.UseSqlite(blogConnectionString);
                 });
+
+                services.AddDatabaseDeveloperPageExceptionFilter();
+
 
                 return blogConnectionString;
             }
@@ -208,7 +216,7 @@ namespace JustBlog.UI
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IAntiforgery antiforgery)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IAntiforgery antiforgery)
         {
             // fix url rewrites for angularjs application
             // need to switch all api calls to include api in them
@@ -222,7 +230,6 @@ namespace JustBlog.UI
                     await next.Invoke();
                 }
             });
-
 
             // add anti forgery token that AngularJs will know how to read and understand
             app.Use(next => context =>
@@ -247,11 +254,11 @@ namespace JustBlog.UI
                 return next(context);
             });
 
-            if (env.IsDevelopment())
+            if (string.Equals(env.EnvironmentName,"development", StringComparison.OrdinalIgnoreCase))
             {
-                app.UseBrowserLink();
+                //app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
 
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
                 {
@@ -267,12 +274,18 @@ namespace JustBlog.UI
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseAuthentication();
+            app.UseRouting();
 
-            app.UseMvc(routes =>
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller=Home}/{action=Index}/{id?}");
+            //});
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
             });
 
             app.UseSwagger();
