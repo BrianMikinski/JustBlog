@@ -267,15 +267,7 @@ namespace JustBlog.UI
                     spa.Options.SourcePath = "wwwroot";
                     spa.UseProxyToSpaDevelopmentServer("https://localhost:8400/");
                     // if we run off of a webpack dev server with module reloading we'll need this
-
-                    //spa.UseAngularCliServer(npmScript: "build");
                 });
-
-                //app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
-                //{
-                //    HotModuleReplacement = true,
-                //    ConfigFile = "./webpack.config.js"
-                //});
             }
             else
             {
