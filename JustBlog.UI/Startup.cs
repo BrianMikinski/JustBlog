@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -63,6 +62,7 @@ namespace JustBlog.UI
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+
             // configure angularjs header name for xsrf tokens
             services.AddAntiforgery(options =>
             {
@@ -117,6 +117,10 @@ namespace JustBlog.UI
             });
 
             domainServices();
+
+            services.AddSpaStaticFiles(configuration=> {
+                configuration.RootPath = "wwwroot";
+            });
 
             string configureBlogServices()
             {
@@ -258,22 +262,32 @@ namespace JustBlog.UI
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
 
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
+                app.UseSpa(spa =>
                 {
-                    HotModuleReplacement = true,
-                    ConfigFile = "./webpack.config.js"
+                    spa.Options.SourcePath = "wwwroot";
+                    spa.UseProxyToSpaDevelopmentServer("https://localhost:8400/");
+                    // if we run off of a webpack dev server with module reloading we'll need this
+
+                    //spa.UseAngularCliServer(npmScript: "build");
                 });
+
+                //app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions()
+                //{
+                //    HotModuleReplacement = true,
+                //    ConfigFile = "./webpack.config.js"
+                //});
             }
             else
             {
+                app.UseDefaultFiles();
+                app.UseStaticFiles();
                 app.UseExceptionHandler(ERROR_PATH);
             }
 
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
-            app.UseAuthentication();
-            app.UseRouting();
 
+            app.UseSpaStaticFiles();
+            app.UseRouting();
+            app.UseAuthentication();
             // must be between routing and authorization
             app.UseAuthorization();
 

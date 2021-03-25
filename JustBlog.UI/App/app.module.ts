@@ -53,6 +53,6 @@ let App: ng.IModule = module('app', [
 export default App;
 
 // hack for hot web pack hot module replacement
-if ((module as any).hot) {
-    (module as any).hot.accept()
-}
+//if ((module as any).hot) {
+//    (module as any).hot.accept()
+//}

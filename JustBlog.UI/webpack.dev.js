@@ -4,13 +4,17 @@ const path = require("path");
 const webpack = require('webpack');
 const { CleanWebpackPlugin }= require("clean-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+const fs = require('fs');
 
 const outputDirectory = "./wwwroot";
 
 module.exports = {
     mode: "development",
     devtool: "inline-source-map",
+    stats: "verbose",
+    cache: {
+        type: 'filesystem'
+    },
     entry: {
         app: "./app/app.module.ts"
     },
@@ -27,7 +31,8 @@ module.exports = {
                     {
                         loader: "file-loader",
                         options: {
-                            name: "[name].html"
+                            name: "[name].html",
+                            esModule: false
                         }
                     },
                     {
@@ -36,7 +41,8 @@ module.exports = {
                     {
                         loader: "html-loader",
                         options: {
-                            attrs: ['img:src']
+                            sources: true // required to include all images in
+                            //attrs: ['img:src']
                         }
                     }
                 ]
@@ -63,7 +69,10 @@ module.exports = {
             },
             {
                 test: /\.(woff2?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "file-loader?name=fonts/[name].[ext]"
+                options: {
+                    name: "fonts/[name].[ext]"
+                },
+                loader: "file-loader"
             }
         ]
     },
@@ -104,7 +113,27 @@ module.exports = {
             }
         },
         runtimeChunk: true
-    }
+    },
+    devServer: {
+        // these three properties are for using https during local development; if you do not use this then you can skip these
+        pfx: fs.readFileSync(path.resolve(__dirname, 'localhost.pfx')),
+        pfxPassphrase: 'abc123', // this password is also hard coded in the build script which makes the certificates
+        https: true,
+
+        // this is where the webpack-dev-server starts serving files from, so if the web client requests https://localhost:8400/vendor.js this will serve the built file vendor.js
+        publicPath: '/',
+
+        // this is where static files are stored; in this example the physical path ./wwwroot/dist/some/image.jpg will be attainable via https://localhost:8400/dist/some/image.jpg
+        contentBase: path.resolve(__dirname, './wwwroot'), // you will need to change this to your own dist path
+
+        // this enabled hot module replacement of modules so when you make a change in a javascript or css file the change will reflect on the browser
+        hot: true,
+        // port that the webpack-dev-server runs on; must match the later configuration where ASP.NET Core knows where to execute
+        port: 8400,
+
+        // this uses websockets for communication for hot module reload, and websockets are planned to be the default for the 5.x release
+        transportMode: 'ws',
+    },
 };
 
 console.log(__dirname);
