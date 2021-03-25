@@ -41,8 +41,8 @@ module.exports = {
                     {
                         loader: "html-loader",
                         options: {
-                            sources: true // required to include all images in
-                            //attrs: ['img:src']
+                            //sources: true // required to include all images in
+                            attrs: ['img:src']
                         }
                     }
                 ]
