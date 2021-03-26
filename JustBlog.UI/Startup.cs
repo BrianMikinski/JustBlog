@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -118,6 +119,7 @@ namespace JustBlog.UI
 
             domainServices();
 
+            // where all the files live we are trying to serve
             services.AddSpaStaticFiles(configuration=> {
                 configuration.RootPath = "wwwroot";
             });
@@ -220,53 +222,38 @@ namespace JustBlog.UI
         /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IAntiforgery antiforgery)
         {
-            // fix url rewrites for angularjs application
-            // need to switch all api calls to include api in them
-            app.Use(async (HttpContext context, Func<Task> next) =>
-            {
-                await next.Invoke();
+            app.UseSpaStaticFiles();
+            app.UseRouting();
 
-                if (context.Response.StatusCode == 404 && !context.Request.Path.Value.Contains("/api"))
-                {
-                    context.Request.Path = new PathString("/index.html");
-                    await next.Invoke();
-                }
+            app.UseAuthentication();
+            // must be between routing and authorization
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller}/{action=Index}/{id?}");
+                    endpoints.MapRazorPages();
+
+                endpoints.MapFallbackToFile("/index.html");
             });
 
-            // add anti forgery token that AngularJs will know how to read and understand
-            app.Use(next => context =>
+            app.UseSwagger();
+            app.UseSwaggerUI(p => p.SwaggerEndpoint("/swagger/v1/swagger.json", "JustBlog API V1"));
+
+            if (string.Equals(env.EnvironmentName, "development", StringComparison.OrdinalIgnoreCase))
             {
-                string path = context.Request.Path.Value;
-
-                if (string.Equals(path, "/", StringComparison.OrdinalIgnoreCase) ||
-                    string.Equals(path, "/index.html", StringComparison.OrdinalIgnoreCase))
-                {
-                    // The request token can be sent as a JavaScript-readable cookie, 
-                    // and Angular uses it by default.
-                    var tokens = antiforgery.GetAndStoreTokens(context);
-                    context.Response.Cookies.Append(
-                        "XSRF-TOKEN",
-                        tokens.RequestToken,
-                        new CookieOptions()
-                        {
-                            HttpOnly = false
-                        });
-                }
-
-                return next(context);
-            });
-
-            if (string.Equals(env.EnvironmentName,"development", StringComparison.OrdinalIgnoreCase))
-            {
-                //app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
 
                 app.UseSpa(spa =>
                 {
-                    spa.Options.SourcePath = "wwwroot";
+                    // keep this to the souce path and not wwwroot where the build is output
+                    spa.Options.SourcePath = "app";
+
+                    // proxy to the webpack dev server. This will allow us to do hot module reloading
                     spa.UseProxyToSpaDevelopmentServer("https://localhost:8400/");
-                    // if we run off of a webpack dev server with module reloading we'll need this
                 });
             }
             else
@@ -275,21 +262,6 @@ namespace JustBlog.UI
                 app.UseStaticFiles();
                 app.UseExceptionHandler(ERROR_PATH);
             }
-
-
-            app.UseSpaStaticFiles();
-            app.UseRouting();
-            app.UseAuthentication();
-            // must be between routing and authorization
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-
-            app.UseSwagger();
-            app.UseSwaggerUI(p => p.SwaggerEndpoint("/swagger/v1/swagger.json", "JustBlog API V1"));
         }
     }
 }

@@ -82,4 +82,5 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/bitrise-step.json" /></VisualStudio></ProjectExtensions>
 </Project>
