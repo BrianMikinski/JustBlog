@@ -56,3 +56,4 @@ bower_components
 /JustBlog.UI/stats.json
 /JustBlog.UI/JustBlog.UI.csproj.user
 /JustBlog.UI/justblog.sqlite-journal
+/JustBlog.UI/localhost.pfx
