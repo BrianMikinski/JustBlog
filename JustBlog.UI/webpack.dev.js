@@ -2,7 +2,7 @@
 
 const path = require("path");
 const webpack = require('webpack');
-const { CleanWebpackPlugin }= require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const fs = require('fs');
 
@@ -26,6 +26,12 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
+                test: /\.worker\.js$/,
+                use: {
+                    loader: "worker-loader"
+                },
+            },
+            {
                 test: /\.html$/,
                 use: [
                     {
@@ -41,8 +47,8 @@ module.exports = {
                     {
                         loader: "html-loader",
                         options: {
-                            sources: true // required to include all images in
-                            //attrs: ['img:src']
+                            sources: true, // required to include all images in
+                            attrs: ['img:src']
                         }
                     }
                 ]

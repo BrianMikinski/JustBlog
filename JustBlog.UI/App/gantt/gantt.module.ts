@@ -1,16 +1,15 @@
 ﻿import { default as uirouter } from "@uirouter/angularjs";
 import * as angular from "angular";
 import { BaseModule } from "core/models/BaseModule";
-import { NavBarComponent, NavBarComponentName } from "layout/navBar/navbar.component";
-import { ShellComponent, ShellComponentName } from "layout/shell/shell.component";
+import { GanttComponent, GanttComponentName } from "gantt/gantt.component";
 
-const moduleName = 'app.layout';
+const moduleName = 'app.gantt';
 export default moduleName;
 
 /**
  * Create a shell controller for our application
  */
-export class LayoutModule extends BaseModule {
+export class GanttModule extends BaseModule {
 
     constructor() {
         super();
@@ -21,6 +20,20 @@ export class LayoutModule extends BaseModule {
         this.app = angular.module(this.moduleName, this.moduleDependencies);
 
         this.app.config(this.locationProviderConfig);
+
+        this.app.config(this.uiStateConfig);
+    }
+
+    private uiStateConfig($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider): void {
+
+        const ganttState: ng.ui.IState = {
+            name: "gantt",
+            component: GanttComponentName,
+            url: "/gantt"
+        };
+
+        // order matters! Routes will not fall through unless specified
+        $stateProvider.state(ganttState);
     }
 
     /**
@@ -32,7 +45,6 @@ export class LayoutModule extends BaseModule {
     };
 }
 
-const layoutModule = new LayoutModule();
+const ganttModule = new GanttModule();
 
-layoutModule.AddComponent(NavBarComponentName, new NavBarComponent());
-layoutModule.AddComponent(ShellComponentName, new ShellComponent());
+ganttModule.AddComponent(GanttComponentName, new GanttComponent());

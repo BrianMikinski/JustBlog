@@ -1,4 +1,9 @@
-﻿import {default as uirouter } from "@uirouter/angularjs";
+﻿import { default as uirouter } from "@uirouter/angularjs";
+import * as angular from "angular";
+import * as ngAnimate from "angular-animate";
+import * as ngSantize from "angular-sanitize";
+import { BlogController } from "blog/blog.controller";
+import { BlogService, BlogServiceName } from "blog/blog.service";
 import { CategoryComponent, CategoryComponentName } from "blog/category/category.component";
 import { CategoriesGridComponent, CategoriesGridComponentName } from "blog/category/categoryGrid.component";
 import { HomeComponent, HomeComponentName } from "blog/home/home.component";
@@ -7,24 +12,19 @@ import { PostComponent, PostComponentName } from "blog/post/post.component";
 import { PostsGridComponent, PostsGridComponentName } from "blog/post/postgrid.component";
 import { ProfileComponent, ProfileComponentName } from "blog/profile/profile.component";
 import { TagsGridComponent, TagsGridComponentName } from "blog/tag/tagsGrid.component";
-import { BlogController } from "blog/blog.controller";
-import { BlogService, BlogServiceName } from "blog/blog.service";
 import { BaseModule } from "core/models/BaseModule";
-import * as angular from "angular";
-import * as ngAnimate from "angular-animate";
-import * as ngSantize from "angular-sanitize";
 import { CreateCategoryComponent, CreateCategoryComponentName } from "./category/createCategory.component";
 
 /**
  * Angular ui bootstrap and angular tiny mce doesn't have a a default export so we have to require it manually
  */ 
 require("angular-ui-bootstrap");
-const angularUIBootstrapModuleName: string = "ui.bootstrap";
+const angularUIBootstrapModuleName = "ui.bootstrap";
 
 require("angular-ui-tinymce");
-const tinyMCEModuleName: string = "ui.tinymce";
+const tinyMCEModuleName= "ui.tinymce";
 
-const moduleName: string = "app.blog";
+const moduleName= "app.blog";
 export default moduleName;
 
 /**
@@ -108,7 +108,6 @@ export class BlogModule extends BaseModule {
         $stateProvider.state(postState);
         $stateProvider.state(createCategoryState);
     }
-
 
     /**
      * Configure the location provider to be in html5 mode

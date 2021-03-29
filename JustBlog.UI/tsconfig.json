@@ -38,7 +38,8 @@
       ],
       "lib": [
         "es2017",
-        "dom"
+        "dom",
+        "webworker"
       ]
     },
     "pretty": true,

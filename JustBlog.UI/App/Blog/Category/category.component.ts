@@ -4,7 +4,7 @@ import { Post } from "blog/post/Post";
 import { ComponentBase } from "core/component.base";
 import { BaseController } from "core/models/BaseController";
 
-export const CategoryComponentName: string = "category";
+export const CategoryComponentName = "category";
 
 // define the bindings for my component
 interface ICategoryControllerBindings { }
@@ -34,7 +34,7 @@ class CategoryComponentController extends BaseController implements ICategoryCom
      */
     private GetCategories() {
 
-        let onCategoriesReturned: (categories: Array<Category>) => void = (categories: Array<Category>): void => {
+        const onCategoriesReturned: (categories: Array<Category>) => void = (categories: Array<Category>): void => {
             this.AllCategories = categories;
 
             if (this.AllCategories && this.AllCategories.length > 0) {
@@ -50,7 +50,7 @@ class CategoryComponentController extends BaseController implements ICategoryCom
      * @param categoryId
      */
     private RetrieveCategoryPosts(categoryId: number): void {
-        let onCategoryPostsReturned: (categoryPosts: Array<Post>) => void = (categoryPosts: Array<Post>): void => {
+        const onCategoryPostsReturned: (categoryPosts: Array<Post>) => void = (categoryPosts: Array<Post>): void => {
             this.CategoryPosts = categoryPosts;
         }
 

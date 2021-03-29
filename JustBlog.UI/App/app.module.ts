@@ -5,6 +5,7 @@ import { default as blogModule } from './blog/blog.module';
 import { default as coreModule } from './core/core.module';
 import { default as notificationModule } from './notification/notification.module';
 import { default as layoutModule } from './layout/layout.module';
+import { default as ganttModule } from './gantt/gantt.module';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'toastr/build/toastr.min.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -42,7 +43,8 @@ let App: ng.IModule = module('app', [
 
     ///*Feature modules*/
     adminModule,
-    blogModule
+    blogModule,
+    ganttModule,
 ]);
 
 //App.run(function ( $uiRouter: ng.ui.IUrlRouterProvider) {
