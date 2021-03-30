@@ -44,7 +44,7 @@ let App: ng.IModule = module('app', [
     ///*Feature modules*/
     adminModule,
     blogModule,
-    ganttModule,
+    ganttModule
 ]);
 
 //App.run(function ( $uiRouter: ng.ui.IUrlRouterProvider) {

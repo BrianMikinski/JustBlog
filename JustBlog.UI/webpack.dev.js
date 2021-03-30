@@ -54,6 +54,14 @@ module.exports = {
                 ]
             },
             {
+                test: /\.scss$/,
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    "sass-loader"],
+                exclude: /node_modules/
+            },
+            {
                 test: /\.css$/,
                 use: [
                     {
@@ -139,6 +147,9 @@ module.exports = {
 
         // this uses websockets for communication for hot module reload, and websockets are planned to be the default for the 5.x release
         transportMode: 'ws',
+
+        // dev server will usually server all content from memory but this will write back to the disk in the folder we expect it to go to
+        writeToDisk: true
     },
 };
 

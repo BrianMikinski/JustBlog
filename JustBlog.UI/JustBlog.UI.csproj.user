@@ -48,6 +48,11 @@
     </VisualStudio>
   </ProjectExtensions>
   <ItemGroup>
+    <TypeScriptCompile Update="App\gantt\agGrid.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+  </ItemGroup>
+  <ItemGroup>
     <TypeScriptCompile Update="App\gantt\file-loader.d.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

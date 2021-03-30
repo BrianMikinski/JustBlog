@@ -2,6 +2,7 @@
 import * as angular from "angular";
 import { BaseModule } from "core/models/BaseModule";
 import { GanttComponent, GanttComponentName } from "gantt/gantt.component";
+import { AGGridComponent, agGridComponentName } from "./agGrid.component";
 
 const moduleName = 'app.gantt';
 export default moduleName;
@@ -32,8 +33,15 @@ export class GanttModule extends BaseModule {
             url: "/gantt"
         };
 
+        const agGridState: ng.ui.IState = {
+            name: "aggrid",
+            component: agGridComponentName,
+            url: "/aggrid"
+        };
+
         // order matters! Routes will not fall through unless specified
         $stateProvider.state(ganttState);
+        $stateProvider.state(agGridState);
     }
 
     /**
@@ -48,3 +56,4 @@ export class GanttModule extends BaseModule {
 const ganttModule = new GanttModule();
 
 ganttModule.AddComponent(GanttComponentName, new GanttComponent());
+ganttModule.AddComponent(agGridComponentName, new AGGridComponent());
