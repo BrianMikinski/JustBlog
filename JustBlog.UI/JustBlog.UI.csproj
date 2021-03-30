@@ -44,6 +44,7 @@
     <None Remove="app\gantt\gantt.component.ts" />
     <None Remove="app\gantt\gantt.module.ts" />
     <None Remove="localhost.pfx" />
+    <None Remove="app\scripts\thirdPartyScript\testScript.ts" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.17.0" />
@@ -89,6 +90,7 @@
     <TypeScriptCompile Include="App\gantt\file-loader.d.ts" />
     <TypeScriptCompile Include="app\gantt\gantt.component.ts" />
     <TypeScriptCompile Include="app\gantt\gantt.module.ts" />
+    <TypeScriptCompile Include="app\scripts\thirdPartyScript\testScript.ts" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />

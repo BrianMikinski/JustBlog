@@ -10,6 +10,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'toastr/build/toastr.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import 'angular-ui-bootstrap/dist/ui-bootstrap-csp.css';
+import { testScriptValue } from "./scripts/thirdPartyScript/testScript";
+
+console.log(testScriptValue);
 
 // include our CSS
 require("./index.html");

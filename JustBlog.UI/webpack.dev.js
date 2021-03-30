@@ -145,6 +145,7 @@ module.exports = {
 
         // this enabled hot module replacement of modules so when you make a change in a javascript or css file the change will reflect on the browser
         hot: true,
+
         // port that the webpack-dev-server runs on; must match the later configuration where ASP.NET Core knows where to execute
         port: 8400,
 

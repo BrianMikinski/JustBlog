@@ -6,8 +6,6 @@ import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-mod
 import "@ag-grid-community/all-modules/dist/styles/ag-grid.min.css";
 import "@ag-grid-community/all-modules/dist/styles/ag-theme-alpine.min.css";
 
-//import { ColumnDef } from 
-
 export const agGridComponentName = "agGridComponent";
 
 ModuleRegistry.register(ClientSideRowModelModule);
