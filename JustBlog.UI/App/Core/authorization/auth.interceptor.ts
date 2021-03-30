@@ -1,9 +1,8 @@
-﻿console.log("entered auth interceptor");
+﻿import { StateService } from "@uirouter/angularjs";
 import { IHttpResponse, IPromise, IRequestConfig } from "angular";
 import { AuthenticationConstants } from "core/authorization/AuthenticationConstants";
-import { StateService} from "@uirouter/angularjs";
 
-export const AuthInterceptorName: string = "authInterceptor";
+export const AuthInterceptorName = "authInterceptor";
 
 /**
  * Class for intercepting routing requests. Primarily used for authentication
@@ -29,7 +28,7 @@ export class AuthInterceptor implements ng.IHttpInterceptor {
 
     private requestFunction = (config: IRequestConfig): IRequestConfig | IPromise<IRequestConfig> => {
 
-        let bearerToken: string = window.localStorage.getItem(this.AUTHENTICATION_CONSTANTS.AuthToken);
+        const bearerToken = window.localStorage.getItem(this.AUTHENTICATION_CONSTANTS.AuthToken);
 
         if (bearerToken !== "") {
             config.headers["Authorization"] = `Bearer ${bearerToken}`;

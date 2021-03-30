@@ -102,7 +102,10 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(),
+        new CleanWebpackPlugin({
+            //cleanAfterEveryBuildPatterns: ['static*.*', '!static1.js'],
+            //cleanOnceBeforeBuildPatterns: ['**/*', '!/img/**/*']
+        }),
         new webpack.ProvidePlugin({
             jQuery: 'jquery'
         })

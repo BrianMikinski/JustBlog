@@ -3,6 +3,8 @@ import { CoreService } from "core/core.service";
 import { BaseController } from "core/models/BaseController";
 import { Grid, GridOptions, ModuleRegistry } from "@ag-grid-community/all-modules";
 import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
+import "@ag-grid-community/all-modules/dist/styles/ag-grid.min.css";
+import "@ag-grid-community/all-modules/dist/styles/ag-theme-alpine.min.css";
 
 //import { ColumnDef } from 
 
