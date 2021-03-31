@@ -23,7 +23,7 @@ class ProfileComponentController extends BaseController implements IProfileCompo
         super($sce);
 
         this.OnErrorCallback = (reason: any) => {
-            console.log(`Error encountedered profile controller`)
+            console.log(`Error encountedered profile controller`);
         };
     }
 

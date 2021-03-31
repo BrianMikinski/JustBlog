@@ -26,6 +26,8 @@ class GanttComponentController extends BaseController implements ng.IController 
             const message = e.data;
             console.log(`[From Worker]: ${message}`);
         };
+
+        worker.terminate();
     }
 }
 

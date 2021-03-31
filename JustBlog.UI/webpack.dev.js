@@ -9,7 +9,7 @@ const fs = require('fs');
 const outputDirectory = "./wwwroot";
 
 module.exports = {
-    mode: "development",
+    mode: "production",
     devtool: "inline-source-map",
     stats: "verbose",
     cache: {
@@ -102,10 +102,12 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin({
-            //cleanAfterEveryBuildPatterns: ['static*.*', '!static1.js'],
-            //cleanOnceBeforeBuildPatterns: ['**/*', '!/img/**/*']
-        }),
+        //new CleanWebpackPlugin({
+        //    verbose: true,
+        //    //protectWebpackAssets: true,
+        //    cleanAfterEveryBuildPatterns: ['**/*', '!img/**/*', "!fonts/**/*"],
+        //    //cleanOnceBeforeBuildPatterns: ['**/*', '!/img/**/*']
+        //}),
         new webpack.ProvidePlugin({
             jQuery: 'jquery'
         })
@@ -129,7 +131,18 @@ module.exports = {
                 }
             }
         },
-        runtimeChunk: true
+        runtimeChunk: true,
+        minimize: true,
+        //minimizer: [
+        //    (compiler) => {
+        //        const TerserPlugin = require('terser-webpack-plugin');
+        //        new TerserPlugin({
+        //            terserOptions: {
+        //                compress: {},
+        //            }
+        //        }).apply(compiler);
+        //    },
+        //]
     },
     devServer: {
         // these three properties are for using https during local development; if you do not use this then you can skip these
@@ -141,7 +154,7 @@ module.exports = {
         publicPath: '/',
 
         // this is where static files are stored; in this example the physical path ./wwwroot/dist/some/image.jpg will be attainable via https://localhost:8400/dist/some/image.jpg
-        contentBase: path.resolve(__dirname, './wwwroot'), // you will need to change this to your own dist path
+        contentBase: path.resolve(__dirname, outputDirectory), // you will need to change this to your own dist path
 
         // this enabled hot module replacement of modules so when you make a change in a javascript or css file the change will reflect on the browser
         hot: true,
