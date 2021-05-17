@@ -27,9 +27,6 @@ class AGGridpComponentController extends BaseController implements ng.IControlle
             columnDefs: this.createColumnDefs(),
             rowData: this.createRowData()
         };
-
-        let eGridDiv = <HTMLElement>document.querySelector('#myGrid');
-        new Grid(eGridDiv, this.gridOptions);
     }
 
     $onInit?(): void {

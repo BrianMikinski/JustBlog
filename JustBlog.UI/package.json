@@ -60,7 +60,6 @@
     "exports-loader": "2.0.0",
     "extract-loader": "3.2.0",
     "file-loader": "6.2.0",
-    "fs": "0.0.1-security",
     "hard-source-webpack-plugin": "^0.13.1",
     "html-loader": "0.5.5",
     "html-webpack-plugin": "5.3.1",
@@ -97,5 +96,6 @@
     "webpack-hot-middleware": "2.25.0",
     "worker-loader": "3.0.8",
     "yargs": "16.2.0"
-  }
+  },
+  "-vs-binding": { "AfterBuild": [ "build" ] }
 }
