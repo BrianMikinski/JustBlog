@@ -47,11 +47,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <ItemGroup>
-    <TypeScriptCompile Update="app\scripts\thirdPartyScript\testScript.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <TypeScriptCompile Update="app\blog\category\createCategory.component.ts">
       <SubType>Code</SubType>

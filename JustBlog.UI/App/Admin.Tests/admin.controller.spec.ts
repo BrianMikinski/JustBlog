@@ -1,6 +1,6 @@
-﻿import { AdminController } from "admin/admin.controller";
-import { default as adminModule } from "admin/admin.module";
-import { AdminService } from "admin/admin.service";
+﻿import { AdminController } from "../admin/admin.controller";
+import { default as adminModule } from "../admin/admin.module";
+import { AdminService } from "../admin/admin.service";
 import { AuthService } from "core/authorization/auth.service";
 import { default as coreModule } from "core/core.module";
 import { CoreService } from "core/core.service";

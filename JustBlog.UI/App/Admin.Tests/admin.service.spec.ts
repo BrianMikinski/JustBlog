@@ -1,9 +1,9 @@
 ﻿import { TokenAuthResponse } from "admin/account/TokenAuthResponse";
-import { User } from "admin/account/User";
-import { AdminModule, default as adminModule } from "admin/admin.module";
-import { AdminService } from "admin/admin.service";
-import { AdminRoutes } from "admin/interfaces/AdminRoutes";
-import { LoginModel } from "admin/login/LoginModel";
+import { User } from "../admin/account/User";
+import { AdminModule, default as adminModule } from "../admin/admin.module";
+import { AdminService } from "../admin/admin.service";
+import { AdminRoutes } from "../admin/interfaces/AdminRoutes";
+import { LoginModel } from "../admin/login/LoginModel";
 import * as angular from 'angular';
 import { Metadata } from "blog/metadata/MetaData";
 import { AuthService } from "core/authorization/auth.service";

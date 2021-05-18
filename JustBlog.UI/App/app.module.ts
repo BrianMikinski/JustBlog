@@ -9,9 +9,6 @@ import { default as blogModule } from './blog/blog.module';
 import { default as coreModule } from './core/core.module';
 import { default as layoutModule } from './layout/layout.module';
 import { default as notificationModule } from './notification/notification.module';
-import { testScriptValue } from "./scripts/thirdPartyScript/testScript";
-
-console.log(testScriptValue);
 
 // include our CSS
 require("./index.html");
