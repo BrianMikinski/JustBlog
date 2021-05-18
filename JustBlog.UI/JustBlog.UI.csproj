@@ -22,22 +22,6 @@
     <Content Remove="stats.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="app\admin\account\confirmEmail.component.ts" />
-    <None Remove="app\admin\account\myAcccount.component.ts" />
-    <None Remove="app\admin\adminHeader.component.ts" />
-    <None Remove="app\admin\app.unitTest.ts" />
-    <None Remove="app\admin\login\identityModal.component.ts" />
-    <None Remove="app\admin\password\forgotPassword.component.ts" />
-    <None Remove="app\admin\password\resetpassword.component.ts" />
-    <None Remove="app\admin\password\ValidPassword.ts" />
-    <None Remove="app\admin\register\IdentityError.ts" />
-    <None Remove="app\admin\register\registerUser.component.spec.ts" />
-    <None Remove="app\blog\category\createCategory.component.ts" />
-    <None Remove="app\core\errorHandling\errorHandling.component.ts" />
-    <None Remove="localhost.pfx" />
-    <None Remove="app\scripts\thirdPartyScript\testScript.ts" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.17.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.6" />
@@ -63,20 +47,6 @@
     <ProjectReference Include="..\JustBlog.Domain\JustBlog.Domain.csproj" />
     <ProjectReference Include="..\JustBlog.IdentityManagement\JustBlog.IdentityManagement.csproj" />
     <ProjectReference Include="..\JustBlog.Models\JustBlog.Models.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="app\admin\account\myAcccount.component.ts" />
-    <TypeScriptCompile Include="app\admin\login\identityModal.component.ts" />
-    <TypeScriptCompile Include="app\admin\password\forgotPassword.component.ts" />
-    <TypeScriptCompile Include="app\admin\password\ValidPassword.ts" />
-    <TypeScriptCompile Include="app\admin\password\resetPassword.component.ts" />
-    <TypeScriptCompile Include="app\admin\register\confirmEmail.component.ts" />
-    <TypeScriptCompile Include="app\admin\adminHeader.component.ts" />
-    <TypeScriptCompile Include="app\admin\register\IdentityError.ts" />
-    <TypeScriptCompile Include="app\admin\register\registerUser.component.spec.ts" />
-    <TypeScriptCompile Include="app\blog\category\createCategory.component.ts" />
-    <TypeScriptCompile Include="app\core\errorHandling\errorHandling.component.ts" />
-    <TypeScriptCompile Include="app\scripts\thirdPartyScript\testScript.ts" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />

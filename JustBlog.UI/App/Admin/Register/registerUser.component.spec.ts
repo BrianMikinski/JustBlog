@@ -118,7 +118,7 @@ describe(` ${adminModule}: Register New User Component Tests - `, function () {
         scope.$apply();
 
         // we must mock out a response because the component navigates to a different component 
-        $httpBackend.expectGET("admin/manageContent.html").respond("Mock response");
+        $httpBackend.expectGET("admin/manage-content.html").respond("Mock response");
 
         // act
         let registerUserController: RegisterUserController = <RegisterUserController>$componentController(RegisterUserComponentName, { $scope: scope }, {})

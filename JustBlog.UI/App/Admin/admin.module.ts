@@ -12,7 +12,7 @@ import { Action } from "core/authorization/Action";
 import { Resource } from "core/authorization/Resource";
 import { BaseModule } from "core/models/BaseModule";
 import { MyAccountComponent, MyAccountComponentName } from "./account/myAcccount.component";
-import { AdminHeaderComponent, AdminHeaderComponentName } from "./adminHeader.component";
+import { AdminHeaderComponent, AdminHeaderComponentName } from "./admin-header.component";
 import { IdentityModalComponent, IdentityModalComponentName } from "./login/identityModal.component";
 import { LogoffComponent, LogoffComponentName } from "./Login/logoff.component";
 import { ForgotPasswordComponent, ForgotPasswordComponentName } from "./password/forgotPassword.component";
@@ -97,7 +97,7 @@ export class AdminModule extends BaseModule {
         let manageContentState: ng.ui.IState = {
             name: "manageContent",
             url: "/manageContent",
-            templateUrl: require("admin/manageContent.html"),
+            templateUrl: require("admin/manage-content.html"),
             controller: AdminController,
             controllerAs: "vm",
             protected: true
