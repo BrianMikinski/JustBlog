@@ -1,7 +1,7 @@
 ﻿import { default as uirouter } from "@uirouter/angularjs";
 import * as angular from "angular";
 import { BaseModule } from "core/models/BaseModule";
-import { NavBarComponent, NavBarComponentName } from "layout/nav-bar/navbar.component";
+import { NavBarComponent, NavBarComponentName } from "layout/nav-bar/nav-bar.component";
 import { ShellComponent, ShellComponentName } from "layout/shell/shell.component";
 
 const moduleName = 'app.layout';

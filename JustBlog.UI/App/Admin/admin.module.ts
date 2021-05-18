@@ -1,10 +1,10 @@
 ﻿import {default as uirouter } from "@uirouter/angularjs";
-import { AdminController } from "admin/admin.controller";
-import { AdminService, AdminServiceName } from "admin/admin.service";
-import { AdminRoutes } from "admin/interfaces/AdminRoutes";
-import { AuthEvent } from "admin/interfaces/AuthEvent";
-import { LoginComponent, LoginComponentName } from "admin/login/login.component";
-import { RegisterUserComponent, RegisterUserComponentName } from "admin/register/registerUser.component";
+import { AdminController } from "./admin.controller";
+import { AdminService, AdminServiceName } from "./admin.service";
+import { AdminRoutes } from "./interfaces/AdminRoutes";
+import { AuthEvent } from "./interfaces/AuthEvent";
+import { LoginComponent, LoginComponentName } from "./login/login.component";
+import { RegisterUserComponent, RegisterUserComponentName } from "./register/registerUser.component";
 import * as angular from "angular";
 import * as ngAnimate from "angular-animate";
 import * as ngSantize from "angular-sanitize";

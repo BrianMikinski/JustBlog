@@ -1,7 +1,7 @@
 ﻿import { BaseController } from "core/models/BaseController";
 import { ComponentBase } from "core/component.base";
 import { CoreService } from "core/core.service";
-import { Metadata } from "blog/metaData/MetaData";
+import { Metadata } from "blog/metadata/MetaData";
 
 export const NavBarComponentName: string = "navbar";
 
@@ -90,7 +90,7 @@ export class NavBarComponent extends ComponentBase {
         this.controller = NavBarComponentController;
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("layout/nav-bar/navbar.html");
+            return require("layout/nav-bar/nav-bar.html");
         }];
     }
 }
