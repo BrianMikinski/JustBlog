@@ -1,15 +1,14 @@
-﻿import {default as uirouter} from "@uirouter/angularjs";
+﻿import { default as uirouter } from "@uirouter/angularjs";
 import { module } from 'angular';
+import 'angular-ui-bootstrap/dist/ui-bootstrap-csp.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'font-awesome/css/font-awesome.min.css';
+import 'toastr/build/toastr.min.css';
 import { default as adminModule } from './admin/admin.module';
 import { default as blogModule } from './blog/blog.module';
 import { default as coreModule } from './core/core.module';
-import { default as notificationModule } from './notification/notification.module';
 import { default as layoutModule } from './layout/layout.module';
-import { default as ganttModule } from './gantt/gantt.module';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'toastr/build/toastr.min.css';
-import 'font-awesome/css/font-awesome.min.css';
-import 'angular-ui-bootstrap/dist/ui-bootstrap-csp.css';
+import { default as notificationModule } from './notification/notification.module';
 import { testScriptValue } from "./scripts/thirdPartyScript/testScript";
 
 console.log(testScriptValue);
@@ -46,8 +45,7 @@ let App: ng.IModule = module('app', [
 
     ///*Feature modules*/
     adminModule,
-    blogModule,
-    ganttModule
+    blogModule
 ]);
 
 //App.run(function ( $uiRouter: ng.ui.IUrlRouterProvider) {

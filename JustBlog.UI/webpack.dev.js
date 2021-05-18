@@ -9,7 +9,7 @@ const fs = require('fs');
 const outputDirectory = "./wwwroot";
 
 module.exports = {
-    mode: "production",
+    mode: "development",
     devtool: "inline-source-map",
     stats: "verbose",
     cache: {
@@ -102,6 +102,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new CleanWebpackPlugin(),
         //new CleanWebpackPlugin({
         //    verbose: true,
         //    //protectWebpackAssets: true,
@@ -131,8 +132,8 @@ module.exports = {
                 }
             }
         },
-        runtimeChunk: true,
-        minimize: true,
+        //runtimeChunk: true,
+        //minimize: true,
         //minimizer: [
         //    (compiler) => {
         //        const TerserPlugin = require('terser-webpack-plugin');

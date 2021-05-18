@@ -90,7 +90,7 @@ export class NavBarComponent extends ComponentBase {
         this.controller = NavBarComponentController;
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("layout/navBar/navbar.html");
+            return require("layout/nav-bar/navbar.html");
         }];
     }
 }

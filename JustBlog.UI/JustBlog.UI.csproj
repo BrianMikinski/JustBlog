@@ -34,32 +34,27 @@
     <None Remove="app\admin\register\registerUser.component.spec.ts" />
     <None Remove="app\blog\category\createCategory.component.ts" />
     <None Remove="app\core\errorHandling\errorHandling.component.ts" />
-    <None Remove="App\gantt\agGrid.component.ts" />
-    <None Remove="App\gantt\cpm.worker.ts" />
-    <None Remove="App\gantt\file-loader.d.ts" />
-    <None Remove="app\gantt\gantt.component.ts" />
-    <None Remove="app\gantt\gantt.module.ts" />
     <None Remove="localhost.pfx" />
     <None Remove="app\scripts\thirdPartyScript\testScript.ts" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.17.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.13" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4">
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.15" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.9.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.11.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Sendgrid" Version="9.22.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.1" />
+    <PackageReference Include="Sendgrid" Version="9.23.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     <PackageReference Include="Swashbuckle.Core" Version="5.6.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.9.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
@@ -81,11 +76,6 @@
     <TypeScriptCompile Include="app\admin\register\registerUser.component.spec.ts" />
     <TypeScriptCompile Include="app\blog\category\createCategory.component.ts" />
     <TypeScriptCompile Include="app\core\errorHandling\errorHandling.component.ts" />
-    <TypeScriptCompile Include="App\gantt\agGrid.component.ts" />
-    <TypeScriptCompile Include="App\gantt\cpm.worker.ts" />
-    <TypeScriptCompile Include="App\gantt\file-loader.d.ts" />
-    <TypeScriptCompile Include="app\gantt\gantt.component.ts" />
-    <TypeScriptCompile Include="app\gantt\gantt.module.ts" />
     <TypeScriptCompile Include="app\scripts\thirdPartyScript\testScript.ts" />
   </ItemGroup>
   <ItemGroup>
@@ -93,7 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\" />
-    <Folder Include="NewFolder\" />
   </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/bitrise-step.json" /></VisualStudio></ProjectExtensions>
 </Project>

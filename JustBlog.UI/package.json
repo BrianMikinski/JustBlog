@@ -10,14 +10,14 @@
     "url": "https://github.com/BrianMikinski/JustBlog"
   },
   "scripts": {
-    "build": "webpack --config=webpack.config.js --env dev --progress --profile --color",
-    "build:prod": "webpack --config=webpack.config.js --env prod --progress --profile --colors",
-    "build:test": "webpack --config=webpack.config.js --env test --progress --profile --colors",
+    "build": "webpack --config=webpack.config.js --progress --profile --color --env build=dev",
+    "build:prod": "webpack --config=webpack.config.js --progress --profile --colors --env build=prod",
+    "build:test": "webpack --config=webpack.config.js --progress --profile --colors --env build=test",
     "devserver": "webpack serve --config=webpack.config.js",
     "test": "karma start .\\conf\\karma.conf.js",
     "analyzeBundle": "npm run buildStats && npm run cleanStatsfile && npm run startBundleAnalyzer",
-    "buildStats": "webpack --config=webpack.config.js --env dev --profile --json > stats.json",
-    "buildStatsProd": "webpack --config=webpack.config.js --env prod --profile --json > stats.json",
+    "buildStats": "webpack --config=webpack.config.js --profile --json --env build=dev > stats.json ",
+    "buildStatsProd": "webpack --config=webpack.config.js --env build=prod --profile --json > stats.json",
     "buildStatsWin": "webpack --profile --json | Out-file 'dist/stats.json' -Encoding OEM (only works when run from powershell!)",
     "cleanStatsfile": "@powershell ./cleanWebpackStats.ps1 -ExecutionPolicy Unrestricted -NoProfile ",
     "startBundleAnalyzer": "webpack-bundle-analyzer stats.json"
@@ -97,5 +97,9 @@
     "worker-loader": "3.0.8",
     "yargs": "16.2.0"
   },
-  "-vs-binding": { "AfterBuild": [ "build" ] }
+  "-vs-binding": {
+    "AfterBuild": [
+      "build"
+    ]
+  }
 }

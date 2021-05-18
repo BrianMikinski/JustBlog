@@ -89,7 +89,7 @@ export class BlogModule extends BaseModule {
         const aboutMeState: ng.ui.IState = {
             name: "aboutme",
             url: "/aboutme",
-            templateUrl: require("blog/aboutme/aboutme.html")
+            templateUrl: require("blog/about-me/about-me.html")
         }
 
         const createCategoryState: ng.ui.IState = {
