@@ -52,6 +52,7 @@
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ClientApp\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/bitrise-step.json" /></VisualStudio></ProjectExtensions>
