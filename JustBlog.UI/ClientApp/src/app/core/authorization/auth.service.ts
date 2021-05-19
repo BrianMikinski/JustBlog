@@ -1,8 +1,7 @@
-﻿import { AuthenticationConstants } from "core/authorization/AuthenticationConstants";
-import { BaseService } from "core/models/BaseService";
-import { Claim } from "core/authorization/Claim";
-import { JwtPayload } from "core/authorization/JWTPayload";
-import { RouteAuthorizationError } from "core/authorization/RouteAuthorizationError";
+import { BaseService } from "../models/BaseService";
+import { AuthenticationConstants } from "./AuthenticationConstants";
+import { Claim } from "./Claim";
+import { JwtPayload } from "./JWTPayload";
 
 export const AuthServiceName: string = "authService";
 

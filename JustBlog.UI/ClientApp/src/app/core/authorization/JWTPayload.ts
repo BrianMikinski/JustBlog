@@ -1,4 +1,4 @@
-﻿import { Claim } from "core/authorization/Claim";
+import { Claim } from "./Claim";
 
 /**
  * Authentication model for JWT tokens

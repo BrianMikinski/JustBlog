@@ -1,4 +1,4 @@
-﻿import {QueryFilter} from "core/grid/QueryFilter";
+import { QueryFilter } from "../../core/grid/QueryFilter";
 
 /**
  * Query filter for post grid view queries

@@ -1,11 +1,11 @@
-﻿import { BlogService } from "blog/blog.service";
-import { CreatePostControllerBase } from "blog/post/CreatePostControllerBase";
-import { Post } from "blog/Post/Post";
-import { PostQueryFilter } from "blog/post/PostQueryFilter";
-import { AuthService } from "core/authorization/auth.service";
-import { ComponentBase } from "core/component.base";
-import { GridQuery } from "core/grid/GridQuery";
-import { NotificationFactory } from "notification/notification.factory";
+import { ComponentBase } from "../../core/component.base";
+import { GridQuery } from "../../core/grid/GridQuery";
+import { NotificationFactory } from "../../notification/notification.factory";
+import { BlogService } from "../blog.service";
+import { CreatePostControllerBase } from "./CreatePostControllerBase";
+import { Post } from "./Post";
+import { PostQueryFilter } from "./PostQueryFilter";
+
 
 export const PostsGridComponentName: string = "postsgrid";
 

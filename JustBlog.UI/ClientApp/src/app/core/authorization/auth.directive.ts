@@ -1,7 +1,6 @@
-﻿import { AuthEvent } from "admin/interfaces/AuthEvent";
 import * as angular from "angular";
-import { AuthService } from "core/authorization/auth.service";
-
+import { AuthEvent } from "../../admin/interfaces/AuthEvent";
+import { AuthService } from "./auth.service";
 
 interface IAuthorizationScope extends ng.IScope {
     [key: string]: any;

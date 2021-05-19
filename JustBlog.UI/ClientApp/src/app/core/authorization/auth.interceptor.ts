@@ -1,6 +1,6 @@
-﻿import { StateService } from "@uirouter/angularjs";
+import { StateService } from "@uirouter/angularjs";
 import { IHttpResponse, IPromise, IRequestConfig } from "angular";
-import { AuthenticationConstants } from "core/authorization/AuthenticationConstants";
+import { AuthenticationConstants } from "./AuthenticationConstants";
 
 export const AuthInterceptorName = "authInterceptor";
 

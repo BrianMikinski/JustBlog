@@ -1,5 +1,5 @@
-﻿import { Post } from "blog/post/Post";
-import { Tag } from "blog/tag/Tag";
+import { Post } from "../post/Post";
+import { Tag } from "./Tag";
 
 //Class for holding view of tags and their post data
 export interface TagPosts {
