@@ -1,11 +1,10 @@
-import { Category } from "@uirouter/angularjs";
 import { ComponentBase } from "../../core/component.base";
 import { NotificationFactory } from "../../notification/notification.factory";
 import { BlogService } from "../blog.service";
+import { Category } from "../category/Category";
 import { Tag } from "../tag/Tag";
 import { CreatePostControllerBase } from "./CreatePostControllerBase";
 import { Post } from "./Post";
-
 
 export const CreatePostComponentName: string = "newpost";
 

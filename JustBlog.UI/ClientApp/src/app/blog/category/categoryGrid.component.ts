@@ -1,8 +1,8 @@
-import { Category } from "@uirouter/angularjs";
 import { ComponentBase } from "../../core/component.base";
 import { GridQuery } from "../../core/grid/GridQuery";
 import { BaseController } from "../../core/models/BaseController";
 import { BlogService } from "../blog.service";
+import { Category } from "./Category";
 
 
 export const CategoriesGridComponentName: string = "categoriesgrid";

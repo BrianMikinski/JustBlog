@@ -1,11 +1,15 @@
-import { Category } from "@uirouter/angularjs";
 import * as angular from "angular";
+import { BlogController } from "../blog/blog.controller";
+import { default as blogModule } from "../blog/blog.module";
 import { BlogService } from "../blog/blog.service";
+import { Category } from "../blog/category/Category";
 import { Metadata } from "../blog/metadata/MetaData";
 import { Post } from "../blog/post/Post";
 import { Tag } from "../blog/tag/Tag";
+import { default as coreModule } from "../core/core.module";
 import { CoreService } from "../core/core.service";
 import { GridQuery } from "../core/grid/GridQuery";
+import { default as notificationModule } from "../notification/notification.module";
 
 /*
  * Mocking out the Blog Angular controller. Blog controller depends on

@@ -1,6 +1,7 @@
 import * as angular from 'angular';
 import 'angular-mocks';
 import { TokenAuthResponse } from "../account/TokenAuthResponse";
+import { default as adminModule } from "../admin.module";
 import { AdminService } from "../admin.service";
 import { RegisterUserComponentName, RegisterUserController } from "./registerUser.component";
 import { RegistrationAttempt } from "./RegistrationAttempt";

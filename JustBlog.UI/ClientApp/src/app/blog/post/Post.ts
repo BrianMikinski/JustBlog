@@ -1,6 +1,5 @@
-import { Category } from "@uirouter/angularjs";
+import { Category } from "../category/Category";
 import { Tag } from "../tag/Tag";
-
 
 /**
  * Model for handling blog posts

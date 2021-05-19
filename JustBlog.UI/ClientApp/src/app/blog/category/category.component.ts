@@ -1,8 +1,8 @@
-import { Category } from "@uirouter/angularjs";
 import { ComponentBase } from "../../core/component.base";
 import { BaseController } from "../../core/models/BaseController";
 import { BlogService } from "../blog.service";
 import { Post } from "../post/Post";
+import { Category } from "./Category";
 
 export const CategoryComponentName = "category";
 

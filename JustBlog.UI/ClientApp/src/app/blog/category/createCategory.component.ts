@@ -1,8 +1,8 @@
-import { Category } from "@uirouter/angularjs";
 import { ComponentBase } from "../../core/component.base";
 import { BaseController } from "../../core/models/BaseController";
 import { NotificationFactory } from "../../notification/notification.factory";
 import { BlogService } from "../blog.service";
+import { Category } from "./Category";
 
 export const CreateCategoryComponentName: string = "createcategory";
 

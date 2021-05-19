@@ -1,6 +1,7 @@
 import * as angular from "angular";
 import { CoreService } from "../../core/core.service";
 import { GridQuery } from "../../core/grid/GridQuery";
+import { default as blogModule } from "../blog.module";
 import { BlogService } from "../blog.service";
 import { Metadata } from "../metadata/MetaData";
 import { Post } from "../post/Post";

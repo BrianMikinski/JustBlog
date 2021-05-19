@@ -1,12 +1,11 @@
-import { Category } from "@uirouter/angularjs";
 import { GridQuery } from "../core/grid/GridQuery";
 import { PagingProperties } from "../core/grid/PagingProperties";
 import { BaseService } from "../core/models/BaseService";
+import { Category } from "./category/Category";
 import { Post } from "./post/Post";
 import { PostQueryFilter } from "./post/PostQueryFilter";
 import { Tag } from "./tag/Tag";
 import { TagPosts } from "./tag/TagPosts";
-
 
 export const BlogServiceName: string = "blogService";
 
