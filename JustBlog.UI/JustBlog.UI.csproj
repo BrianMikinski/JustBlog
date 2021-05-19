@@ -1,22 +1,23 @@
-﻿
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <ApplicationIcon />
     <OutputType>Exe</OutputType>
     <StartupObject />
-    <ApplicationInsightsResourceId>/subscriptions/9e26ce65-f50e-4cce-b040-fc81755a0e74/resourcegroups/JustBlog/providers/microsoft.insights/components/JustBlogDev</ApplicationInsightsResourceId>
-    <ApplicationInsightsAnnotationResourceId>/subscriptions/9e26ce65-f50e-4cce-b040-fc81755a0e74/resourcegroups/JustBlog/providers/microsoft.insights/components/JustBlogDev</ApplicationInsightsAnnotationResourceId>
+    <IsPackable>false</IsPackable>
+    <SpaRoot>ClientApp\</SpaRoot>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+
+    <!-- Set this to true if you enable server-side prerendering -->
+    <BuildServerSideRenderer>false</BuildServerSideRenderer>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="dist\**" />
-    <Compile Remove="wwwrootTest\**" />
-    <Content Remove="dist\**" />
-    <Content Remove="wwwrootTest\**" />
-    <EmbeddedResource Remove="dist\**" />
-    <EmbeddedResource Remove="wwwrootTest\**" />
-    <None Remove="dist\**" />
-    <None Remove="wwwrootTest\**" />
+    <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Content Remove="$(SpaRoot)**" />
+    <None Remove="$(SpaRoot)**" />
+    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="stats.json" />
@@ -52,7 +53,6 @@
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ClientApp\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/bitrise-step.json" /></VisualStudio></ProjectExtensions>

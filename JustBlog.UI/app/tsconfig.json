@@ -10,7 +10,7 @@
         * which style of module resolution will be used with generated code files.
         * See compiler-options.html for full details
         */
-    "baseUrl": "app",
+    "baseUrl": "./",
     "diagnostics": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -44,10 +44,10 @@
     },
     "pretty": true,
     "removeComments": false,
-    "rootDir": "App",
+    //"rootDir": "app",
     "skipLibCheck": true,
     "sourceMap": true,
-    "sourceRoot": "App", // Actual source files are in wwwroot/
+    "sourceRoot": "./", // Actual source files are in wwwroot/
     "strictNullChecks": false,
     "target": "es5",
     "watch": false
