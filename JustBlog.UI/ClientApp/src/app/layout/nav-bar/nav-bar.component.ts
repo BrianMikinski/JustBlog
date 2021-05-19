@@ -1,7 +1,7 @@
-﻿import { BaseController } from "core/models/BaseController";
-import { ComponentBase } from "core/component.base";
-import { CoreService } from "core/core.service";
-import { Metadata } from "blog/metadata/MetaData";
+import { Metadata } from "../../blog/metadata/MetaData";
+import { ComponentBase } from "../../core/component.base";
+import { CoreService } from "../../core/core.service";
+import { BaseController } from "../../core/models/BaseController";
 
 export const NavBarComponentName: string = "navbar";
 

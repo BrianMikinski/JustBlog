@@ -1,4 +1,4 @@
-﻿import {SortField} from "core/grid/SortField";
+import { SortField } from "../grid/SortField";
 
 /**
  * Base Controller class for handling errors that may occure in controller

@@ -1,8 +1,8 @@
-﻿import { default as uirouter } from "@uirouter/angularjs";
+import { default as uirouter } from "@uirouter/angularjs";
 import * as angular from "angular";
-import { BaseModule } from "core/models/BaseModule";
-import { NavBarComponent, NavBarComponentName } from "layout/nav-bar/nav-bar.component";
-import { ShellComponent, ShellComponentName } from "layout/shell/shell.component";
+import { BaseModule } from "../core/models/BaseModule";
+import { NavBarComponent, NavBarComponentName } from "./nav-bar/nav-bar.component";
+import { ShellComponent, ShellComponentName } from "./shell/shell.component";
 
 const moduleName = 'app.layout';
 export default moduleName;

@@ -1,14 +1,16 @@
-import {default as uirouter } from "@uirouter/angularjs";
-//import * as uirouter from "angular-ui-router";
-//import { HookMatchCriteria } from "angular-ui-router";
-import { HookMatchCriteria, HookResult, Transition, TransitionHookFn, TransitionService } from "@uirouter/angularjs";
-
+import { default as uirouter, HookMatchCriteria, HookResult, Transition, TransitionHookFn, TransitionService } from "@uirouter/angularjs";
 import * as angular from "angular";
-
+import { LoginComponentName } from "../admin/login/login.component";
+import { AuthorizationDirective } from "./authorization/auth.directive";
+import { AuthInterceptor, AuthInterceptorName } from "./authorization/auth.interceptor";
+import { AuthService, AuthServiceName } from "./authorization/auth.service";
 import { AuthenticationConstants } from "./authorization/AuthenticationConstants";
+import { RouteAuthorizationError } from "./authorization/RouteAuthorizationError";
+import { CoreService, CoreServiceName } from "./core.service";
 import { ErrorHandlingComponent, ErrorHandlingComponentName } from "./errorHandling/errorHandling.component";
 import { ErrorHandlingService, ErrorHandlingServiceName } from "./errorHandling/errorHandling.service";
 import { ErrorRoutes } from "./errorHandling/ErrorRoutes";
+import { BaseModule } from "./models/BaseModule";
 //import { TransitionService, HookMatchCriteria, TransitionHookFn, Transition, HookResult } from "@uirouter/core";
 
 const moduleName: string = "app.core";

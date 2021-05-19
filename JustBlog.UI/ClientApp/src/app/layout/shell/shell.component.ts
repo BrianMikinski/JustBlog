@@ -1,5 +1,5 @@
-﻿import { ComponentBase } from "core/component.base";
-import { BaseController } from "core/models/BaseController";
+import { ComponentBase } from "../../core/component.base";
+import { BaseController } from "../../core/models/BaseController";
 
 export const ShellComponentName: string = "shell";
 

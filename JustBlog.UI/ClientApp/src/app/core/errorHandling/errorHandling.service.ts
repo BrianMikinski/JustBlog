@@ -1,4 +1,4 @@
-﻿import { BaseService } from "core/models/BaseService";
+import { BaseService } from "../models/BaseService";
 import { ErrorRoutes } from "./ErrorRoutes";
 
 export const ErrorHandlingServiceName: string = "errorHandlingService";

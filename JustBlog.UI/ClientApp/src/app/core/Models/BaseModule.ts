@@ -1,5 +1,5 @@
-﻿import { Action } from "core/authorization/Action";
-import { Resource } from "core/authorization/Resource";
+import { Action } from "../authorization/Action";
+import { Resource } from "../authorization/Resource";
 
 /**
  * An abstract base class for creating modules

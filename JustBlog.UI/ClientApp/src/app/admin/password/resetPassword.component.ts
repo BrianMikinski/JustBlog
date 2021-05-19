@@ -1,4 +1,7 @@
 import { ComponentBase } from "../../core/component.base";
+import { BaseController } from "../../core/models/BaseController";
+import { NotificationFactory } from "../../notification/notification.factory";
+import { AdminService } from "../admin.service";
 import { ResetPasswordModel } from "./ResetPasswordModel";
 import { ValidPassword } from "./ValidPassword";
 

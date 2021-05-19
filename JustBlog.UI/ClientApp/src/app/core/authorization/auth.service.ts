@@ -2,6 +2,7 @@ import { BaseService } from "../models/BaseService";
 import { AuthenticationConstants } from "./AuthenticationConstants";
 import { Claim } from "./Claim";
 import { JwtPayload } from "./JWTPayload";
+import { RouteAuthorizationError } from "./RouteAuthorizationError";
 
 export const AuthServiceName: string = "authService";
 

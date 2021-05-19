@@ -1,5 +1,5 @@
-﻿import { BaseService} from "core/models/BaseService";
-import { Metadata } from "blog/metadata/MetaData";
+import { Metadata } from "../blog/metadata/MetaData";
+import { BaseService } from "./models/BaseService";
 
 export const CoreServiceName: string = "coreService";
 

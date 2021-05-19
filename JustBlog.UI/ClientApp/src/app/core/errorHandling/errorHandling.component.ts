@@ -1,5 +1,5 @@
-﻿import { ComponentBase } from "core/component.base";
-import { BaseController } from "core/models/BaseController";
+import { ComponentBase } from "../component.base";
+import { BaseController } from "../models/BaseController";
 import { ErrorHandlingService } from "./errorHandling.service";
 
 export const ErrorHandlingComponentName: string = "errorHandling";
