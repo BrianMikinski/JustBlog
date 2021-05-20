@@ -8,12 +8,12 @@ export const ShellComponentName: string = "shell";
  */
 class ShellComponentController extends BaseController implements ng.IController {
 
-    static $inject = ['$sce']
-    constructor($sce: ng.ISCEService) {
-        super($sce);
-    }
+  static $inject = ['$sce']
+  constructor($sce: ng.ISCEService) {
+    super($sce);
+  }
 
-    $onInit?(): void { }
+  $onInit?(): void { }
 }
 
 /**
@@ -21,16 +21,16 @@ class ShellComponentController extends BaseController implements ng.IController 
  */
 export class ShellComponent extends ComponentBase {
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.bindings = { }
+    this.bindings = {}
 
-        this.controller = ShellComponentController;
-        this.controllerAs = "$shellCtrl"
-
-        this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes):string => {
-            return require("layout/shell/shell.html");
-        }];
-    }
+    this.controller = ShellComponentController;
+    this.controllerAs = "$shellCtrl";
+    this.template = (require("!raw-loader!./shell.html") as any).default;
+    //this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
+    //  return require("./src/app/layout/shell.html");
+    //}];
+  }
 }

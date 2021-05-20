@@ -1,5 +1,5 @@
-
 import * as angular from "angular";
+import { IDatepickerConfig } from "angular-ui-bootstrap";
 import { AuthService } from "../../core/authorization/auth.service";
 import { ComponentBase } from "../../core/component.base";
 import { BaseController } from "../../core/models/BaseController";
@@ -33,7 +33,7 @@ class MyAccountComponentController extends BaseController implements IMyAccountC
         opened: false
     };
 
-    datePickerOptions: ng.ui.bootstrap.IDatepickerConfig = {
+    datePickerOptions: IDatepickerConfig = {
         dateDisabled: this.dateDisabled,
         formatYear: "yy",
         maxDate: Date.now(),
@@ -162,7 +162,7 @@ export class MyAccountComponent extends ComponentBase {
         this.controller = MyAccountComponentController;
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("admin/account/myAccount.html");
+          return require("!raw-loader!./myAccount.html");
         }];
     }
 }

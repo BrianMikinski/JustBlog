@@ -17,14 +17,14 @@ import { TagsGridComponent, TagsGridComponentName } from "./tag/tagsGrid.compone
 
 /**
  * Angular ui bootstrap and angular tiny mce doesn't have a a default export so we have to require it manually
- */ 
+ */
 require("angular-ui-bootstrap");
 const angularUIBootstrapModuleName = "ui.bootstrap";
 
 require("angular-ui-tinymce");
-const tinyMCEModuleName= "ui.tinymce";
+const tinyMCEModuleName = "ui.tinymce";
 
-const moduleName= "app.blog";
+const moduleName = "app.blog";
 export default moduleName;
 
 /**
@@ -32,95 +32,95 @@ export default moduleName;
  */
 export class BlogModule extends BaseModule {
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.moduleName = moduleName;
-        this.moduleDependencies = [ngAnimate, ngSantize, uirouter, angularUIBootstrapModuleName, tinyMCEModuleName ];
+    this.moduleName = moduleName;
+    this.moduleDependencies = [ngAnimate, ngSantize, uirouter, angularUIBootstrapModuleName, tinyMCEModuleName];
 
-        this.app = angular.module(this.moduleName, this.moduleDependencies);
-        this.app.config(this.uiStateConfig);
-        this.app.config(this.locationProviderConfig);
-    }
+    this.app = angular.module(this.moduleName, this.moduleDependencies);
+    this.app.config(this.uiStateConfig);
+    this.app.config(this.locationProviderConfig);
+  }
 
-    /**
-     * Configure routes based on UI router
-     * @param $stateProvider
-     * @param $urlRouterProvider
-     */
-    private uiStateConfig($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider): void {
+  /**
+   * Configure routes based on UI router
+   * @param $stateProvider
+   * @param $urlRouterProvider
+   */
+  private uiStateConfig($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider): void {
 
-        const homeState: ng.ui.IState = {
-            name: "home",
-            component: HomeComponentName,
-            url: "/home"
-        };
-
-        const defaultState: ng.ui.IState = {
-            name: "default",
-            component: HomeComponentName,
-            url: "/"
-        };
-
-        const postState: ng.ui.IState = {
-            name: "post",
-            component: PostComponentName,
-            url: "/post/{urlSlug:string}"
-        };
-
-        const categoriesState: ng.ui.IState = {
-            name: "categories",
-            component: CategoryComponentName,
-            url: "/categories"
-        };
-
-        const addPostState: ng.ui.IState = {
-            name: "newpost",
-            component: CreatePostComponentName,
-            url: "/post/new"
-        }
-
-        const editPostState: ng.ui.IState = {
-            name: "editpost",
-            component: CreatePostComponentName,
-            url: "/post/edit/{postId:string}"
-        }
-
-        const aboutMeState: ng.ui.IState = {
-            name: "aboutme",
-            url: "/aboutme",
-            templateUrl: require("blog/about-me/about-me.html")
-        }
-
-        const createCategoryState: ng.ui.IState = {
-            name: "createcategory",
-            component: CreateCategoryComponentName,
-            url: "/createCategory"
-        }
-
-        // order matters! Routes will not fall through unless specified
-        $stateProvider.state(addPostState);
-        $stateProvider.state(editPostState);
-        $stateProvider.state(homeState);
-        $stateProvider.state(defaultState);
-        $stateProvider.state(categoriesState);
-        $stateProvider.state(aboutMeState);
-        $stateProvider.state(postState);
-        $stateProvider.state(createCategoryState);
-    }
-
-    /**
-     * Configure the location provider to be in html5 mode
-     * @param $locationProvider
-     */
-    private locationProviderConfig($locationProvider: ng.ILocationProvider): void {
-        $locationProvider.html5Mode({
-            enabled: true,
-            requireBase: true
-        });
-
-        $locationProvider.hashPrefix()
+    const homeState: ng.ui.IState = {
+      name: "home",
+      component: HomeComponentName,
+      url: "/home"
     };
+
+    const defaultState: ng.ui.IState = {
+      name: "default",
+      component: HomeComponentName,
+      url: "/"
+    };
+
+    const postState: ng.ui.IState = {
+      name: "post",
+      component: PostComponentName,
+      url: "/post/{urlSlug:string}"
+    };
+
+    const categoriesState: ng.ui.IState = {
+      name: "categories",
+      component: CategoryComponentName,
+      url: "/categories"
+    };
+
+    const addPostState: ng.ui.IState = {
+      name: "newpost",
+      component: CreatePostComponentName,
+      url: "/post/new"
+    }
+
+    const editPostState: ng.ui.IState = {
+      name: "editpost",
+      component: CreatePostComponentName,
+      url: "/post/edit/{postId:string}"
+    }
+
+    const aboutMeState: ng.ui.IState = {
+      name: "aboutme",
+      url: "/aboutme",
+      templateUrl: require("!raw-loader!./about-me/about-me.html")
+    }
+
+    const createCategoryState: ng.ui.IState = {
+      name: "createcategory",
+      component: CreateCategoryComponentName,
+      url: "/createCategory"
+    }
+
+    // order matters! Routes will not fall through unless specified
+    $stateProvider.state(addPostState);
+    $stateProvider.state(editPostState);
+    $stateProvider.state(homeState);
+    $stateProvider.state(defaultState);
+    $stateProvider.state(categoriesState);
+    $stateProvider.state(aboutMeState);
+    $stateProvider.state(postState);
+    $stateProvider.state(createCategoryState);
+  }
+
+  /**
+   * Configure the location provider to be in html5 mode
+   * @param $locationProvider
+   */
+  private locationProviderConfig($locationProvider: ng.ILocationProvider): void {
+    $locationProvider.html5Mode({
+      enabled: true,
+      requireBase: true
+    });
+
+    $locationProvider.hashPrefix()
+  };
 }
 
 // export container for blog module. Used or initializing the module and

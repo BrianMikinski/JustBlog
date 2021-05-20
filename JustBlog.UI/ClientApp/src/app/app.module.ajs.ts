@@ -1,4 +1,4 @@
-﻿import { default as uirouter } from "@uirouter/angularjs";
+import { default as uirouter } from "@uirouter/angularjs";
 import { module } from 'angular';
 import 'angular-ui-bootstrap/dist/ui-bootstrap-csp.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -11,9 +11,9 @@ import { default as layoutModule } from './layout/layout.module';
 import { default as notificationModule } from './notification/notification.module';
 
 // include our CSS
-require("./index.html");
-require("./content/css/style.css");
-require("./content/css/ng-animate.css");
+//require("./index.html");
+require("../assets/styles/style.css");
+require("../assets/styles/ng-animate.css");
 
 declare module 'angular' {
 

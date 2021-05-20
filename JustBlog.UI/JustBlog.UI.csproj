@@ -53,6 +53,8 @@
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ClientApp\src\app\content\css\" />
+    <Folder Include="ClientApp\src\app\content\images\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>

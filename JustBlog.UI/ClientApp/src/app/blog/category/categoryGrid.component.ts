@@ -61,7 +61,7 @@ export class CategoriesGridComponent extends ComponentBase {
         this.controller = CategoriesGridComponentController;
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("blog/category/categoryGrid.html");
+          return require("!raw-loader!./categoryGrid.html");
         }];
     }
 }

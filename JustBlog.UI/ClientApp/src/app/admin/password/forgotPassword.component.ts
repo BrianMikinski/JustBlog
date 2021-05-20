@@ -63,7 +63,7 @@ export class ForgotPasswordComponent extends ComponentBase {
         this.controller = ForgotPasswordComponentController;
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("admin/password/forgotPassword.html");
+          return require("!raw-loader!./forgotPassword.html");
         }];
     }
 }

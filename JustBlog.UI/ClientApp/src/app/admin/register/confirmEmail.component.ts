@@ -1,4 +1,4 @@
-import { ui } from "angular";
+import { IStateService } from "angular-ui-router";
 import { ComponentBase } from "../../core/component.base";
 import { BaseController } from "../../core/models/BaseController";
 import { AdminService } from "../admin.service";
@@ -16,7 +16,7 @@ export class ConfirmEmailController extends BaseController implements ng.IContro
     static $inject = ["$sce", "adminService", "$state"]
     constructor(public $sce: ng.ISCEService,
         private adminService: AdminService,
-        private $state: ui.IStateService) {
+        private $state: IStateService) {
         super($sce);
       
     }
@@ -58,7 +58,7 @@ export class ConfirmEmailComponent extends ComponentBase {
         this.controller = ConfirmEmailController;
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("admin/register/confirmEmail.html");
+          return require("!raw-loader!./confirmEmail.html");
         }];
     }
 }

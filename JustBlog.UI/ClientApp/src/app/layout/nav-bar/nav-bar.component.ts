@@ -1,3 +1,4 @@
+import { IModalService } from "angular-ui-bootstrap";
 import { Metadata } from "../../blog/metadata/MetaData";
 import { ComponentBase } from "../../core/component.base";
 import { CoreService } from "../../core/core.service";
@@ -10,71 +11,71 @@ export const NavBarComponentName: string = "navbar";
  */
 class NavBarComponentController extends BaseController implements ng.IController {
 
-    isOpen: boolean = false;
-    metadata: Metadata;
+  isOpen: boolean = false;
+  metadata: Metadata;
 
-    static $inject = ["$sce", "$uibModal", "coreService"];
-    constructor($sce: ng.ISCEService, private $uibModal: ng.ui.bootstrap.IModalService,  private coreService: CoreService) {
-        super($sce);
-    }
+  static $inject = ["$sce", "$uibModal", "coreService"];
+  constructor($sce: ng.ISCEService, private $uibModal: IModalService, private coreService: CoreService) {
+    super($sce);
+  }
 
-    $onInit?(): void {
+  $onInit?(): void {
 
-        let metadataCallBack: (data: Metadata) => void = (data: Metadata) => {
-            this.metadata = data;
-        };
+    let metadataCallBack: (data: Metadata) => void = (data: Metadata) => {
+      this.metadata = data;
+    };
 
-        this.coreService.GetMetaData().then(metadataCallBack, this.OnErrorCallback);
-    }
+    this.coreService.GetMetaData().then(metadataCallBack, this.OnErrorCallback);
+  }
 
-    isLoginModalShown: boolean = false;
-    isLogoutModalShown: boolean = false;
+  isLoginModalShown: boolean = false;
+  isLogoutModalShown: boolean = false;
 
-    showLogin() {
-        this.showModal("login");
-    }
+  showLogin() {
+    this.showModal("login");
+  }
 
-    showSignOut() {
-        this.showModal("logoff");
-    }
+  showSignOut() {
+    this.showModal("logoff");
+  }
 
-    private showModal(indentityModalView: "login" | "logoff") {
-        this.toggle();
+  private showModal(indentityModalView: "login" | "logoff") {
+    this.toggle();
 
-        if (!this.isLoginModalShown) {
+    if (!this.isLoginModalShown) {
 
-            this.isLoginModalShown = true;
+      this.isLoginModalShown = true;
 
-            let modalInstance = this.$uibModal.open({
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: "modal-body",
-                component: "identityModal",
-                backdrop: "static",
-                size: "sm",
-                resolve: {
-                    currentView: function () {
-                        return indentityModalView;
-                    }
-                }
-            });
-
-            let reEnableModal: () => void = () => {
-                this.isLoginModalShown = false;
-            };
-
-            modalInstance.closed.then((result) => {
-
-            }, (error) => { }).finally(reEnableModal);
-
-            modalInstance.result.then((result) => {
-
-            }, (error) => { }).finally(reEnableModal);
+      let modalInstance = this.$uibModal.open({
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: "modal-body",
+        component: "identityModal",
+        backdrop: "static",
+        size: "sm",
+        resolve: {
+          currentView: function () {
+            return indentityModalView;
+          }
         }
-    }
+      });
 
-    toggle() {
-        this.isOpen = !this.isOpen;
+      let reEnableModal: () => void = () => {
+        this.isLoginModalShown = false;
+      };
+
+      modalInstance.closed.then((result) => {
+
+      }, (error) => { }).finally(reEnableModal);
+
+      modalInstance.result.then((result) => {
+
+      }, (error) => { }).finally(reEnableModal);
     }
+  }
+
+  toggle() {
+    this.isOpen = !this.isOpen;
+  }
 }
 
 /**
@@ -82,15 +83,15 @@ class NavBarComponentController extends BaseController implements ng.IController
  */
 export class NavBarComponent extends ComponentBase {
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.bindings = {}
+    this.bindings = {}
 
-        this.controller = NavBarComponentController;
-
-        this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("layout/nav-bar/nav-bar.html");
-        }];
-    }
+    this.controller = NavBarComponentController;
+    this.template = (require("!raw-loader!./nav-bar.html") as any).default;
+    //this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
+    //  return require("!raw-loader!./nav-bar.html");
+    //}];
+  }
 }

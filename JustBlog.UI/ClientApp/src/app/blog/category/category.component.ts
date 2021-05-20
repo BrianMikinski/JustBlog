@@ -72,7 +72,7 @@ export class CategoryComponent extends ComponentBase {
         this.controllerAs = "$categoryCtrl"
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("blog/category/categories.html");
+          return require("!raw-loader!./categories.html");
         }];
     }
 }

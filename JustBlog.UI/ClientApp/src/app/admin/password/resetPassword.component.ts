@@ -100,7 +100,7 @@ export class ResetPasswordComponent extends ComponentBase {
         this.controller = ResetPasswordComponentController;
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("admin/password/resetPassword.html");
+          return require("!raw-loader!./resetPassword.html");
         }];
     }
 }

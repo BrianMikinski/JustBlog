@@ -1,5 +1,6 @@
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { UpgradeModule } from '@angular/upgrade/static';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
@@ -21,18 +22,16 @@ if (environment.production) {
 
 
 //export class AppModule {
-//  ngDoBoostrap() {
 
-//  }
 //}
 
-//platformBrowserDynamic(providers).bootstrapModule(AppModule)
-//  .then(platformRef => {
-//    console.log("Boostrapping in hybrid mode with Angular & AngularJS");
-//    const upgrade = platformRef.injector.get(UpgradeModule) as UpgradeModule;
-//    upgrade.boostrap(document.body, ['']);
-//  })
-//  .catch(err => console.log(err));
+platformBrowserDynamic(providers).bootstrapModule(AppModule)
+  .then(platformRef => {
+    console.log("Boostrapping in hybrid mode with Angular & AngularJS");
+    const upgrade = platformRef.injector.get(UpgradeModule) as UpgradeModule;
+    upgrade.bootstrap(document.body, ['app']);
+  })
+  .catch(err => console.log(err));
 
 //export class In8PlatformModule {
 //  constructor(private upgrade: UpgradeModule) { }

@@ -72,7 +72,7 @@ export class LoginComponent extends ComponentBase {
         this.controller = LoginComponentController;
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("admin/login/login.html");
+          return require("!raw-loader!./login.html");
         }];
     }
 }

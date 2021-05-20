@@ -272,7 +272,7 @@ export class IdentityModalComponent extends ComponentBase {
         this.controller = IdentityModalComponentController;
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("admin/login/identityModal.html");
+          return require("!raw-loader!./identityModal.html");
         }];
     }
 }

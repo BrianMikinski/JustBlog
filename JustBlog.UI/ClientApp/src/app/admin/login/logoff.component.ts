@@ -59,7 +59,7 @@ export class LogoffComponent extends ComponentBase {
         this.controller = LogoffComponentController;
 
         this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("admin/login/logoff.html");
+          return require("!raw-loader!./logoff.html");
         }];
     }
 }

@@ -17,28 +17,28 @@ interface IProfileComponentController extends IProfileControllerBindings { }
  */
 class ProfileComponentController extends BaseController implements IProfileComponentController, ng.IController {
 
-    private metadata: Metadata;
+  private metadata: Metadata;
 
-    static $inject = ["coreService", "$sce"]
-    constructor(private coreService: CoreService, public $sce: ng.ISCEService) {
-        super($sce);
+  static $inject = ["coreService", "$sce"]
+  constructor(private coreService: CoreService, public $sce: ng.ISCEService) {
+    super($sce);
 
-        this.OnErrorCallback = (reason: any) => {
-            console.log(`Error encountedered profile controller`);
-        };
-    }
+    this.OnErrorCallback = (reason: any) => {
+      console.log(`Error encountedered profile controller`);
+    };
+  }
 
-    /**
-     * Function called when controller is initialized
-     */
-    $onInit?(): void {
+  /**
+   * Function called when controller is initialized
+   */
+  $onInit?(): void {
 
-        let metaDataCallBack: (data: Metadata) => void = (data: Metadata) => {
-            this.metadata = data;
-        };
+    let metaDataCallBack: (data: Metadata) => void = (data: Metadata) => {
+      this.metadata = data;
+    };
 
-        this.coreService.GetMetaData().then(metaDataCallBack, this.OnErrorCallback);
-    }
+    this.coreService.GetMetaData().then(metaDataCallBack, this.OnErrorCallback);
+  }
 }
 
 /**
@@ -46,15 +46,15 @@ class ProfileComponentController extends BaseController implements IProfileCompo
  */
 export class ProfileComponent extends ComponentBase {
 
-    constructor(/* inject services used by component here*/) {
-        super();
+  constructor(/* inject services used by component here*/) {
+    super();
 
-        this.bindings = {}
+    this.bindings = {}
 
-        this.controller = ProfileComponentController;
-
-        this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
-            return require("blog/profile/profile.html");
-        }];
-    }
+    this.controller = ProfileComponentController;
+    this.template = (require("!raw-loader!./profile.html") as any).default;
+    //this.templateUrl = ["$element", "$attrs", ($element: ng.IAugmentedJQuery, $attrs: ng.IAttributes): string => {
+    //  return require("!raw-loader!./profile.html");
+    //}];
+  }
 }
