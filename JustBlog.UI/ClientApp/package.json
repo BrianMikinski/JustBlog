@@ -1,11 +1,11 @@
 {
-  "name": "angulartestproj",
+  "name": "justblog",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --hmr --o --port=6005 &REM",
     "build": "ng build",
-    "build:ssr": "ng run AngularTestProj:server:dev",
+    "build:ssr": "ng run JustBlog:server:dev",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

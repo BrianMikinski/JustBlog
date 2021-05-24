@@ -14,13 +14,17 @@ export const BlogServiceName: string = "blogService";
  */
 export class BlogService extends BaseService {
 
-    private categoryEndPoint: string = "../category";
-    private postEndPoint: string = "../post";
-    private tagEndPoint: string = "../tag";
+    private categoryEndPoint: string = "category";
+    private postEndPoint: string = "post";
+    private tagEndPoint: string = "tag";
 
-    static $inject = ['$http']
-    constructor(private $http: ng.IHttpService) {
-        super();
+    static $inject = ['$http','API_URL']
+    constructor(private $http: ng.IHttpService, API_URL: string) {
+      super();
+
+      this.categoryEndPoint = `${API_URL}${this.categoryEndPoint}`;
+      this.postEndPoint = `${API_URL}${this.postEndPoint}`;
+      this.tagEndPoint = `${API_URL}${this.tagEndPoint}`;
     }
 
     /**

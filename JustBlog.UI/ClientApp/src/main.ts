@@ -33,6 +33,14 @@ platformBrowserDynamic(providers).bootstrapModule(AppModule)
   })
   .catch(err => console.log(err));
 
+
+// check if hmr should be enables and accept it if possible
+//if (environment.hmr) {
+  //if (module && module.hot) {
+  //  module.hot.accept();
+  //}
+//}
+
 //export class In8PlatformModule {
 //  constructor(private upgrade: UpgradeModule) { }
 

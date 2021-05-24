@@ -5,26 +5,28 @@ export const CoreServiceName: string = "coreService";
 
 export class CoreService extends BaseService {
 
-    metaData: Metadata = new Metadata();
+  metaData: Metadata = new Metadata();
 
-    private blogEndPoint: string = "../blog";
+  private blogEndPoint: string = "../blog";
 
-    static $inject = ["$http"];
-    constructor(private $http: ng.IHttpService) {
-        super();
+  static $inject = ["$http", 'API_URL'];
+  constructor(private $http: ng.IHttpService, API_URL: string) {
+    super();
 
-        this.GetMetaData();
-    }
+    this.blogEndPoint = `${API_URL}${this.blogEndPoint}`;
 
-    GetMetaData(): ng.IPromise<Metadata> {
+    this.GetMetaData();
+  }
 
-        let onHttpRequestReturned: (response: ng.IHttpResponse<Metadata>) => any;
-        onHttpRequestReturned = (response: ng.IHttpResponse<Metadata>) => {
+  GetMetaData(): ng.IPromise<Metadata> {
 
-            this.metaData = <Metadata>response.data;
-            return <Metadata>response.data;
-        };
+    let onHttpRequestReturned: (response: ng.IHttpResponse<Metadata>) => any;
+    onHttpRequestReturned = (response: ng.IHttpResponse<Metadata>) => {
 
-        return this.$http.get(`${this.blogEndPoint}/metadata`).then(onHttpRequestReturned, this.OnErrorCallback);
-    }
+      this.metaData = <Metadata>response.data;
+      return <Metadata>response.data;
+    };
+
+    return this.$http.get(`${this.blogEndPoint}/metadata`).then(onHttpRequestReturned, this.OnErrorCallback);
+  }
 }

@@ -11,7 +11,8 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "https://localhost:44369/",
+      "launchUrl": "warmup",
+      //"launchUrl": "https://localhost:44369/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -19,10 +20,11 @@
     "JustBlog.UI": {
       "commandName": "Project",
       "launchBrowser": true,
+      "launchUrl": "warmup",
+      "applicationUrl": "https://localhost:6001;http://localhost:6000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "http://localhost:9639/"
+      }
     }
   }
 }

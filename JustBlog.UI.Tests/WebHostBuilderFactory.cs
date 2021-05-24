@@ -90,17 +90,17 @@ namespace JustBlog.UI.Tests
                   var hostingEnvironment = GetHostingEnvironment(services);
                   var configuration = GetHostingConfiguration(services);
 
-                  app = new Startup(configuration, hostingEnvironment);
-                  ConfigureServices(app, services, configureServices);
+                  //app = new Startup(configuration, hostingEnvironment);
+                  //ConfigureServices(app, services, configureServices);
 
-                  services.AddDbContext<JustBlogContext>(options =>
-                  {
-                      options.UseSqlite(SQLITE_DB_LOCATION);
-                  });
+                  //services.AddDbContext<JustBlogContext>(options =>
+                  //{
+                  //    options.UseSqlite(SQLITE_DB_LOCATION);
+                  //});
               })
               .Configure(builder =>
               {
-                  ConfigureApplication(app, builder, configureApplication);
+                  //ConfigureApplication(app, builder, configureApplication);
               });
 
             return webHostBuilder;

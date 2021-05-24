@@ -15,9 +15,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Rewrite;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+//using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -37,18 +40,19 @@ namespace JustBlog.UI
         private const string JUST_BLOG_CONNECTION_STRING = "JustBlogDbConnection";
         private const string SECRET_KEY_STRING = "SecretKey";
         private const string DOMAIN_KEY = "Domain";
+        private const string JUST_BLOG_CORS_POLICY = "just_blog_cors";
 
         private readonly SymmetricSecurityKey _signingKey;
 
         public IConfiguration Configuration { get; }
 
-        public IHostingEnvironment Environment { get; }
+        private IWebHostEnvironment Environment { get; }
 
         /// <summary>
         /// Configure the environment the app will run in
         /// </summary>
         /// <param name="env"></param>
-        public Startup(IConfiguration configuration, IHostingEnvironment environment)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
             Environment = environment;
@@ -63,11 +67,23 @@ namespace JustBlog.UI
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-
             // configure angularjs header name for xsrf tokens
             services.AddAntiforgery(options =>
             {
                 options.HeaderName = "X-XRSF-TOKEN";
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: JUST_BLOG_CORS_POLICY,
+                    builder =>
+                    {
+                        builder.WithOrigins("https://localhost:6005", "http://localhost:6005");
+                        builder.AllowAnyHeader();
+                        builder.AllowAnyMethod();
+                        builder.AllowCredentials();
+                        builder.WithExposedHeaders("x-filename");
+                    });
             });
 
             services.AddApplicationInsightsTelemetry();
@@ -121,7 +137,7 @@ namespace JustBlog.UI
 
             // where all the files live we are trying to serve
             services.AddSpaStaticFiles(configuration=> {
-                configuration.RootPath = "wwwroot";
+                configuration.RootPath = "ClientApp/dist";
             });
 
             string configureBlogServices()
@@ -224,6 +240,7 @@ namespace JustBlog.UI
         {
             app.UseSpaStaticFiles();
             app.UseRouting();
+            app.UseCors(JUST_BLOG_CORS_POLICY);
 
             app.UseAuthentication();
             // must be between routing and authorization
@@ -242,19 +259,22 @@ namespace JustBlog.UI
             app.UseSwagger();
             app.UseSwaggerUI(p => p.SwaggerEndpoint("/swagger/v1/swagger.json", "JustBlog API V1"));
 
-            if (string.Equals(env.EnvironmentName, "development", StringComparison.OrdinalIgnoreCase))
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
 
-                app.UseSpa(spa =>
-                {
-                    // keep this to the souce path and not wwwroot where the build is output
-                    spa.Options.SourcePath = "app";
-
-                    // proxy to the webpack dev server. This will allow us to do hot module reloading
-                    spa.UseProxyToSpaDevelopmentServer("https://localhost:8400/");
-                });
+                //app.Use((context, next) =>
+                //{
+                //    var request = context.Request;
+                //    var path = request.Path;
+                //    if (path.HasValue && path.Value.Equals("/warmup", StringComparison.InvariantCultureIgnoreCase))
+                //    {
+                //        context.Response.Redirect("/swagger");
+                //        return Task.CompletedTask;
+                //    }
+                //    return next();
+                //});
             }
             else
             {
@@ -262,6 +282,24 @@ namespace JustBlog.UI
                 app.UseStaticFiles();
                 app.UseExceptionHandler(ERROR_PATH);
             }
+
+            //app.UseHsts();
+            app.UseHttpsRedirection();
+
+            app.UseSpa(spa =>
+            {
+                // keep this to the souce path and not wwwroot where the build is output
+                spa.Options.SourcePath = "ClientApp";
+
+                // proxy to the webpack dev server. This will allow us to do hot module reloading
+                //spa.UseProxyToSpaDevelopmentServer("https://localhost:8400/");
+
+                //Console.WriteLine($"Environment: ${env.IsDevelopment()}")
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
+            });
         }
     }
 }

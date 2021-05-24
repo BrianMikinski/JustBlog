@@ -78,25 +78,25 @@ export class BlogModule extends BaseModule {
       name: "newpost",
       component: CreatePostComponentName,
       url: "/post/new"
-    }
+    };
 
     const editPostState: ng.ui.IState = {
       name: "editpost",
       component: CreatePostComponentName,
       url: "/post/edit/{postId:string}"
-    }
+    };
 
     const aboutMeState: ng.ui.IState = {
       name: "aboutme",
       url: "/aboutme",
-      templateUrl: require("!raw-loader!./about-me/about-me.html")
-    }
+      template: require("!raw-loader!./about-me/about-me.html")
+    };
 
     const createCategoryState: ng.ui.IState = {
       name: "createcategory",
       component: CreateCategoryComponentName,
       url: "/createCategory"
-    }
+    };
 
     // order matters! Routes will not fall through unless specified
     $stateProvider.state(addPostState);
